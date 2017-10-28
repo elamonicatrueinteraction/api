@@ -1,0 +1,7 @@
+en:
+  services:
+    authenticate:
+      invalid_credentials: Invalid credentials
+    authorize_request:
+      invalid_token: Invalid authorization token
+      missing_token: Missing authorization token
