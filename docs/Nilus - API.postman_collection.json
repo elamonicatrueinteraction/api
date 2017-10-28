@@ -1,0 +1,63 @@
+{
+	"info": {
+		"name": "Nilus - API",
+		"_postman_id": "4c6cc243-8eb7-a376-76ce-c15980d649f8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{user_auth_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{endpoint_url}}/",
+					"protocol": "http",
+					"host": [
+						"{{endpoint_url}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Just to get a summy response"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"\",\n\t\"password\":\"\"\n}"
+				},
+				"url": {
+					"raw": "http://{{endpoint_url}}/authenticate",
+					"protocol": "http",
+					"host": [
+						"{{endpoint_url}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				},
+				"description": "Authenticate a User an get the auth_token or errors"
+			},
+			"response": []
+		}
+	]
+}
