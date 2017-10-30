@@ -1,11 +1,7 @@
 development: &app_config
 
-  allowed_app_access_tokens:
-    - 'POSTMAN_APPTOKEN'
-    - 'OTHER_APPTOKEN'
-
   allowed_origins:
-    - 'localhost:3000'
+    - 'localhost:3030'
 
   ssl_enabled: false
 

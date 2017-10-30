@@ -1,0 +1,37 @@
+version: '2.1'
+
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: nilus-api
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    ports:
+      - 5433:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U", "docker"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  app:
+    build: .
+    # Keep the stdin open, so we can attach to our app container's process and do things such as
+    # byebug, etc:
+    stdin_open: true
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+    environment:
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: 'true'
+    ports:
+      - 3030:3030
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+      - ./config/database.docker:/app/config/database.yml
+    entrypoint: /app/docker-entrypoint.sh
+    command: rails s -b 0.0.0.0 -p 3030
+
