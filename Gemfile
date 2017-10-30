@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
+gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
