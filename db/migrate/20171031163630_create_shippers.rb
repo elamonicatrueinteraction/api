@@ -1,6 +1,9 @@
 class CreateShippers < ActiveRecord::Migration[5.1]
   def change
     create_table :shippers, id: :uuid do |t|
+      # TODO create separated models for requirements,
+      # minimum_requiriments, vehicles and bank_accounts
+      # make sense?
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :gender

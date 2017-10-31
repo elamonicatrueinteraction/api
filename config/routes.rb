@@ -6,9 +6,6 @@ Rails.application.routes.draw do
 # ╭─ Public Accesible URL's / Path's
   post 'authenticate', action: :authenticate, controller: :authentication, protocol: SECURE_PROTOCOL
   resources :shippers, only: [:show, :create, :update], protocol: SECURE_PROTOCOL
-  get '/shippers', action: :show, controller: :shippers, protocol: SECURE_PROTOCOL
-  post '/shippers', action: :create, controller: :shippers, protocol: SECURE_PROTOCOL
-  patch '/shippers', action: :create, controller: :shippers, protocol: SECURE_PROTOCOL
 # ╰─ End of Public Accesible URL's / Path's
 
 end
