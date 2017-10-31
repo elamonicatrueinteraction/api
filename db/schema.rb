@@ -39,9 +39,13 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.string "cuil"
     t.boolean "verified"
     t.date "verified_at"
+    t.json "bank_account"
+    t.json "vehicles"
     t.string "gateway"
     t.string "gateway_id"
     t.json "data"
+    t.json "minimum_requirements"
+    t.json "requirements"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -10,22 +10,21 @@ class CreateShippers < ActiveRecord::Migration[5.1]
       t.string :photo
       t.string :cuit
       t.string :cuil
-      # t.date :created_at
       t.boolean :verified
       t.date :verified_at
-      # t.object :bank_account
+      t.json :bank_account
       #   t.string :number
       #   t.string :bank
       #   t.string :type
-      # t.object :vehicles
+      t.json :vehicles
       #   t.text :model
       #   t.text :brand
       #   t.text :photo
-      #   t.object :patent
-      #     t.bool :verified
-      #     t.date :expiration_date
-      #     t.string :uri
-      #     t.object :data
+        # t.object :patent
+      #   t.bool :patent_verified
+      #   t.date :paten_expiration_date
+      #   t.string :patent_uri
+      #   t.json :patent_data
       #   t.object :vehicle_title
       #   t.object :insurance_thirds
       #   t.object :kit_security
@@ -41,22 +40,32 @@ class CreateShippers < ActiveRecord::Migration[5.1]
         # t.boolean :sent_email_invitation_shippify
         # t.boolean :sent_email_instructions
         # t.string :comments
-      # t.object :minimun_requirements
-      #   t.object :driving_license
-      #     t.bool :verified
-      #   t.date :expiration_date
-      #   t.string :uri
-      #   t.json :data
-      #   t.object :is_monotributista
-      #     t.bool :verified
-      #   t.bool :has_cuit_or_cuil
-      #   t.bool :has_banking_account
-      #   t.bool :has_paypal_account
-      # t.object :requirements
+      t.json :minimum_requirements
+        # t.object :driving_license
+          # t.bool :driving_license_verified
+          # t.date :driving_license_expiration_date
+          # t.string :driving_license_uri
+          # t.json :driving_license_data
+        #   t.object :is_monotributista
+          # t.date :monotributista_expiration_verified
+          # t.date :monotributista_expiration_date
+          # t.string :monotributista_uri
+          # t.json :monotributista_data
+
+      # t.bool :has_cuit_or_cuil
+      # t.bool :has_banking_account
+      # t.bool :has_paypal_account
+      t.json :requirements
       #   t.object :habilitation_transport_food
-      #     t.bool :verified
+        # t.date :habilitation_transport_food_expiration_verified
+        # t.date :habilitation_transport_food_expiration_date
+        # t.string :habilitation_transport_food_uri
+        # t.json :habilitation_transport_food_data
       #   t.object :sanitary_notepad
-      #     t.bool :verified
+        # t.date :sanitary_notepad_expiration_verified
+        # t.date :sanitary_notepad_expiration_date
+        # t.string :sanitary_notepad_uri
+        # t.json :sanitary_notepad_data
       t.timestamps
     end
   end
