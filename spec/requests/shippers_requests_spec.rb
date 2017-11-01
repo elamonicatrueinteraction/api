@@ -25,7 +25,6 @@ RSpec.describe ShippersController, type: :request do
   describe "POST #create" do
     before { post '/shippers', headers: {Authorization: "Token #{auth_token}"}, params: parameters }
     context 'Create new valid shipper' do
-
       let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
       it "returns valid shipper object" do
         parsed_response = JSON.parse(response.body)

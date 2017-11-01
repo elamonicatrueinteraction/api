@@ -1,16 +1,16 @@
 class ShippersController < ApplicationController
   def index
     shippers = Shipper.all
-    render json: { data: shippers }, status: :ok
+    render json: {shippers: shippers}, status: :ok # 200
   end
 
   def create
     shipper = Shipper.create(shipper_params)
     # TODO: Create a validator service
     if shipper.valid?
-      render json: { data: shipper }, status: :ok
+      render status: :created # 201
     else
-      render json: {error: shipper.errors.full_messages}, status: 422
+      render json: {error: shipper.errors.full_messages}, status: :unprocessable_entity # 422
     end
   end
 
@@ -19,12 +19,12 @@ class ShippersController < ApplicationController
       shipper.update(shipper_params)
       # TODO: Create a validator service
       if shipper.valid?
-        render json: { data: shipper }, status: :ok
+        render status: :no_content # 204
       else
-        render json: {error: shipper.errors.full_messages}, status: 422
+        render json: {error: shipper.errors.full_messages}, status: :unprocessable_entity # 422
       end
     else
-      render json: {error: "Not found"}, status: 404
+      render json: {error: "Not found"}, status: :not_found # 404
     end
   end
 
