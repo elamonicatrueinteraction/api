@@ -37,17 +37,22 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.string "photo"
     t.string "cuit"
     t.string "cuil"
-    t.boolean "verified"
+    t.boolean "verified", default: false
     t.date "verified_at"
-    t.json "bank_account"
-    t.json "vehicles"
+    t.jsonb "bank_account", default: {"bank"=>nil, "type"=>nil, "number"=>nil}
+    t.jsonb "vehicles", default: {"vtv"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "brand"=>nil, "model"=>nil, "photo"=>nil, "patent"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "kit_security"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "vehicle_title"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "air_conditioner"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "insurance_thirds"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "free_traffic_ticket"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "habilitation_sticker"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}}
     t.string "gateway"
-    t.string "gateway_id"
-    t.json "data"
-    t.json "minimum_requirements"
-    t.json "requirements"
+    t.string "gateway_id", null: false
+    t.jsonb "data", default: {"comments"=>nil, "created_at_shippify"=>nil, "enabled_at_shippify"=>nil, "sent_email_instructions"=>false, "sent_email_invitation_shippify"=>false}
+    t.jsonb "minimum_requirements", default: {"driving_license"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "has_cuit_or_cuil"=>false, "is_monotributista"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "has_paypal_account"=>false, "has_banking_account"=>false}
+    t.jsonb "requirements", default: {"sanitary_notepad"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}, "habilitation_transport_food"=>{"uri"=>nil, "data"=>nil, "verified"=>false, "expiration_date"=>nil}}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bank_account"], name: "index_shippers_on_bank_account"
+    t.index ["data"], name: "index_shippers_on_data"
+    t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements"
+    t.index ["requirements"], name: "index_shippers_on_requirements"
+    t.index ["vehicles"], name: "index_shippers_on_vehicles"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

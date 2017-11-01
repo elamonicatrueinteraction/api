@@ -1,9 +1,6 @@
 class CreateShippers < ActiveRecord::Migration[5.1]
   def change
     create_table :shippers, id: :uuid do |t|
-      # TODO create separated models for requirements,
-      # minimum_requiriments, vehicles and bank_accounts
-      # make sense?
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :gender
@@ -13,63 +10,76 @@ class CreateShippers < ActiveRecord::Migration[5.1]
       t.string :photo
       t.string :cuit
       t.string :cuil
-      t.boolean :verified
+      t.boolean :verified, null: true, default: false
       t.date :verified_at
-      t.json :bank_account
-      #   t.string :number
-      #   t.string :bank
-      #   t.string :type
-      t.json :vehicles
-      #   t.text :model
-      #   t.text :brand
-      #   t.text :photo
-        # t.object :patent
-      #   t.bool :patent_verified
-      #   t.date :paten_expiration_date
-      #   t.string :patent_uri
-      #   t.json :patent_data
-      #   t.object :vehicle_title
-      #   t.object :insurance_thirds
-      #   t.object :kit_security
-      #   t.object :vtv
-      #   t.object :free_traffic_ticket
-      #   t.object :habilitation_sticker
-      #   t.object :air_conditioner
+      t.jsonb :bank_account, null: true, default: bank_account_defaults, index: true, using: :gin
+      t.jsonb :vehicles, null: true, default: vehicles_defaults, index: true, using: :gin
       t.string :gateway
-      t.string :gateway_id
-      t.json :data
-        # t.date :created_at_shippify
-        # t.date :enabled_at_shippify
-        # t.boolean :sent_email_invitation_shippify
-        # t.boolean :sent_email_instructions
-        # t.string :comments
-      t.json :minimum_requirements
-        # t.object :driving_license
-          # t.bool :driving_license_verified
-          # t.date :driving_license_expiration_date
-          # t.string :driving_license_uri
-          # t.json :driving_license_data
-        #   t.object :is_monotributista
-          # t.date :monotributista_expiration_verified
-          # t.date :monotributista_expiration_date
-          # t.string :monotributista_uri
-          # t.json :monotributista_data
-
-      # t.bool :has_cuit_or_cuil
-      # t.bool :has_banking_account
-      # t.bool :has_paypal_account
-      t.json :requirements
-      #   t.object :habilitation_transport_food
-        # t.date :habilitation_transport_food_expiration_verified
-        # t.date :habilitation_transport_food_expiration_date
-        # t.string :habilitation_transport_food_uri
-        # t.json :habilitation_transport_food_data
-      #   t.object :sanitary_notepad
-        # t.date :sanitary_notepad_expiration_verified
-        # t.date :sanitary_notepad_expiration_date
-        # t.string :sanitary_notepad_uri
-        # t.json :sanitary_notepad_data
+      t.string :gateway_id, null: false
+      t.jsonb :data, null: true, default: data_defaults, index: true, using: :gin
+      t.jsonb :minimum_requirements, null: true, default: minimum_requirements_defaults, index: true, using: :gin
+      t.jsonb :requirements, null: true, default: requirements_defaults, index: true, using: :gin
       t.timestamps
     end
+  end
+
+  def verified_defaults
+    {
+      "verified": false,
+      "expiration_date": nil,
+      "uri": nil,
+      "data": nil,
+    }
+  end
+
+  def bank_account_defaults
+    {
+      "number": nil,
+      "bank": nil,
+      "type": nil,
+    }
+  end
+
+  def vehicles_defaults
+    {
+      "model": nil,
+      "brand": nil,
+      "photo": nil,
+      "patent": verified_defaults,
+      "vehicle_title": verified_defaults,
+      "insurance_thirds": verified_defaults,
+      "kit_security": verified_defaults,
+      "vtv": verified_defaults,
+      "free_traffic_ticket": verified_defaults,
+      "habilitation_sticker": verified_defaults,
+      "air_conditioner": verified_defaults,
+    }
+  end
+
+  def data_defaults
+    {
+      "created_at_shippify": nil,
+      "enabled_at_shippify": nil,
+      "sent_email_invitation_shippify": false,
+      "sent_email_instructions": false,
+      "comments": nil,
+    }
+  end
+
+  def minimum_requirements_defaults
+    {
+      "driving_license": verified_defaults,
+      "is_monotributista": verified_defaults,
+      "has_cuit_or_cuil": false,
+      "has_banking_account": false,
+      "has_paypal_account": false,
+    }
+  end
+
+  def requirements_defaults
+    {
+      "habilitation_transport_food": verified_defaults,
+      "sanitary_notepad": verified_defaults,
+    }
   end
 end
