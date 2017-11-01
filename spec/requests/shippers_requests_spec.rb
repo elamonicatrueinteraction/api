@@ -71,7 +71,6 @@ RSpec.describe ShippersController, type: :request do
 
     context 'Update invalid shipper id' do
       let(:shipper_id) { SecureRandom.uuid }
-      # let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
       let(:updated_parameters) { {first_name: valid_first_name_updated, last_name: valid_last_name_updated, email: valid_email_updated, gateway_id: valid_gateway_id_updated} }
       it "returns valid shipper object" do
         expect(response).to have_http_status(:not_found)
