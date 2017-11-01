@@ -15,13 +15,16 @@ class ShippersController < ApplicationController
   end
 
   def update
-    shipper = Shipper.find_by(params[:id])
-    shipper.update(shipper_params)
-    # TODO: Create a validator service
-    if shipper.valid?
-      render json: { data: shipper }, status: :ok
+    if shipper = Shipper.find_by(id: params[:id])
+      shipper.update(shipper_params)
+      # TODO: Create a validator service
+      if shipper.valid?
+        render json: { data: shipper }, status: :ok
+      else
+        render json: {error: shipper.errors.full_messages}, status: 422
+      end
     else
-      render json: {error: shipper.errors.full_messages}, status: 422
+      render json: {error: "Not found"}, status: 404
     end
   end
 
