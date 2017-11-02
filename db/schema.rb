@@ -29,16 +29,16 @@ ActiveRecord::Schema.define(version: 20171031163630) do
 
   create_table "shippers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
-    t.string "last_name", null: false
+    t.string "last_name"
     t.string "gender"
     t.date "birth_date"
     t.string "email", null: false
     t.string "phone_num"
     t.string "photo"
-    t.string "cuit"
-    t.string "cuil"
+    t.boolean "active", default: false
     t.boolean "verified", default: false
     t.date "verified_at"
+    t.jsonb "national_ids", default: {}
     t.jsonb "bank_account", default: {}
     t.jsonb "vehicles", default: {}
     t.string "gateway"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.index ["bank_account"], name: "index_shippers_on_bank_account", using: :gin
     t.index ["data"], name: "index_shippers_on_data", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
+    t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
     t.index ["vehicles"], name: "index_shippers_on_vehicles", using: :gin
   end

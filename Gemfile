@@ -7,9 +7,10 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
+gem 'shippify-dash', git: "https://github.com/nilusorg/shippify-dash", branch: :master
 
 group :development, :test do
-  gem 'pry'
+  gem 'awesome_rails_console'
   gem 'rspec-rails', '~> 3.5'
 end
 

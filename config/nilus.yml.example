@@ -3,6 +3,13 @@ development: &app_config
   allowed_origins:
     - 'localhost:3030'
 
+  shippify:
+    dash:
+      email: ''
+      password: ''
+      # Or also could be instead of email: and password:
+      # access_token: ''
+
   ssl_enabled: false
 
 production:
