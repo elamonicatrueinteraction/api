@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026165316) do
+ActiveRecord::Schema.define(version: 20171031163630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,36 @@ ActiveRecord::Schema.define(version: 20171026165316) do
     t.jsonb "preferences", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["preferences"], name: "index_profiles_on_preferences"
+    t.index ["preferences"], name: "index_profiles_on_preferences", using: :gin
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "shippers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "gender"
+    t.date "birth_date"
+    t.string "email", null: false
+    t.string "phone_num"
+    t.string "photo"
+    t.string "cuit"
+    t.string "cuil"
+    t.boolean "verified", default: false
+    t.date "verified_at"
+    t.jsonb "bank_account", default: {}
+    t.jsonb "vehicles", default: {}
+    t.string "gateway"
+    t.string "gateway_id", null: false
+    t.jsonb "data", default: {}
+    t.jsonb "minimum_requirements", default: {}
+    t.jsonb "requirements", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_account"], name: "index_shippers_on_bank_account", using: :gin
+    t.index ["data"], name: "index_shippers_on_data", using: :gin
+    t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
+    t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
+    t.index ["vehicles"], name: "index_shippers_on_vehicles", using: :gin
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -45,7 +73,7 @@ ActiveRecord::Schema.define(version: 20171026165316) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["roles_mask"], name: "index_users_on_roles_mask"
-    t.index ["settings"], name: "index_users_on_settings"
+    t.index ["settings"], name: "index_users_on_settings", using: :gin
     t.index ["username"], name: "index_users_on_username"
   end
 

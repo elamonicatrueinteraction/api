@@ -1,14 +1,127 @@
 {
+	"variables": [],
 	"info": {
 		"name": "Nilus - API",
-		"_postman_id": "4c6cc243-8eb7-a376-76ce-c15980d649f8",
+		"_postman_id": "e5e1d9e0-89e7-3d1d-f6d2-0da65a079e16",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
+			"name": "Shippers",
+			"description": "",
+			"item": [
+				{
+					"name": "Shippers List",
+					"request": {
+						"url": "http://{{endpoint_url}}/shippers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "List shippers"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers Create",
+					"request": {
+						"url": "http://{{endpoint_url}}/shippers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "first_name",
+									"value": "Ricardo",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Fort",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ricky_fort@winguweb.org",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "List shippers"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers Update",
+					"request": {
+						"url": "http://{{endpoint_url}}/shippers",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "first_name",
+									"value": "Ricardo Updated",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Fort Updated",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ricky_fort_updated@winguweb.org",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "List shippers"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Home",
 			"request": {
+				"url": "http://{{endpoint_url}}/",
 				"method": "GET",
 				"header": [
 					{
@@ -16,16 +129,9 @@
 						"value": "Token {{user_auth_token}}"
 					}
 				],
-				"body": {},
-				"url": {
-					"raw": "http://{{endpoint_url}}/",
-					"protocol": "http",
-					"host": [
-						"{{endpoint_url}}"
-					],
-					"path": [
-						""
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "Just to get a summy response"
 			},
@@ -34,26 +140,18 @@
 		{
 			"name": "Authenticate",
 			"request": {
+				"url": "http://{{endpoint_url}}/authenticate",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"\",\n\t\"password\":\"\"\n}"
-				},
-				"url": {
-					"raw": "http://{{endpoint_url}}/authenticate",
-					"protocol": "http",
-					"host": [
-						"{{endpoint_url}}"
-					],
-					"path": [
-						"authenticate"
-					]
+					"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
 				},
 				"description": "Authenticate a User an get the auth_token or errors"
 			},
