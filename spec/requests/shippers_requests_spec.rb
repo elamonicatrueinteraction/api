@@ -2,77 +2,102 @@ require 'rails_helper'
 require 'securerandom'
 
 RSpec.describe ShippersController, type: :request do
-  let!(:user) { create(:user_with_profile) }
-  let(:auth_token) {AuthenticateUser.call(user.email, user.password).result}
-  let(:valid_email) {Faker::Internet.safe_email}
-  let(:valid_first_name) {Faker::Name.name_with_middle}
-  let(:valid_gateway_id) {SecureRandom.uuid}
-  let(:valid_last_name) {Faker::Name.last_name}
-  let(:valid_email_updated) {"updated_#{valid_email}"}
-  let(:valid_first_name_updated) {"Updated #{valid_first_name}"}
-  let(:valid_gateway_id_updated) {"updated-#{valid_gateway_id}"}
-  let(:valid_last_name_updated) {"Updated #{valid_last_name}"}
+  let(:user) { create(:user_with_profile) }
+  let(:auth_token) { AuthenticateUser.call(user.email, user.password).result }
 
   describe "GET #index" do
-    before { get '/shippers', headers: {Authorization: "Token #{auth_token}"} }
+    let!(:shippers) { create_list(:shipper, 5) }
+    before { get '/shippers', headers: { Authorization: "Token #{auth_token}" } }
 
-    context 'Get list of shippers' do
-      it "returns http success" do
-        expect(response).to have_http_status(:success)
-      end
+    it "returns and array of shippers" do
+      expect(json).not_to be_empty
+      expect(json.keys).to contain_exactly('shippers')
+      expect(json['shippers']).not_to be_empty
+    end
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST #create" do
-    before { post '/shippers', headers: {Authorization: "Token #{auth_token}"}, params: parameters }
+    let(:shipper) { build(:shipper) }
+    before { post '/shippers', headers: { Authorization: "Token #{auth_token}" }, params: parameters }
 
-    context 'Create new valid shipper' do
-      let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
-      it "returns valid shipper object" do
+    context 'with valid shipper data' do
+      let(:parameters) { { first_name: shipper.first_name, last_name: shipper.last_name, email: shipper.email, gateway_id: shipper.gateway_id } }
+
+      it "returns the created shipper" do
+        expect(json).not_to be_empty
+        expect(json.keys).to contain_exactly('shipper')
+        expect(json['shipper']).not_to be_empty
+      end
+
+      it "returns status code 201" do
         expect(response).to have_http_status(:created)
       end
     end
 
-    context 'Create new invalid shipper' do
-      let(:parameters) { {first_name: nil, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
-      it "returns valid shipper object" do
+    context 'with invalid shipper data' do
+      let(:parameters) { { first_name: nil, last_name: shipper.last_name, email: shipper.email, gateway_id: shipper.gateway_id } }
+
+      it "returns the errors" do
+        expect(json).not_to be_empty
+        expect(json.keys).to contain_exactly('error')
+        expect(json['error']).not_to be_empty
+      end
+
+      it "returns status code 422" do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "PATCH #update" do
-    let(:shipper_id) { Shipper.create!(parameters).id }
-    before { patch "/shippers/#{shipper_id}", headers: {Authorization: "Token #{auth_token}"}, params: updated_parameters }
+    let(:shipper) { create(:shipper) }
+    let(:shipper_id) { shipper.id }
+    let(:other_shipper) { build(:shipper) }
+    before { patch "/shippers/#{shipper_id}", headers: { Authorization: "Token #{auth_token}" }, params: parameters }
 
-    context 'Update valid shipper' do
-      let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
-      let(:updated_parameters) { {first_name: valid_first_name_updated, last_name: valid_last_name_updated, email: valid_email_updated, gateway_id: valid_gateway_id_updated} }
-      it "returns valid shipper object" do
-        expect(response).to have_http_status(:no_content)
+    context 'only updating the email' do
+      let(:parameters) { { email: other_shipper.email } }
+
+      it "returns the updated shipper" do
+        expect(json).not_to be_empty
+        expect(json.keys).to contain_exactly('shipper')
+        expect(json['shipper']).not_to be_empty
+      end
+
+      it "returns status code 200" do
+        expect(response).to have_http_status(:success)
       end
     end
 
-    context 'Update only valid shipper email' do
-      let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
-      let(:updated_parameters) { {email: valid_email_updated} }
-      it "returns valid shipper object" do
-        expect(response).to have_http_status(:no_content)
-      end
-    end
+    context 'with invalid data' do
+      let(:parameters) { { first_name: nil, email: other_shipper.email } }
 
-    context 'Update invalid shipper' do
-      let(:parameters) { {first_name: valid_first_name, last_name: valid_last_name, email: valid_email, gateway_id: valid_gateway_id} }
-      let(:updated_parameters) { {first_name: nil, last_name: valid_last_name_updated, email: valid_email_updated, gateway_id: valid_gateway_id_updated} }
-      it "returns valid shipper object" do
+      it "returns the errors" do
+        expect(json).not_to be_empty
+        expect(json.keys).to contain_exactly('error')
+        expect(json['error']).not_to be_empty
+      end
+
+      it "returns status code 422" do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
-    context 'Update invalid shipper id' do
+    context 'with invalid shipper id' do
       let(:shipper_id) { SecureRandom.uuid }
-      let(:updated_parameters) { {first_name: valid_first_name_updated, last_name: valid_last_name_updated, email: valid_email_updated, gateway_id: valid_gateway_id_updated} }
-      it "returns valid shipper object" do
+      let(:parameters) { { email: other_shipper.email } }
+
+      it "returns the errors" do
+        expect(json).not_to be_empty
+        expect(json.keys).to contain_exactly('error')
+        expect(json['error']).not_to be_empty
+      end
+
+      it "returns status code 404" do
         expect(response).to have_http_status(:not_found)
       end
     end

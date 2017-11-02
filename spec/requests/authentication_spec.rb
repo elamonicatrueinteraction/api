@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication Endpoint', type: :request do
-  let!(:user) { create(:user_with_profile) }
+  let(:user) { create(:user_with_profile) }
 
   describe 'POST /authenticate' do
     before { post '/authenticate', params: parameters }

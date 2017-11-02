@@ -1,9 +1,8 @@
 FactoryBot.define do
-  require 'securerandom'
   factory :shipper do
-    first_name { Faker::Internet.user_name }
-    last_name { Faker::Internet.password }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
     email { Faker::Internet.free_email }
-    gateway_id { SecureRandom.uuid }
+    gateway_id { Faker::Number.number(10) }
   end
 end

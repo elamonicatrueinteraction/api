@@ -18,7 +18,7 @@ class CreateUserAndProfile < ActiveRecord::Migration[5.1]
 
       t.integer :roles_mask, index: true
 
-      t.jsonb :settings, null: false, default: {}, index: true, using: :gin
+      t.jsonb :settings, null: false, default: {}
 
       t.datetime :deleted_at
 
@@ -31,10 +31,13 @@ class CreateUserAndProfile < ActiveRecord::Migration[5.1]
 
       t.uuid :user_id, null: false, index: true
 
-      t.jsonb :preferences, null: false, default: {}, index: true, using: :gin
+      t.jsonb :preferences, null: false, default: {}
 
       t.timestamps
     end
+
+    add_index  :users, :settings, using: :gin
+    add_index  :profiles, :preferences, using: :gin
   end
 end
 
