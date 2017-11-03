@@ -44,7 +44,10 @@ class ShippersController < ApplicationController
       :verified_at,
       :national_ids,
       :bank_account,
-      :vehicle,
+      :vehicles,
+      :cuit,
+      :cuil,
+      :gateway,
       :minimum_requirements,
       :requirements
     )
