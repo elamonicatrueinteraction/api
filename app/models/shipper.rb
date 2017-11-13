@@ -1,5 +1,9 @@
 class Shipper < ApplicationRecord
+  attribute :data, :jsonb, default: {}
+
   validates_presence_of :first_name, :email, :gateway_id
+
+  has_many :vehicles
 end
 
 # def verified_defaults

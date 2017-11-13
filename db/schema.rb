@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031163630) do
+ActiveRecord::Schema.define(version: 20171108225639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.date "verified_at"
     t.jsonb "national_ids", default: {}
     t.jsonb "bank_account", default: {}
-    t.jsonb "vehicles", default: {}
     t.string "gateway"
     t.string "gateway_id", null: false
     t.jsonb "data", default: {}
@@ -53,7 +52,6 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
-    t.index ["vehicles"], name: "index_shippers_on_vehicles", using: :gin
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -78,4 +76,31 @@ ActiveRecord::Schema.define(version: 20171031163630) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  create_table "vehicles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "shipper_id"
+    t.string "model", null: false
+    t.string "brand"
+    t.integer "year"
+    t.jsonb "extras", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
+    t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"
+  end
+
+  create_table "verifications", force: :cascade do |t|
+    t.string "verificable_type"
+    t.uuid "verificable_id"
+    t.jsonb "data", default: {}
+    t.datetime "verified_at"
+    t.uuid "verified_by"
+    t.boolean "expire"
+    t.datetime "expire_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data"], name: "index_verifications_on_data", using: :gin
+    t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
+  end
+
+  add_foreign_key "vehicles", "shippers"
 end

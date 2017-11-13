@@ -1,0 +1,9 @@
+en:
+  not_found:
+    shipper: "There is no shipper with id: %{shipper_id}"
+    vehicle: "There is no vehicle with id: %{vehicle_id}"
+    verification: "There is no verification with id: %{verification_id} for the vehicle id: %{vehicle_id}"
+  missing:
+    shipper: The shipper is missing, you should send the shipper_id as a parameter
+    vehicle: The vehicle is missing, you should send the vehicle_id as a parameter
+

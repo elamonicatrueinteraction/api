@@ -1,4 +1,6 @@
-# require database cleaner
+require 'simplecov'
+
+require 'support/faker'
 require 'database_cleaner'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'

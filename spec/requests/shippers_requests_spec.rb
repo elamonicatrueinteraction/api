@@ -6,7 +6,7 @@ RSpec.describe ShippersController, type: :request do
   let(:auth_token) { AuthenticateUser.call(user.email, user.password).result }
 
   describe "GET #index" do
-    let!(:shippers) { create_list(:shipper, 5) }
+    let!(:shippers) { create_list(:shipper_with_vehicle, 5) }
     before { get '/shippers', headers: { Authorization: "Token #{auth_token}" } }
 
     it "returns and array of shippers" do
@@ -53,14 +53,14 @@ RSpec.describe ShippersController, type: :request do
     end
   end
 
-  describe "PATCH #update" do
+  describe "PUT/PATCH #update" do
     let(:shipper) { create(:shipper) }
     let(:shipper_id) { shipper.id }
-    let(:other_shipper) { build(:shipper) }
+    let(:shipper_update) { build(:shipper) }
     before { patch "/shippers/#{shipper_id}", headers: { Authorization: "Token #{auth_token}" }, params: parameters }
 
     context 'only updating the email' do
-      let(:parameters) { { email: other_shipper.email } }
+      let(:parameters) { { email: shipper_update.email } }
 
       it "returns the updated shipper" do
         expect(json).not_to be_empty
@@ -74,7 +74,7 @@ RSpec.describe ShippersController, type: :request do
     end
 
     context 'with invalid data' do
-      let(:parameters) { { first_name: nil, email: other_shipper.email } }
+      let(:parameters) { { first_name: nil, email: shipper_update.email } }
 
       it "returns the errors" do
         expect(json).not_to be_empty
@@ -89,7 +89,7 @@ RSpec.describe ShippersController, type: :request do
 
     context 'with invalid shipper id' do
       let(:shipper_id) { SecureRandom.uuid }
-      let(:parameters) { { email: other_shipper.email } }
+      let(:parameters) { { email: shipper_update.email } }
 
       it "returns the errors" do
         expect(json).not_to be_empty

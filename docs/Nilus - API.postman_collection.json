@@ -2,28 +2,29 @@
 	"variables": [],
 	"info": {
 		"name": "Nilus - API",
-		"_postman_id": "e5e1d9e0-89e7-3d1d-f6d2-0da65a079e16",
+		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Shippers",
-			"description": "",
 			"item": [
 				{
 					"name": "Shippers List",
 					"request": {
-						"url": "http://{{endpoint_url}}/shippers",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token {{user_auth_token}}",
-								"description": ""
+								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://{{endpoint_url}}/shippers",
 						"description": "List shippers"
 					},
 					"response": []
@@ -31,43 +32,22 @@
 				{
 					"name": "Shippers Create",
 					"request": {
-						"url": "http://{{endpoint_url}}/shippers",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token {{user_auth_token}}",
-								"description": ""
+								"value": "Token {{user_auth_token}}"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "first_name",
-									"value": "Ricardo",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "last_name",
-									"value": "Fort",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ricky_fort@winguweb.org",
-									"description": "",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Ricardo\",\n  \"last_name\": \"Fort\",\n  \"email\": \"ricky_fort@winguweb.org\"\n}"
 						},
+						"url": "http://{{endpoint_url}}/shippers",
 						"description": "List shippers"
 					},
 					"response": []
@@ -75,44 +55,222 @@
 				{
 					"name": "Shippers Update",
 					"request": {
-						"url": "http://{{endpoint_url}}/shippers",
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token {{user_auth_token}}",
-								"description": ""
+								"value": "Token {{user_auth_token}}"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "first_name",
-									"value": "Ricardo Updated",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "last_name",
-									"value": "Fort Updated",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ricky_fort_updated@winguweb.org",
-									"description": "",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Updated Name\"\n}"
 						},
+						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35",
 						"description": "List shippers"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Vehicles List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+						"description": "List vehicles of the shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Vehicles Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+						},
+						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+						"description": "Create vehicle for a shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Vehicles Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
+						},
+						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+						"description": "Update the vehicle information"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"description": "",
+			"item": [
+				{
+					"name": "Vehicle Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"883d63b5-cb2b-4023-9c47-5809a56e8681\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+						},
+						"url": "http://{{endpoint_url}}/vehicles",
+						"description": "Create vehicle for a shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicles Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
+						},
+						"url": "http://{{endpoint_url}}/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+						"description": "Update the vehicle information"
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle - Verifications List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+						"description": "List verifications of the vehicle"
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle - Verification Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
+						},
+						"url": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+						"description": "Create vehicle for a shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle - Verification Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"information\": {\n\t\t\"owner_name\": \"Media Pila S.R.L\"\n\t}\n}"
+						},
+						"url": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/1",
+						"description": "Update a verification of the Vehicle"
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle - Verification Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
+						},
+						"url": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/99",
+						"description": "Delete a Verification from the Vehicle"
 					},
 					"response": []
 				}
@@ -121,7 +279,6 @@
 		{
 			"name": "Home",
 			"request": {
-				"url": "http://{{endpoint_url}}/",
 				"method": "GET",
 				"header": [
 					{
@@ -133,6 +290,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"url": "http://{{endpoint_url}}/",
 				"description": "Just to get a summy response"
 			},
 			"response": []
@@ -140,19 +298,18 @@
 		{
 			"name": "Authenticate",
 			"request": {
-				"url": "http://{{endpoint_url}}/authenticate",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
 				},
+				"url": "http://{{endpoint_url}}/authenticate",
 				"description": "Authenticate a User an get the auth_token or errors"
 			},
 			"response": []

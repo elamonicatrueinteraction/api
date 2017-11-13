@@ -38,5 +38,9 @@ module Service
     def called?
       @called ||= false
     end
+
+    def boolean(value)
+      ActiveModel::Type::Boolean.new.cast(value)
+    end
   end
 end

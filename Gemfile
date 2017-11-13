@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'active_model_serializers', '~> 0.10.0'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'oj' # A fast JSON parser and Object marshaller.
@@ -26,8 +27,11 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 4.0'
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'faker'
   gem 'database_cleaner'
+  gem 'factory_bot_rails', '~> 4.0'
+  # I use this repo because a missing feature in the Faker gem,
+  # I already open a PR: https://github.com/stympy/faker/pull/1067
+  gem 'faker', git: "https://github.com/agustin/faker", branch: :master, require: false
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
 end

@@ -5,3 +5,8 @@ en:
     authorize_request:
       invalid_token: Invalid authorization token
       missing_token: Missing authorization token
+    create_verification:
+      information:
+        missing_or_invalid: The information for the %{type_name} is missing. At least one of this values should be present %{allowed_keys}.
+      type:
+        missing_or_invalid: The type of the verification is missing or invalid. For the %{class_name} should be one of this %{allowed_types}.
