@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/nilusorg/shippify-dash
+  revision: a2d9e097c957c0e8600bcf32814c8e05d48a4672
+  branch: master
+  specs:
+    shippify-dash (0.1.0)
+      oj (~> 3.0)
+      typhoeus (>= 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,6 +50,11 @@ GEM
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (8.0.0)
+    awesome_print (1.8.0)
+    awesome_rails_console (0.4.0)
+      awesome_print
+      pry-rails
+      railties
     bcrypt (3.1.11)
     builder (3.2.3)
     capistrano (3.10.0)
@@ -66,6 +80,8 @@ GEM
     database_cleaner (1.6.1)
     diff-lcs (1.3)
     erubi (1.7.0)
+    ethon (0.11.0)
+      ffi (>= 1.3.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.8.2)
@@ -104,6 +120,8 @@ GEM
     pry (0.11.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     puma (3.10.0)
     rack (2.0.3)
     rack-cors (1.0.2)
@@ -167,6 +185,8 @@ GEM
       net-ssh (>= 2.8.0)
     thor (0.20.0)
     thread_safe (0.3.6)
+    typhoeus (1.3.0)
+      ethon (>= 0.9.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     websocket-driver (0.6.5)
@@ -177,6 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_rails_console
   bcrypt
   capistrano
   capistrano-bundler
@@ -190,11 +211,11 @@ DEPENDENCIES
   listen (~> 3.0.5)
   oj
   pg
-  pry
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0)
   rspec-rails (~> 3.5)
+  shippify-dash!
   shoulda-matchers (~> 3.1)
 
 BUNDLED WITH
