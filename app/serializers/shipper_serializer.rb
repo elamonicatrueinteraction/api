@@ -7,11 +7,12 @@ class ShipperSerializer < Simple::ShipperSerializer
     :verified,
     :verified_at,
     :national_ids,
-    :bank_account,
+    :bank_accounts,
     :gateway,
     :gateway_id,
     :minimum_requirements,
     :requirements
 
   has_many :vehicles, serializer: Simple::VehicleSerializer
+  has_many :bank_accounts, serializer: Simple::BankAccountSerializer
 end

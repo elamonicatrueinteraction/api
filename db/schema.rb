@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108225639) do
+ActiveRecord::Schema.define(version: 20171115173707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "bank_name"
+    t.string "number"
+    t.string "type"
+    t.string "cbu"
+    t.uuid "shipper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shipper_id"], name: "index_bank_accounts_on_shipper_id"
+  end
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
@@ -39,7 +50,6 @@ ActiveRecord::Schema.define(version: 20171108225639) do
     t.boolean "verified", default: false
     t.date "verified_at"
     t.jsonb "national_ids", default: {}
-    t.jsonb "bank_account", default: {}
     t.string "gateway"
     t.string "gateway_id", null: false
     t.jsonb "data", default: {}
@@ -47,7 +57,6 @@ ActiveRecord::Schema.define(version: 20171108225639) do
     t.jsonb "requirements", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bank_account"], name: "index_shippers_on_bank_account", using: :gin
     t.index ["data"], name: "index_shippers_on_data", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
@@ -102,5 +111,6 @@ ActiveRecord::Schema.define(version: 20171108225639) do
     t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
   end
 
+  add_foreign_key "bank_accounts", "shippers"
   add_foreign_key "vehicles", "shippers"
 end

@@ -14,6 +14,11 @@ class ShippersController < ApplicationController
     end
   end
 
+  def show
+    shipper = Shipper.find_by(id: params[:id])
+    render json: { shipper: shipper }, status: :ok # 200
+  end
+
   def update
     if shipper = Shipper.find_by(id: params[:id])
       shipper.update(shipper_params)
@@ -43,7 +48,7 @@ class ShippersController < ApplicationController
       :verified,
       :verified_at,
       :national_ids,
-      :bank_account,
+      :bank_accounts,
       :vehicles,
       :cuit,
       :cuil,

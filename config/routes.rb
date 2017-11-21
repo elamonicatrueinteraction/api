@@ -5,11 +5,14 @@ Rails.application.routes.draw do
   # ╭─ Public Accesible URL's / Path's
     post 'authenticate', action: :authenticate, controller: :authentication
 
-    resources :shippers, only: [ :create, :index, :update ] do
+    resources :shippers, only: [ :create, :show, :index, :update ] do
       resources :vehicles, only: [ :create, :index, :update ]
+      resources :bank_accounts, only: [:index, :show, :create, :update]
     end
 
-    resources :vehicles, only: [ :create, :update ] do
+  resources :bank_accounts, only: [:index, :show, :create, :update]
+
+  resources :vehicles, only: [ :create, :update ] do
       resources :verifications, only: [ :create, :index, :update, :destroy ]
     end
   # ╰─ End of Public Accesible URL's / Path's

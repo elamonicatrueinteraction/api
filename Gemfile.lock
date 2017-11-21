@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/agustin/faker
+  remote: git@github.com:agustin/faker
   revision: a49abfc9517ac5afa5d2bc24f10a3568015556bc
   branch: master
   specs:
@@ -7,7 +7,7 @@ GIT
       i18n (~> 0.5)
 
 GIT
-  remote: https://github.com/nilusorg/shippify-dash
+  remote: git@github.com:nilusorg/shippify-dash
   revision: 39005a4a5272be900b407994921cb4695d19ebfe
   branch: master
   specs:
