@@ -8,7 +8,7 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
-gem 'shippify-dash', git: "https://github.com/nilusorg/shippify-dash", branch: :master
+gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 
 group :development, :test do
   gem 'awesome_rails_console'
@@ -31,7 +31,7 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
-  gem 'faker', git: "https://github.com/agustin/faker", branch: :master, require: false
+  gem 'faker', git: "git@github.com:agustin/faker", branch: :master, require: false
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end

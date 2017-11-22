@@ -1,10 +1,9 @@
 {
-	"variables": [],
 	"info": {
 		"name": "Nilus - API",
-		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
+		"_postman_id": "856cba9b-58c9-f86b-9723-44b676272939",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -24,7 +23,45 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": "http://{{endpoint_url}}/shippers",
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers"
+							]
+						},
+						"description": "List shippers"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/{{shipper_id}}",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"{{shipper_id}}"
+							]
+						},
 						"description": "List shippers"
 					},
 					"response": []
@@ -44,10 +81,35 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"first_name\": \"Ricardo\",\n  \"last_name\": \"Fort\",\n  \"email\": \"ricky_fort@winguweb.org\"\n}"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "first_name",
+									"value": "Ricardo",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Fort",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ricky_fort@winguweb.org",
+									"type": "text"
+								}
+							]
 						},
-						"url": "http://{{endpoint_url}}/shippers",
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers"
+							]
+						},
 						"description": "List shippers"
 					},
 					"response": []
@@ -68,9 +130,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\": \"Updated Name\"\n}"
+							"raw": "{\n    \"shipper\": \n}"
 						},
-						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35",
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/92bcd6de-9d34-40a1-ab61-aa1f36e72570",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"92bcd6de-9d34-40a1-ab61-aa1f36e72570"
+							]
+						},
 						"description": "List shippers"
 					},
 					"response": []
@@ -85,8 +157,22 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {},
-						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"vehicles"
+							]
+						},
 						"description": "List vehicles of the shipper"
 					},
 					"response": []
@@ -109,7 +195,18 @@
 							"mode": "raw",
 							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
 						},
-						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"vehicles"
+							]
+						},
 						"description": "Create vehicle for a shipper"
 					},
 					"response": []
@@ -132,7 +229,115 @@
 							"mode": "raw",
 							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
 						},
-						"url": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"vehicles",
+								"f56a62fd-044a-4413-ba82-0a1a4353cad2"
+							]
+						},
+						"description": "Update the vehicle information"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Bank Accounts List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_accounts",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"bank_accounts"
+							]
+						},
+						"description": "List vehicles of the shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Bank Accounts Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_accounts",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"bank_accounts"
+							]
+						},
+						"description": "Create vehicle for a shipper"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Bank Accounts Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_account/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"bank_account",
+								"f56a62fd-044a-4413-ba82-0a1a4353cad2"
+							]
+						},
 						"description": "Update the vehicle information"
 					},
 					"response": []
@@ -140,8 +345,126 @@
 			]
 		},
 		{
+			"name": "Bank Accounts",
+			"item": [
+				{
+					"name": "Bank Accounts List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/bank_accounts",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"bank_accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bank Accounts Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/bank_accounts/{{bank_account_id}}",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"bank_accounts",
+								"{{bank_account_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bank Accounts Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"bank_name\": \"Galicia\",\n\"account_number\": \"123\",\n\"account_type\": \"Cuenta corriente 2\"\n}"
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/bank_accounts",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"bank_accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bank Accounts Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/bank_accounts/{{bank_account_id}}",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"bank_accounts",
+								"{{bank_account_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Vehicles",
-			"description": "",
 			"item": [
 				{
 					"name": "Vehicle Create",
@@ -161,7 +484,16 @@
 							"mode": "raw",
 							"raw": "{\n\t\"shipper_id\": \"883d63b5-cb2b-4023-9c47-5809a56e8681\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
 						},
-						"url": "http://{{endpoint_url}}/vehicles",
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles"
+							]
+						},
 						"description": "Create vehicle for a shipper"
 					},
 					"response": []
@@ -184,7 +516,17 @@
 							"mode": "raw",
 							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
 						},
-						"url": "http://{{endpoint_url}}/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles",
+								"f56a62fd-044a-4413-ba82-0a1a4353cad2"
+							]
+						},
 						"description": "Update the vehicle information"
 					},
 					"response": []
@@ -199,8 +541,22 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {},
-						"url": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles",
+								"dad32f11-ad60-45c2-94b1-794ea36b5e95",
+								"verifications"
+							]
+						},
 						"description": "List verifications of the vehicle"
 					},
 					"response": []
@@ -223,7 +579,18 @@
 							"mode": "raw",
 							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
 						},
-						"url": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles",
+								"dad32f11-ad60-45c2-94b1-794ea36b5e95",
+								"verifications"
+							]
+						},
 						"description": "Create vehicle for a shipper"
 					},
 					"response": []
@@ -246,7 +613,19 @@
 							"mode": "raw",
 							"raw": "{\n\t\"information\": {\n\t\t\"owner_name\": \"Media Pila S.R.L\"\n\t}\n}"
 						},
-						"url": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/1",
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/1",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles",
+								"930f4910-ce12-457b-b648-c18ff5478d22",
+								"verifications",
+								"1"
+							]
+						},
 						"description": "Update a verification of the Vehicle"
 					},
 					"response": []
@@ -269,7 +648,19 @@
 							"mode": "raw",
 							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
 						},
-						"url": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/99",
+						"url": {
+							"raw": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/99",
+							"protocol": "http",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"vehicles",
+								"930f4910-ce12-457b-b648-c18ff5478d22",
+								"verifications",
+								"99"
+							]
+						},
 						"description": "Delete a Verification from the Vehicle"
 					},
 					"response": []
@@ -290,7 +681,16 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://{{endpoint_url}}/",
+				"url": {
+					"raw": "http://{{endpoint_url}}/",
+					"protocol": "http",
+					"host": [
+						"{{endpoint_url}}"
+					],
+					"path": [
+						""
+					]
+				},
 				"description": "Just to get a summy response"
 			},
 			"response": []
@@ -309,7 +709,16 @@
 					"mode": "raw",
 					"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
 				},
-				"url": "http://{{endpoint_url}}/authenticate",
+				"url": {
+					"raw": "http://{{endpoint_url}}/authenticate",
+					"protocol": "http",
+					"host": [
+						"{{endpoint_url}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				},
 				"description": "Authenticate a User an get the auth_token or errors"
 			},
 			"response": []

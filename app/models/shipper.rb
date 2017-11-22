@@ -3,41 +3,41 @@ class Shipper < ApplicationRecord
 
   validates_presence_of :first_name, :email, :gateway_id
 
+  DEFAULT_REQUIREMENT_TEMPLATE = {
+      'verified' => false,
+      'uri' => nil,
+      'data' => {},
+      'expiration_date' => ''
+  }.freeze
+
+  REQUIREMENTS = %w(
+    habilitation_transport_food
+    sanitary_notepad
+  )
+
+  MINIMUM_REQUIREMENTS = %w(
+    driving_license
+    is_monotributista
+    has_cuit_or_cuil
+    has_banking_account
+    has_paypal_account
+  )
+
+  has_many :bank_accounts
   has_many :vehicles
+
+  def requirements
+    REQUIREMENTS.each_with_object({}) do |requirement, _hash|
+      _hash[requirement] = DEFAULT_REQUIREMENT_TEMPLATE
+    end.merge(attributes[:requirements].to_h)
+  end
+
+  def minimum_requirements
+    MINIMUM_REQUIREMENTS.each_with_object({}) do |requirement, _hash|
+      _hash[requirement] = DEFAULT_REQUIREMENT_TEMPLATE
+    end.merge(attributes[:minimum_requirements].to_h)
+  end
 end
-
-# def verified_defaults
-#   {
-#     "verified": false,
-#     "expiration_date": nil,
-#     "uri": nil,
-#     "data": nil,
-#   }
-# end
-
-# def bank_account_defaults
-#   {
-#     "number": nil,
-#     "bank": nil,
-#     "type": nil,
-#   }
-# end
-
-# def vehicles_defaults
-#   {
-#     "model": nil,
-#     "brand": nil,
-#     "photo": nil,
-#     "patent": verified_defaults,
-#     "vehicle_title": verified_defaults,
-#     "insurance_thirds": verified_defaults,
-#     "kit_security": verified_defaults,
-#     "vtv": verified_defaults,
-#     "free_traffic_ticket": verified_defaults,
-#     "habilitation_sticker": verified_defaults,
-#     "air_conditioner": verified_defaults,
-#   }
-# end
 
 # def data_defaults
 #   {
@@ -46,22 +46,5 @@ end
 #     "sent_email_invitation_shippify": false,
 #     "sent_email_instructions": false,
 #     "comments": nil,
-#   }
-# end
-
-# def minimum_requirements_defaults
-#   {
-#     "driving_license": verified_defaults,
-#     "is_monotributista": verified_defaults,
-#     "has_cuit_or_cuil": false,
-#     "has_banking_account": false,
-#     "has_paypal_account": false,
-#   }
-# end
-
-# def requirements_defaults
-#   {
-#     "habilitation_transport_food": verified_defaults,
-#     "sanitary_notepad": verified_defaults,
 #   }
 # end
