@@ -5,5 +5,5 @@ class PackageSerializer < ActiveModel::Serializer
     :cooling,
     :description
 
-  belongs_to :delivery
+  belongs_to :delivery, serializer: Simple::DeliverySerializer
 end

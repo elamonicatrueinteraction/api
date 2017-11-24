@@ -1,11 +1,7 @@
-class DeliverySerializer < ActiveModel::Serializer
-  attributes :id,
-    :amount,
-    :bonified_amount,
-    :status,
+class DeliverySerializer < Simple::DeliverySerializer
+  attributes :packages,
     :created_at,
-    :updated_at,
-    :packages
+    :updated_at
 
   belongs_to :origin, class_name: 'Address'
   belongs_to :destination, class_name: 'Address'

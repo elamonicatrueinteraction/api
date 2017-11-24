@@ -5,6 +5,7 @@ module CurrentAndEnsureDependencyLoader
   private
 
   MODELS_TO_LOAD = %w(
+    delivery
     institution
     order
     shipper

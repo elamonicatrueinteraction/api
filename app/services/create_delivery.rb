@@ -1,9 +1,10 @@
 class CreateDelivery
   prepend Service::Base
+  include Service::Support::Delivery
 
   def initialize(order, allowed_params, within_transaction = false)
     @order = order
-    @allowed_params = allowed_params
+    @allowed_params = normalize_params(allowed_params)
     @within_transaction = within_transaction
   end
 
@@ -12,6 +13,15 @@ class CreateDelivery
   end
 
   private
+
+  def normalize_params(allowed_params)
+    return allowed_params if allowed_params.key?(:amount) && allowed_params.key?(:bonified_amount)
+
+    allowed_params.tap do |_hash|
+      _hash[:amount] ||= _hash.delete(:delivery_amount) if _hash.key?(:delivery_amount)
+      _hash[:bonified_amount] ||= _hash.delete(:delivery_bonified_amount) if _hash.key?(:delivery_bonified_amount)
+    end
+  end
 
   def create_delivery
     @delivery = Delivery.new( delivery_params )
@@ -46,20 +56,11 @@ class CreateDelivery
       order: @order,
       origin: load_address('origin', @allowed_params[:origin_id]),
       destination: load_address('destination', @allowed_params[:destination_id]),
-      amount: @allowed_params[:delivery_amount],
-      bonified_amount: @allowed_params[:delivery_bonified_amount]
+      amount: @allowed_params[:amount],
+      bonified_amount: @allowed_params[:bonified_amount]
     }.tap do |_hash|
       _hash[:origin_gps_coordinates] = _hash[:origin].gps_coordinates
       _hash[:destination_gps_coordinates] =  _hash[:destination].gps_coordinates
-    end
-  end
-
-  def load_address(action, id)
-    if address = Address.find_by(id: id)
-      address
-    else
-      id = id.empty? ? '(empty)' : id
-      errors.add(:type, I18n.t("services.create_delivery.#{action}.missing_or_invalid", id: id)) && nil
     end
   end
 

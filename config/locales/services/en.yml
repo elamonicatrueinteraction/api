@@ -20,5 +20,9 @@ en:
         missing_or_invalid: The information for the %{type_name} is missing. At least one of this values should be present %{allowed_keys}.
       type:
         missing_or_invalid: The type of the verification is missing or invalid. For the %{class_name} should be one of this %{allowed_types}.
+    destroy_delivery:
+      delivery_with_trip: "You are not allowed to delete a delivery that is already associated to a trip"
     destroy_order:
-      delivery_with_trip: "You are not allowed to delete an order that has a delivery already associated to ta trip"
+      delivery_with_trip: "You are not allowed to delete an order that has a delivery already associated to a trip"
+    destroy_package:
+      delivery_with_trip: "You are not allowed to delete a package from a delivery that is already associated to a trip"

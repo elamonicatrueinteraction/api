@@ -23,6 +23,10 @@ class CreateOrderAndStuff < ActiveRecord::Migration[5.1]
       t.string :state
       t.string :country
 
+      t.string :contact_name
+      t.string :contact_cellphone
+      t.string :contact_email
+
       t.string :telephone
       t.string :open_hours
       t.string :notes

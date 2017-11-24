@@ -2,12 +2,17 @@ en:
   errors:
     not_found:
       address: "There is no address with id: %{address_id} for the institution id: %{institution_id}"
+      delivery: "There is no delivery with id: %{delivery_id} for the order id: %{order_id}"
       institution: "There is no institution with id: %{id}"
       order: "There is no order with id: %{id}"
+      package: "There is no package with id: %{package_id} for the delivery id: %{delivery_id}"
       shipper: "There is no shipper with id: %{id}"
       vehicle: "There is no vehicle with id: %{id}"
       verification: "There is no verification with id: %{verification_id} for the vehicle id: %{vehicle_id}"
     missing:
+      delivery: The delivery is missing, you should send the delivery_id as a parameter
+      institution: The institution is missing, you should send the institution_id as a parameter
+      order: The order is missing, you should send the order_id as a parameter
       shipper: The shipper is missing, you should send the shipper_id as a parameter
       vehicle: The vehicle is missing, you should send the vehicle_id as a parameter
     params:
