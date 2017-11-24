@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'activerecord-postgis-adapter'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'oj' # A fast JSON parser and Object marshaller.
@@ -8,6 +9,7 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
+gem 'rgeo-geojson'
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 
 group :development, :test do
@@ -24,6 +26,8 @@ group :development do
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano-maintenance', require: false
+
+  gem 'rails-erd', require: false
 end
 
 group :test do
@@ -31,7 +35,7 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
-  gem 'faker', git: "git@github.com:agustin/faker", branch: :master, require: false
+  gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end

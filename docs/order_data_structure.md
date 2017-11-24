@@ -2,17 +2,21 @@
 
 ```
 - id: string
-- client: string
-- seller: string
-- expiration_date: string
+- giver: Institution
+- receiver: Institution
+- expiration: date
 - amount: decimal/float
+
 - delivery: (belongs_to order)
-    - order_id: string
-    - trip_id: string
+    - order_id: Order
+    - trip_id: Trip
     - amount: decimal/float
-    - origin: gps coordinates
-    - destination: gps coordinates
+    - origin_id: Address
+    - origin_gps_coordinates: string
+    - destination_id: Address
+    - destination_gps_coordinates: string
     - status: (shippify)
+
     - packages: (belongs_to delivery)
         - weigth: int (gramo)
         - volume: int (cm3)

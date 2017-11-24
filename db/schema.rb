@@ -10,11 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115173707) do
+ActiveRecord::Schema.define(version: 20171122123510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
   enable_extension "pgcrypto"
+
+  create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "institution_id"
+    t.geography "gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string "street_1"
+    t.string "street_2"
+    t.string "zip_code"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "telephone"
+    t.string "open_hours"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gps_coordinates"], name: "index_addresses_on_gps_coordinates", using: :gist
+    t.index ["institution_id"], name: "index_addresses_on_institution_id"
+  end
 
   create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "bank_name"
@@ -25,6 +44,61 @@ ActiveRecord::Schema.define(version: 20171115173707) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shipper_id"], name: "index_bank_accounts_on_shipper_id"
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.uuid "order_id"
+    t.uuid "trip_id"
+    t.decimal "amount", precision: 12, scale: 4, default: "0.0"
+    t.decimal "bonified_amount", precision: 12, scale: 4, default: "0.0"
+    t.uuid "origin_id"
+    t.geography "origin_gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.uuid "destination_id"
+    t.geography "destination_gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["destination_gps_coordinates"], name: "index_deliveries_on_destination_gps_coordinates", using: :gist
+    t.index ["destination_id"], name: "index_deliveries_on_destination_id"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
+    t.index ["origin_gps_coordinates"], name: "index_deliveries_on_origin_gps_coordinates", using: :gist
+    t.index ["origin_id"], name: "index_deliveries_on_origin_id"
+    t.index ["trip_id"], name: "index_deliveries_on_trip_id"
+  end
+
+  create_table "institutions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "legal_name"
+    t.string "uid_type"
+    t.string "uid"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "giver_id"
+    t.uuid "receiver_id"
+    t.date "expiration"
+    t.decimal "amount", precision: 12, scale: 4, default: "0.0"
+    t.decimal "bonified_amount", precision: 12, scale: 4, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["giver_id"], name: "index_orders_on_giver_id"
+    t.index ["receiver_id"], name: "index_orders_on_receiver_id"
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.integer "delivery_id"
+    t.integer "weigth"
+    t.integer "volume"
+    t.boolean "cooling"
+    t.text "description"
+    t.uuid "attachment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachment_id"], name: "index_packages_on_attachment_id"
+    t.index ["delivery_id"], name: "index_packages_on_delivery_id"
   end
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -111,6 +185,9 @@ ActiveRecord::Schema.define(version: 20171115173707) do
     t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
   end
 
+  add_foreign_key "addresses", "institutions"
   add_foreign_key "bank_accounts", "shippers"
+  add_foreign_key "deliveries", "orders"
+  add_foreign_key "packages", "deliveries"
   add_foreign_key "vehicles", "shippers"
 end

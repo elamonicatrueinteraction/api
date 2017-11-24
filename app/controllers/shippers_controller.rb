@@ -1,4 +1,5 @@
 class ShippersController < ApplicationController
+
   def index
     shippers = Shipper.all
     render json: shippers, status: :ok # 200
@@ -16,7 +17,7 @@ class ShippersController < ApplicationController
 
   def show
     shipper = Shipper.find_by(id: params[:id])
-    render json: { shipper: shipper }, status: :ok # 200
+    render json: shipper, status: :ok # 200
   end
 
   def update
@@ -29,7 +30,7 @@ class ShippersController < ApplicationController
         render json: { error: shipper.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('not_found.shipper', shipper_id: params[:id]) }, status: :not_found # 404
+      render json: { error: I18n.t('errors.not_found.shipper', id: params[:id]) }, status: :not_found # 404
     end
   end
 
@@ -48,8 +49,6 @@ class ShippersController < ApplicationController
       :verified,
       :verified_at,
       :national_ids,
-      :bank_accounts,
-      :vehicles,
       :cuit,
       :cuil,
       :gateway,

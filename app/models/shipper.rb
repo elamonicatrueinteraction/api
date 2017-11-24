@@ -1,6 +1,8 @@
 class Shipper < ApplicationRecord
   attribute :data, :jsonb, default: {}
 
+  has_many :verifications, as: :verificable
+
   validates_presence_of :first_name, :email, :gateway_id
 
   DEFAULT_REQUIREMENT_TEMPLATE = {
@@ -13,7 +15,7 @@ class Shipper < ApplicationRecord
   REQUIREMENTS = %w(
     habilitation_transport_food
     sanitary_notepad
-  )
+  ).freeze
 
   MINIMUM_REQUIREMENTS = %w(
     driving_license
@@ -21,7 +23,7 @@ class Shipper < ApplicationRecord
     has_cuit_or_cuil
     has_banking_account
     has_paypal_account
-  )
+  ).freeze
 
   has_many :bank_accounts
   has_many :vehicles

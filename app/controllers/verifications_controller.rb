@@ -1,5 +1,5 @@
 class VerificationsController < ApplicationController
-  include VehicleLoader
+  include CurrentAndEnsureDependencyLoader
 
   def index
     ensure_vehicle; return if performed?
@@ -11,7 +11,7 @@ class VerificationsController < ApplicationController
   def create
     ensure_vehicle; return if performed?
 
-    service = CreateVerification.call(current_vehicle, verifications_params, current_user)
+    service = CreateVerification.call(current_vehicle, verification_params, current_user)
 
     if service.success?
       render json: service.result, status: :created # 201
@@ -25,7 +25,7 @@ class VerificationsController < ApplicationController
 
     if verification = current_vehicle.verifications.find_by(id: params[:id])
 
-      service = UpdateVerification.call(verification, verifications_params, current_user)
+      service = UpdateVerification.call(verification, verification_params, current_user)
 
       if service.success?
         render json: service.result, status: :ok # 200
@@ -33,7 +33,7 @@ class VerificationsController < ApplicationController
         render json: { error: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
+      render json: { error: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
     end
   end
 
@@ -48,13 +48,13 @@ class VerificationsController < ApplicationController
         render json: { error: verification.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
+      render json: { error: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
     end
   end
 
   private
 
-  def verifications_params
+  def verification_params
     params.permit(
       :type,
       :expire,

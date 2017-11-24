@@ -5,8 +5,20 @@ en:
     authorize_request:
       invalid_token: Invalid authorization token
       missing_token: Missing authorization token
+    create_delivery:
+      origin:
+        missing_or_invalid: "There is no address with id: %{id} to be the origin of the delivery."
+      destination:
+        missing_or_invalid: "There is no address with id: %{id} to be the destination of the delivery."
+    create_order:
+      giver:
+        missing_or_invalid: "There is no institution with id: %{id} to be the giver."
+      receiver:
+        missing_or_invalid: "There is no institution with id: %{id} to be the receiver."
     create_verification:
       information:
         missing_or_invalid: The information for the %{type_name} is missing. At least one of this values should be present %{allowed_keys}.
       type:
         missing_or_invalid: The type of the verification is missing or invalid. For the %{class_name} should be one of this %{allowed_types}.
+    destroy_order:
+      delivery_with_trip: "You are not allowed to delete an order that has a delivery already associated to ta trip"

@@ -1,7 +1,7 @@
 class CreateBankAccounts < ActiveRecord::Migration[5.1]
   def change
     remove_index :shippers, :bank_account
-    remove_column :shippers, :bank_account
+    remove_column :shippers, :bank_account, :jsonb, null: true, default: {}
 
     create_table :bank_accounts, id: :uuid do |t|
       t.string :bank_name

@@ -1,5 +1,5 @@
 class VehiclesController < ApplicationController
-  include ShipperLoader
+  include CurrentAndEnsureDependencyLoader
 
   def index
     ensure_shipper; return if performed?
@@ -11,7 +11,7 @@ class VehiclesController < ApplicationController
   def create
     ensure_shipper; return if performed?
 
-    vehicle = current_shipper.vehicles.create(vehicles_params)
+    vehicle = current_shipper.vehicles.create(vehicle_params)
     # TODO: Create a service
     if vehicle.valid?
       render json: vehicle, status: :created # 201
@@ -26,7 +26,7 @@ class VehiclesController < ApplicationController
     vehicle = current_shipper ? current_shipper.vehicles.find_by(id: params[:id]) : Vehicle.find_by(id: params[:id])
 
     if vehicle
-      vehicle.update(vehicles_params)
+      vehicle.update(vehicle_params)
       # TODO: Create a service
       if vehicle.valid?
         render json: vehicle, status: :ok # 200
@@ -34,13 +34,13 @@ class VehiclesController < ApplicationController
         render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('not_found.vehicle', vehicle_id: params[:id]) }, status: :not_found # 404
+      render json: { error: I18n.t('errors.not_found.vehicle', id: params[:id]) }, status: :not_found # 404
     end
   end
 
   private
 
-  def vehicles_params
+  def vehicle_params
     params.permit(
       :model,
       :brand,
@@ -49,5 +49,7 @@ class VehiclesController < ApplicationController
     )
   end
 end
+
+
 
 
