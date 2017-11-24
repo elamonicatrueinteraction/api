@@ -61,6 +61,9 @@ class AddressesController < ApplicationController
       :city,
       :state,
       :country,
+      :contact_name,
+      :contact_cellphone,
+      :contact_email,
       :telephone,
       :open_hours,
       :notes
