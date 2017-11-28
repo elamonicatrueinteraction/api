@@ -3,6 +3,8 @@ env = ENV['RAILS_ENV'] || Rails.env
 ALLOWED_APP_TOKENS = APP_CONFIG[env]['allowed_app_access_tokens'].freeze
 ALLOWED_ORIGINS    = APP_CONFIG[env]['allowed_origins'].freeze
 
+HOSTNAME = APP_CONFIG[env]['hostname'].freeze
+
 SHIPPIFY      = APP_CONFIG[env]['shippify'].freeze
 SHIPPIFY_DASH = SHIPPIFY['dash'].freeze
 
