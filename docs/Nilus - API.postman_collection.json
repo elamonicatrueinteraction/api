@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "Nilus - API",
-		"_postman_id": "856cba9b-58c9-f86b-9723-44b676272939",
+		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -19,13 +19,10 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -47,22 +44,19 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/{{shipper_id}}",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/1e35686d-70e5-47ea-94df-1c453fd98a93",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"{{shipper_id}}"
+								"1e35686d-70e5-47ea-94df-1c453fd98a93"
 							]
 						},
-						"description": "List shippers"
+						"description": "Show a Shipper details"
 					},
 					"response": []
 				},
@@ -81,28 +75,12 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "first_name",
-									"value": "Ricardo",
-									"type": "text"
-								},
-								{
-									"key": "last_name",
-									"value": "Fort",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ricky_fort@winguweb.org",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Ricardo\",\n  \"last_name\": \"Fort\",\n  \"email\": \"ricky_fort@winguweb.org\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -130,17 +108,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"shipper\": \n}"
+							"raw": "{\n  \"first_name\": \"Updated Name\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/92bcd6de-9d34-40a1-ab61-aa1f36e72570",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"92bcd6de-9d34-40a1-ab61-aa1f36e72570"
+								"9bf9acca-692c-483b-aa1d-306c79c07a35"
 							]
 						},
 						"description": "List shippers"
@@ -157,13 +135,10 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -196,8 +171,8 @@
 							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -230,8 +205,8 @@
 							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -245,226 +220,12 @@
 						"description": "Update the vehicle information"
 					},
 					"response": []
-				},
-				{
-					"name": "Shippers - Bank Accounts List",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							}
-						],
-						"body": {},
-						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_accounts",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
-								"bank_accounts"
-							]
-						},
-						"description": "List vehicles of the shipper"
-					},
-					"response": []
-				},
-				{
-					"name": "Shippers - Bank Accounts Create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_accounts",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
-								"bank_accounts"
-							]
-						},
-						"description": "Create vehicle for a shipper"
-					},
-					"response": []
-				},
-				{
-					"name": "Shippers - Bank Accounts Update",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/bank_account/f56a62fd-044a-4413-ba82-0a1a4353cad2",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
-								"bank_account",
-								"f56a62fd-044a-4413-ba82-0a1a4353cad2"
-							]
-						},
-						"description": "Update the vehicle information"
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Bank Accounts",
-			"item": [
-				{
-					"name": "Bank Accounts List",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/bank_accounts",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"bank_accounts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bank Accounts Show",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/bank_accounts/{{bank_account_id}}",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"bank_accounts",
-								"{{bank_account_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bank Accounts Create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"bank_name\": \"Galicia\",\n\"account_number\": \"123\",\n\"account_type\": \"Cuenta corriente 2\"\n}"
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/bank_accounts",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"bank_accounts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bank Accounts Update",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{user_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{endpoint_url}}/bank_accounts/{{bank_account_id}}",
-							"protocol": "http",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"bank_accounts",
-								"{{bank_account_id}}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
 		{
 			"name": "Vehicles",
+			"description": "",
 			"item": [
 				{
 					"name": "Vehicle Create",
@@ -485,8 +246,8 @@
 							"raw": "{\n\t\"shipper_id\": \"883d63b5-cb2b-4023-9c47-5809a56e8681\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -517,8 +278,8 @@
 							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -541,13 +302,10 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -580,8 +338,8 @@
 							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -614,8 +372,8 @@
 							"raw": "{\n\t\"information\": {\n\t\t\"owner_name\": \"Media Pila S.R.L\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/1",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/1",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -646,11 +404,11 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"type\": \"vehicle_title\",\n\t\"verified\": \"false\",\n\t\"expire\": \"false\",\n\t\"information\": {\n\t\t\"register_date\": \"2007-11-26\",\n\t\t\"owner_name\": \"Media Pila SRL\"\n\t}\n}"
+							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/99",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/930f4910-ce12-457b-b648-c18ff5478d22/verifications/99",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
@@ -662,6 +420,926 @@
 							]
 						},
 						"description": "Delete a Verification from the Vehicle"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Institutions",
+			"description": "",
+			"item": [
+				{
+					"name": "Institution List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "List of institutions"
+					},
+					"response": []
+				},
+				{
+					"name": "Company Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "Create an company"
+					},
+					"response": []
+				},
+				{
+					"name": "Organization Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "Create an organization"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"legal_name\": \"Carrefour Argentina Sociedad Anonima\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/b861b77a-996a-475d-9600-5dc9f1d7e489",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"b861b77a-996a-475d-9600-5dc9f1d7e489"
+							]
+						},
+						"description": "Update the institution information"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/930f4910-ce12-457b-b648-c18ff5478d22",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"930f4910-ce12-457b-b648-c18ff5478d22"
+							]
+						},
+						"description": "Delete an Institution"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions - Addresses List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/68dd2152-f9bb-417d-a4d1-48cc2e593735/addresses",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"68dd2152-f9bb-417d-a4d1-48cc2e593735",
+								"addresses"
+							]
+						},
+						"description": "List Addresses of an Institution"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions - Address Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latlng\" : \"-32.9321734, -60.68743860000001\",\n\t\"street_1\" : \"Carriego 360\",\n\t\"street_2\" : \"\",\n\t\"zip_code\" : \"S2002\",\n\t\"city\" : \"Rosario\",\n\t\"state\" : \"Santa Fe\",\n\t\"country\" : \"AR\",\n\t\"contact_name\": \"Carla Fernandez\",\n\t\"contact_cellphone\": \"0351 15 467 8889\",\n\t\"contact_email\": \"\",\n\t\"telephone\" : \"0341 527-8731\",\n\t\"open_hours\" : \"De 8hs a 17hs\",\n\t\"notes\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0bcb5784-3277-4b7e-87a2-d2c066d6bdef/addresses",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"0bcb5784-3277-4b7e-87a2-d2c066d6bdef",
+								"addresses"
+							]
+						},
+						"description": "Create Address for a Institution"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions - Address Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latlng\" : \"-32.1223734,-59.6874386\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/e34866f5-2260-4500-bfa5-22d3858e5f50/addresses/639bb442-6053-4ab0-a28f-4fa19e42c064",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"e34866f5-2260-4500-bfa5-22d3858e5f50",
+								"addresses",
+								"639bb442-6053-4ab0-a28f-4fa19e42c064"
+							]
+						},
+						"description": "Update Address for a Institution"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"description": "",
+			"item": [
+				{
+					"name": "Orders List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "List of orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"giver_id\": \"e34866f5-2260-4500-bfa5-22d3858e5f50\",\n\t\"receiver_id\": \"0bcb5784-3277-4b7e-87a2-d2c066d6bdef\",\n\t\"expiration\": \"\",\n\t\"amount\": \"\",\n\t\"bonified_amount\": \"\",\n\t\"origin_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"destination_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"delivery_amount\": \"300\",\n\t\"delivery_bonified_amount\": \"100\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Create an order"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"27694f7b-253f-4b69-bc3f-0d3da1defdb0"
+							]
+						},
+						"description": "List of orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"legal_name\": \"Carrefour Argentina Sociedad Anonima\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/b861b77a-996a-475d-9600-5dc9f1d7e489",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"b861b77a-996a-475d-9600-5dc9f1d7e489"
+							]
+						},
+						"description": "Update the order information"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/a6c19711-c83b-4d32-84bc-ce355cc6f687",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"a6c19711-c83b-4d32-84bc-ce355cc6f687"
+							]
+						},
+						"description": "Delete an Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders - Deliveries List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0/deliveries",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"27694f7b-253f-4b69-bc3f-0d3da1defdb0",
+								"deliveries"
+							]
+						},
+						"description": "List Deliveries of an Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders - Deliveries Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0/deliveries/12",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"27694f7b-253f-4b69-bc3f-0d3da1defdb0",
+								"deliveries",
+								"12"
+							]
+						},
+						"description": "Show a Delivery of an Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders - Deliveries Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0/deliveries/17",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"27694f7b-253f-4b69-bc3f-0d3da1defdb0",
+								"deliveries",
+								"17"
+							]
+						},
+						"description": "Delete a Delivery"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deliveries",
+			"description": "",
+			"item": [
+				{
+					"name": "Deliveries Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"order_id\": \"334bd51f-e2d4-49b9-883d-5750b7156385\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"amount\": \"100\",\n\t\"bonified_amount\": \"\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries"
+							]
+						},
+						"description": "Create a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"destination_id\": \"c4c7a1ab-5b5a-4393-a70b-0295084e9b5f\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"1"
+							]
+						},
+						"description": "Update the delivery information"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"order_id\":\"334bd51f-e2d4-49b9-883d-5750b7156385\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/17",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"17"
+							]
+						},
+						"description": "Delete a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries - Packages List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"16",
+								"packages"
+							]
+						},
+						"description": "List Packages of a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries - Packages Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages/5",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"16",
+								"packages",
+								"5"
+							]
+						},
+						"description": "Show a Package of a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries - Packages Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"packages\": [{\n\t\t\"weigth\": \"10000\",\n\t\t\"volume\": \"100\",\n\t\t\"cooling\": \"false\",\n\t\t\"description\": \"Productos no perecederos\"\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"16",
+								"packages"
+							]
+						},
+						"description": "Create Packages for a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries - Packages Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"weigth\": \"15000\",\n\t\"cooling\": \"true\",\n\t\"description\": \"Lacteos\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages/5",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"16",
+								"packages",
+								"5"
+							]
+						},
+						"description": "Update Packages for a Delivery"
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries - Packages Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages/10",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"deliveries",
+								"16",
+								"packages",
+								"10"
+							]
+						},
+						"description": "Delete a Package for a Delivery"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"description": "",
+			"item": [
+				{
+					"name": "Trips List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips"
+							]
+						},
+						"description": "List of trips\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"schedule_at\": \"2017-12-01 13:02:37\",\n\t\"comments\": \"Algunos comentarios\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips"
+							]
+						},
+						"description": "Create a trip\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Details of a trip"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"schedule_at\": \"2017-12-05 13:02:37\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Update certain info of a trip\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Delete a trip\n"
 					},
 					"response": []
 				}
@@ -682,8 +1360,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{endpoint_url}}/",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{endpoint_url}}/",
+					"protocol": "{{protocol}}",
 					"host": [
 						"{{endpoint_url}}"
 					],
@@ -710,8 +1388,8 @@
 					"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
 				},
 				"url": {
-					"raw": "http://{{endpoint_url}}/authenticate",
-					"protocol": "http",
+					"raw": "{{protocol}}://{{endpoint_url}}/authenticate",
+					"protocol": "{{protocol}}",
 					"host": [
 						"{{endpoint_url}}"
 					],

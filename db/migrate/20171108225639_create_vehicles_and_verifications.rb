@@ -4,7 +4,7 @@ class CreateVehiclesAndVerifications < ActiveRecord::Migration[5.1]
     remove_column :shippers, :vehicles, :jsonb, null: true, default: {}
 
     create_table :vehicles, id: :uuid do |t|
-      t.references :shipper, foreign_key: true, type: :uuid
+      t.uuid :shipper_id, index: true
 
       t.string :model, null: false
       t.string :brand
@@ -15,6 +15,7 @@ class CreateVehiclesAndVerifications < ActiveRecord::Migration[5.1]
       t.timestamps
     end
     add_index  :vehicles, :extras, using: :gin
+    add_foreign_key :vehicles, :shippers
 
     create_table :verifications do |t|
       t.references :verificable, polymorphic: true, index: true, type: :uuid

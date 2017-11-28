@@ -27,7 +27,7 @@ module Gateway
         shipper.national_ids = shipper_national_id
         shipper.active = @shippify_data['status'] == 3
         shipper.verified = @shippify_data['is_documentation_verified'] == 1
-        shipper.vehicles = [ shipper_vehicle ]
+        shipper.vehicles << shipper_vehicle if shipper_vehicle
         shipper.gateway = 'Shippify'
         shipper.gateway_id = shippify_shipper_id
         shipper.data = {
@@ -70,15 +70,25 @@ module Gateway
       end
 
       def shipper_vehicle
-        return {} unless vehicle_type = shipper_details['vehicle_type'].presence
+        return unless vehicle_type = shipper_details['vehicle_type'].presence
 
-        {
-          "type" => vehicle_type,
-          "license_plate" => shipper_details['license_plate'],
+        vehicle_params = {
+          "model" => vehicle_type,
           "year" => shipper_details['vehicle_model'],
-          "vehicle_id" => shipper_details['vehicle_id'],
+          "gateway_id" => shipper_details['vehicle_id'],
           "capacity" => shipper_details['capacity']
         }
+
+        verification_params = {
+          type: "license_plate",
+          information: {
+            number: shipper_details['license_plate']
+          }
+        }
+
+        Vehicle.new(vehicle_params) do |vehicle|
+          vehicle.verifications << Verification.new(verification_params)
+        end
       end
 
     end
