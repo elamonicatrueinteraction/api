@@ -62,10 +62,10 @@ class InstitutionsController < ApplicationController
   def load_and_ensure_institution_type
     type = params[:type].try(:downcase)
 
-    if type && Institution::VALID_TYPES.include?(type)
+    if type && Institution.valid_types.include?(type)
       @type_class = "Institutions::#{type.classify}".constantize
     else
-      render json: { error: I18n.t("errors.params.institution.type", allowed_types: Institution::VALID_TYPES.join(', ')) }, status: :bad_request and return
+      render json: { error: I18n.t("errors.params.institution.type", allowed_types: Institution.valid_types.join(', ')) }, status: :bad_request and return
     end
   end
 

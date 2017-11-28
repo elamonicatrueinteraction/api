@@ -1,5 +1,17 @@
 en:
   faker:
+    company:
+      cuit:
+        - 30-71000841-4
+        - 30-58462038-9
+        - 30-70783337-4
+      name:
+        - Carrefour
+        - Walmart
+        - Jumbo
+      ngo_name:
+        - Banco de Alimentos de Rosario
+        - Comedor los piletones
     vehicle:
       brand:
         - 'Chevrolet'

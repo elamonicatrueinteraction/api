@@ -1,5 +1,9 @@
 class Delivery < ApplicationRecord
+  attribute :amount, :float
+  attribute :bonified_amount, :float
+
   belongs_to :order
+  belongs_to :trip, optional: true
   has_many :packages, dependent: :destroy
 
   belongs_to :origin, class_name: 'Address'
@@ -16,10 +20,5 @@ class Delivery < ApplicationRecord
     return unless destination_gps_coordinates
 
     destination_gps_coordinates.coordinates.reverse.join(", ")
-  end
-
-  # TO-DO: We should remove this when we add the Trip model relationship
-  def trip
-    trip_id
   end
 end

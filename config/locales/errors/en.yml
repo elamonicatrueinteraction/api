@@ -7,6 +7,7 @@ en:
       order: "There is no order with id: %{id}"
       package: "There is no package with id: %{package_id} for the delivery id: %{delivery_id}"
       shipper: "There is no shipper with id: %{id}"
+      trip: "There is no trip with id: %{id}"
       vehicle: "There is no vehicle with id: %{id}"
       verification: "There is no verification with id: %{verification_id} for the vehicle id: %{vehicle_id}"
     missing:

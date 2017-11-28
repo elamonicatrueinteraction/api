@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122123510) do
+ActiveRecord::Schema.define(version: 20171124190242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,22 @@ ActiveRecord::Schema.define(version: 20171122123510) do
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
   end
 
+  create_table "trips", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "shipper_id"
+    t.string "status"
+    t.string "comments"
+    t.decimal "amount", precision: 12, scale: 4, default: "0.0"
+    t.datetime "schedule_at"
+    t.jsonb "pickups", default: {}, null: false
+    t.jsonb "dropoffs", default: {}, null: false
+    t.string "gateway"
+    t.string "gateway_id"
+    t.jsonb "gateway_data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shipper_id"], name: "index_trips_on_shipper_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -191,6 +207,8 @@ ActiveRecord::Schema.define(version: 20171122123510) do
   add_foreign_key "addresses", "institutions"
   add_foreign_key "bank_accounts", "shippers"
   add_foreign_key "deliveries", "orders"
+  add_foreign_key "deliveries", "trips"
   add_foreign_key "packages", "deliveries"
+  add_foreign_key "trips", "shippers"
   add_foreign_key "vehicles", "shippers"
 end

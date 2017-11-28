@@ -35,6 +35,32 @@
 					"response": []
 				},
 				{
+					"name": "Shippers Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/1e35686d-70e5-47ea-94df-1c453fd98a93",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"1e35686d-70e5-47ea-94df-1c453fd98a93"
+							]
+						},
+						"description": "Show a Shipper details"
+					},
+					"response": []
+				},
+				{
 					"name": "Shippers Create",
 					"request": {
 						"method": "POST",
@@ -476,7 +502,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"shipper_id\": \"883d63b5-cb2b-4023-9c47-5809a56e8681\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
@@ -604,14 +630,14 @@
 							"raw": "{\n\t\"latlng\" : \"-32.9321734, -60.68743860000001\",\n\t\"street_1\" : \"Carriego 360\",\n\t\"street_2\" : \"\",\n\t\"zip_code\" : \"S2002\",\n\t\"city\" : \"Rosario\",\n\t\"state\" : \"Santa Fe\",\n\t\"country\" : \"AR\",\n\t\"contact_name\": \"Carla Fernandez\",\n\t\"contact_cellphone\": \"0351 15 467 8889\",\n\t\"contact_email\": \"\",\n\t\"telephone\" : \"0341 527-8731\",\n\t\"open_hours\" : \"De 8hs a 17hs\",\n\t\"notes\" : \"\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/b9c08b29-8aa0-48d0-b7e4-0dd481f66f45/addresses",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0bcb5784-3277-4b7e-87a2-d2c066d6bdef/addresses",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"b9c08b29-8aa0-48d0-b7e4-0dd481f66f45",
+								"0bcb5784-3277-4b7e-87a2-d2c066d6bdef",
 								"addresses"
 							]
 						},
@@ -635,19 +661,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"latlng\" : \"-32.9321734,-60.6874386\"\n}"
+							"raw": "{\n\t\"latlng\" : \"-32.1223734,-59.6874386\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/68dd2152-f9bb-417d-a4d1-48cc2e593735/addresses/d918c153-2c60-4ca6-8bd9-f7f5a8bc2485",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/e34866f5-2260-4500-bfa5-22d3858e5f50/addresses/639bb442-6053-4ab0-a28f-4fa19e42c064",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"68dd2152-f9bb-417d-a4d1-48cc2e593735",
+								"e34866f5-2260-4500-bfa5-22d3858e5f50",
 								"addresses",
-								"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485"
+								"639bb442-6053-4ab0-a28f-4fa19e42c064"
 							]
 						},
 						"description": "Update Address for a Institution"
@@ -701,7 +727,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"giver_id\": \"68dd2152-f9bb-417d-a4d1-48cc2e593735\",\n\t\"receiver_id\": \"0123c653-f2b1-4d46-82ec-5b8aa33817d0\",\n\t\"expiration\": \"\",\n\t\"amount\": \"\",\n\t\"bonified_amount\": \"\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"delivery_amount\": \"300\",\n\t\"delivery_bonified_amount\": \"100\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+							"raw": "{\n\t\"giver_id\": \"e34866f5-2260-4500-bfa5-22d3858e5f50\",\n\t\"receiver_id\": \"0bcb5784-3277-4b7e-87a2-d2c066d6bdef\",\n\t\"expiration\": \"\",\n\t\"amount\": \"\",\n\t\"bonified_amount\": \"\",\n\t\"origin_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"destination_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"delivery_amount\": \"300\",\n\t\"delivery_bonified_amount\": \"100\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders",
@@ -953,17 +979,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"order_id\": \"d9f634b6-d7b8-4db4-a4c3-05f4293cdbeb\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\"\n}"
+							"raw": "{\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"destination_id\": \"c4c7a1ab-5b5a-4393-a70b-0295084e9b5f\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16",
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/1",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"deliveries",
-								"16"
+								"1"
 							]
 						},
 						"description": "Update the delivery information"
@@ -1159,6 +1185,161 @@
 							]
 						},
 						"description": "Delete a Package for a Delivery"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"description": "",
+			"item": [
+				{
+					"name": "Trips List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips"
+							]
+						},
+						"description": "List of trips\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"schedule_at\": \"2017-12-01 13:02:37\",\n\t\"comments\": \"Algunos comentarios\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips"
+							]
+						},
+						"description": "Create a trip\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Details of a trip"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"schedule_at\": \"2017-12-05 13:02:37\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Update certain info of a trip\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Trips Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"eb999237-339e-4e34-8561-b711782b0551"
+							]
+						},
+						"description": "Delete a trip\n"
 					},
 					"response": []
 				}
