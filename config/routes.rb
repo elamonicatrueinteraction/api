@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     resources :deliveries, only: [ :create, :update, :destroy ] do
       resources :packages, only: [ :create, :index, :show, :update, :destroy ]
     end
+
+    resources :trips, only: [ :create, :show, :index, :update, :destroy  ]
   # ╰─ End of Private Accesible URL's / Path's
   end
 end

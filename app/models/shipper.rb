@@ -28,6 +28,11 @@ class Shipper < ApplicationRecord
   has_many :bank_accounts
   has_many :vehicles
 
+  def full_name
+    @full_name ||= [first_name, last_name].join(' ').strip
+  end
+  alias :name :full_name
+
   def requirements
     REQUIREMENTS.each_with_object({}) do |requirement, _hash|
       _hash[requirement] = DEFAULT_REQUIREMENT_TEMPLATE

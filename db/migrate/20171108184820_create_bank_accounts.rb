@@ -8,9 +8,12 @@ class CreateBankAccounts < ActiveRecord::Migration[5.1]
       t.string :number
       t.string :type
       t.string :cbu
-      t.references :shipper, foreign_key: true, type: :uuid
+
+      t.uuid :shipper_id, index: true
 
       t.timestamps
     end
+    add_foreign_key :bank_accounts, :shippers
+
   end
 end

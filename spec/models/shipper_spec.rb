@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Shipper, type: :model do
-  it { should have_many(:verifications) }
+  it { is_expected.to have_many(:verifications) }
 
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:gateway_id) }
+  it { is_expected.to validate_presence_of(:first_name) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:gateway_id) }
 end

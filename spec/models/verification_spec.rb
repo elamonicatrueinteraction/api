@@ -1,5 +1,5 @@
 require 'rails_helper'
 
 RSpec.describe Verification, type: :model do
-  it { should belong_to(:verificable) }
+  it { is_expected.to belong_to(:verificable) }
 end
