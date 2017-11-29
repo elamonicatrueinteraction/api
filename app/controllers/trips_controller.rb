@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
 
   def index
-    trips = Trip.preload(:deliveries, :shippers, :packages).all
+    trips = Trip.preload(:shipper, :deliveries, :packages).all
     render json: trips, status: :ok # 200
   end
 

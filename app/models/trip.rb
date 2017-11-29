@@ -7,7 +7,7 @@ class Trip < ApplicationRecord
   has_many :packages, through: :deliveries
   has_many :orders, through: :deliveries
 
-  belongs_to :shipper
+  belongs_to :shipper, optional: true
 
   def gateway_setup
     return unless gateway && gateway_id

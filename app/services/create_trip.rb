@@ -49,13 +49,14 @@ class CreateTrip
 
   def trip_params
     {
-      shipper: load_shipper(@allowed_params[:shipper_id]),
       comments: @allowed_params[:comments],
       amount: @deliveries.map(&:amount).sum,
       schedule_at: schedule_datetime,
       pickups: pickups_data,
       dropoffs: dropoffs_data
-    }
+    }.tap do |_hash|
+      _hash[:shipper] = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
+    end
   end
 
   def schedule_datetime
