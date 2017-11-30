@@ -14,6 +14,11 @@ class JsonbType < ActiveModel::Type::Value
   end
 
   def serialize(value)
+    if value.is_a?(Array)
+      value = value.map do |item|
+        item.is_a?(ActiveSupport::HashWithIndifferentAccess) ? item.to_hash : item
+      end
+    end
     if value.nil?
       nil
     else

@@ -4,6 +4,9 @@ development: &app_config
     - 'localhost:3030'
 
   shippify:
+    api:
+      key: ''
+      secret: ''
     dash:
       email: ''
       password: ''

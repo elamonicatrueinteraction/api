@@ -1,0 +1,10 @@
+en:
+  services:
+    gateway:
+      shippify:
+        import_trip:
+          deliveries_data:
+            missing_or_invalid: Seems that there is no information about the deliveries in this trip.
+          trip_data:
+            already_exist: "A trip with Shippify id: '%{id}' already exist."
+            missing_or_invalid: "There is no trip in Shippify with id: %{id}."

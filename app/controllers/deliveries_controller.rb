@@ -21,7 +21,7 @@ class DeliveriesController < ApplicationController
   def create
     ensure_order; return if performed?
 
-    service = CreateDelivery.call(current_order, delivery_params)
+    service = CreateDelivery.call(current_order, create_delivery_params)
 
     if service.success?
       render json: service.result, status: :created # 201
@@ -64,7 +64,7 @@ class DeliveriesController < ApplicationController
 
   private
 
-  def delivery_params
+  def create_delivery_params
     params.permit(
       :origin_id,
       :destination_id,
@@ -73,6 +73,7 @@ class DeliveriesController < ApplicationController
       packages: [
         :weigth,
         :volume,
+        :fragile,
         :cooling,
         :description
       ]

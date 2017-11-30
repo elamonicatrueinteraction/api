@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
 
   def index
-    trips = Trip.preload(:deliveries, :shippers, :packages).all
+    trips = Trip.preload(:shipper, :deliveries, :packages).all
     render json: trips, status: :ok # 200
   end
 
@@ -56,9 +56,9 @@ class TripsController < ApplicationController
   def create_trip_params
     params.permit(
       :shipper_id,
-      :order_id,
       :schedule_at,
-      :comments
+      :comments,
+      orders_ids: []
     )
   end
 

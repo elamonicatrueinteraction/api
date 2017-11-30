@@ -16,14 +16,16 @@ class CreateTrip
   private
 
   def load_deliveries
-    if order = Order.find_by(id: @allowed_params[:order_id])
-      if order.deliveries.blank?
-        errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:order_id])) && nil
+    if orders = Order.where(id: @allowed_params[:orders_ids])
+      if orders.blank? || orders.any?{ |order| order.deliveries.blank? }
+        errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:orders_ids].join(', '))) && nil
       end
 
-      @deliveries = order.deliveries.preload(:origin, :destination)
+      @deliveries = orders.flat_map do |order|
+        order.deliveries.preload(:origin, :destination)
+      end
     else
-      errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:order_id])) && nil
+      errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:orders_ids].join(', '))) && nil
     end
   end
 
@@ -49,13 +51,19 @@ class CreateTrip
 
   def trip_params
     {
-      shipper: load_shipper(@allowed_params[:shipper_id]),
       comments: @allowed_params[:comments],
       amount: @deliveries.map(&:amount).sum,
       schedule_at: schedule_datetime,
       pickups: pickups_data,
       dropoffs: dropoffs_data
-    }
+    }.tap do |_hash|
+      _hash[:status] = @allowed_params[:status] if @allowed_params[:status]
+      _hash[:shipper] = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
+
+      _hash[:gateway] = @allowed_params[:gateway] if @allowed_params[:gateway]
+      _hash[:gateway_id] = @allowed_params[:gateway_id] if @allowed_params[:gateway_id]
+      _hash[:gateway_data] = @allowed_params[:gateway_data] if @allowed_params[:gateway_data]
+    end
   end
 
   def schedule_datetime
@@ -76,7 +84,7 @@ class CreateTrip
 
   def location_data(id, address)
     {
-      place: address.institution.name,
+      place: place_name(address),
       delivery_id: id,
       address: {
         id: address.id,
@@ -93,6 +101,10 @@ class CreateTrip
       notes: address.notes,
       contact: contact_data(address)
     }
+  end
+
+  def place_name(address)
+    address.institution ? address.institution.name : address.lookup
   end
 
   def contact_data(address)

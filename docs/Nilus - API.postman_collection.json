@@ -1235,7 +1235,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"schedule_at\": \"2017-12-01 13:02:37\",\n\t\"comments\": \"Algunos comentarios\"\n}"
+							"raw": "{\n\t\"orders_ids\": [\"88154199-ec80-42f6-981c-f16d0575ca2e\"],\n\t\"schedule_at\": \"2017-12-01 13:02:37\",\n\t\"comments\": \"Algunos comentarios\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/trips",

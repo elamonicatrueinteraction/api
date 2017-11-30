@@ -10,7 +10,9 @@ gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
 gem 'rgeo-geojson'
+gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'awesome_rails_console'

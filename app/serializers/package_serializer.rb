@@ -1,7 +1,9 @@
 class PackageSerializer < ActiveModel::Serializer
   attributes :id,
+    :quantity,
     :weigth,
     :volume,
+    :fragile,
     :cooling,
     :description
 

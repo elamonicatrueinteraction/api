@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124190242) do
+ActiveRecord::Schema.define(version: 20171129140017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 20171124190242) do
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lookup"
+    t.string "gateway"
+    t.string "gateway_id"
+    t.jsonb "gateway_data", default: {}
+    t.index ["gateway_data"], name: "index_addresses_on_gateway_data", using: :gin
     t.index ["gps_coordinates"], name: "index_addresses_on_gps_coordinates", using: :gist
     t.index ["institution_id"], name: "index_addresses_on_institution_id"
   end
@@ -61,8 +66,12 @@ ActiveRecord::Schema.define(version: 20171124190242) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gateway"
+    t.string "gateway_id"
+    t.jsonb "gateway_data", default: {}
     t.index ["destination_gps_coordinates"], name: "index_deliveries_on_destination_gps_coordinates", using: :gist
     t.index ["destination_id"], name: "index_deliveries_on_destination_id"
+    t.index ["gateway_data"], name: "index_deliveries_on_gateway_data", using: :gin
     t.index ["order_id"], name: "index_deliveries_on_order_id"
     t.index ["origin_gps_coordinates"], name: "index_deliveries_on_origin_gps_coordinates", using: :gist
     t.index ["origin_id"], name: "index_deliveries_on_origin_id"
@@ -95,11 +104,13 @@ ActiveRecord::Schema.define(version: 20171124190242) do
     t.integer "delivery_id"
     t.integer "weigth"
     t.integer "volume"
-    t.boolean "cooling"
+    t.boolean "cooling", default: false
     t.text "description"
     t.uuid "attachment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1
+    t.boolean "fragile", default: false
     t.index ["attachment_id"], name: "index_packages_on_attachment_id"
     t.index ["delivery_id"], name: "index_packages_on_delivery_id"
   end
@@ -146,13 +157,16 @@ ActiveRecord::Schema.define(version: 20171124190242) do
     t.string "comments"
     t.decimal "amount", precision: 12, scale: 4, default: "0.0"
     t.datetime "schedule_at"
-    t.jsonb "pickups", default: {}, null: false
-    t.jsonb "dropoffs", default: {}, null: false
+    t.jsonb "pickups", default: [], null: false
+    t.jsonb "dropoffs", default: [], null: false
     t.string "gateway"
     t.string "gateway_id"
     t.jsonb "gateway_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dropoffs"], name: "index_trips_on_dropoffs", using: :gin
+    t.index ["gateway_data"], name: "index_trips_on_gateway_data", using: :gin
+    t.index ["pickups"], name: "index_trips_on_pickups", using: :gin
     t.index ["shipper_id"], name: "index_trips_on_shipper_id"
   end
 
