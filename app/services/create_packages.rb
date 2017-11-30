@@ -34,11 +34,14 @@ class CreatePackages
   def package_params(allowed_params)
     {
       delivery: @delivery,
+      quantity: allowed_params[:quantity],
       weigth: allowed_params[:weigth],
       volume: allowed_params[:volume],
-      cooling: allowed_params[:cooling],
       description: allowed_params[:description]
-    }
+    }.tap do |_hash|
+      _hash[:cooling] = allowed_params[:cooling] unless allowed_params[:cooling].nil?
+      _hash[:fragile] = allowed_params[:fragile] unless allowed_params[:fragile].nil?
+    end
   end
 
 end

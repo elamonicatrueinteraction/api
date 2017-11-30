@@ -25,7 +25,7 @@ class TripSerializer < ActiveModel::Serializer
   end
 
   def shipper_name
-    object.shipper.full_name
+    object.shipper.full_name if object.shipper
   end
 
   def shipper_avatar_url

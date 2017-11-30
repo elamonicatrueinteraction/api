@@ -21,7 +21,7 @@ class PackagesController < ApplicationController
   def create
     ensure_delivery; return if performed?
 
-    service = CreatePackages.call(current_delivery, packages_params[:packages])
+    service = CreatePackages.call(current_delivery, create_packages_params[:packages])
 
     if service.success?
       render json: service.result, status: :created # 201
@@ -34,7 +34,7 @@ class PackagesController < ApplicationController
     ensure_delivery; return if performed?
 
     if package = current_delivery.packages.find_by(id: params[:id])
-      service = UpdatePackage.call(package, package_params)
+      service = UpdatePackage.call(package, update_package_params)
 
       if service.success?
         render json: service.result, status: :created # 201
@@ -64,21 +64,25 @@ class PackagesController < ApplicationController
 
   private
 
-  def packages_params
+  def create_packages_params
     params.permit(
       packages: [
+        :quantity,
         :weigth,
         :volume,
+        :fragile,
         :cooling,
         :description
       ]
     )
   end
 
-  def package_params
+  def update_package_params
     params.permit(
+      :quantity,
       :weigth,
       :volume,
+      :fragile,
       :cooling,
       :description
     )

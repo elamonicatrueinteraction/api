@@ -45,12 +45,13 @@ class CreateOrder
 
   def order_params
     {
-      giver: load_institution('giver', @allowed_params[:giver_id]),
-      receiver: load_institution('receiver', @allowed_params[:receiver_id]),
       expiration: @allowed_params[:expiration],
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount]
-    }
+    }.tap do |_hash|
+      _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]) if @allowed_params[:giver_id].present?
+      _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]) if @allowed_params[:receiver_id].present?
+    end
   end
 
   def load_institution(action, id)

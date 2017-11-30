@@ -1,9 +1,18 @@
 GIT
-  remote: git@github.com:nilusorg/shippify-dash
-  revision: 39005a4a5272be900b407994921cb4695d19ebfe
+  remote: git@github.com:nilusorg/shippify-api
+  revision: d09db992cf5aebaa891550b65053c8cf01cf5334
   branch: master
   specs:
-    shippify-dash (0.1.0)
+    shippify-api (0.1.0)
+      oj (~> 3.0)
+      typhoeus (>= 1.0)
+
+GIT
+  remote: git@github.com:nilusorg/shippify-dash
+  revision: 42cd5d2e7acbf23f9f5c9928fca398cfa3cd241e
+  branch: master
+  specs:
+    shippify-dash (0.1.1)
       oj (~> 3.0)
       typhoeus (>= 1.0)
 
@@ -95,6 +104,7 @@ GEM
     case_transform (0.2)
       activesupport
     choice (0.2.0)
+    chronic (0.10.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
@@ -231,6 +241,8 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    whenever (0.10.0)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -259,9 +271,11 @@ DEPENDENCIES
   rails-erd
   rgeo-geojson
   rspec-rails (~> 3.5)
+  shippify-api!
   shippify-dash!
   shoulda-matchers (~> 3.1)
   simplecov
+  whenever
 
 BUNDLED WITH
    1.16.0
