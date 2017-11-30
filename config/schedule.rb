@@ -23,7 +23,7 @@ set :output, lambda { "2>&1 | logger -t whenever_cron" }
 
 set :chronic_options, hours24: true
 
-every 1.hour do
+every :day, at: '18:00', roles: [:app] do
   rake "shippify:trips:import:today"
 end
 

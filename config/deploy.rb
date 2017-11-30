@@ -33,6 +33,9 @@ set :puma_init_active_record, false
 set :linked_files, %w{config/nilus.yml config/secrets.yml config/puma.rb config/database.yml}
 set :linked_dirs,  %w{bundle lib/tasks/log log public/system tmp/cache tmp/pids tmp/sockets}
 
+set :whenever_roles, ->{ :app }
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
   task :make_dirs do
