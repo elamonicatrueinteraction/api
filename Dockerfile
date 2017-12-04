@@ -8,6 +8,8 @@ RUN apt-get install -y libpq-dev
 # for nokogiri
 RUN apt-get install -y libxml2-dev libxslt1-dev
 
+RUN apt-get install -y git
+
 ENV HOME /root
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
