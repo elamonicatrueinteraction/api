@@ -23,6 +23,7 @@ class ShippersController < ApplicationController
   def update
     if shipper = Shipper.find_by(id: params[:id])
       shipper.update(shipper_params)
+      # binding.pry
       # TODO: Create a validator service
       if shipper.valid?
         render json: shipper, status: :ok # 200
@@ -53,10 +54,15 @@ class ShippersController < ApplicationController
       :cuil,
       :gateway,
       :gateway_id,
-      :minimum_requirements,
-      :requirements
+      :requirements,
+      minimum_requirements: minimum_requirements_params
     )
   end
+
+  def minimum_requirements_params
+    # TODO: Chequear [ :verified, :uri, :expiration_date, data: {} ] para que sea dinamico
+    Shipper::MINIMUM_REQUIREMENTS.each_with_object({}) do |requirement, _hash|
+      _hash[requirement] = [ :verified, :uri, :expiration_date, data: {} ]
+    end
+  end
 end
-
-

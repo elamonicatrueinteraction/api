@@ -36,13 +36,13 @@ class Shipper < ApplicationRecord
   def requirements
     REQUIREMENTS.each_with_object({}) do |requirement, _hash|
       _hash[requirement] = DEFAULT_REQUIREMENT_TEMPLATE
-    end.merge(attributes[:requirements].to_h)
+    end.deep_merge(attributes['requirements'].to_h)
   end
 
   def minimum_requirements
     MINIMUM_REQUIREMENTS.each_with_object({}) do |requirement, _hash|
       _hash[requirement] = DEFAULT_REQUIREMENT_TEMPLATE
-    end.merge(attributes[:minimum_requirements].to_h)
+    end.deep_merge(attributes['minimum_requirements'].to_h)
   end
 end
 
