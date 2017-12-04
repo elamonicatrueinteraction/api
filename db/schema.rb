@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129140017) do
+ActiveRecord::Schema.define(version: 20171204201143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,7 +156,6 @@ ActiveRecord::Schema.define(version: 20171129140017) do
     t.string "status"
     t.string "comments"
     t.decimal "amount", precision: 12, scale: 4, default: "0.0"
-    t.datetime "schedule_at"
     t.jsonb "pickups", default: [], null: false
     t.jsonb "dropoffs", default: [], null: false
     t.string "gateway"

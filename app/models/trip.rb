@@ -1,5 +1,4 @@
 class Trip < ApplicationRecord
-  attribute :schedule_at, :datetime
   attribute :pickups, :jsonb, default: []
   attribute :dropoffs, :jsonb, default: []
 

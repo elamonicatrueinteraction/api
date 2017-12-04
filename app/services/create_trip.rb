@@ -53,7 +53,6 @@ class CreateTrip
     {
       comments: @allowed_params[:comments],
       amount: @deliveries.map(&:amount).sum,
-      schedule_at: schedule_datetime,
       pickups: pickups_data,
       dropoffs: dropoffs_data
     }.tap do |_hash|
@@ -72,20 +71,21 @@ class CreateTrip
 
   def pickups_data
     @deliveries.map do |delivery|
-      location_data(delivery.id, delivery.origin)
+      location_data(delivery.id, delivery.origin, @allowed_params[:pickup_schedule])
     end
   end
 
   def dropoffs_data
     @deliveries.map do |delivery|
-      location_data(delivery.id, delivery.destination)
+      location_data(delivery.id, delivery.destination, @allowed_params[:dropoff_schedule])
     end
   end
 
-  def location_data(id, address)
+  def location_data(id, address, schedule = {})
     {
       place: place_name(address),
       delivery_id: id,
+      schedule: schedule,
       address: {
         id: address.id,
         telephone: address.telephone,
