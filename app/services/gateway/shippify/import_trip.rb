@@ -28,8 +28,9 @@ module Gateway
 
             create_trip_params = {
               orders_ids: orders_ids,
-              schedule_at: pickup_date,
               status: @trip_data['status'],
+              pickup_schedule: pickup_schedule,
+              dropoff_schedule: dropoff_schedule,
               gateway: 'Shippify',
               gateway_id: shippify_trip_id,
               gateway_data: @trip_data,
@@ -74,11 +75,26 @@ module Gateway
         false
       end
 
-      def pickup_date
+      def pickup_schedule
         delivery = deliveries_data.first || {}
 
         pickup = delivery.fetch('pickup', {})
-        pickup.fetch('timeWindow', {})['start']
+        schedule = pickup.fetch('timeWindow', {})
+        {
+          start: schedule['start'],
+          end: schedule['end']
+        }
+      end
+
+      def dropoff_schedule
+        delivery = deliveries_data.first || {}
+
+        dropoff = delivery.fetch('dropoff', {})
+        schedule = dropoff.fetch('timeWindow', {})
+        {
+          start: schedule['start'],
+          end: schedule['end']
+        }
       end
 
       def grab_shipper_or_create
@@ -114,7 +130,7 @@ module Gateway
 
         deliveries_data.flat_map do |delivery_data|
           if delivery = Delivery.find_by(gateway: 'Shippify', gateway_id: delivery_data['id'])
-            return delivery
+            return [ delivery ]
           end
 
           service = ::CreateOrder.call( order_params(delivery_data) )

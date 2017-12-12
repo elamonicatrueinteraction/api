@@ -1235,7 +1235,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"orders_ids\": [\"88154199-ec80-42f6-981c-f16d0575ca2e\"],\n\t\"schedule_at\": \"2017-12-01 13:02:37\",\n\t\"comments\": \"Algunos comentarios\"\n}"
+							"raw": "{\n\t\"orders_ids\": [\"ce651f2d-fa26-4b0d-92e0-e68bc8763131\"],\n\t\"pickup_schedule\": {\n\t\t\"start\": \"2017-11-30T10:00:00.000Z\",\n\t\t\"end\": \"2017-11-30T11:00:00.000Z\"\n\t},\n\t\"dropoff_schedule\": {\n\t\t\"start\": \"2017-11-30T12:00:00.000Z\",\n\t\t\"end\": \"2017-11-30T18:00:00.000Z\"\n\t},\n\t\"comments\": \"Algunos comentarios\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/trips",
@@ -1293,17 +1293,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"shipper_id\": \"1e35686d-70e5-47ea-94df-1c453fd98a93\",\n\t\"schedule_at\": \"2017-12-05 13:02:37\"\n}"
+							"raw": "{\n\t\"shipper_id\": \"8b714a02-4ba2-4747-ae22-b145a3786d7e\",\n\t\"status\": \"whatever\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/897ae6d9-9a66-4d66-bee3-bf5edaa677a0",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"trips",
-								"eb999237-339e-4e34-8561-b711782b0551"
+								"897ae6d9-9a66-4d66-bee3-bf5edaa677a0"
 							]
 						},
 						"description": "Update certain info of a trip\n"
