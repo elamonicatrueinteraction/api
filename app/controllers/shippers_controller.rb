@@ -53,10 +53,22 @@ class ShippersController < ApplicationController
       :cuil,
       :gateway,
       :gateway_id,
-      :minimum_requirements,
-      :requirements
+      requirements: requirements_params,
+      minimum_requirements: minimum_requirements_params
     )
   end
+
+  def requirements_params
+    # TODO: Chequear [ :verified, :uri, :expiration_date, data: {} ] para que sea dinamico
+    Shipper::REQUIREMENTS.each_with_object({}) do |requirement, _hash|
+      _hash[requirement] = [ :verified, :uri, :expiration_date, data: {} ]
+    end
+  end
+
+  def minimum_requirements_params
+    # TODO: Chequear [ :verified, :uri, :expiration_date, data: {} ] para que sea dinamico
+    Shipper::MINIMUM_REQUIREMENTS.each_with_object({}) do |requirement, _hash|
+      _hash[requirement] = [ :verified, :uri, :expiration_date, data: {} ]
+    end
+  end
 end
-
-
