@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def index
-    orders = Order.all
+    orders = Order.preload(:giver, :receiver, :deliveries, :packages).all
     render json: orders, status: :ok # 200
   end
 

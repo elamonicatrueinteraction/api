@@ -27,6 +27,10 @@ class Verification < ApplicationRecord
     not verified_at.blank?
   end
 
+  def expired?
+    !!expire && expire_at < Time.now
+  end
+
   def responsable
     return unless verified?
 
