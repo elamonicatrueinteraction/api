@@ -56,16 +56,16 @@ class TripsController < ApplicationController
   def create_trip_params
     params.permit(
       :shipper_id,
-      :schedule_at,
       :comments,
-      orders_ids: []
+      orders_ids: [],
+      pickup_schedule: [:start, :end],
+      dropoff_schedule: [:start, :end]
     )
   end
 
   def update_trip_params
     params.permit(
       :shipper_id,
-      :schedule_at,
       :status,
       :comments
     )

@@ -1,6 +1,5 @@
 class TripSerializer < ActiveModel::Serializer
   attributes :id,
-    :schedule_at,
     :status,
     :comments,
     :delivery_amount,
