@@ -66,6 +66,7 @@ class TripsController < ApplicationController
     params.permit(
       :shipper_id,
       :schedule_at,
+      :status,
       :comments
     )
   end
