@@ -66,6 +66,7 @@ class TripsController < ApplicationController
   def update_trip_params
     params.permit(
       :shipper_id,
+      :status,
       :comments
     )
   end
