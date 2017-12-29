@@ -25,6 +25,8 @@ class ShippersController < ApplicationController
       shipper.update(shipper_params)
       # TODO: Create a validator service
       if shipper.valid?
+        Gateway::Shippify::ShipperUpdateWorker.perform_async(shipper.id)
+
         render json: shipper, status: :ok # 200
       else
         render json: { error: shipper.errors.full_messages }, status: :unprocessable_entity # 422
