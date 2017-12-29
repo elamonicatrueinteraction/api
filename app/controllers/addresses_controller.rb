@@ -14,7 +14,11 @@ class AddressesController < ApplicationController
     service = CreateAddress.call(current_institution, address_params)
 
     if service.success?
-      render json: service.result, status: :created # 201
+      address = service.result
+
+      Gateway::Shippify::PlaceWorker.perform_async(address.id, 'create')
+
+      render json: address, status: :created # 201
     else
       render json: { error: service.errors }, status: :unprocessable_entity # 422
     end
@@ -27,6 +31,8 @@ class AddressesController < ApplicationController
       service = UpdateAddress.call(address, address_params)
 
       if service.success?
+        Gateway::Shippify::PlaceWorker.perform_async(address.id, 'update')
+
         render json: service.result, status: :ok # 200
       else
         render json: { error: service.errors }, status: :unprocessable_entity # 422
