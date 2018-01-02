@@ -63,7 +63,7 @@ class UpdateVerification
   def allowed_information
     allowed_keys = @verificable.class::VERIFICATIONS[type]
 
-    information = (@allowed_params[:information] || {}).keep_if{|key, _| allowed_keys.include?(key) }
+    information = (@allowed_params[:information] || {}).to_hash.keep_if{|key, _| allowed_keys.include?(key) }.deep_symbolize_keys
 
     if information.present?
       @verification.information.merge(information)

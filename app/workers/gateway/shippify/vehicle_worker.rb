@@ -1,24 +1,24 @@
 module Gateway
   module Shippify
-    class PlaceWorker
+    class VehicleWorker
       include Sidekiq::Worker
 
       class InvalidAction < StandardError
-        attr_reader :action, :address
+        attr_reader :action, :vehicle
 
-        def initialize(action, address)
+        def initialize(action, vehicle)
           @action = action
-          @address = address
+          @vehicle = vehicle
         end
       end
 
-      def perform(address_id, action)
+      def perform(vehicle_id, action)
         action = action.to_s.downcase
 
-        if address = Address.find_by(id: address_id)
-          raise InvalidAction.new(action, address) unless valid_action?(action)
+        if vehicle = Vehicle.find_by(id: vehicle_id)
+          raise InvalidAction.new(action, vehicle) unless valid_action?(action)
 
-          service = service_class(action).call(address)
+          service = service_class(action).call(vehicle)
 
           unless service.success?
             # I'm doing this because I don not want to retry tasks that despite they have
@@ -34,8 +34,8 @@ module Gateway
 
       def service_class(action)
         case action
-        when 'create' then Gateway::Shippify::CreatePlace
-        when 'update' then Gateway::Shippify::UpdatePlace
+        when 'create' then Gateway::Shippify::CreateVehicle
+        when 'update' then Gateway::Shippify::UpdateVehicle
         end
       end
 

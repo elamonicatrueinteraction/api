@@ -14,6 +14,8 @@ class VehiclesController < ApplicationController
     vehicle = current_shipper.vehicles.create(vehicle_params)
     # TODO: Create a service
     if vehicle.valid?
+      Gateway::Shippify::VehicleWorker.perform_async(vehicle.id, 'create')
+
       render json: vehicle, status: :created # 201
     else
       render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
@@ -29,6 +31,8 @@ class VehiclesController < ApplicationController
       vehicle.update(vehicle_params)
       # TODO: Create a service
       if vehicle.valid?
+        Gateway::Shippify::VehicleWorker.perform_async(vehicle.id, 'update')
+
         render json: vehicle, status: :ok # 200
       else
         render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
