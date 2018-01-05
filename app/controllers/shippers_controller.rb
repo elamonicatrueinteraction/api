@@ -1,7 +1,7 @@
 class ShippersController < ApplicationController
 
   def index
-    shippers = Shipper.all
+    shippers = Shipper.preload(:verifications, :bank_accounts, vehicles: :verifications).all
     render json: shippers, status: :ok # 200
   end
 
