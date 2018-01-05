@@ -22,14 +22,16 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
-
   gem 'capistrano',             require: false
   gem 'capistrano-bundler',     require: false
   gem 'capistrano-inspeqtor',   require: false
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano-maintenance', require: false
+
+  gem 'guard-rspec', require: false
+
+  gem 'listen', '~> 3.0.5'
 
   gem 'rails-erd', require: false
 end

@@ -9,7 +9,7 @@ RSpec.describe Address, type: :model do
     subject { build(:organization_address) }
 
     it 'latlng have to match coordinates' do
-      expect(subject.latlng).to eq(subject.gps_coordinates.coordinates.reverse.join(", "))
+      expect(subject.latlng).to eq(subject.gps_coordinates.coordinates.reverse.join(","))
     end
   end
 end
