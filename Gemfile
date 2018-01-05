@@ -9,9 +9,11 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
+gem 'redis-namespace'
 gem 'rgeo-geojson'
 gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
+gem 'sidekiq'
 gem 'whenever', require: false
 
 group :development, :test do

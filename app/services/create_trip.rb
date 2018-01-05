@@ -43,7 +43,7 @@ class CreateTrip
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
-      return errors.add(:exceptopm, e.message ) && nil
+      return errors.add(:exception, e.message ) && nil
     end
 
     @trip

@@ -3,6 +3,13 @@ development: &app_config
   allowed_origins:
     - 'localhost:3030'
 
+  hostname: 'localhost'
+
+  redis:
+    host: 'localhost'
+    port: 6379
+    db:   0
+
   shippify:
     api:
       key: ''

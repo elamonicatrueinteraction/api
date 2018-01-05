@@ -1,5 +1,6 @@
 class Shipper < ApplicationRecord
   attribute :data, :jsonb, default: {}
+  attribute :national_ids, :jsonb, default: {}
 
   has_many :verifications, as: :verificable
 
