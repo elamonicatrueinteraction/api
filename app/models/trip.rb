@@ -11,7 +11,7 @@ class Trip < ApplicationRecord
   belongs_to :shipper, optional: true
 
   def gateway_setup
-    return unless gateway && gateway_id
+    return true if gateway && gateway_id
   end
 end
 
