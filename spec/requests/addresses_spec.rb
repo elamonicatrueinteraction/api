@@ -53,6 +53,7 @@ RSpec.describe AddressesController, type: :request do
       it_behaves_like 'a successful create request', :address
       it { expect(response).to match_response_schema("address") }
       it { expect(Gateway::Shippify::PlaceWorker).to have_enqueued_sidekiq_job(json[:address][:id], 'create') }
+      it { expect(Gateway::Shippify::PlaceWorker.jobs.size).to eq(1) }
     end
 
     context 'with invalid data' do
@@ -105,6 +106,7 @@ RSpec.describe AddressesController, type: :request do
       it_behaves_like 'a successful request', :address
       it { expect(response).to match_response_schema("address") }
       it { expect(Gateway::Shippify::PlaceWorker).to have_enqueued_sidekiq_job(json[:address][:id], 'update') }
+      it { expect(Gateway::Shippify::PlaceWorker.jobs.size).to eq(1) }
     end
 
     context 'with invalid data' do

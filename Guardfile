@@ -52,9 +52,9 @@ guard :rspec, cmd: "bundle exec rspec" do
     ]
   end
 
-  watch(%r{^app/services/(.+)\.rb$}) { |m| rspec.spec.call("workers/#{m[1]}") }
+  watch(%r{^app/services/(.+)\.rb$}) { |m| rspec.spec.call("services/#{m[1]}") }
 
-  # watch(%r{^app/workers/(.+)_workers\.rb$}) { |m| rspec.spec.call("workers/#{m[1]}") }
+  watch(%r{^app/workers/(.+)_workers\.rb$}) { |m| rspec.spec.call("workers/#{m[1]}") }
 
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
