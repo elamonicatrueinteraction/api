@@ -7,7 +7,7 @@ class AuthenticationController < ApplicationController
     if service.success?
       render json: { auth_token: service.result }
     else
-      render json: { errors: service.errors }, status: :unauthorized
+      render json: { errors: service.errors }, status: :unprocessable_entity
     end
   end
 end

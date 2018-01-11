@@ -42,6 +42,9 @@ group :test do
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
   gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
+  gem "json-schema"
+  gem 'rails-controller-testing'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end

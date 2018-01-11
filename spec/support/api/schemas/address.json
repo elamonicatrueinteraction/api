@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "required": ["address"],
+  "properties": {
+    "address" : {
+      "type": "object",
+      "required" : [
+        "id",
+        "latlng",
+        "street_1",
+        "street_2",
+        "zip_code",
+        "city",
+        "state",
+        "country",
+        "contact_name",
+        "contact_cellphone",
+        "contact_email",
+        "telephone",
+        "open_hours",
+        "notes",
+        "shippify_id",
+        "created_at",
+        "updated_at",
+        "institution"
+      ],
+      "properties" : {
+        "id" : { "type" : "string" },
+        "latlng" : { "type" : "string" },
+        "street_1" : { "type" : "string" },
+        "street_2" : { "type" : "string" },
+        "zip_code" : { "type" : "string" },
+        "city" : { "type" : "string" },
+        "state" : { "type" : "string" },
+        "country" : { "type" : "string" },
+        "contact_name" : { "type" : "string" },
+        "contact_cellphone" : { "type" : "string" },
+        "contact_email" : { "type" : "string" },
+        "telephone" : { "type" : "string" },
+        "open_hours" : { "type" : "string" },
+        "notes" : { "type" : "string" },
+        "shippify_id" : { "type" : ["string", "null"] },
+        "created_at" : { "type" : "datetime" },
+        "updated_at" : { "type" : "datetime" },
+        "institution" : {
+          "type" : "object",
+          "properties" : {
+            "id": { "type" : "string" },
+            "type_name": { "type" : "string" },
+            "name": { "type" : "string" },
+            "legal_name": { "type" : ["string", "null"] },
+            "uid_type": { "type" : "string" },
+            "uid": { "type" : "string" },
+            "created_at": { "type" : "datetime" },
+            "updated_at": { "type" : "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

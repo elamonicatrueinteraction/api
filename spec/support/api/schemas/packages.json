@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "required": ["packages"],
+  "properties": {
+    "packages" : {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required" : [
+          "id",
+          "quantity",
+          "weigth",
+          "volume",
+          "cooling",
+          "fragile",
+          "description",
+          "delivery"
+        ],
+        "properties" : {
+          "id": { "type" : "integer" },
+          "quantity": { "type" : "integer" },
+          "weigth": { "type" : ["integer", "null"] },
+          "volume": { "type" : ["integer", "null"] },
+          "cooling": { "type" : "boolean" },
+          "fragile": { "type" : "boolean" },
+          "description": { "type" : ["string", "null"] },
+          "delivery" : {
+            "type" : "object",
+            "properties" : {
+              "id": { "type" : "integer" },
+              "amount": { "type" : "decimal" },
+              "bonified_amount": { "type" : "decimal" },
+              "status": { "type" : ["string", "null"] },
+              "origin_latlng": { "type" : "string" },
+              "destination_latlng": { "type" : "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

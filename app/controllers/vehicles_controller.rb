@@ -18,7 +18,7 @@ class VehiclesController < ApplicationController
 
       render json: vehicle, status: :created # 201
     else
-      render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
+      render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
     end
   end
 
@@ -35,10 +35,10 @@ class VehiclesController < ApplicationController
 
         render json: vehicle, status: :ok # 200
       else
-        render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
+        render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.vehicle', id: params[:id]) }, status: :not_found # 404
+      render json: { errors: [ I18n.t('errors.not_found.vehicle', id: params[:id]) ] }, status: :not_found # 404
     end
   end
 

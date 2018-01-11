@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["institution"],
+  "properties": {
+    "institution" : {
+      "type": "string"
+    }
+  }
+}

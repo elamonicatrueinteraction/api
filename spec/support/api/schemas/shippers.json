@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "required": ["shippers"],
+  "properties": {
+    "shippers" : {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required" : [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "gender",
+          "birth_date",
+          "phone_num",
+          "photo",
+          "active",
+          "verified",
+          "verified_at",
+          "national_ids",
+          "bank_accounts",
+          "gateway",
+          "gateway_id",
+          "minimum_requirements",
+          "requirements",
+          "vehicles"
+        ],
+        "properties" : {
+          "id" : { "type" : "string" },
+          "first_name" : { "type" : "string" },
+          "last_name" : { "type" : "string" },
+          "email" : { "type" : "string" },
+          "gender" : { "type" : ["string", "null"] },
+          "birth_date" : { "type" : ["string", "null"] },
+          "phone_num" : { "type" : ["string", "null"] },
+          "photo" : { "type" : ["string", "null"] },
+          "active" : { "type" : "boolean" },
+          "verified" : { "type" : "boolean" },
+          "verified_at" : { "type" : ["datetime", "null"] },
+          "national_ids" : { "type" : "object" },
+          "bank_accounts" : { "type" : "array" },
+          "gateway" : { "type" : ["string", "null"] },
+          "gateway_id" : { "type" : "string" },
+          "minimum_requirements" : { "type" : "object" },
+          "requirements" : { "type" : "object" },
+          "vehicles" : { "type" : "array" }
+        }
+      }
+    }
+  }
+}

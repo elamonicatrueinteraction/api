@@ -19,6 +19,7 @@ FactoryBot.define do
     trait :in_gateway do
       gateway 'Shippify'
       gateway_id 't-nilus-00'
+      status 'Broadcasting'
     end
 
     factory :trip_in_gateway, traits: [ :in_gateway ]

@@ -2,7 +2,8 @@ en:
   errors:
     not_found:
       address: "There is no address with id: %{address_id} for the institution id: %{institution_id}"
-      delivery: "There is no delivery with id: %{delivery_id} for the order id: %{order_id}"
+      delivery: "There is no delivery with id: %{id}"
+      delivery_on_order: "There is no delivery with id: %{delivery_id} for the order id: %{order_id}"
       institution: "There is no institution with id: %{id}"
       order: "There is no order with id: %{id}"
       package: "There is no package with id: %{package_id} for the delivery id: %{delivery_id}"

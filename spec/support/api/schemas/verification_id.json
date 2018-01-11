@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["verification"],
+  "properties": {
+    "verification" : {
+      "type": "integer"
+    }
+  }
+}

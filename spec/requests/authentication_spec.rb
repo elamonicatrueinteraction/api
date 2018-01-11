@@ -9,40 +9,19 @@ RSpec.describe 'Authentication Endpoint', type: :request do
     context 'without user email and password' do
       let(:parameters) { {} }
 
-      it 'returns error' do
-        expect(json).not_to be_empty
-        expect(json.keys).to contain_exactly('errors')
-      end
-
-      it 'returns status code 401' do
-        expect(response).to have_http_status(401)
-      end
+      it_behaves_like 'a failed request'
     end
 
     context 'with invalid user email and/or password' do
       let(:parameters) { { email: user.email, password: 'wrongpassword' } }
 
-      it 'returns error' do
-        expect(json).not_to be_empty
-        expect(json.keys).to contain_exactly('errors')
-      end
-
-      it 'returns status code 401' do
-        expect(response).to have_http_status(401)
-      end
+      it_behaves_like 'a failed request'
     end
 
     context 'with user email and password' do
       let(:parameters) { { email: user.email, password: user.password } }
 
-      it 'returns auth_token' do
-        expect(json).not_to be_empty
-        expect(json.keys).to contain_exactly('auth_token')
-      end
-
-      it 'returns status code 200' do
-        expect(response).to have_http_status(200)
-      end
+      it_behaves_like 'a successful request', :auth_token
     end
 
   end

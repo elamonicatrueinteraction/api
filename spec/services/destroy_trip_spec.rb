@@ -23,7 +23,7 @@ RSpec.describe DestroyTrip do
     end
 
     context 'when the context is not successful' do
-      let(:trip) { create(:trip_in_gateway, status: 'broadcasting') }
+      let(:trip) { create(:trip_in_gateway) }
 
       it 'fails' do
         expect(context).to be_failure

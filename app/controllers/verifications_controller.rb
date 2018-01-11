@@ -18,7 +18,7 @@ class VerificationsController < ApplicationController
 
       render json: service.result, status: :created # 201
     else
-      render json: { error: service.errors }, status: :unprocessable_entity # 422
+      render json: { errors: service.errors }, status: :unprocessable_entity # 422
     end
   end
 
@@ -34,10 +34,10 @@ class VerificationsController < ApplicationController
 
         render json: service.result, status: :ok # 200
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
     end
   end
 
@@ -49,10 +49,10 @@ class VerificationsController < ApplicationController
       if verification.destroy
         render json: { verification: verification.id }, status: :ok # 200
       else
-        render json: { error: verification.errors.full_messages }, status: :unprocessable_entity # 422
+        render json: { errors: verification.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.verification', verification_id: params[:id], vehicle_id: params[:vehicle_id]) }, status: :not_found # 404
     end
   end
 
