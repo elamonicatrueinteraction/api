@@ -25,6 +25,11 @@ class UpdateDelivery
 
   def delivery_params
     @allowed_params.tap do |_hash|
+
+      if @allowed_params[:status] || @delivery.status.blank?
+        _hash[:status] = params_status_or_default(@allowed_params[:status], @delivery.status)
+      end
+
       if _hash[:origin_id].present? && (address = load_address('origin', _hash[:origin_id]))
         _hash[:origin] = address
         _hash[:origin_gps_coordinates] = address.gps_coordinates

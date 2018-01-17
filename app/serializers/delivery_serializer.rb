@@ -10,7 +10,7 @@ class DeliverySerializer < Simple::DeliverySerializer
 
   def packages
     object.packages.map do |package|
-      package.attributes.slice('id','weigth','volume','cooling','description')
+      package.attributes.slice('id','weight','volume','cooling','description')
     end
   end
 end

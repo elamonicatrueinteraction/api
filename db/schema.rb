@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204201143) do
+ActiveRecord::Schema.define(version: 20180117191346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20171204201143) do
 
   create_table "packages", force: :cascade do |t|
     t.integer "delivery_id"
-    t.integer "weigth"
+    t.integer "weight"
     t.integer "volume"
     t.boolean "cooling", default: false
     t.text "description"
