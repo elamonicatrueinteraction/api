@@ -18,7 +18,7 @@
     - status: (shippify)
 
     - packages: (belongs_to delivery)
-        - weigth: int (gramo)
+        - weight: int (gramo)
         - volume: int (cm3)
         - cooling: bool
         - description: long text

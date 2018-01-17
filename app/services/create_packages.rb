@@ -35,7 +35,7 @@ class CreatePackages
     {
       delivery: @delivery,
       quantity: allowed_params[:quantity],
-      weigth: allowed_params[:weigth],
+      weight: allowed_params[:weight],
       volume: allowed_params[:volume],
       description: allowed_params[:description]
     }.tap do |_hash|

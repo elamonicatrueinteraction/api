@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
       :delivery_bonified_amount, # For the delivery
       packages: [
         :quantity,
-        :weigth,
+        :weight,
         :volume,
         :cooling,
         :description

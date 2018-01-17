@@ -214,7 +214,7 @@ CREATE TABLE orders (
 CREATE TABLE packages (
     id bigint NOT NULL,
     delivery_id integer,
-    weigth integer,
+    weight integer,
     volume integer,
     cooling boolean DEFAULT false,
     description text,
@@ -545,7 +545,7 @@ f4f2dc82-1ff9-4f1e-8801-3544dd464f9e	596318c5-6bd5-4d54-8fb1-6a7f5ad8ff09	596318
 
 --
 
-COPY packages (id, delivery_id, weigth, volume, cooling, description, attachment_id, created_at, updated_at, quantity, fragile) FROM stdin;
+COPY packages (id, delivery_id, weight, volume, cooling, description, attachment_id, created_at, updated_at, quantity, fragile) FROM stdin;
 1	1	\N	\N	f	Papas	\N	2017-11-30 17:49:34.146137	2017-11-30 17:49:34.146137	1	f
 2	2	\N	\N	f	Papas	\N	2017-11-30 17:49:35.179186	2017-11-30 17:49:35.179186	1	f
 3	3	\N	\N	f	Papas	\N	2017-11-30 17:49:36.191403	2017-11-30 17:49:36.191403	1	f
