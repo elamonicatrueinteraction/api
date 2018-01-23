@@ -19,7 +19,7 @@ FactoryBot.define do
     end
 
     trait :for_company do
-      association :company, factory: [ :company ]
+      association :institution, factory: [ :company ]
     end
 
     factory :organization_address, traits: [ :for_organization ]

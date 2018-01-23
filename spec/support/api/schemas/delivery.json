@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "required": ["delivery"],
+  "properties": {
+    "delivery" : {
+      "type": "object",
+      "required" : [
+        "id",
+        "amount",
+        "bonified_amount",
+        "status",
+        "origin_latlng",
+        "destination_latlng",
+        "packages",
+        "created_at",
+        "updated_at",
+        "origin",
+        "destination",
+        "order"
+      ],
+      "properties" : {
+        "id" : { "type" : "integer" },
+        "amount": { "type" : "decimal" },
+        "bonified_amount": { "type" : ["decimal", "null"] },
+        "status": { "type" : ["string", "null"] },
+        "origin_latlng": { "type" : "string" },
+        "destination_latlng": { "type" : "string" },
+        "created_at" : { "type" : "datetime" },
+        "updated_at" : { "type" : "datetime" },
+        "packages" : {
+          "type" : "array",
+          "items": {
+            "type": "object",
+            "required" : [
+              "id",
+              "quantity",
+              "weigth",
+              "volume",
+              "cooling",
+              "fragile",
+              "description"
+            ],
+            "properties" : {
+              "id": { "type" : "integer" },
+              "quantity": { "type" : "integer" },
+              "weigth": { "type" : ["integer", "null"] },
+              "volume": { "type" : ["integer", "null"] },
+              "cooling": { "type" : "boolean" },
+              "fragile": { "type" : "boolean" },
+              "description": { "type" : ["string", "null"] }
+            }
+          }
+        },
+        "origin" : {
+          "type" : "object",
+          "required" : [
+            "id",
+            "latlng",
+            "street_1",
+            "street_2",
+            "zip_code",
+            "city",
+            "state",
+            "country",
+            "contact_name",
+            "contact_cellphone",
+            "contact_email",
+            "telephone",
+            "open_hours",
+            "notes",
+            "shippify_id",
+            "created_at",
+            "updated_at"
+          ],
+          "properties" : {
+            "id" : { "type" : "string" },
+            "latlng" : { "type" : "string" },
+            "street_1" : { "type" : "string" },
+            "street_2" : { "type" : "string" },
+            "zip_code" : { "type" : "string" },
+            "city" : { "type" : "string" },
+            "state" : { "type" : "string" },
+            "country" : { "type" : "string" },
+            "contact_name" : { "type" : "string" },
+            "contact_cellphone" : { "type" : "string" },
+            "contact_email" : { "type" : "string" },
+            "telephone" : { "type" : "string" },
+            "open_hours" : { "type" : "string" },
+            "notes" : { "type" : "string" },
+            "shippify_id" : { "type" : ["string", "null"] },
+            "created_at" : { "type" : "datetime" },
+            "updated_at" : { "type" : "datetime" }
+          }
+        },
+        "destination" : {
+          "type" : "object",
+          "required" : [
+            "id",
+            "latlng",
+            "street_1",
+            "street_2",
+            "zip_code",
+            "city",
+            "state",
+            "country",
+            "contact_name",
+            "contact_cellphone",
+            "contact_email",
+            "telephone",
+            "open_hours",
+            "notes",
+            "shippify_id",
+            "created_at",
+            "updated_at"
+          ],
+          "properties" : {
+            "id" : { "type" : "string" },
+            "latlng" : { "type" : "string" },
+            "street_1" : { "type" : "string" },
+            "street_2" : { "type" : "string" },
+            "zip_code" : { "type" : "string" },
+            "city" : { "type" : "string" },
+            "state" : { "type" : "string" },
+            "country" : { "type" : "string" },
+            "contact_name" : { "type" : "string" },
+            "contact_cellphone" : { "type" : "string" },
+            "contact_email" : { "type" : "string" },
+            "telephone" : { "type" : "string" },
+            "open_hours" : { "type" : "string" },
+            "notes" : { "type" : "string" },
+            "shippify_id" : { "type" : ["string", "null"] },
+            "created_at" : { "type" : "datetime" },
+            "updated_at" : { "type" : "datetime" }
+          }
+        },
+        "order" : {
+          "type" : "object",
+          "required" : [
+            "id",
+            "expiration",
+            "amount",
+            "bonified_amount",
+            "created_at",
+            "updated_at"
+          ],
+          "properties" : {
+            "id" : { "type" : "string" },
+            "expiration" : { "type" : ["string", "null"] },
+            "amount" : { "type" : ["string", "null"] },
+            "bonified_amount" : { "type" : ["string", "null"] },
+            "created_at" : { "type" : "datetime" },
+            "updated_at" : { "type" : "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

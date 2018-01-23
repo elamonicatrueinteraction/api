@@ -1,5 +1,5 @@
 class Institution < ApplicationRecord
-  has_many :addresses
+  has_many :addresses, dependent: :nullify
 
   VALID_TYPES = %w(
     company

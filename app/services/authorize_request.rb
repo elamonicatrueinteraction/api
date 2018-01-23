@@ -16,8 +16,6 @@ class AuthorizeRequest
       user = User.find_by(id: decoded_auth_token[:user_id], token_expire_at: decoded_auth_token[:exp] )
 
       @user ||= user if user && user.token_expire_at >= Time.now.to_i
-    else
-      @user = nil
     end
 
     @user || errors.add(:token, I18n.t('services.authorize_request.invalid_token')) && nil

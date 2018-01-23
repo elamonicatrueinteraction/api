@@ -14,7 +14,9 @@ class UpdateAddress
   private
 
   def update_address
-    @address.assign_attributes( address_params(@allowed_params) )
+    @address.assign_attributes( address_params(@allowed_params, true) )
+
+    return if errors.any?
 
     return @address if @address.save
 

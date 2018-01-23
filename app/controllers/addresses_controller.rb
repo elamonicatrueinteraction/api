@@ -20,7 +20,7 @@ class AddressesController < ApplicationController
 
       render json: address, status: :created # 201
     else
-      render json: { error: service.errors }, status: :unprocessable_entity # 422
+      render json: { errors: service.errors }, status: :unprocessable_entity # 422
     end
   end
 
@@ -35,10 +35,10 @@ class AddressesController < ApplicationController
 
         render json: service.result, status: :ok # 200
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.address', address_id: params[:id], institution_id: params[:institution_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.address', address_id: params[:id], institution_id: params[:institution_id]) }, status: :not_found # 404
     end
   end
 
@@ -49,10 +49,10 @@ class AddressesController < ApplicationController
       if address.destroy
         render json: { address: address.id }, status: :ok # 200
       else
-        render json: { error: address.errors.full_messages }, status: :unprocessable_entity # 422
+        render json: { errors: address.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.address', address_id: params[:id], institution_id: params[:institution_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.address', address_id: params[:id], institution_id: params[:institution_id]) }, status: :not_found # 404
     end
   end
 

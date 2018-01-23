@@ -27,3 +27,14 @@ production:
 
 test:
   <<: *app_config
+
+  shippify:
+    api:
+      key: ''
+      secret: ''
+    dash:
+      email: ''
+      password: ''
+
+  ssl_enabled: true
+

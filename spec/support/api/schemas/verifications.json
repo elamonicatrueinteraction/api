@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "required": ["verifications"],
+  "properties": {
+    "verifications" : {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties" : {
+          "id" : { "type" : "integer" },
+          "type" : { "type" : "string" },
+          "information" : { "type" : "object" },
+          "verified" : { "type" : "boolean" },
+          "expired" : { "type" : "boolean" },
+          "expire" : { "type" : "boolean" },
+          "expire_at" : { "type" : "datetime" },
+          "responsible" : { "type" : ["object", "null"] },
+          "created_at" : { "type" : "datetime" }
+        }
+      }
+    }
+  }
+}

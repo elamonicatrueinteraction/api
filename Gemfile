@@ -22,14 +22,16 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
-
   gem 'capistrano',             require: false
   gem 'capistrano-bundler',     require: false
   gem 'capistrano-inspeqtor',   require: false
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano-maintenance', require: false
+
+  gem 'guard-rspec', require: false
+
+  gem 'listen', '~> 3.0.5'
 
   gem 'rails-erd', require: false
 end
@@ -40,6 +42,9 @@ group :test do
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
   gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
+  gem "json-schema"
+  gem 'rails-controller-testing'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end

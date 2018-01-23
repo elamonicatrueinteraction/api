@@ -27,8 +27,7 @@ class AuthenticateUser
 
     @user.update(failed_login_count: (@user.failed_login_count + 1) ) if @user
 
-    errors.add(:user_authentication, I18n.t('services.authenticate.invalid_credentials'))
-    nil
+    errors.add(:user_authentication, I18n.t('services.authenticate.invalid_credentials')) && nil
   end
 
   def columns_to_update
