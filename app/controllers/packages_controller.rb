@@ -68,7 +68,7 @@ class PackagesController < ApplicationController
     params.permit(
       packages: [
         :quantity,
-        :weigth,
+        :weight,
         :volume,
         :fragile,
         :cooling,
@@ -80,7 +80,7 @@ class PackagesController < ApplicationController
   def update_package_params
     params.permit(
       :quantity,
-      :weigth,
+      :weight,
       :volume,
       :fragile,
       :cooling,

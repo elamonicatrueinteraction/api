@@ -108,20 +108,47 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\": \"Updated Name\"\n}"
+							"raw": "{\n  \"first_name\": \"Agustin F\",\n  \"last_name\": \"Cavilliotti\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/1d6fdb6a-84af-4ce4-8644-95d0199c6539",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35"
+								"1d6fdb6a-84af-4ce4-8644-95d0199c6539"
 							]
 						},
 						"description": "List shippers"
+					},
+					"response": []
+				},
+				{
+					"name": "Shippers - Bank Accounts List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/4685397e-d7fb-43fc-8532-673e39e03c5f/bank_accounts",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shippers",
+								"4685397e-d7fb-43fc-8532-673e39e03c5f",
+								"bank_accounts"
+							]
+						},
+						"description": "List bank accounts of the shipper"
 					},
 					"response": []
 				},
@@ -137,14 +164,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd/vehicles",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd",
 								"vehicles"
 							]
 						},
@@ -202,19 +229,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Kombi 1.6 - Bay Window\"\n}"
+							"raw": "{\n\t\"model\": \"Suran 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"2017\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles/f56a62fd-044a-4413-ba82-0a1a4353cad2",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd/vehicles/2e0df63a-45d6-421f-ad89-d7758b6ad8cc",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd",
 								"vehicles",
-								"f56a62fd-044a-4413-ba82-0a1a4353cad2"
+								"2e0df63a-45d6-421f-ad89-d7758b6ad8cc"
 							]
 						},
 						"description": "Update the vehicle information"
@@ -304,14 +331,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/dad32f11-ad60-45c2-94b1-794ea36b5e95/verifications",
+							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/2e0df63a-45d6-421f-ad89-d7758b6ad8cc/verifications",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"vehicles",
-								"dad32f11-ad60-45c2-94b1-794ea36b5e95",
+								"2e0df63a-45d6-421f-ad89-d7758b6ad8cc",
 								"verifications"
 							]
 						},
@@ -470,7 +497,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+							"raw": "{\n\t\"type\": \"company\",\n\t\"name\": \"Carrefour\",\n\t\"legal_name\": \"\",\n\t\"uid_type\": \"CUIT\",\n\t\"uid\": \"30-58462038-9\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
@@ -502,7 +529,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"type\": \"organization\",\n\t\"name\": \"Wingu\",\n\t\"legal_name\": \"Res Non Verba AC\",\n\t\"uid_type\": \"CUIT\",\n\t\"uid\": \"30-70783337-4\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
@@ -596,14 +623,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/68dd2152-f9bb-417d-a4d1-48cc2e593735/addresses",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/fb32d9cc-c2e0-420f-ae2b-d972ecf8389b/addresses",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"68dd2152-f9bb-417d-a4d1-48cc2e593735",
+								"fb32d9cc-c2e0-420f-ae2b-d972ecf8389b",
 								"addresses"
 							]
 						},
@@ -630,14 +657,14 @@
 							"raw": "{\n\t\"latlng\" : \"-32.9321734, -60.68743860000001\",\n\t\"street_1\" : \"Carriego 360\",\n\t\"street_2\" : \"\",\n\t\"zip_code\" : \"S2002\",\n\t\"city\" : \"Rosario\",\n\t\"state\" : \"Santa Fe\",\n\t\"country\" : \"AR\",\n\t\"contact_name\": \"Carla Fernandez\",\n\t\"contact_cellphone\": \"0351 15 467 8889\",\n\t\"contact_email\": \"\",\n\t\"telephone\" : \"0341 527-8731\",\n\t\"open_hours\" : \"De 8hs a 17hs\",\n\t\"notes\" : \"\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0bcb5784-3277-4b7e-87a2-d2c066d6bdef/addresses",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/fb32d9cc-c2e0-420f-ae2b-d972ecf8389b/addresses",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"0bcb5784-3277-4b7e-87a2-d2c066d6bdef",
+								"fb32d9cc-c2e0-420f-ae2b-d972ecf8389b",
 								"addresses"
 							]
 						},
@@ -661,19 +688,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"latlng\" : \"-32.1223734,-59.6874386\"\n}"
+							"raw": "{\n\t\"contact_name\" : \"Carlos Fernandez\"\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/e34866f5-2260-4500-bfa5-22d3858e5f50/addresses/639bb442-6053-4ab0-a28f-4fa19e42c064",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/fb32d9cc-c2e0-420f-ae2b-d972ecf8389b/addresses/36f093ba-0e45-4c8d-bc34-2c9c8ac86c5b",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"e34866f5-2260-4500-bfa5-22d3858e5f50",
+								"fb32d9cc-c2e0-420f-ae2b-d972ecf8389b",
 								"addresses",
-								"639bb442-6053-4ab0-a28f-4fa19e42c064"
+								"36f093ba-0e45-4c8d-bc34-2c9c8ac86c5b"
 							]
 						},
 						"description": "Update Address for a Institution"
@@ -727,7 +754,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"giver_id\": \"e34866f5-2260-4500-bfa5-22d3858e5f50\",\n\t\"receiver_id\": \"0bcb5784-3277-4b7e-87a2-d2c066d6bdef\",\n\t\"expiration\": \"\",\n\t\"amount\": \"\",\n\t\"bonified_amount\": \"\",\n\t\"origin_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"destination_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"delivery_amount\": \"300\",\n\t\"delivery_bonified_amount\": \"100\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+							"raw": "{\n\t\"giver_id\": \"29ee3209-3e5d-4a04-903c-619fe698109d\",\n\t\"receiver_id\": \"65e397b8-6f11-41a4-ad2f-f74e2953eea1\",\n\t\"expiration\": \"\",\n\t\"amount\": \"\",\n\t\"bonified_amount\": \"\",\n\t\"origin_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"destination_id\": \"639bb442-6053-4ab0-a28f-4fa19e42c064\",\n\t\"delivery_amount\": \"300\",\n\t\"delivery_bonified_amount\": \"100\",\n\t\"packages\": [{\n\t\t\"weight\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders",
@@ -947,7 +974,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"order_id\": \"334bd51f-e2d4-49b9-883d-5750b7156385\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"amount\": \"100\",\n\t\"bonified_amount\": \"\",\n\t\"packages\": [{\n\t\t\"weigth\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+							"raw": "{\n\t\"order_id\": \"334bd51f-e2d4-49b9-883d-5750b7156385\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"amount\": \"100\",\n\t\"bonified_amount\": \"\",\n\t\"packages\": [{\n\t\t\"weight\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries",
@@ -1100,7 +1127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"packages\": [{\n\t\t\"weigth\": \"10000\",\n\t\t\"volume\": \"100\",\n\t\t\"cooling\": \"false\",\n\t\t\"description\": \"Productos no perecederos\"\n\t}]\n}"
+							"raw": "{\n\t\"packages\": [{\n\t\t\"weight\": \"10000\",\n\t\t\"volume\": \"100\",\n\t\t\"cooling\": \"false\",\n\t\t\"description\": \"Productos no perecederos\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages",
@@ -1134,7 +1161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"weigth\": \"15000\",\n\t\"cooling\": \"true\",\n\t\"description\": \"Lacteos\"\n}"
+							"raw": "{\n\t\"weight\": \"15000\",\n\t\"cooling\": \"true\",\n\t\"description\": \"Lacteos\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages/5",

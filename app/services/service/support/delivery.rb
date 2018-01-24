@@ -13,6 +13,12 @@ module Service
         end
       end
 
+      def params_status_or_default(params_status, actual_status = nil)
+        return params_status if params_status && ::Delivery.valid_status.include?(params_status.to_s)
+
+        actual_status ? actual_status : ::Delivery.default_status
+      end
+
     end
   end
 end
