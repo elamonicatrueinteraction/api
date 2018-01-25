@@ -8,6 +8,9 @@ FactoryBot.define do
     destination { order.receiver.addresses.first if order }
     destination_gps_coordinates { destination.gps_coordinates if destination }
 
+    pickup { location_data(origin) if origin }
+    dropoff { location_data(destination) if destination }
+
     trait :with_packages do
       after(:create) do |delivery, evaluator|
         create_list(:package, Faker::Number.between(1, 5), delivery: delivery)

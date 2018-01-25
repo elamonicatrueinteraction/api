@@ -60,8 +60,15 @@ class CreateDelivery
       bonified_amount: @allowed_params[:bonified_amount],
       status: params_status_or_default(@allowed_params[:status])
     }.tap do |_hash|
-      _hash[:origin_gps_coordinates] = _hash[:origin].gps_coordinates if _hash[:origin]
-      _hash[:destination_gps_coordinates] =  _hash[:destination].gps_coordinates if _hash[:destination]
+      if _hash[:origin]
+        _hash[:origin_gps_coordinates] = _hash[:origin].gps_coordinates
+        _hash[:pickup] = location_data(_hash[:origin])
+      end
+
+      if _hash[:destination]
+        _hash[:destination_gps_coordinates] =  _hash[:destination].gps_coordinates
+        _hash[:dropoff] = location_data(_hash[:destination])
+      end
 
       _hash[:gateway] = @allowed_params[:gateway] if @allowed_params[:gateway]
       _hash[:gateway_id] = @allowed_params[:gateway_id] if @allowed_params[:gateway_id]

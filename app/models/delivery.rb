@@ -1,13 +1,18 @@
 class Delivery < ApplicationRecord
   attribute :amount, :float
   attribute :bonified_amount, :float
-
-  belongs_to :order
-  belongs_to :trip, optional: true
-  has_many :packages, dependent: :destroy
+  attribute :origin_latlng
+  attribute :destination_latlng
+  attribute :pickup, :jsonb, default: {}
+  attribute :dropoff, :jsonb, default: {}
 
   belongs_to :origin, class_name: 'Address'
   belongs_to :destination, class_name: 'Address'
+  belongs_to :order
+  belongs_to :trip, optional: true
+  has_one :giver, through: :order, class_name: 'Institution'
+  has_one :receiver, through: :order, class_name: 'Institution'
+  has_many :packages, dependent: :destroy
 
   VALID_STATUS = %w(
     draft
@@ -32,16 +37,15 @@ class Delivery < ApplicationRecord
   end
 
   def self.default_status
-    VALID_STATUS.first
+    'processing'
   end
 
-  attribute :origin_latlng
   def origin_latlng
     return unless origin_gps_coordinates
 
     origin_gps_coordinates.coordinates.reverse.join(", ")
   end
-  attribute :destination_latlng
+
   def destination_latlng
     return unless destination_gps_coordinates
 

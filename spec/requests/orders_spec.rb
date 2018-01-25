@@ -50,7 +50,7 @@ RSpec.describe OrdersController, type: :request do
       packages.map do |package|
         {
           quantity: package.quantity,
-          weigth: package.weigth,
+          weight: package.weight,
           volume: package.volume,
           fragile: package.fragile,
           cooling: package.cooling,

@@ -10,4 +10,5 @@ Shippify::Dash.setup do |config|
     config.user_email = SHIPPIFY_DASH['email']
     config.user_password = SHIPPIFY_DASH['password']
   end
+  config.company_id = SHIPPIFY_DASH['company_id']
 end

@@ -14,8 +14,7 @@
           "package_amount",
           "shipper_name",
           "shipper_avatar_url",
-          "pickups",
-          "dropoffs",
+          "steps",
           "created_at",
           "updated_at",
           "shipper",
@@ -30,85 +29,20 @@
           "package_amount" : { "type" : "decimal" },
           "shipper_name" : { "type" : "string" },
           "shipper_avatar_url" : { "type" : "string" },
-          "pickups" : {
+          "steps" : {
             "type" : "array",
             "items": {
               "type": "object",
               "properties" : {
-                "notes" : { "type" : "string" },
-                "place" : { "type" : "string" },
-                "latlng" : { "type" : "string" },
-                "address" : {
-                  "type": "object",
-                  "properties" : {
-                    "id" : { "type" : "string" },
-                    "city" : { "type" : "string" },
-                    "state" : { "type" : "string" },
-                    "country" : { "type" : "string" },
-                    "street_1" : { "type" : "string" },
-                    "street_2" : { "type" : "string" },
-                    "zip_code" : { "type" : "string" },
-                    "telephone" : { "type" : "string" }
-                  }
-                },
-                "contact" : {
-                  "type": "object",
-                  "properties" : {
-                    "name" : { "type" : "string" },
-                    "email" : { "type" : "string" },
-                    "cellphone" : { "type" : "string" }
-                  }
-                },
+                "delivery_id" : { "type" : ["integer", "null"] },
+                "action" : { "type" : "string" },
                 "schedule" : {
                   "type": "object",
                   "properties" : {
                     "end" : { "type" : "datetime" },
                     "start" : { "type" : "datetime" }
                   }
-                },
-                "open_hours" : { "type" : "string" },
-                "delivery_id" : { "type" : ["integer", "null"] }
-              }
-            }
-          },
-          "dropoffs" : {
-            "type" : "array",
-            "items": {
-              "type": "object",
-              "properties" : {
-                "notes" : { "type" : "string" },
-                "place" : { "type" : "string" },
-                "latlng" : { "type" : "string" },
-                "address" : {
-                  "type": "object",
-                  "properties" : {
-                    "id" : { "type" : "string" },
-                    "city" : { "type" : "string" },
-                    "state" : { "type" : "string" },
-                    "country" : { "type" : "string" },
-                    "street_1" : { "type" : "string" },
-                    "street_2" : { "type" : "string" },
-                    "zip_code" : { "type" : "string" },
-                    "telephone" : { "type" : "string" }
-                  }
-                },
-                "contact" : {
-                  "type": "object",
-                  "properties" : {
-                    "name" : { "type" : "string" },
-                    "email" : { "type" : "string" },
-                    "cellphone" : { "type" : "string" }
-                  }
-                },
-                "schedule" : {
-                  "type": "object",
-                  "properties" : {
-                    "end" : { "type" : "datetime" },
-                    "start" : { "type" : "datetime" }
-                  }
-                },
-                "open_hours" : { "type" : "string" },
-                "delivery_id" : { "type" : ["integer", "null"] }
+                }
               }
             }
           },
@@ -152,7 +86,7 @@
               "required" : [
                 "id",
                 "quantity",
-                "weigth",
+                "weight",
                 "volume",
                 "cooling",
                 "fragile",
@@ -161,7 +95,7 @@
               "properties" : {
                 "id": { "type" : "integer" },
                 "quantity": { "type" : "integer" },
-                "weigth": { "type" : ["integer", "null"] },
+                "weight": { "type" : ["integer", "null"] },
                 "volume": { "type" : ["integer", "null"] },
                 "cooling": { "type" : "boolean" },
                 "fragile": { "type" : "boolean" },

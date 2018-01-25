@@ -2,11 +2,24 @@ module FactoryBot
   module Syntax
     module Methods
 
-      def location_data(id, address, schedule = {})
+      def steps_data(deliveries, pickup_schedule, dropoff_schedule)
+        deliveries.each_with_object({ pickups: [], dropoffs: [] }) do |delivery, _steps|
+          _steps[:pickups] << {
+            delivery_id: delivery.id,
+            action: 'pickup',
+            schedule: pickup_schedule
+          }
+          _steps[:dropoffs] << {
+            delivery_id: delivery.id,
+            action: 'dropoff',
+            schedule: dropoff_schedule
+          }
+        end.values.flatten
+      end
+
+      def location_data(address)
         {
           place: place_name(address),
-          delivery_id: id,
-          schedule: schedule,
           address: {
             id: address.id,
             telephone: address.telephone,

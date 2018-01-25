@@ -54,7 +54,7 @@ RSpec.describe PackagesController, type: :request do
       {
         packages: [{
           quantity: package.quantity,
-          weigth: package.weigth,
+          weight: package.weight,
           volume: package.volume,
           fragile: package.fragile,
           cooling: package.cooling,
@@ -94,7 +94,7 @@ RSpec.describe PackagesController, type: :request do
     let(:package_parameters) {
       {
         quantity: package_update.quantity,
-        weigth: package_update.weigth,
+        weight: package_update.weight,
         volume: package_update.volume,
         fragile: package_update.fragile,
         cooling: package_update.cooling,

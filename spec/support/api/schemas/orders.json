@@ -79,7 +79,7 @@
                     "required" : [
                       "id",
                       "quantity",
-                      "weigth",
+                      "weight",
                       "volume",
                       "cooling",
                       "fragile",
@@ -88,7 +88,7 @@
                     "properties" : {
                       "id": { "type" : "integer" },
                       "quantity": { "type" : "integer" },
-                      "weigth": { "type" : ["integer", "null"] },
+                      "weight": { "type" : ["integer", "null"] },
                       "volume": { "type" : ["integer", "null"] },
                       "cooling": { "type" : "boolean" },
                       "fragile": { "type" : "boolean" },

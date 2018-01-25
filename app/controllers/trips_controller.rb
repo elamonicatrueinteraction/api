@@ -9,6 +9,8 @@ class TripsController < ApplicationController
     service = CreateTrip.call(create_trip_params)
 
     if service.success?
+      Gateway::Shippify::DeliveryCreateWorker.perform_async(service.result.id)
+
       render json: service.result, status: :created # 201
     else
       render json: { errors: service.errors }, status: :unprocessable_entity # 422

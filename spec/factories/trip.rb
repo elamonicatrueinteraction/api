@@ -11,15 +11,14 @@ FactoryBot.define do
       })
     end
     shipper
-    deliveries { build_list(:delivery_with_packages, 1) }
+    deliveries { create_list(:delivery_with_packages, 1) }
     amount { deliveries.map(&:amount).sum }
-    pickups { deliveries.map{|delivery| location_data(delivery.id, delivery.origin, pickup_schedule) } }
-    dropoffs { deliveries.map{|delivery| location_data(delivery.id, delivery.destination, dropoff_schedule) } }
+    steps { steps_data(deliveries, pickup_schedule, dropoff_schedule) }
 
     trait :in_gateway do
       gateway 'Shippify'
       gateway_id 't-nilus-00'
-      status 'Broadcasting'
+      status 'broadcasting'
     end
 
     factory :trip_in_gateway, traits: [ :in_gateway ]

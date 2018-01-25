@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117191346) do
+ActiveRecord::Schema.define(version: 20180125135954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,12 +69,16 @@ ActiveRecord::Schema.define(version: 20180117191346) do
     t.string "gateway"
     t.string "gateway_id"
     t.jsonb "gateway_data", default: {}
+    t.jsonb "pickup", default: {}
+    t.jsonb "dropoff", default: {}
     t.index ["destination_gps_coordinates"], name: "index_deliveries_on_destination_gps_coordinates", using: :gist
     t.index ["destination_id"], name: "index_deliveries_on_destination_id"
+    t.index ["dropoff"], name: "index_deliveries_on_dropoff", using: :gin
     t.index ["gateway_data"], name: "index_deliveries_on_gateway_data", using: :gin
     t.index ["order_id"], name: "index_deliveries_on_order_id"
     t.index ["origin_gps_coordinates"], name: "index_deliveries_on_origin_gps_coordinates", using: :gist
     t.index ["origin_id"], name: "index_deliveries_on_origin_id"
+    t.index ["pickup"], name: "index_deliveries_on_pickup", using: :gin
     t.index ["trip_id"], name: "index_deliveries_on_trip_id"
   end
 
@@ -156,17 +160,15 @@ ActiveRecord::Schema.define(version: 20180117191346) do
     t.string "status"
     t.string "comments"
     t.decimal "amount", precision: 12, scale: 4, default: "0.0"
-    t.jsonb "pickups", default: [], null: false
-    t.jsonb "dropoffs", default: [], null: false
     t.string "gateway"
     t.string "gateway_id"
     t.jsonb "gateway_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["dropoffs"], name: "index_trips_on_dropoffs", using: :gin
+    t.jsonb "steps", default: [], null: false
     t.index ["gateway_data"], name: "index_trips_on_gateway_data", using: :gin
-    t.index ["pickups"], name: "index_trips_on_pickups", using: :gin
     t.index ["shipper_id"], name: "index_trips_on_shipper_id"
+    t.index ["steps"], name: "index_trips_on_steps", using: :gin
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

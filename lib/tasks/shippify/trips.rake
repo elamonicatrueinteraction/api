@@ -22,20 +22,25 @@ namespace :shippify do
           end
         end
 
-        Tasks::Logger.log_run('shippify_trips_import_today') do |log|
-          trips_data.each do |trip_data|
-            trip_id = trip_data['id']
-            service = Gateway::Shippify::ImportTrip.call(trip_id)
+        if trips_data
+          trips_data.uniq!{ |trip_data| trip_data['route_id'] }
+          Tasks::Logger.log_run('shippify_trips_import_today') do |log|
+            trips_data.each do |trip_data|
+              trip_id = trip_data['route_id']
+              service = Gateway::Shippify::ImportTrip.call(trip_id)
 
-            if service.success?
-              trip = service.result
-              print "."
-              log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
-            else
-              print "F"
-              log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              if service.success?
+                trip = service.result
+                print "."
+                log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
+              else
+                print "F"
+                log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              end
             end
           end
+        else
+          print "There are no trips in the this Shippify Account. Response: #{request}"
         end
       end
 
@@ -56,20 +61,25 @@ namespace :shippify do
           end
         end
 
-        Tasks::Logger.log_run('shippify_trips_import_month') do |log|
-          trips_data.each do |trip_data|
-            trip_id = trip_data['id']
-            service = Gateway::Shippify::ImportTrip.call(trip_id)
+        if trips_data
+          trips_data.uniq!{ |trip_data| trip_data['route_id'] }
+          Tasks::Logger.log_run('shippify_trips_import_month') do |log|
+            trips_data.each do |trip_data|
+              trip_id = trip_data['route_id']
+              service = Gateway::Shippify::ImportTrip.call(trip_id)
 
-            if service.success?
-              trip = service.result
-              print "."
-              log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
-            else
-              print "F"
-              log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              if service.success?
+                trip = service.result
+                print "."
+                log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
+              else
+                print "F"
+                log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              end
             end
           end
+        else
+          print "There are no trips in the this Shippify Account. Response: #{request}"
         end
       end
 
@@ -90,20 +100,25 @@ namespace :shippify do
           end
         end
 
-        Tasks::Logger.log_run('shippify_trips_import_month') do |log|
-          trips_data.each do |trip_data|
-            trip_id = trip_data['id']
-            service = Gateway::Shippify::ImportTrip.call(trip_id)
+        if trips_data
+          trips_data.uniq!{ |trip_data| trip_data['route_id'] }
+          Tasks::Logger.log_run('shippify_trips_import_month') do |log|
+            trips_data.each do |trip_data|
+              trip_id = trip_data['route_id']
+              service = Gateway::Shippify::ImportTrip.call(trip_id)
 
-            if service.success?
-              trip = service.result
-              print "."
-              log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
-            else
-              print "F"
-              log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              if service.success?
+                trip = service.result
+                print "."
+                log.info "The trip id #{trip.id} was successfully imported from Shippify delivery id: #{trip_id}"
+              else
+                print "F"
+                log.info "Nothing happens with the Shippify delivery id: #{trip_id}. Errors: #{service.errors}"
+              end
             end
           end
+        else
+          print "There are no trips in the this Shippify Account. Response: #{request}"
         end
       end
 

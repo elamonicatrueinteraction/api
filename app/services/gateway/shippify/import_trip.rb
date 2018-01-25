@@ -128,20 +128,20 @@ module Gateway
           raise Service::Error.new(self)
         end
 
-        deliveries_data.flat_map do |delivery_data|
+        deliveries_data.map do |delivery_data|
           if delivery = Delivery.find_by(gateway: 'Shippify', gateway_id: delivery_data['id'])
-            return [ delivery ]
+            next delivery
           end
 
           service = ::CreateOrder.call( order_params(delivery_data) )
           if service.success?
             order = service.result
-            return order.deliveries
+            order.deliveries
           else
             errors.add_multiple_errors( service.errors )
             raise Service::Error.new(self)
           end
-        end
+        end.flatten
       end
 
       def order_params(delivery_data)
@@ -159,7 +159,7 @@ module Gateway
           if giver = origin.institution
             _hash[:giver_id] = giver.id
           end
-          if receiver = origin.institution
+          if receiver = destination.institution
             _hash[:receiver_id] = receiver.id
           end
           _hash[:packages] = []
