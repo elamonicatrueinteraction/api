@@ -59,9 +59,7 @@
               "status",
               "origin_latlng",
               "destination_latlng",
-              "packages",
-              "created_at",
-              "updated_at"
+              "options"
             ],
             "properties" : {
               "id" : { "type" : "integer" },
@@ -70,32 +68,7 @@
               "status": { "type" : ["string", "null"] },
               "origin_latlng": { "type" : "string" },
               "destination_latlng": { "type" : "string" },
-              "packages" : {
-                "type" : "array",
-                "items": {
-                  "type": "object",
-                  "required" : [
-                    "id",
-                    "quantity",
-                    "weight",
-                    "volume",
-                    "cooling",
-                    "fragile",
-                    "description"
-                  ],
-                  "properties" : {
-                    "id": { "type" : "integer" },
-                    "quantity": { "type" : "integer" },
-                    "weight": { "type" : ["integer", "null"] },
-                    "volume": { "type" : ["integer", "null"] },
-                    "cooling": { "type" : "boolean" },
-                    "fragile": { "type" : "boolean" },
-                    "description": { "type" : ["string", "null"] }
-                  }
-                }
-              },
-              "created_at" : { "type" : "datetime" },
-              "updated_at" : { "type" : "datetime" }
+              "options" : { "type": "object" }
             }
           }
         }

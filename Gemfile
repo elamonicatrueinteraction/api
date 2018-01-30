@@ -31,6 +31,8 @@ group :development do
 
   gem 'guard-rspec', require: false
 
+  gem 'httplog', require: false
+
   gem 'listen', '~> 3.0.5'
 
   gem 'rails-erd', require: false

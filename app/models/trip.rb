@@ -13,4 +13,21 @@ class Trip < ApplicationRecord
     return true if gateway && gateway_id
   end
 
+  def pickup_window
+    @pickup_window ||= initial_pickup['schedule']
+  end
+
+  def dropoff_window
+    @pickup_window ||= last_dropoff['schedule']
+  end
+
+  private
+
+  def initial_pickup
+    @initial_pickup ||= steps.detect{ |step| step['action'] == 'pickup' }
+  end
+
+  def last_dropoff
+    @last_dropoff ||= steps.reverse.detect{ |step| step['action'] == 'dropoff' }
+  end
 end

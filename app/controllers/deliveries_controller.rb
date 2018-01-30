@@ -71,6 +71,7 @@ class DeliveriesController < ApplicationController
       :amount,
       :bonified_amount,
       :status,
+      options: [],
       packages: [
         :quantity,
         :weight,
@@ -88,7 +89,8 @@ class DeliveriesController < ApplicationController
       :destination_id,
       :amount,
       :bonified_amount,
-      :status
+      :status,
+      options: [],
     )
   end
 

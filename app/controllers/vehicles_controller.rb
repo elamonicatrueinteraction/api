@@ -49,7 +49,7 @@ class VehiclesController < ApplicationController
       :model,
       :brand,
       :year,
-      :features
+      features: []
     )
   end
 end

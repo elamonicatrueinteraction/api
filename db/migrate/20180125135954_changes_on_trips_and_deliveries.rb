@@ -10,9 +10,11 @@ class ChangesOnTripsAndDeliveries < ActiveRecord::Migration[5.1]
 
     add_column :deliveries, :pickup, :jsonb, null: true, default: {}
     add_column :deliveries, :dropoff, :jsonb, null: true, default: {}
+    add_column :deliveries, :extras, :jsonb, null: true, default: {}
 
     add_index :trips, :steps, using: :gin
     add_index :deliveries, :pickup, using: :gin
     add_index :deliveries, :dropoff, using: :gin
+    add_index :deliveries, :extras, using: :gin
   end
 end

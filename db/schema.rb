@@ -71,9 +71,11 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.jsonb "gateway_data", default: {}
     t.jsonb "pickup", default: {}
     t.jsonb "dropoff", default: {}
+    t.jsonb "extras", default: {}
     t.index ["destination_gps_coordinates"], name: "index_deliveries_on_destination_gps_coordinates", using: :gist
     t.index ["destination_id"], name: "index_deliveries_on_destination_id"
     t.index ["dropoff"], name: "index_deliveries_on_dropoff", using: :gin
+    t.index ["extras"], name: "index_deliveries_on_extras", using: :gin
     t.index ["gateway_data"], name: "index_deliveries_on_gateway_data", using: :gin
     t.index ["order_id"], name: "index_deliveries_on_order_id"
     t.index ["origin_gps_coordinates"], name: "index_deliveries_on_origin_gps_coordinates", using: :gist

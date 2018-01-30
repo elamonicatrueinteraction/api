@@ -1,5 +1,7 @@
 class DeliverySerializer < Simple::DeliverySerializer
   attributes :packages,
+    :pickup,
+    :dropoff,
     :created_at,
     :updated_at
 

@@ -1,18 +1,18 @@
 GIT
   remote: git@github.com:nilusorg/shippify-api
-  revision: 2f4c7a0f77181e6e88911fbed8584331c5d6e6b9
+  revision: 5f73a0b1a4019d0f9d0d5570a9d8a99d2470dd18
   branch: master
   specs:
-    shippify-api (0.2.1)
+    shippify-api (0.2.4)
       oj (~> 3.0)
       typhoeus (>= 1.0)
 
 GIT
   remote: git@github.com:nilusorg/shippify-dash
-  revision: 04d1760b85654ece29492cb8bcc5e4f4e6d99387
+  revision: bc76689f494b05f985848815abf6f9a35920e010
   branch: master
   specs:
-    shippify-dash (0.3.0)
+    shippify-dash (0.3.1)
       oj (~> 3.0)
       typhoeus (>= 1.0)
 
@@ -108,6 +108,7 @@ GEM
     choice (0.2.0)
     chronic (0.10.2)
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crass (1.0.2)
@@ -140,6 +141,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    httplog (1.0.0)
+      colorize
+      rack
     i18n (0.9.0)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
@@ -310,6 +314,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.0)
   faker!
   guard-rspec
+  httplog
   json-schema
   jwt
   listen (~> 3.0.5)

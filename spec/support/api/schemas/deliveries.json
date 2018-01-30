@@ -13,9 +13,12 @@
           "status",
           "origin_latlng",
           "destination_latlng",
+          "options",
           "packages",
           "created_at",
           "updated_at",
+          "pickup",
+          "dropoff",
           "origin",
           "destination",
           "order"
@@ -29,6 +32,45 @@
           "destination_latlng": { "type" : "string" },
           "created_at" : { "type" : "datetime" },
           "updated_at" : { "type" : "datetime" },
+          "options" : { "type": "object" },
+          "pickup":{
+            "type": "object",
+            "required" : [
+              "notes",
+              "place",
+              "latlng",
+              "open_hours",
+              "address",
+              "contact"
+            ],
+            "properties" : {
+              "notes": { "type" : "string" },
+              "place": { "type" : "string" },
+              "latlng": { "type" : "string" },
+              "open_hours": { "type" : "string" },
+              "address":{ "type": "object" },
+              "contact":{ "type": "object" }
+            }
+          },
+          "dropoff":{
+            "type": "object",
+            "required" : [
+              "notes",
+              "place",
+              "latlng",
+              "open_hours",
+              "address",
+              "contact"
+            ],
+            "properties" : {
+              "notes": { "type" : "string" },
+              "place": { "type" : "string" },
+              "latlng": { "type" : "string" },
+              "open_hours": { "type" : "string" },
+              "address":{ "type": "object" },
+              "contact":{ "type": "object" }
+            }
+          },
           "packages" : {
             "type" : "array",
             "items": {

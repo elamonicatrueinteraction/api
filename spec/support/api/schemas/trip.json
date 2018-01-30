@@ -65,7 +65,8 @@
               "bonified_amount",
               "status",
               "origin_latlng",
-              "destination_latlng"
+              "destination_latlng",
+              "options"
             ],
             "properties" : {
               "id" : { "type" : "integer" },
@@ -73,7 +74,8 @@
               "bonified_amount": { "type" : ["decimal", "null"] },
               "status": { "type" : ["string", "null"] },
               "origin_latlng": { "type" : "string" },
-              "destination_latlng": { "type" : "string" }
+              "destination_latlng": { "type" : "string" },
+              "options" : { "type": "object" }
             }
           }
         },

@@ -50,6 +50,7 @@ class OrdersController < ApplicationController
       :destination_id, # For the delivery
       :delivery_amount, # For the delivery
       :delivery_bonified_amount, # For the delivery
+      options: [], # For the delivery
       packages: [
         :quantity,
         :weight,

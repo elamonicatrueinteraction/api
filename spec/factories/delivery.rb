@@ -17,6 +17,11 @@ FactoryBot.define do
       end
     end
 
+    trait :refrigerated do
+      options { [ "refrigerated" ] }
+    end
+
     factory :delivery_with_packages, traits: [ :with_packages ]
+    factory :delivery_with_packages_and_refrigerated, traits: [ :with_packages, :refrigerated ]
   end
 end

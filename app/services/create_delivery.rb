@@ -58,7 +58,8 @@ class CreateDelivery
       destination: load_address('destination', @allowed_params[:destination_id]),
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount],
-      status: params_status_or_default(@allowed_params[:status])
+      status: params_status_or_default(@allowed_params[:status]),
+      options: @allowed_params[:options]
     }.tap do |_hash|
       if _hash[:origin]
         _hash[:origin_gps_coordinates] = _hash[:origin].gps_coordinates
