@@ -166,6 +166,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    multi_json (1.13.1)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -236,6 +237,8 @@ GEM
       rgeo (~> 0.3)
     rgeo-geojson (0.4.3)
       rgeo (~> 0.5)
+    rollbar (2.15.5)
+      multi_json
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -327,6 +330,7 @@ DEPENDENCIES
   rails-erd
   redis-namespace
   rgeo-geojson
+  rollbar
   rspec-rails (~> 3.5)
   rspec-sidekiq
   shippify-api!

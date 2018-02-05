@@ -10,6 +10,9 @@ development: &app_config
     port: 6379
     db:   2
 
+  rollbar:
+    access_token:
+
   shippify:
     api:
       key: ''
@@ -20,6 +23,8 @@ development: &app_config
       password: ''
       # Or also could be instead of email: and password:
       # access_token: ''
+
+  staging: false
 
   ssl_enabled: false
 

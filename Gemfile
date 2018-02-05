@@ -11,6 +11,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
 gem 'redis-namespace'
 gem 'rgeo-geojson'
+gem 'rollbar' # Rollbar is an error tracking service for Ruby
 gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 gem 'sidekiq'
