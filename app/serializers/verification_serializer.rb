@@ -1,5 +1,5 @@
 class VerificationSerializer < ActiveModel::Serializer
-  attributes :id, :type, :information, :verified, :expired, :expire, :expire_at, :responsable, :created_at
+  attributes :id, :type, :information, :verified, :expired, :expire, :expire_at, :responsible, :created_at
 
   def verified
     object.verified?

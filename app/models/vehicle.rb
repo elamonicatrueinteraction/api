@@ -11,7 +11,9 @@ class Vehicle < ApplicationRecord
     ABS
     ASR
     AWD
+    refrigerated
   ).freeze
+  private_constant :FEATURES
 
   VERIFICATIONS = {
     license_plate: %w(register_date number state city),
@@ -26,13 +28,22 @@ class Vehicle < ApplicationRecord
     capacity
     gateway_id
   ).freeze
+  private_constant :SINGLE_EXTRAS
 
   def features
-    return @features if @features
+    return @features if defined?(@features)
 
     @features = FEATURES.each_with_object({}) do |feature, _hash|
-      _hash[feature] = (extras['features'] || []).include?(feature)
+      _hash[feature] = features_info.include?(feature)
     end
+  end
+
+  def features=(value)
+    new_values = Array.wrap(value).select{ |v| FEATURES.include?(v) }
+
+    extras['features'] = features_info | new_values
+
+    @features_info = extras['features']
   end
 
   SINGLE_EXTRAS.each do |extra_name|
@@ -45,6 +56,12 @@ class Vehicle < ApplicationRecord
     define_method :"#{extra_name}=" do |new_value|
       self.extras[extra_name] = new_value
     end
+  end
+
+  private
+
+  def features_info
+    @features_info ||= Array.wrap(extras['features'])
   end
 
 end

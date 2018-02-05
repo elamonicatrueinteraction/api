@@ -4,5 +4,6 @@ class Simple::DeliverySerializer < ActiveModel::Serializer
     :bonified_amount,
     :status,
     :origin_latlng,
-    :destination_latlng
+    :destination_latlng,
+    :options
 end

@@ -5,6 +5,15 @@ class Address < ApplicationRecord
   def latlng
     return unless gps_coordinates
 
-    gps_coordinates.coordinates.reverse.join(", ")
+    gps_coordinates.coordinates.reverse.join(",")
+  end
+
+  def lookup_address
+    @lookup_address ||= [
+      street_1,
+      [zip_code, city].compact.join(' '),
+      state,
+      country
+    ].compact.join(', ')
   end
 end

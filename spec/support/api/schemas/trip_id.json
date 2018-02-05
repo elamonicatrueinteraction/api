@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["trip"],
+  "properties": {
+    "trip" : {
+      "type": "string"
+    }
+  }
+}

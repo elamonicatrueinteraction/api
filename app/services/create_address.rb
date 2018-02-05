@@ -16,6 +16,8 @@ class CreateAddress
   def create_address
     @address = @institution.addresses.new( address_params(@allowed_params) )
 
+    return if errors.any?
+
     return @address if @address.save
 
     errors.add_multiple_errors(@address.errors.messages) && nil

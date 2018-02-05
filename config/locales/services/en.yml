@@ -1,5 +1,8 @@
 en:
   services:
+    address:
+      latlng:
+        missing: "The attribute latlng is missing"
     authenticate:
       invalid_credentials: Invalid credentials
     authorize_request:

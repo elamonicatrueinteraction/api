@@ -9,9 +9,11 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
+gem 'redis-namespace'
 gem 'rgeo-geojson'
 gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
+gem 'sidekiq'
 gem 'whenever', require: false
 
 group :development, :test do
@@ -20,14 +22,18 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
-
   gem 'capistrano',             require: false
   gem 'capistrano-bundler',     require: false
   gem 'capistrano-inspeqtor',   require: false
   gem 'capistrano3-puma',       require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano-maintenance', require: false
+
+  gem 'guard-rspec', require: false
+
+  gem 'httplog', require: false
+
+  gem 'listen', '~> 3.0.5'
 
   gem 'rails-erd', require: false
 end
@@ -38,6 +44,9 @@ group :test do
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
   gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
+  gem "json-schema"
+  gem 'rails-controller-testing'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end

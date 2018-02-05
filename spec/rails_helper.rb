@@ -35,6 +35,9 @@ require 'support/shoulda_matchers'
 require 'support/factory_bot'
 require 'support/database_cleaner'
 require 'support/request_helpers'
+require 'support/api_shared_context'
+require 'support/api_schema_matcher'
+require 'support/sidekiq'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true

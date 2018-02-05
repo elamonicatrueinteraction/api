@@ -1,5 +1,7 @@
 class DeliverySerializer < Simple::DeliverySerializer
   attributes :packages,
+    :pickup,
+    :dropoff,
     :created_at,
     :updated_at
 
@@ -10,7 +12,7 @@ class DeliverySerializer < Simple::DeliverySerializer
 
   def packages
     object.packages.map do |package|
-      package.attributes.slice('id','weight','volume','cooling','description')
+      package.attributes.slice('id','quantity','weight','volume','cooling','fragile','description')
     end
   end
 end

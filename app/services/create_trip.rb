@@ -18,14 +18,12 @@ class CreateTrip
   def load_deliveries
     if orders = Order.where(id: @allowed_params[:orders_ids])
       if orders.blank? || orders.any?{ |order| order.deliveries.blank? }
-        errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:orders_ids].join(', '))) && nil
+        return errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
       end
 
-      @deliveries = orders.flat_map do |order|
-        order.deliveries.preload(:origin, :destination)
-      end
+      @deliveries = orders.flat_map(&:deliveries)
     else
-      errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:orders_ids].join(', '))) && nil
+      errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
     end
   end
 
@@ -43,7 +41,7 @@ class CreateTrip
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
-      return errors.add(:exceptopm, e.message ) && nil
+      return errors.add(:exception, e.message ) && nil
     end
 
     @trip
@@ -53,8 +51,7 @@ class CreateTrip
     {
       comments: @allowed_params[:comments],
       amount: @deliveries.map(&:amount).sum,
-      pickups: pickups_data,
-      dropoffs: dropoffs_data
+      steps: steps_data
     }.tap do |_hash|
       _hash[:status] = @allowed_params[:status] if @allowed_params[:status]
       _hash[:shipper] = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
@@ -65,54 +62,40 @@ class CreateTrip
     end
   end
 
-  def schedule_datetime
-    @allowed_params[:schedule_at] ? @allowed_params[:schedule_at] : Time.now
+  def steps_data
+    # TO-DO: We need to rethink this because this should be replaced by a logic of an optimize route.
+    # for now we are routing all the pickups first and then all the dropoff, no optimization applied
+    @deliveries.each_with_object({ pickups: [], dropoffs: [] }) do |delivery, _steps|
+      _steps[:pickups] << {
+        delivery_id: delivery.id,
+        action: 'pickup',
+        schedule: pickup_schedule
+      }
+      _steps[:dropoffs] << {
+        delivery_id: delivery.id,
+        action: 'dropoff',
+        schedule: dropoff_schedule
+      }
+    end.values.flatten
   end
 
-  def pickups_data
-    @deliveries.map do |delivery|
-      location_data(delivery.id, delivery.origin, @allowed_params[:pickup_schedule])
-    end
+  def pickup_schedule
+    return @pickup_schedule if defined?(@pickup_schedule)
+
+    @pickup_schedule = schedule_param(@allowed_params[:pickup_schedule])
   end
 
-  def dropoffs_data
-    @deliveries.map do |delivery|
-      location_data(delivery.id, delivery.destination, @allowed_params[:dropoff_schedule])
-    end
+  def dropoff_schedule
+    return @dropoff_schedule if defined?(@dropoff_schedule)
+
+    @dropoff_schedule = schedule_param(@allowed_params[:dropoff_schedule])
   end
 
-  def location_data(id, address, schedule = {})
+  def schedule_param(schedule = {})
+    now = Time.current
     {
-      place: place_name(address),
-      delivery_id: id,
-      schedule: schedule,
-      address: {
-        id: address.id,
-        telephone: address.telephone,
-        street_1: address.street_1,
-        street_2: address.street_2,
-        zip_code: address.zip_code,
-        city: address.city,
-        state: address.state,
-        country: address.country
-      },
-      latlng: address.latlng,
-      open_hours: address.open_hours,
-      notes: address.notes,
-      contact: contact_data(address)
+      start: ( schedule[:start].present? ? schedule[:start] : now ),
+      end: ( schedule[:end].present? ? schedule[:end] : (now + 1.hour) )
     }
   end
-
-  def place_name(address)
-    address.institution ? address.institution.name : address.lookup
-  end
-
-  def contact_data(address)
-    {
-      name: address.contact_name,
-      cellphone: address.contact_cellphone,
-      email: address.contact_email
-    }
-  end
-
 end

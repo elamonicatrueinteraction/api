@@ -9,5 +9,5 @@ class OrderSerializer < ActiveModel::Serializer
   belongs_to :giver, class_name: 'Institution'
   belongs_to :receiver, class_name: 'Institution'
 
-  has_many :deliveries
+  has_many :deliveries, serializer: Simple::DeliverySerializer
 end

@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["delivery"],
+  "properties": {
+    "delivery" : {
+      "type": "integer"
+    }
+  }
+}

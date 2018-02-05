@@ -14,7 +14,7 @@ class PackagesController < ApplicationController
     if package = current_delivery.packages.find_by(id: params[:id])
       render json: package, status: :ok # 200
     else
-      render json: { error: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
     end
   end
 
@@ -26,7 +26,7 @@ class PackagesController < ApplicationController
     if service.success?
       render json: service.result, status: :created # 201
     else
-      render json: { error: service.errors }, status: :unprocessable_entity # 422
+      render json: { errors: service.errors }, status: :unprocessable_entity # 422
     end
   end
 
@@ -39,10 +39,10 @@ class PackagesController < ApplicationController
       if service.success?
         render json: service.result, status: :created # 201
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
     end
   end
 
@@ -55,10 +55,10 @@ class PackagesController < ApplicationController
       if service.success?
         render json: { package: package.id }, status: :ok # 200
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.package', package_id: params[:id], delivery_id: params[:delivery_id]) }, status: :not_found # 404
     end
   end
 

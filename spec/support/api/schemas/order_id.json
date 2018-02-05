@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["order"],
+  "properties": {
+    "order" : {
+      "type": "string"
+    }
+  }
+}

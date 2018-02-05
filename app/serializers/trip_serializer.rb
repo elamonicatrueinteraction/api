@@ -6,8 +6,7 @@ class TripSerializer < ActiveModel::Serializer
     :package_amount,
     :shipper_name,
     :shipper_avatar_url,
-    :pickups,
-    :dropoffs,
+    :steps,
     :created_at,
     :updated_at
 
@@ -20,7 +19,7 @@ class TripSerializer < ActiveModel::Serializer
   end
 
   def package_amount
-    object.orders.flat_map(&:amount).sum
+    object.orders.flat_map(&:amount).compact.sum
   end
 
   def shipper_name
@@ -31,27 +30,3 @@ class TripSerializer < ActiveModel::Serializer
     ''
   end
 end
-
-
- # +    shipper_name: 'César Sebastián González',
- # +    shipper_avatar_url: '',
- # +    pickup_start_time: '11-16-2017 09:00',
- # +    pickup_end_time: '11-16-2017 10:00',
- # +    pickup_place: 'Banco de Alimentos de Rosario',
- # +    dropoffs: [
- # +      {
- # +        start_time: '11-16-2017 12:00',
- # +        end_time: '11-16-2017 13:00',
- # +        place: 'Asociación Civil Evita Sol Naciente',
- # +      },
- # +      {
- # +        start_time: '11-16-2017 12:00',
- # +        end_time: '11-16-2017 13:00',
- # +        place: 'Asociación Civil Evita Sol Naciente',
- # +      }
- # +    ],
- # +    delivery_amount: '375.00',
- # +    package_amount: '375.00',
- # +    status: 'on_going',
- # +    package: 'Alimentos no perecederos.',
- # +    comments: 'El timbre no funciona, golpear la puerta.'

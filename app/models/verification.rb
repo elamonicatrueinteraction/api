@@ -31,7 +31,7 @@ class Verification < ApplicationRecord
     !!expire && expire_at < Time.now
   end
 
-  def responsable
+  def responsible
     return unless verified?
 
     User.find_by(id: verified_by)

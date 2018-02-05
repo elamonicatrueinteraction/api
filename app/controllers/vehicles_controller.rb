@@ -14,9 +14,11 @@ class VehiclesController < ApplicationController
     vehicle = current_shipper.vehicles.create(vehicle_params)
     # TODO: Create a service
     if vehicle.valid?
+      Gateway::Shippify::VehicleWorker.perform_async(vehicle.id, 'create')
+
       render json: vehicle, status: :created # 201
     else
-      render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
+      render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
     end
   end
 
@@ -29,12 +31,14 @@ class VehiclesController < ApplicationController
       vehicle.update(vehicle_params)
       # TODO: Create a service
       if vehicle.valid?
+        Gateway::Shippify::VehicleWorker.perform_async(vehicle.id, 'update')
+
         render json: vehicle, status: :ok # 200
       else
-        render json: { error: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
+        render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.vehicle', id: params[:id]) }, status: :not_found # 404
+      render json: { errors: [ I18n.t('errors.not_found.vehicle', id: params[:id]) ] }, status: :not_found # 404
     end
   end
 
@@ -45,7 +49,7 @@ class VehiclesController < ApplicationController
       :model,
       :brand,
       :year,
-      :features
+      features: []
     )
   end
 end

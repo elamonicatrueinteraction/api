@@ -1,7 +1,10 @@
 class Shipper < ApplicationRecord
   attribute :data, :jsonb, default: {}
+  attribute :national_ids, :jsonb, default: {}
 
   has_many :verifications, as: :verificable
+  has_many :bank_accounts
+  has_many :vehicles
 
   validates_presence_of :first_name, :email, :gateway_id
 
@@ -24,9 +27,6 @@ class Shipper < ApplicationRecord
     has_banking_account
     has_paypal_account
   ).freeze
-
-  has_many :bank_accounts
-  has_many :vehicles
 
   def full_name
     @full_name ||= [first_name, last_name].join(' ').strip

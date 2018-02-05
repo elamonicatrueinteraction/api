@@ -11,7 +11,7 @@ class ShippersController < ApplicationController
     if shipper.valid?
       render json: shipper, status: :created # 201
     else
-      render json: { error: shipper.errors.full_messages }, status: :unprocessable_entity # 422
+      render json: { errors: shipper.errors.full_messages }, status: :unprocessable_entity # 422
     end
   end
 
@@ -25,12 +25,14 @@ class ShippersController < ApplicationController
       shipper.update(shipper_params)
       # TODO: Create a validator service
       if shipper.valid?
+        Gateway::Shippify::ShipperUpdateWorker.perform_async(shipper.id)
+
         render json: shipper, status: :ok # 200
       else
-        render json: { error: shipper.errors.full_messages }, status: :unprocessable_entity # 422
+        render json: { errors: shipper.errors.full_messages }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.shipper', id: params[:id]) }, status: :not_found # 404
+      render json: { errors: [ I18n.t('errors.not_found.shipper', id: params[:id]) ] }, status: :not_found # 404
     end
   end
 

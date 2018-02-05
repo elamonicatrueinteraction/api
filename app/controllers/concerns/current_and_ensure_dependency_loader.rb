@@ -26,11 +26,19 @@ module CurrentAndEnsureDependencyLoader
     define_method :"ensure_#{model_name}" do
       unless send(:"current_#{model_name}")
         if id = params[:"#{model_name}_id"]
-          render json: { error: I18n.t("errors.not_found.#{model_name}", id: id) }, status: :not_found and return
+          render json: { errors: [ I18n.t("errors.not_found.#{model_name}", id: id) ] }, status: :not_found and return
         else
-          render json: { error: I18n.t("errors.missing.#{model_name}") }, status: :bad_request and return
+          render json: { errors: [ I18n.t("errors.missing.#{model_name}") ] }, status: :bad_request and return
         end
       end
+    end
+
+    define_method :"optional_#{model_name}" do
+      return unless params[:"#{model_name}_id"]
+
+      return if send(:"current_#{model_name}")
+
+      render json: { errors: [ I18n.t("errors.not_found.#{model_name}", id: params[:"#{model_name}_id"]) ] }, status: :not_found and return
     end
   end
 end

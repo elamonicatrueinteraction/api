@@ -2,9 +2,21 @@ en:
   services:
     gateway:
       shippify:
+        create_place:
+          error: "The Address id: '%{id}' was not created in Shippify"
+        create_vehicle:
+          error: "The Vehicle id: '%{id}' was not created in Shippify"
         import_trip:
           deliveries_data:
             missing_or_invalid: Seems that there is no information about the deliveries in this trip.
           trip_data:
             already_exist: "A trip with Shippify id: '%{id}' already exist."
             missing_or_invalid: "There is no trip in Shippify with id: %{id}."
+        update_place:
+          error: "The Shippify place id: '%{id}' was not updated"
+        update_shipper:
+          error: "The Shippify shipper id: '%{id}' was not updated"
+        update_vehicle:
+          errors:
+            general: "The Shippify vechicle id: '%{id}' was not updated"
+            shippify_vehicle_id: "The Vehicle id: '%{id}' does not have a valid shippify_id."

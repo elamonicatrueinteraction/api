@@ -14,7 +14,7 @@ class DeliveriesController < ApplicationController
     if delivery = current_order.deliveries.find_by(id: params[:id])
       render json: delivery, status: :ok # 200
     else
-      render json: { error: I18n.t('errors.not_found.delivery', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.delivery_on_order', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
     end
   end
 
@@ -26,7 +26,7 @@ class DeliveriesController < ApplicationController
     if service.success?
       render json: service.result, status: :created # 201
     else
-      render json: { error: service.errors }, status: :unprocessable_entity # 422
+      render json: { errors: service.errors }, status: :unprocessable_entity # 422
     end
   end
 
@@ -39,10 +39,10 @@ class DeliveriesController < ApplicationController
       if service.success?
         render json: service.result, status: :created # 201
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.delivery', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.delivery_on_order', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
     end
   end
 
@@ -55,10 +55,10 @@ class DeliveriesController < ApplicationController
       if service.success?
         render json: { delivery: delivery.id }, status: :ok # 200
       else
-        render json: { error: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
-      render json: { error: I18n.t('errors.not_found.delivery', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
+      render json: { errors: I18n.t('errors.not_found.delivery_on_order', delivery_id: params[:id], order_id: params[:order_id]) }, status: :not_found # 404
     end
   end
 
@@ -71,7 +71,9 @@ class DeliveriesController < ApplicationController
       :amount,
       :bonified_amount,
       :status,
+      options: [],
       packages: [
+        :quantity,
         :weight,
         :volume,
         :fragile,
@@ -87,7 +89,8 @@ class DeliveriesController < ApplicationController
       :destination_id,
       :amount,
       :bonified_amount,
-      :status
+      :status,
+      options: [],
     )
   end
 

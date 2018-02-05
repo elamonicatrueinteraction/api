@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "required": ["package"],
+  "properties": {
+    "package" : {
+      "type": "integer"
+    }
+  }
+}

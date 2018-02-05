@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       resources :bank_accounts, only: [ :index, :show, :create, :update ]
     end
 
-    resources :bank_accounts, only: [ :index, :show, :create, :update ]
+    resources :bank_accounts, only: [ :show, :create, :update ]
 
     resources :vehicles, only: [ :create, :update ] do
       resources :verifications, only: [ :create, :index, :update, :destroy ]
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       resources :addresses, only: [ :create, :index, :update, :destroy ]
     end
 
-    resources :orders, only: [ :create, :show, :index, :update, :destroy ] do
+    resources :orders, only: [ :create, :show, :index, :destroy ] do
       resources :deliveries, only: [ :index, :show, :destroy ]
     end
 

@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "required": ["vehicle"],
+  "properties": {
+    "vehicle" : {
+      "type": "object",
+      "properties" : {
+        "id" : { "type" : "string" },
+        "model" : { "type" : "string" },
+        "brand" : { "type" : "string" },
+        "year" : { "type" : "integer" },
+        "verifications" : {
+          "type" : "array",
+          "items": {
+            "type": "object",
+            "properties" : {
+              "id" : { "type" : "integer" },
+              "type" : { "type" : "string" },
+              "information" : { "type" : "object" },
+              "verified" : { "type" : "boolean" },
+              "expired" : { "type" : "boolean" }
+            }
+          }
+        },
+        "features" : { "type" : "object" },
+        "shipper" : {
+          "type" : "object",
+          "properties" : {
+            "id": { "type" : "string" },
+            "first_name": { "type" : "string" },
+            "last_name": { "type" : "string" },
+            "email": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}
