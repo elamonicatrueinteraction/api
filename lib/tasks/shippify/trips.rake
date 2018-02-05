@@ -47,7 +47,7 @@ namespace :shippify do
       desc 'Import this month trips from shippify'
       task month: :environment do
         length = 10
-        request = Shippify::Dash.client.trips(length:length, period: 'month')
+        request = Shippify::Dash.client.trips(length: length, period: 'month')
         pages = (request["recordsFiltered"].to_f / length.to_f).ceil
         trips_data = request['data']
 
@@ -56,7 +56,7 @@ namespace :shippify do
             next if time == 0
 
             start = (length * time)
-            request = Shippify::Dash.client.trips(start: start, length:length, period: 'month')
+            request = Shippify::Dash.client.trips(start: start, length: length, period: 'month')
             trips_data += request['data']
           end
         end

@@ -30,7 +30,7 @@ set :puma_preload_app, false
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 
-set :linked_files, %w{config/nilus.yml config/secrets.yml config/puma.rb config/database.yml}
+set :linked_files, %w{config/nilus.yml config/secrets.yml config/puma.rb config/database.yml config/sidekiq.yml}
 set :linked_dirs,  %w{bundle lib/tasks/log log public/system tmp/cache tmp/pids tmp/sockets}
 
 set :whenever_roles, ->{ :app }
@@ -46,6 +46,19 @@ namespace :puma do
   end
 
   before :start, :make_dirs
+end
+
+namespace :sidekiq do
+  task :quiet do
+    on roles(:app) do
+      puts capture("pgrep -f 'sidekiq' | xargs kill -USR1")
+    end
+  end
+  task :restart do
+    on roles(:app) do
+      execute :sudo, :service, :sidekiq, :restart
+    end
+  end
 end
 
 namespace :deploy do
@@ -74,11 +87,15 @@ namespace :deploy do
       upload! "config/deploy/files/#{fetch(:stage)}/nilus.yml", "#{shared_path}/config/nilus.yml"
       upload! "config/deploy/files/#{fetch(:stage)}/database.yml", "#{shared_path}/config/database.yml"
       upload! "config/deploy/files/#{fetch(:stage)}/secrets.yml",  "#{shared_path}/config/secrets.yml"
+      upload! "config/deploy/files/#{fetch(:stage)}/sidekiq.yml",  "#{shared_path}/config/sidekiq.yml"
       invoke 'puma:config'
     end
   end
 
   before :starting,     :check_revision
+  after  :starting,     'sidekiq:quiet'
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after  :reverted,     'sidekiq:restart'
+  after  :published,    'sidekiq:restart'
 end

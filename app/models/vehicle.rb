@@ -2,7 +2,7 @@ class Vehicle < ApplicationRecord
   attribute :extras, :jsonb, default: {}
 
   belongs_to :shipper
-  has_many :verifications, as: :verificable
+  has_many :verifications, as: :verificable, dependent: :destroy
 
   validates_presence_of :model
 
