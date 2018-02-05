@@ -20,7 +20,6 @@ module Gateway
 
         if shippify_deliveries
 
-
           # TO-DO: This service is doing to things and I don't thinks is a good idea
           # I rather change this but we need to have a better idea how to create routes in shippify.
           shippify_deliveries.each do |shippify_delivery_data|
@@ -29,7 +28,7 @@ module Gateway
             delivery.update({
               gateway: 'Shippify',
               gateway_id: shippify_delivery.id,
-              gateway_id: shippify_delivery.data
+              gateway_data: shippify_delivery.data
             })
           end
 
