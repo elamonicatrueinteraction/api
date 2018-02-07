@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: git@github.com:nilusorg/shippify-dash
-  revision: bc76689f494b05f985848815abf6f9a35920e010
+  revision: 9276e31fd9e5e8438e925952761c76801479c460
   branch: master
   specs:
-    shippify-dash (0.3.1)
+    shippify-dash (0.3.2)
       oj (~> 3.0)
       typhoeus (>= 1.0)
 
