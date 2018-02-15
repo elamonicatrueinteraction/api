@@ -41,9 +41,7 @@ class Vehicle < ApplicationRecord
   def features=(value)
     new_values = Array.wrap(value).select{ |v| FEATURES.include?(v) }
 
-    extras['features'] = features_info | new_values
-
-    @features_info = extras['features']
+    @features_info = extras['features'] = new_values
   end
 
   SINGLE_EXTRAS.each do |extra_name|

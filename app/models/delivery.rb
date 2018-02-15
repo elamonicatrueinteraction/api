@@ -49,9 +49,7 @@ class Delivery < ApplicationRecord
   def options=(value)
     new_values = Array.wrap(value).select{ |v| OPTIONS.include?(v) }
 
-    extras['options'] = options_info | new_values
-
-    @options_info = extras['options']
+    @options_info = extras['options'] = new_values
   end
 
   def self.valid_status
