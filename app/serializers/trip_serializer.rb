@@ -7,6 +7,8 @@ class TripSerializer < ActiveModel::Serializer
     :shipper_name,
     :shipper_avatar_url,
     :steps,
+    :giver,
+    :receiver,
     :created_at,
     :updated_at
 
@@ -28,5 +30,29 @@ class TripSerializer < ActiveModel::Serializer
 
   def shipper_avatar_url
     ''
+  end
+
+  def giver
+    return {} unless order.giver
+
+    {
+      id: order.giver.id,
+      name: order.giver.name
+    }
+  end
+
+  def receiver
+    return {} unless order.receiver
+
+    {
+      id: order.receiver.id,
+      name: order.receiver.name
+    }
+  end
+
+  private
+
+  def order
+    @order = object.orders.last
   end
 end

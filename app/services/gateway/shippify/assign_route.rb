@@ -18,12 +18,13 @@ module Gateway
         ::Shippify::Api::Route.assign( shippify_trip_id, shippify_shipper_id )
 
         response = ::Shippify::Dash.client.trip(id: shippify_trip_id)
-        if shippify_trip_data = response['payload'].fetch('data', {})
+        if shippify_trip_data = response['payload'].fetch('data', {})["route"]
           if shippify_trip_data["status"] == "broadcasting" && shippify_trip_data["courier"]["id"] == shippify_shipper_id.to_s
-            @trip.update(status: shippify_trip_data["status"])
+            @trip.update(status: shippify_trip_data["status"], gateway_data: shippify_trip_data)
             @trip.deliveries.each do |delivery|
               delivery.update(status: shippify_trip_data["status"])
             end
+            return @trip
           end
         end
 
