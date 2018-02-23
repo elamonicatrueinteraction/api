@@ -22,7 +22,7 @@
 %>
 
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
@@ -30,6 +30,7 @@ default: &default
   username:
   password:
   host: localhost
+  schema_search_path: public
 
 development: &development
   <<: *default

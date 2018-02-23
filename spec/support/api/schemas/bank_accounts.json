@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "required": ["bank_accounts"],
+  "properties": {
+    "bank_accounts" : {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required" : [
+          "id",
+          "bank_name",
+          "number",
+          "type",
+          "cbu",
+          "updated_at",
+          "shipper"
+        ],
+        "properties" : {
+          "id" : { "type" : "string" },
+          "bank_name" : { "type" : "string" },
+          "number" : { "type" : "string" },
+          "type" : { "type" : "string" },
+          "cbu" : { "type" : ["string", "null"] },
+          "updated_at" : { "type" : "datetime" },
+          "shipper" : {
+            "type" : "object",
+            "properties" : {
+              "id": { "type" : "string" },
+              "first_name": { "type" : "string" },
+              "last_name": { "type" : "string" },
+              "email": { "type" : ["string"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}
