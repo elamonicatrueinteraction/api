@@ -184,10 +184,7 @@ GEM
       method_source (~> 0.9.0)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-<<<<<<< HEAD
-=======
     public_suffix (3.0.1)
->>>>>>> staging
     puma (3.10.0)
     rack (2.0.3)
     rack-cors (1.0.2)
@@ -306,11 +303,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-<<<<<<< HEAD
-=======
   active_model_serializers (~> 0.10.0)
   activerecord-postgis-adapter
->>>>>>> staging
   awesome_rails_console
   bcrypt
   capistrano
@@ -338,11 +332,8 @@ DEPENDENCIES
   rgeo-geojson
   rollbar
   rspec-rails (~> 3.5)
-<<<<<<< HEAD
-=======
   rspec-sidekiq
   shippify-api!
->>>>>>> staging
   shippify-dash!
   shoulda-matchers (~> 3.1)
   sidekiq
