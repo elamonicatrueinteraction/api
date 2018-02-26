@@ -13,6 +13,6 @@ class ShipperSerializer < Simple::ShipperSerializer
     :minimum_requirements,
     :requirements
 
-  has_many :vehicles, serializer: Simple::VehicleSerializer
+  has_many :vehicles
   has_many :bank_accounts, serializer: Simple::BankAccountSerializer
 end
