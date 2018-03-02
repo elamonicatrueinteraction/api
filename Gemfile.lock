@@ -1,9 +1,9 @@
 GIT
   remote: git@github.com:nilusorg/shippify-api
-  revision: 0a2edd6f83caf2b428d96b97bf981e28cd9c3278
+  revision: cd0e1de23e772368215bd28c6f8ba11e0e6a27c9
   branch: master
   specs:
-    shippify-api (0.3.1)
+    shippify-api (0.3.3)
       oj (~> 3.0)
       typhoeus (>= 1.0)
 
