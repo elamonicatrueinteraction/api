@@ -13,7 +13,7 @@ module Gateway
             if trip.shipper
               Gateway::Shippify::AssignRoute.call(trip)
             else
-              Gateway::Shippify::BroadcastRoute.call(trip)
+              # Gateway::Shippify::BroadcastRoute.call(trip)
             end
           else
             # I'm doing this because I don not want to retry tasks that despite they have

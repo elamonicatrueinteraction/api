@@ -54,6 +54,24 @@ class TripsController < ApplicationController
     end
   end
 
+  def broadcast
+    if trip = Trip.find_by(id: params[:id])
+      if %w(draft scheduled processing).include?(trip.status)
+        service = Gateway::Shippify::BroadcastRoute.call(trip)
+
+        if service.success?
+          render json: trip, status: :ok # 200
+        else
+          render json: { errors: service.errors }, status: :unprocessable_entity # 422
+        end
+      else
+        render json: { errors: I18n.t('errors.trip.invalid_status', id: params[:id]) }, status: :unprocessable_entity # 422
+      end
+    else
+      render json: { errors: I18n.t('errors.not_found.trip', id: params[:id]) }, status: :not_found # 404
+    end
+  end
+
   private
 
   def create_trip_params
