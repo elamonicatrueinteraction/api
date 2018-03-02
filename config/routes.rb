@@ -36,7 +36,12 @@ Rails.application.routes.draw do
       resources :packages, only: [ :create, :index, :show, :update, :destroy ]
     end
 
-    resources :trips, only: [ :create, :show, :index, :update, :destroy  ]
+    resources :trips, only: [ :create, :show, :index, :update, :destroy  ] do
+      member do
+        post :broadcast
+      end
+    end
+
   # ╰─ End of Private Accesible URL's / Path's
   end
 end
