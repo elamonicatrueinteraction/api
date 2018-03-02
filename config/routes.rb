@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   # ╭─ Public Accesible URL's / Path's
     root to: 'home#show'
     post 'authenticate', action: :authenticate, controller: :authentication
+
+    namespace :webhooks do
+      # post 'shippify/create_delivery', action: :create_delivery, controller: :shippify
+      post 'shippify/update_delivery', action: :update_delivery, controller: :shippify
+      # post 'shippify/create_trip', action: :create_trip, controller: :shippify
+    end
   # ╰─ End of Public Accesible URL's / Path's
 
   # ╭─ Private Accesible URL's / Path's
