@@ -56,7 +56,7 @@ class TripsController < ApplicationController
 
   def broadcast
     if trip = Trip.find_by(id: params[:id])
-      if %w(draft scheduled processing).include?(trip.status)
+      if trip.status.blank? || %w(draft scheduled processing).include?(trip.status)
         service = Gateway::Shippify::BroadcastRoute.call(trip)
 
         if service.success?
