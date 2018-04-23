@@ -4,6 +4,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'activerecord-postgis-adapter'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
+gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server

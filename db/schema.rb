@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125135954) do
+ActiveRecord::Schema.define(version: 20180421135856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,24 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.index ["delivery_id"], name: "index_packages_on_delivery_id"
   end
 
+  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status"
+    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "collected_amount", precision: 10, scale: 2
+    t.string "payable_type"
+    t.string "payable_id"
+    t.string "gateway"
+    t.string "gateway_id"
+    t.jsonb "gateway_data", default: {}
+    t.jsonb "notifications"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gateway", "gateway_id"], name: "index_payments_on_gateway_and_gateway_id"
+    t.index ["gateway_data"], name: "index_payments_on_gateway_data", using: :gin
+    t.index ["notifications"], name: "index_payments_on_notifications", using: :gin
+    t.index ["payable_type", "payable_id"], name: "index_payments_on_payable_type_and_payable_id"
+  end
+
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -219,6 +237,16 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.datetime "updated_at", null: false
     t.index ["data"], name: "index_verifications_on_data", using: :gin
     t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
+  end
+
+  create_table "webhook_logs", force: :cascade do |t|
+    t.string "service"
+    t.string "path", limit: 1024
+    t.jsonb "parsed_body", default: {}
+    t.string "ip"
+    t.string "user_agent"
+    t.datetime "requested_at"
+    t.index ["parsed_body"], name: "index_webhook_logs_on_parsed_body", using: :gin
   end
 
   add_foreign_key "addresses", "institutions"

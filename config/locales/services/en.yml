@@ -18,6 +18,11 @@ en:
         missing_or_invalid: "There is no institution with id: %{id} to be the giver."
       receiver:
         missing_or_invalid: "There is no institution with id: %{id} to be the receiver."
+    create_payment:
+      order:
+        has_active_payments: "The order with id: %{id} has active payments, please check them before create a new one."
+      delivery:
+        has_active_payments: "The delivery with id: %{id} has active payments, please check them before create a new one."
     create_trip:
       deliveries:
         missing_or_invalid: "There are no deliveries associated to the order with id: %{id}."

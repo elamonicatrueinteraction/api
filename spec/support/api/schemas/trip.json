@@ -13,6 +13,8 @@
         "shipper_name",
         "shipper_avatar_url",
         "steps",
+        "giver",
+        "receiver",
         "created_at",
         "updated_at",
         "shipper",
@@ -42,6 +44,20 @@
                 }
               }
             }
+          }
+        },
+        "giver" : {
+          "type": "object",
+          "properties" : {
+            "id" : { "type" : "string" },
+            "name" : { "type" : "string" }
+          }
+        },
+        "receiver" : {
+          "type": "object",
+          "properties" : {
+            "id" : { "type" : "string" },
+            "name" : { "type" : "string" }
           }
         },
         "created_at" : { "type" : "datetime" },
