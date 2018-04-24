@@ -46,5 +46,17 @@ Rails.application.routes.draw do
       end
     end
   # ╰─ End of Private Accesible URL's / Path's
+
+  # ╭─ ShipperApi Endpoints URL's / Path's
+    scope module: 'shipper_api', path: 'shipper' do
+    # ╭─ Public Accesible URL's / Path's
+      post 'authenticate', action: :authenticate, controller: :authentication
+    # ╰─ End of Public Accesible URL's / Path's
+
+    # ╭─ Private Accesible URL's / Path's
+      get 'hello', action: :hello, controller: :base
+    # ╰─ End of Private Accesible URL's / Path's
+    end
+  # ╰─ End of ShipperApi Endpoints URL's / Path's
   end
 end
