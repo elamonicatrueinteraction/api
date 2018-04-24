@@ -4,6 +4,10 @@ module ShipperApi
 
     attr_reader :current_shipper
 
+    def hello
+      render json: { data: "Hi #{current_shipper.first_name}! ready when you are" }, status: :ok
+    end
+
     private
 
     def authorize_request

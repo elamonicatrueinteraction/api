@@ -48,6 +48,10 @@ Rails.application.routes.draw do
     # ╭─ Public Accesible URL's / Path's
       post 'authenticate', action: :authenticate, controller: :authentication
     # ╰─ End of Public Accesible URL's / Path's
+
+    # ╭─ Private Accesible URL's / Path's
+      get 'hello', action: :hello, controller: :base
+    # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of ShipperApi Endpoints URL's / Path's
   end
