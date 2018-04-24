@@ -7,6 +7,8 @@ class Delivery < ApplicationRecord
   attribute :pickup, :jsonb, default: {}
   attribute :dropoff, :jsonb, default: {}
 
+  include Payable
+
   belongs_to :origin, class_name: 'Address'
   belongs_to :destination, class_name: 'Address'
   belongs_to :order
@@ -70,6 +72,10 @@ class Delivery < ApplicationRecord
     return unless destination_gps_coordinates
 
     destination_gps_coordinates.coordinates.reverse.join(", ")
+  end
+
+  def total_amount
+    (amount.to_f - bonified_amount.to_f).to_f
   end
 
   private

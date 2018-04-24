@@ -5,6 +5,17 @@ development: &app_config
 
   hostname: 'localhost'
 
+  mercadopago:
+    config:
+      notification_host: ''
+      payer_email: 'test_user_92173722@testuser.com'
+    bar: # for the Test user -> TETE6135026
+      public_key: TEST-00699a26-4b22-4ccb-9d1f-c538a7e49550
+      access_token: TEST-463061222647738-042314-37ded60b57e20507d4ca94d4aa3124f3-316519508
+    nilus: # for the Test user -> TETE7989260
+      public_key: TEST-96b9b1c0-c7b6-4044-9241-a55876e90871
+      access_token: TEST-75555609726150-042314-4fca73ed8ef67b0758dcecba4f61f3d8-316516415
+
   redis:
     host: 'localhost'
     port: 6379

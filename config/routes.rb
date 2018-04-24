@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     post 'authenticate', action: :authenticate, controller: :authentication
 
     namespace :webhooks do
+      post 'mercadopago/payment/:uuid', action: :payment_notification, controller: :mercadopago, as: :mercadopago_payment
+
       # post 'shippify/create_delivery', action: :create_delivery, controller: :shippify
       post 'shippify/update_delivery', action: :update_delivery, controller: :shippify
       # post 'shippify/create_trip', action: :create_trip, controller: :shippify
@@ -30,10 +32,12 @@ Rails.application.routes.draw do
 
     resources :orders, only: [ :create, :show, :index, :destroy ] do
       resources :deliveries, only: [ :index, :show, :destroy ]
+      resources :payments, only: [ :index, :show, :create ]
     end
 
     resources :deliveries, only: [ :create, :update, :destroy ] do
       resources :packages, only: [ :create, :index, :show, :update, :destroy ]
+      resources :payments, only: [ :index, :show, :create ]
     end
 
     resources :trips, only: [ :create, :show, :index, :update, :destroy  ] do
