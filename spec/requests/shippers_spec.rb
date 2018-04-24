@@ -25,14 +25,14 @@ RSpec.describe ShippersController, type: :request do
     before { post '/shippers', headers: auth_headers(user), params: parameters }
 
     context 'with valid data' do
-      let(:parameters) { { first_name: shipper.first_name, last_name: shipper.last_name, email: shipper.email, gateway_id: shipper.gateway_id } }
+      let(:parameters) { { first_name: shipper.first_name, last_name: shipper.last_name, email: shipper.email, password: shipper.password, gateway_id: shipper.gateway_id } }
 
       it_behaves_like 'a successful create request', :shipper
       it { expect(response).to match_response_schema("shipper") }
     end
 
     context 'with invalid data' do
-      let(:parameters) { { first_name: nil, last_name: shipper.last_name, email: shipper.email, gateway_id: shipper.gateway_id } }
+      let(:parameters) { { first_name: shipper.first_name, last_name: shipper.last_name, email: shipper.email, gateway_id: shipper.gateway_id } }
 
       it_behaves_like 'a failed request'
     end
