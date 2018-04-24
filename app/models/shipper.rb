@@ -1,4 +1,6 @@
 class Shipper < ApplicationRecord
+  has_secure_password
+
   attribute :data, :jsonb, default: {}
   attribute :national_ids, :jsonb, default: {}
 
@@ -6,7 +8,7 @@ class Shipper < ApplicationRecord
   has_many :bank_accounts
   has_many :vehicles, dependent: :destroy
 
-  validates_presence_of :first_name, :email, :gateway_id
+  validates_presence_of :first_name, :email, :password_digest
 
   DEFAULT_REQUIREMENT_TEMPLATE = {
       'verified' => false,

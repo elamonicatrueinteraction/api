@@ -5,5 +5,5 @@ RSpec.describe Shipper, type: :model do
 
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_presence_of(:gateway_id) }
+  it { is_expected.to validate_presence_of(:password) }
 end
