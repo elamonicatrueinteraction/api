@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424163911) do
+ActiveRecord::Schema.define(version: 20180428151347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,18 @@ ActiveRecord::Schema.define(version: 20180424163911) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "milestones", force: :cascade do |t|
+    t.uuid "trip_id"
+    t.string "name"
+    t.text "comments"
+    t.jsonb "data", default: {}
+    t.geography "gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at"
+    t.index ["data"], name: "index_milestones_on_data", using: :gin
+    t.index ["gps_coordinates"], name: "index_milestones_on_gps_coordinates", using: :gist
+    t.index ["trip_id"], name: "index_milestones_on_trip_id"
   end
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
