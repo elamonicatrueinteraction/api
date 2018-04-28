@@ -6,6 +6,7 @@ class Shipper < ApplicationRecord
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts
+  has_many :trips, dependent: :nullify
   has_many :vehicles, dependent: :destroy
 
   validates_presence_of :first_name, :email, :password_digest
