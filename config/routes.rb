@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
     # ╭─ Private Accesible URL's / Path's
       get 'hello', action: :hello, controller: :base
+
+      resources :trips, only: [ :index, :show ]
     # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of ShipperApi Endpoints URL's / Path's
