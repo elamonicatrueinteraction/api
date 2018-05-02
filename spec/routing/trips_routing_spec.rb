@@ -12,4 +12,11 @@ RSpec.describe TripsController, type: :routing do
     it { expect(put: '/trips/1').to route_to( routes_params.merge(controller: 'trips', action: 'update', id: '1') ) }
     it { expect(delete: '/trips/1').to route_to( routes_params.merge(controller: 'trips', action: 'destroy', id: '1') ) }
   end
+
+  describe 'some other member paths' do
+    let(:routes_params){ { protocol: 'https', id: '1' } }
+
+    it { expect(post: '/trips/1/broadcast').to route_to( routes_params.merge(controller: 'trips', action: 'broadcast') ) }
+    it { expect(get: '/trips/1/broadcast').not_to be_routable }
+  end
 end

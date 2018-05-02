@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Shipper API / Trips Endpoint', type: :request do
+RSpec.describe ShipperApi::TripsController, type: :request do
   let(:shipper) { create(:shipper_with_vehicle_and_bank_account) }
 
   describe "GET #index" do
@@ -22,7 +22,7 @@ RSpec.describe 'Shipper API / Trips Endpoint', type: :request do
       it { expect(response).to match_response_schema("trip") }
     end
 
-    context 'with trip.id from other shipper' do
+    context 'with trip_id from other shipper' do
       let(:trip) { create(:trip) }
 
       before { get "/shipper/trips/#{trip.id}", headers: shipper_auth_headers(shipper) }
