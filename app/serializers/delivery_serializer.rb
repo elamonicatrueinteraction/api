@@ -9,6 +9,7 @@ class DeliverySerializer < Simple::DeliverySerializer
   belongs_to :destination, class_name: 'Address'
 
   belongs_to :order
+  has_many :payments
   
   def packages
     object.packages.map do |package|
