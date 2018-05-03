@@ -1,8 +1,12 @@
 class TripsController < ApplicationController
+  include CurrentAndEnsureDependencyLoader
 
   def index
-    trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
-    render json: trips, status: :ok # 200
+    optional_institution; return if performed?
+
+    finder = Finder::Trips.call(current_institution)
+
+    render json: finder.result, status: :ok # 200
   end
 
   def create

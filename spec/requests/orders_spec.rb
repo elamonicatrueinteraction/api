@@ -152,7 +152,5 @@ RSpec.describe OrdersController, type: :request do
       it { expect(Order.count).to eq(1) }
       it_behaves_like 'a failed request'
     end
-
-
   end
 end

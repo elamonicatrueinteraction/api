@@ -706,6 +706,60 @@
 						"description": "Update Address for a Institution"
 					},
 					"response": []
+				},
+				{
+					"name": "Institutions - Orders List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/orders",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"0502ad2e-b88f-4dc1-9c1f-d617d060aeb1",
+								"orders"
+							]
+						},
+						"description": "List of orders under an Institution"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions - Trips List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"0502ad2e-b88f-4dc1-9c1f-d617d060aeb1",
+								"trips"
+							]
+						},
+						"description": "List of trips under an Institution"
+					},
+					"response": []
 				}
 			]
 		},
@@ -1566,7 +1620,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
+							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\"\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shipper/authenticate",

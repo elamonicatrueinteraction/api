@@ -1,8 +1,16 @@
 class OrdersController < ApplicationController
+  include CurrentAndEnsureDependencyLoader
 
   def index
-    orders = Order.preload(:giver, :receiver, :deliveries, :packages).all
-    render json: orders, status: :ok # 200
+    optional_institution; return if performed?
+
+    finder = Finder::Orders.call(current_institution)
+
+    if finder.success?
+      render json: finder.result, status: :ok # 200
+    else
+      render json: { errors: finder.errors }, status: :unprocessable_entity # 422
+    end
   end
 
   def create
