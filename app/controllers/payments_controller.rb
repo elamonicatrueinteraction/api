@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
   def index
     (optional_order || optional_delivery); return if performed?
 
-    render json: current_payable.payments.to_json, status: :ok # 200
+    render json: current_payable.payments, status: :ok # 200
   end
 
   private

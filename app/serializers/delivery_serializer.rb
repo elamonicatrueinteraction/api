@@ -9,7 +9,7 @@ class DeliverySerializer < Simple::DeliverySerializer
   belongs_to :destination, class_name: 'Address'
 
   belongs_to :order
-
+  
   def packages
     object.packages.map do |package|
       package.attributes.slice('id','quantity','weight','volume','cooling','fragile','description')
