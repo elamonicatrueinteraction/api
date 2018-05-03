@@ -1,4 +1,5 @@
 class TripsController < ApplicationController
+  include Exporters::Streamable
 
   def index
     trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
@@ -70,6 +71,12 @@ class TripsController < ApplicationController
     else
       render json: { errors: I18n.t('errors.not_found.trip', id: params[:id]) }, status: :not_found # 404
     end
+  end
+
+  def export
+    trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
+
+    stream_xlsx Exporters::Trips, trips: trips
   end
 
   private

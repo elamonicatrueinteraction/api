@@ -17,6 +17,7 @@ gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 gem 'sidekiq'
 gem 'whenever', require: false
+gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
 group :development, :test do
   gem 'awesome_rails_console'

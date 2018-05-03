@@ -304,6 +304,9 @@ GEM
     websocket-extensions (0.1.2)
     whenever (0.10.0)
       chronic (>= 0.6.3)
+    xlsxtream (2.0.1)
+      zip_tricks (~> 4.5)
+    zip_tricks (4.6.0)
 
 PLATFORMS
   ruby
@@ -346,6 +349,7 @@ DEPENDENCIES
   sidekiq
   simplecov
   whenever
+  xlsxtream
 
 BUNDLED WITH
    1.16.0
