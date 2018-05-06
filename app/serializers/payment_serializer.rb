@@ -17,7 +17,6 @@ class PaymentSerializer < ActiveModel::Serializer
   def payment_method_id
     return if object.status == 'failed'
 
-    #object[:gateway_data][:payment_method_id]
     object.dig(:gateway_data, :payment_method_id)
 
   end
@@ -25,9 +24,8 @@ class PaymentSerializer < ActiveModel::Serializer
   def coupon_url
     return if object.status == 'failed'
 
-    #object[:gateway_data][:transaction_details][:external_resource_url]
     object.dig(:gateway_data, :transaction_details, :external_resource_url]
-    
+
   end
 
 end
