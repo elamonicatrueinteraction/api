@@ -212,7 +212,15 @@
                 "status:" : {"type" : "string"},
                 "amount" : {"type" : "decimal"},
                 "collected_amount:" : {"type" : "decimal"},
-                "gateway_info:" : {"type" : "object"}
+                "gateway_info:" : {
+                  "type" : "object",
+                  "required" : [
+                    "id",
+                    "name",
+                    "payment_method_id",
+                    "coupon_url"
+                  ]
+                }
               }
             }
           }
