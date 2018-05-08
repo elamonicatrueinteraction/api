@@ -21,3 +21,7 @@ en:
       delivery_origin_address: DELIVERY_ORIGIN_ID
       delivery_destination_id: DELIVERY_DESTINATION_ID
       delivery_destination_address: DELIVERY_DESTINATION_ADDRESS
+      order_id: ORDER_ID
+      order_amount: ORDER_AMOUNT
+      giver_id: GIVER_ID
+      receiver_id: RECEIVER_ID

@@ -16,11 +16,16 @@ module Exporters
       I18n.t('exporters.trips.delivery_amount'),
       I18n.t('exporters.trips.delivery_status'),
       I18n.t('exporters.trips.delivery_gateway'),
+      I18n.t('exporters.trips.delivery_gateway_id'),
       I18n.t('exporters.trips.delivery_refrigerated'),
       I18n.t('exporters.trips.delivery_origin_id'),
       I18n.t('exporters.trips.delivery_origin_address'),
       I18n.t('exporters.trips.delivery_destination_id'),
       I18n.t('exporters.trips.delivery_destination_address'),
+      I18n.t('exporters.trips.order_id'),
+      I18n.t('exporters.trips.order_amount'),
+      I18n.t('exporters.trips.giver_id'),
+      I18n.t('exporters.trips.receiver_id')
     ].freeze
     private_constant :HEADER
 
@@ -79,6 +84,7 @@ module Exporters
     
     def row_data(trip)
       @deliveries = Delivery.find(trip.steps[0]['delivery_id'])
+      @orders = Order.find(@deliveries.order_id)
       [
         trip.id,
         trip.status,
@@ -100,7 +106,10 @@ module Exporters
         @deliveries.pickup.dig(:address, :street_1),
         @deliveries.dropoff.dig(:address, :id),
         @deliveries.dropoff.dig(:address, :street_1),
-
+        @deliveries.order_id,
+        @orders.amount,
+        @orders.giver_id,
+        @orders.receiver_id
       ]
     end
 
