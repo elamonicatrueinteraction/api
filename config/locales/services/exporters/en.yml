@@ -12,3 +12,12 @@ en:
       dropoff: DROPOFF
       shipper_id: SHIPPER_ID
       delivery_id: DELIVERY_ID
+      delivery_amount: DELIVERY_AMOUNT
+      delivery_status: DELIVERY_STATUS
+      delivery_gateway: DELIVERY_GATEWAY
+      delivery_gateway_id: DELIVERY_GATEWAY_ID
+      delivery_refrigerated: DELIVERY_REFRIGERATED
+      delivery_origin_id: DELIVERY_ORIGIN_ID
+      delivery_origin_address: DELIVERY_ORIGIN_ID
+      delivery_destination_id: DELIVERY_DESTINATION_ID
+      delivery_destination_address: DELIVERY_DESTINATION_ADDRESS

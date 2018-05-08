@@ -12,7 +12,15 @@ module Exporters
       I18n.t('exporters.trips.pickup'),
       I18n.t('exporters.trips.dropoff'),
       I18n.t('exporters.trips.shipper_id'),
-      I18n.t('exporters.trips.delivery_id')
+      I18n.t('exporters.trips.delivery_id'),
+      I18n.t('exporters.trips.delivery_amount'),
+      I18n.t('exporters.trips.delivery_status'),
+      I18n.t('exporters.trips.delivery_gateway'),
+      I18n.t('exporters.trips.delivery_refrigerated'),
+      I18n.t('exporters.trips.delivery_origin_id'),
+      I18n.t('exporters.trips.delivery_origin_address'),
+      I18n.t('exporters.trips.delivery_destination_id'),
+      I18n.t('exporters.trips.delivery_destination_address'),
     ].freeze
     private_constant :HEADER
 
@@ -64,11 +72,13 @@ module Exporters
 
     def yielder
       @trips.each do |trip|
+        
         yield row_data(trip)
       end
     end
     
     def row_data(trip)
+      @deliveries = Delivery.find(trip.steps[0]['delivery_id'])
       [
         trip.id,
         trip.status,
@@ -80,7 +90,17 @@ module Exporters
         trip.steps[0]['action'],
         trip.steps[1]['action'],
         trip.shipper_id,
-        trip.steps[0]['delivery_id']
+        trip.steps[0]['delivery_id'],
+        @deliveries.amount,
+        @deliveries.status,
+        @deliveries.gateway,
+        @deliveries.gateway_id,
+        @deliveries.options['refrigerated'],
+        @deliveries.pickup.dig(:address, :id),
+        @deliveries.pickup.dig(:address, :street_1),
+        @deliveries.dropoff.dig(:address, :id),
+        @deliveries.dropoff.dig(:address, :street_1),
+
       ]
     end
 
