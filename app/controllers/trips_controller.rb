@@ -3,7 +3,7 @@ class TripsController < ApplicationController
 
   def index
     trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
-    render json: trips, status: :ok # 200
+    render json: trips.to_json, status: :ok # 200
   end
 
   def create

@@ -1,0 +1,14 @@
+en:
+  exporters:
+    trips:
+      id: ID
+      status: STATUS
+      comments: COMMENTS
+      gateway: GATEWAY
+      gateway_id: GATEWAY_ID
+      created_at: CREATED_AT
+      updated_at: UPDATED_AT
+      pickup: PICKUP
+      dropoff: DROPOFF
+      shipper_id: SHIPPER_ID
+      delivery_id: DELIVERY_ID
