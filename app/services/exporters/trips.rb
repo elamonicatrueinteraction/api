@@ -25,7 +25,9 @@ module Exporters
       I18n.t('exporters.trips.order_id'),
       I18n.t('exporters.trips.order_amount'),
       I18n.t('exporters.trips.giver_id'),
-      I18n.t('exporters.trips.receiver_id')
+      I18n.t('exporters.trips.giver_name'),
+      I18n.t('exporters.trips.receiver_id'),
+      I18n.t('exporters.trips.receiver_name'),
     ].freeze
     private_constant :HEADER
 
@@ -85,6 +87,7 @@ module Exporters
     def row_data(trip)
       @deliveries = Delivery.find(trip.steps[0]['delivery_id'])
       @orders = Order.find(@deliveries.order_id)
+      @institutions = Institution.find(@orders.giver_id)
       [
         trip.id,
         trip.status,
@@ -109,7 +112,9 @@ module Exporters
         @deliveries.order_id,
         @orders.amount,
         @orders.giver_id,
-        @orders.receiver_id
+        @institutions.name,
+        @orders.receiver_id,
+        @institutions.name
       ]
     end
 

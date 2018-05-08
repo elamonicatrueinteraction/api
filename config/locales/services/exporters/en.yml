@@ -24,4 +24,6 @@ en:
       order_id: ORDER_ID
       order_amount: ORDER_AMOUNT
       giver_id: GIVER_ID
+      giver_name: GIVER_NAME
       receiver_id: RECEIVER_ID
+      receiver_name: RECEIVER_NAME
