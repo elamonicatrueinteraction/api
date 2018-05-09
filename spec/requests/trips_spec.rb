@@ -7,11 +7,32 @@ RSpec.describe TripsController, type: :request do
 
   describe "GET #index" do
     let!(:trips) { create_list(:trip, 5) }
-    before { get '/trips', headers: auth_headers(user) }
 
-    it_behaves_like 'a successful request', :trips
-    it { expect(json[:trips].size).to eq(5) }
-    it { expect(response).to match_response_schema("trips") }
+    context 'direct trips path' do
+      before { get '/trips', headers: auth_headers(user) }
+
+      it_behaves_like 'a successful request', :trips
+      it { expect(json[:trips].size).to eq(5) }
+      it { expect(response).to match_response_schema("trips") }
+    end
+
+    context 'nested under institutions path' do
+      let(:institution_id) { trips.sample.orders.sample.receiver_id }
+
+      before { get "/institutions/#{institution_id}/trips", headers: auth_headers(user) }
+
+      context 'with valid institution_id data' do
+        it_behaves_like 'a successful request', :trips
+        it { expect(json[:trips].size).to eq(1) }
+        it { expect(response).to match_response_schema("trips") }
+      end
+
+      context 'with invalid institution_id data' do
+        let(:institution_id) { SecureRandom.uuid }
+
+        it_behaves_like 'a not_found request'
+      end
+    end
   end
 
   describe "GET #show" do

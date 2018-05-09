@@ -12,4 +12,16 @@ RSpec.describe OrdersController, type: :routing do
     it { expect(put: '/orders/1').not_to be_routable }
     it { expect(delete: '/orders/1').to route_to( routes_params.merge(controller: 'orders', action: 'destroy', id: '1') ) }
   end
+
+  describe 'some resources under institutions' do
+    let(:routes_params){ { protocol: 'https', institution_id: '1' } }
+
+    it { expect(get: '/institutions/1/orders').to route_to( routes_params.merge(controller: 'orders', action: 'index') ) }
+    it { expect(get: '/institutions/1/orders/new').not_to be_routable }
+    it { expect(get: '/institutions/1/orders/1').not_to be_routable }
+    it { expect(get: '/institutions/1/orders/1/edit').not_to be_routable }
+    it { expect(post: '/institutions/1/orders').not_to be_routable }
+    it { expect(put: '/institutions/1/orders/1').not_to be_routable }
+    it { expect(delete: '/institutions/1/orders/1').not_to be_routable }
+  end
 end
