@@ -6,11 +6,7 @@ class OrdersController < ApplicationController
 
     finder = Finder::Orders.call(current_institution)
 
-    if finder.success?
-      render json: finder.result, status: :ok # 200
-    else
-      render json: { errors: finder.errors }, status: :unprocessable_entity # 422
-    end
+    render json: finder.result, status: :ok # 200
   end
 
   def create
