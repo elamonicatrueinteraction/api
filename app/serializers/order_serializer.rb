@@ -10,4 +10,5 @@ class OrderSerializer < ActiveModel::Serializer
   belongs_to :receiver, class_name: 'Institution'
 
   has_many :deliveries, serializer: Simple::DeliverySerializer
+  has_many :payments
 end
