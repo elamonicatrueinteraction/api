@@ -41,6 +41,9 @@ Rails.application.routes.draw do
     end
 
     resources :trips, only: [ :create, :show, :index, :update, :destroy  ] do
+      collection do
+        get :export
+      end
       member do
         post :broadcast
       end
