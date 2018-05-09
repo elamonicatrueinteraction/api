@@ -49,6 +49,7 @@ group :test do
   gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
   gem "json-schema"
   gem 'rails-controller-testing'
+  gem 'rspec-collection_matchers'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
