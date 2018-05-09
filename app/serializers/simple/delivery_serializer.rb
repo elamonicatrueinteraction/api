@@ -6,4 +6,5 @@ class Simple::DeliverySerializer < ActiveModel::Serializer
     :origin_latlng,
     :destination_latlng,
     :options
+
 end
