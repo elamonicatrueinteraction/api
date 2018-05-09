@@ -85,9 +85,9 @@ module Exporters
     end
     
     def row_data(trip)
-      @deliveries = Delivery.find(trip.steps[0]['delivery_id'])
-      @orders = Order.find(@deliveries.order_id)
-      @institutions = Institution.find(@orders.giver_id)
+      @delivery = find_delivery(trip.steps[0]['delivery_id'])
+      @order = find_order(@delivery.order_id)
+      @institution = find_institution(@order.giver_id)
       [
         trip.id,
         trip.status,
@@ -100,23 +100,34 @@ module Exporters
         trip.steps[1]['action'],
         trip.shipper_id,
         trip.steps[0]['delivery_id'],
-        @deliveries.amount,
-        @deliveries.status,
-        @deliveries.gateway,
-        @deliveries.gateway_id,
-        @deliveries.options['refrigerated'],
-        @deliveries.pickup.dig(:address, :id),
-        @deliveries.pickup.dig(:address, :street_1),
-        @deliveries.dropoff.dig(:address, :id),
-        @deliveries.dropoff.dig(:address, :street_1),
-        @deliveries.order_id,
-        @orders.amount,
-        @orders.giver_id,
-        @institutions.name,
-        @orders.receiver_id,
-        @institutions.name
+        @delivery.amount,
+        @delivery.status,
+        @delivery.gateway,
+        @delivery.gateway_id,
+        @delivery.options['refrigerated'],
+        @delivery.pickup.dig(:address, :id),
+        @delivery.pickup.dig(:address, :street_1),
+        @delivery.dropoff.dig(:address, :id),
+        @delivery.dropoff.dig(:address, :street_1),
+        @delivery.order_id,
+        @order.amount,
+        @order.giver_id,
+        @institution.name,
+        @order.receiver_id,
+        @institution.name
       ]
     end
 
+    def find_delivery(tripId)
+      @delivery = Delivery.find(tripId)
+    end
+
+    def find_order(deliveryId)
+      @order = Order.find(deliveryId)
+    end
+
+    def find_institution(orderId)
+      @institution = Institution.find(orderId)
+    end
   end
 end
