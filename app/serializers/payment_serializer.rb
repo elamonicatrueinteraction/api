@@ -1,5 +1,6 @@
 class PaymentSerializer < ActiveModel::Serializer
   attributes :id,
+    :payable,
     :status,
     :amount,
     :collected_amount,
@@ -14,18 +15,23 @@ class PaymentSerializer < ActiveModel::Serializer
     }
   end
 
+  def payable
+    {
+      id: object.payable_id,
+      type: object.payable_type.downcase
+    }
+  end
+
   def payment_method_id
     return if object.status == 'failed'
 
-    object.dig(:gateway_data, :payment_method_id)
-
+    object.gateway_data[:payment_method_id]
   end
 
   def coupon_url
     return if object.status == 'failed'
 
-    object.dig(:gateway_data, :transaction_details, :external_resource_url]
-
+    object.gateway_data.dig(:transaction_details, :external_resource_url)
   end
 
 end

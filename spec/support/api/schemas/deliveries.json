@@ -202,6 +202,7 @@
               "type" : "object",
               "required" : [
                 "id",
+                "payable",
                 "status",
                 "amount",
                 "collected_amount",
@@ -212,14 +213,31 @@
                 "status:" : {"type" : "string"},
                 "amount" : {"type" : "decimal"},
                 "collected_amount:" : {"type" : "decimal"},
+                "payable": {
+                  "type": "object",
+                  "required" : [
+                    "id",
+                    "type"
+                  ],
+                  "properties" : {
+                    "id" : { "type" : "string" },
+                    "type": { "type" : "string" }
+                  }
+                },
                 "gateway_info:" : {
-                  "type" : "object",
+                  "type": "object",
                   "required" : [
                     "id",
                     "name",
                     "payment_method_id",
                     "coupon_url"
-                  ]
+                  ],
+                  "properties" : {
+                    "id" : { "type" : "integer" },
+                    "name": { "type" : "string" },
+                    "payment_method_id" : { "type" : "string" },
+                    "coupon_url": { "type" : "string" }
+                  }
                 }
               }
             }
