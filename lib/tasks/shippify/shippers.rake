@@ -2,7 +2,6 @@ require 'tasks/logger'
 
 namespace :shippify do
   namespace :shippers do
-
     namespace :import do
 
       desc 'Import all shippers from shippify'

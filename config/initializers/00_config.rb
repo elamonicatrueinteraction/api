@@ -21,7 +21,7 @@ SHIPPIFY      = APP_CONFIG[env]['shippify'].freeze
 SHIPPIFY_API  = SHIPPIFY['api'].freeze
 SHIPPIFY_DASH = SHIPPIFY['dash'].freeze
 
-STAGING               = APP_CONFIG[env]['staging'].freeze || false
+STAGING         = APP_CONFIG[env]['staging'].freeze || false
 
 SSL_ENABLED     = APP_CONFIG[env]['ssl_enabled'].freeze
 SECURE_PROTOCOL = (SSL_ENABLED ? 'https' : 'http').freeze

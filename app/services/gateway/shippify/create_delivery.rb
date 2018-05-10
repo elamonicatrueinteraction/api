@@ -91,7 +91,7 @@ module Gateway
         unix_timestamp = if pickup_datetime >= (Time.current + 61.minutes)
           pickup_datetime
         else
-          (Time.current + 61.day)
+          (Time.current + 61.minutes)
         end.to_i
 
         { date: unix_timestamp * 1000 }
