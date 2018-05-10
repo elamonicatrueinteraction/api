@@ -1,9 +1,11 @@
 module Finder
   class Orders
     prepend Service::Base
+    include Service::Support::Finders
 
-    def initialize(institution)
+    def initialize(institution: nil, filter_params: {})
       @institution = institution
+      @filter_params = filter_params
     end
 
     def call

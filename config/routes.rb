@@ -29,7 +29,11 @@ Rails.application.routes.draw do
     resources :institutions, only: [ :create, :show, :index, :update, :destroy ] do
       resources :addresses, only: [ :create, :index, :update, :destroy ]
       resources :orders, only: [ :index ]
-      resources :trips, only: [ :index ]
+      resources :trips, only: [ :index ] do
+        collection do
+          get :export
+        end
+      end
     end
 
     resources :orders, only: [ :create, :show, :index, :destroy ] do

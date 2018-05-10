@@ -5,7 +5,7 @@ class TripsController < ApplicationController
   def index
     optional_institution; return if performed?
 
-    finder = Finder::Trips.call(current_institution)
+    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
 
     render json: finder.result, status: :ok # 200
   end
@@ -78,9 +78,11 @@ class TripsController < ApplicationController
   end
 
   def export
-    trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
+    optional_institution; return if performed?
 
-    stream_xlsx Exporters::Trips, trips: trips
+    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
+
+    stream_xlsx Exporters::Trips, trips: finder.result
   end
 
   private
@@ -100,6 +102,13 @@ class TripsController < ApplicationController
       :shipper_id,
       :status,
       :comments
+    )
+  end
+
+  def filter_params
+    params.permit(
+      :created_since,
+      :created_until
     )
   end
 

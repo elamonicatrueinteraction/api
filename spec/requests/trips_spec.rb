@@ -9,11 +9,27 @@ RSpec.describe TripsController, type: :request do
     let!(:trips) { create_list(:trip, 5) }
 
     context 'direct trips path' do
-      before { get '/trips', headers: auth_headers(user) }
+      context 'without filters' do
+        before { get '/trips', headers: auth_headers(user) }
 
-      it_behaves_like 'a successful request', :trips
-      it { expect(json[:trips].size).to eq(5) }
-      it { expect(response).to match_response_schema("trips") }
+        it_behaves_like 'a successful request', :trips
+        it { expect(json[:trips].size).to eq(5) }
+        it { expect(response).to match_response_schema("trips") }
+      end
+
+      context 'with filters' do
+        let!(:one_weeks_trips) { create_list(:trip, 1, :created_some_weeks_ago, number_of_weeks: 1) }
+        let!(:three_weeks_trips) { create_list(:trip, 2, :created_some_weeks_ago, number_of_weeks: 3) }
+
+        let(:created_since) { 3.week.ago.to_date.to_s }
+        let(:created_until) { 1.week.ago.to_date.to_s }
+
+        before { get "/trips?created_since=#{created_since}&created_until=#{created_until}", headers: auth_headers(user) }
+
+        it_behaves_like 'a successful request', :trips
+        it { expect(json[:trips].size).to eq(3) }
+        it { expect(response).to match_response_schema("trips") }
+      end
     end
 
     context 'nested under institutions path' do
@@ -140,6 +156,51 @@ RSpec.describe TripsController, type: :request do
 
       it { expect(Trip.count).to eq(1) }
       it_behaves_like 'a failed request'
+    end
+  end
+
+  describe "GET #export" do
+    let!(:trips) { create_list(:trip, 5) }
+
+    context 'direct trips path' do
+      context 'without filters' do
+        before { get '/trips/export', headers: auth_headers(user) }
+
+        it 'response status code 200' do
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context 'with filters' do
+        let!(:one_weeks_trips) { create_list(:trip, 2, :created_some_weeks_ago, number_of_weeks: 1) }
+
+        let(:created_since) { 4.week.ago.to_date.to_s }
+        let(:created_until) { 1.week.ago.to_date.to_s }
+
+        before { get "/trips/export?created_since=#{created_since}&created_until=#{created_until}", headers: auth_headers(user) }
+
+        it 'response status code 200' do
+          expect(response).to have_http_status(:success)
+        end
+      end
+    end
+
+    context 'nested under institutions path' do
+      let(:institution_id) { trips.sample.orders.sample.receiver_id }
+
+      before { get "/institutions/#{institution_id}/trips/export", headers: auth_headers(user) }
+
+      context 'with valid institution_id' do
+        it 'response status code 200' do
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context 'with invalid institution_id' do
+        let(:institution_id) { SecureRandom.uuid }
+
+        it_behaves_like 'a not_found request'
+      end
     end
   end
 end

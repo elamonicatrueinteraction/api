@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Finder::Orders do
-  subject(:service) { described_class.call(institution) }
+  subject(:service) { described_class.call(institution: institution) }
 
   let!(:orders) { create_list(:full_order, 5) }
 
@@ -15,12 +15,12 @@ RSpec.describe Finder::Orders do
       end
 
       describe 'valid result' do
-        # it { expect(service.result).to have(1).item }
+        it { expect(service.result).to have(1).item }
         it { expect(service.result).to contain_exactly(delivery.order) }
       end
     end
 
-    context 'without and institution' do
+    context 'without an institution' do
       let(:institution) { nil }
 
       it 'succeeds' do
@@ -28,12 +28,12 @@ RSpec.describe Finder::Orders do
       end
 
       describe 'valid result' do
-        # it { expect(service.result).to have(5).item }
+        it { expect(service.result).to have(5).item }
         it { expect(service.result).to contain_exactly(*orders) }
       end
     end
 
-    context 'with and institution without orders' do
+    context 'with an institution without orders' do
       let(:institution) { create(:organization) }
 
       it 'succeeds' do

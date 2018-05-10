@@ -8,6 +8,7 @@ module ShipperApi
     MODELS_TO_LOAD = %w(
       trip
     ).freeze
+    private_constant :MODELS_TO_LOAD
 
     MODELS_TO_LOAD.each do |model_name|
       define_method :"current_#{model_name}" do
