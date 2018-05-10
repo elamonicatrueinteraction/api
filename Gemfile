@@ -47,7 +47,7 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
-  gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
+  gem 'faker'
   gem "json-schema"
   gem 'rails-controller-testing'
   gem 'rspec-collection_matchers'
