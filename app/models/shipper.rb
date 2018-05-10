@@ -13,10 +13,10 @@ class Shipper < ApplicationRecord
   validates_presence_of :first_name, :email, :password_digest
 
   DEFAULT_REQUIREMENT_TEMPLATE = {
-      'verified' => false,
-      'uri' => nil,
-      'data' => {},
-      'expiration_date' => ''
+    'verified' => false,
+    'uri' => nil,
+    'data' => {},
+    'expiration_date' => ''
   }.freeze
 
   REQUIREMENTS = %w(

@@ -1,0 +1,4 @@
+test:
+  adapter: postgis
+  encoding: unicode
+  database: travis_ci_test
