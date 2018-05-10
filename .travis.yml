@@ -1,15 +1,26 @@
+---
+language: ruby
+cache: bundler
+
+sudo: required
+dist: trusty
+
 addons:
   postgresql: 9.6
+
+services:
+  - postgresql
+  - redis-server
+
 before_script:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y postgresql-9.6-postgis-2.4 --allow-unauthenticated
   - cp config/database.yml.travis config/database.yml
-  - psql -c 'create extension postgis' -U postgres
+  - cp config/nilus.yml.example config/nilus.yml
   - psql -c 'create database travis_ci_test;' -U postgres
-dist: xenial #trusty
-language: ruby
+  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d travis_ci_test
+  - psql -c 'CREATE EXTENSION postgis_topology;' -U postgres -d travis_ci_test
+
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec
-services:
-  - redis-server
-
-
