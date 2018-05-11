@@ -4,6 +4,7 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.free_email }
     gateway_id { Faker::Number.number(10) }
+    password { Faker::Internet.password }
 
     trait :with_vehicle do
       after(:create) do |shipper, evaluator|
@@ -20,5 +21,11 @@ FactoryBot.define do
     factory :shipper_with_vehicle, traits: [ :with_vehicle ]
     factory :shipper_with_bank_account, traits: [ :with_bank_account ]
     factory :shipper_with_vehicle_and_bank_account, traits: [ :with_vehicle, :with_bank_account ]
+
+    factory :authenticated_shipper do
+      with_vehicle
+      with_bank_account
+      token_expire_at { 24.hours.from_now.to_i }
+    end
   end
 end

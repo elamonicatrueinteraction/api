@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'activerecord-postgis-adapter'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
+gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for value coercions, applying constraints and other stuff
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
+gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pg' # The PostgreSQL Adapter
 gem 'puma', '~> 3.0' # Use Puma as the app server
@@ -16,6 +18,7 @@ gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
 gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 gem 'sidekiq'
 gem 'whenever', require: false
+gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
 group :development, :test do
   gem 'awesome_rails_console'
@@ -44,10 +47,12 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   # I use this repo because a missing feature in the Faker gem,
   # I already open a PR: https://github.com/stympy/faker/pull/1067
-  gem 'faker', git: "git@github.com:stympy/faker", branch: :master, require: false
+  gem 'faker'
   gem "json-schema"
   gem 'rails-controller-testing'
+  gem 'rspec-collection_matchers'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 end

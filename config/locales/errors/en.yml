@@ -7,6 +7,9 @@ en:
       institution: "There is no institution with id: %{id}"
       order: "There is no order with id: %{id}"
       package: "There is no package with id: %{package_id} for the delivery id: %{delivery_id}"
+      payment_on_payable:
+        delivery: "There is no payment with id: %{payment_id} for the delivery id: %{payable_id}"
+        order: "There is no payment with id: %{payment_id} for the order id: %{payable_id}"
       shipper: "There is no shipper with id: %{id}"
       trip: "There is no trip with id: %{id}"
       vehicle: "There is no vehicle with id: %{id}"

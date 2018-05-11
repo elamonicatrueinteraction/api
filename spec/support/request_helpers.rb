@@ -12,6 +12,13 @@ module Requests
         'Authorization': "Bearer #{auth_token}"
       }
     end
+
+    def shipper_auth_headers(shipper)
+      auth_token =  ShipperApi::AuthenticateShipper.call(shipper.email, shipper.password).result
+      {
+        'Authorization': "Bearer #{auth_token}"
+      }
+    end
   end
 end
 

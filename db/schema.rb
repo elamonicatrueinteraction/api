@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125135954) do
+ActiveRecord::Schema.define(version: 20180428151347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,18 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "milestones", force: :cascade do |t|
+    t.uuid "trip_id"
+    t.string "name"
+    t.text "comments"
+    t.jsonb "data", default: {}
+    t.geography "gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at"
+    t.index ["data"], name: "index_milestones_on_data", using: :gin
+    t.index ["gps_coordinates"], name: "index_milestones_on_gps_coordinates", using: :gist
+    t.index ["trip_id"], name: "index_milestones_on_trip_id"
+  end
+
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "giver_id"
     t.uuid "receiver_id"
@@ -119,6 +131,24 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.boolean "fragile", default: false
     t.index ["attachment_id"], name: "index_packages_on_attachment_id"
     t.index ["delivery_id"], name: "index_packages_on_delivery_id"
+  end
+
+  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status"
+    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "collected_amount", precision: 10, scale: 2
+    t.string "payable_type"
+    t.string "payable_id"
+    t.string "gateway"
+    t.string "gateway_id"
+    t.jsonb "gateway_data", default: {}
+    t.jsonb "notifications"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gateway", "gateway_id"], name: "index_payments_on_gateway_and_gateway_id"
+    t.index ["gateway_data"], name: "index_payments_on_gateway_data", using: :gin
+    t.index ["notifications"], name: "index_payments_on_notifications", using: :gin
+    t.index ["payable_type", "payable_id"], name: "index_payments_on_payable_type_and_payable_id"
   end
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -151,6 +181,12 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.jsonb "requirements", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.integer "token_expire_at"
+    t.integer "login_count", default: 0, null: false
+    t.integer "failed_login_count", default: 0, null: false
+    t.datetime "last_login_at"
+    t.string "last_login_ip"
     t.index ["data"], name: "index_shippers_on_data", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
@@ -219,6 +255,16 @@ ActiveRecord::Schema.define(version: 20180125135954) do
     t.datetime "updated_at", null: false
     t.index ["data"], name: "index_verifications_on_data", using: :gin
     t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
+  end
+
+  create_table "webhook_logs", force: :cascade do |t|
+    t.string "service"
+    t.string "path", limit: 1024
+    t.jsonb "parsed_body", default: {}
+    t.string "ip"
+    t.string "user_agent"
+    t.datetime "requested_at"
+    t.index ["parsed_body"], name: "index_webhook_logs_on_parsed_body", using: :gin
   end
 
   add_foreign_key "addresses", "institutions"

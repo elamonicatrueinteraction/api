@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "required": ["milestone"],
+  "properties": {
+    "milestone" : {
+      "type": "object",
+      "required" : [
+        "id",
+        "name",
+        "latlng",
+        "comments",
+        "created_at"
+      ],
+      "properties" : {
+        "id" : { "type" : "integer" },
+        "name" : { "type" : "string" },
+        "latlng" : { "type" : "string" },
+        "comments" : { "type" : ["string", "null"] },
+        "created_at" : { "type" : "datetime" }
+      }
+    }
+  }
+}

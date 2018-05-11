@@ -1,6 +1,6 @@
 module Webhooks
-  class ShippifyController < ApplicationController
-    skip_before_action :authorize_request
+  class ShippifyController < BaseController
+    log_notification :update_delivery
 
     def update_delivery
       if delivery = Delivery.find_by(gateway: 'Shippify', gateway_id: shippify_id)

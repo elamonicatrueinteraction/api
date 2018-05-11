@@ -5,6 +5,9 @@ ALLOWED_ORIGINS    = APP_CONFIG[env]['allowed_origins'].freeze
 
 HOSTNAME = APP_CONFIG[env]['hostname'].freeze
 
+MERCADOPAGO        = APP_CONFIG[env]['mercadopago'].freeze
+MERCADOPAGO_CONFIG = MERCADOPAGO['config'].freeze
+
 redis = APP_CONFIG[env]['redis'].freeze
 REDIS_DB   = redis['db'].freeze
 REDIS_HOST = redis['host'].freeze

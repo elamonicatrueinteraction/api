@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
+  include CurrentAndEnsureDependencyLoader
 
   def index
-    orders = Order.preload(:giver, :receiver, :deliveries, :packages).all
-    render json: orders, status: :ok # 200
+    optional_institution; return if performed?
+
+    finder = Finder::Orders.call(institution: current_institution, filter_params: filter_params)
+
+    render json: finder.result, status: :ok # 200
   end
 
   def create
@@ -59,6 +63,13 @@ class OrdersController < ApplicationController
         :cooling,
         :description
       ]
+    )
+  end
+
+  def filter_params
+    params.permit(
+      :created_since,
+      :created_until
     )
   end
 

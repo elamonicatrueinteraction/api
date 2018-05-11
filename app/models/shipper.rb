@@ -1,18 +1,22 @@
 class Shipper < ApplicationRecord
+  has_secure_password
+
   attribute :data, :jsonb, default: {}
   attribute :national_ids, :jsonb, default: {}
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts
+  has_many :milestones, through: :trips
+  has_many :trips, dependent: :nullify
   has_many :vehicles, dependent: :destroy
 
-  validates_presence_of :first_name, :email, :gateway_id
+  validates_presence_of :first_name, :email, :password_digest
 
   DEFAULT_REQUIREMENT_TEMPLATE = {
-      'verified' => false,
-      'uri' => nil,
-      'data' => {},
-      'expiration_date' => ''
+    'verified' => false,
+    'uri' => nil,
+    'data' => {},
+    'expiration_date' => ''
   }.freeze
 
   REQUIREMENTS = %w(

@@ -164,14 +164,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd/vehicles",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/5f5a02ea-9bc8-4d62-a18a-e6abf04c67c9/vehicles",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd",
+								"5f5a02ea-9bc8-4d62-a18a-e6abf04c67c9",
 								"vehicles"
 							]
 						},
@@ -195,17 +195,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+							"raw": "{\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\",\n\t\"features\": [\"refrigerated\"]\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/9bf9acca-692c-483b-aa1d-306c79c07a35/vehicles",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/3f7a6b1c-c8db-41c2-a139-173365d29873/vehicles",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"9bf9acca-692c-483b-aa1d-306c79c07a35",
+								"3f7a6b1c-c8db-41c2-a139-173365d29873",
 								"vehicles"
 							]
 						},
@@ -229,19 +229,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"model\": \"Suran 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"2017\"\n}"
+							"raw": "{\n\t\"features\": [\"refrigerated\"]\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shippers/d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd/vehicles/2e0df63a-45d6-421f-ad89-d7758b6ad8cc",
+							"raw": "{{protocol}}://{{endpoint_url}}/shippers/3f7a6b1c-c8db-41c2-a139-173365d29873/vehicles/6fb55d29-0051-43c3-ab85-a4d8be5156a9",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"shippers",
-								"d07f8aa6-c0fa-44ed-bc71-d59dbce6c6bd",
+								"3f7a6b1c-c8db-41c2-a139-173365d29873",
 								"vehicles",
-								"2e0df63a-45d6-421f-ad89-d7758b6ad8cc"
+								"6fb55d29-0051-43c3-ab85-a4d8be5156a9"
 							]
 						},
 						"description": "Update the vehicle information"
@@ -270,7 +270,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"shipper_id\": \"883d63b5-cb2b-4023-9c47-5809a56e8681\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\"\n}"
+							"raw": "{\n\t\"shipper_id\": \"b82c2086-4f62-48ce-b47c-e652bd71ebea\",\n\t\"model\": \"Kombi 1.6\",\n\t\"brand\": \"Volkswagen\",\n\t\"year\": \"1979\",\n\t\"features\": [\"refrigerated\", \"nothing\"]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/vehicles",
@@ -706,6 +706,60 @@
 						"description": "Update Address for a Institution"
 					},
 					"response": []
+				},
+				{
+					"name": "Institutions - Orders List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/orders",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"0502ad2e-b88f-4dc1-9c1f-d617d060aeb1",
+								"orders"
+							]
+						},
+						"description": "List of orders under an Institution"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions - Trips List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"0502ad2e-b88f-4dc1-9c1f-d617d060aeb1",
+								"trips"
+							]
+						},
+						"description": "List of trips under an Institution"
+					},
+					"response": []
 				}
 			]
 		},
@@ -951,6 +1005,88 @@
 						"description": "Delete a Delivery"
 					},
 					"response": []
+				},
+				{
+					"name": "Orders - Payment Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"c2f4e772-a703-458f-9804-a377c5b05b03",
+								"payments"
+							]
+						},
+						"description": "List of orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders - Payments List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"c2f4e772-a703-458f-9804-a377c5b05b03",
+								"payments"
+							]
+						},
+						"description": "List of orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Orders - Payments Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments/cc0b0a8f-62b7-430c-a842-b1d264e0db7b",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"orders",
+								"c2f4e772-a703-458f-9804-a377c5b05b03",
+								"payments",
+								"cc0b0a8f-62b7-430c-a842-b1d264e0db7b"
+							]
+						},
+						"description": "List of orders"
+					},
+					"response": []
 				}
 			]
 		},
@@ -974,7 +1110,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"order_id\": \"334bd51f-e2d4-49b9-883d-5750b7156385\",\n\t\"origin_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"destination_id\": \"d918c153-2c60-4ca6-8bd9-f7f5a8bc2485\",\n\t\"amount\": \"100\",\n\t\"bonified_amount\": \"\",\n\t\"packages\": [{\n\t\t\"weight\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
+							"raw": "{\n\t\"order_id\": \"95a6798a-5055-4d6d-a843-1618b3b49d22\",\n\t\"origin_id\": \"36f093ba-0e45-4c8d-bc34-2c9c8ac86c5b\",\n\t\"destination_id\": \"7f891cb3-ce32-45aa-bd9b-6d705f060ef7\",\n\t\"amount\": \"100\",\n\t\"bonified_amount\": \"\",\n\t\"packages\": [{\n\t\t\"weight\": \"\",\n\t\t\"volume\": \"\",\n\t\t\"cooling\": \"\",\n\t\t\"description\": \"\"\n\t}]\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries",
@@ -1006,17 +1142,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"order_id\": \"88154199-ec80-42f6-981c-f16d0575ca2e\",\n\t\"destination_id\": \"c4c7a1ab-5b5a-4393-a70b-0295084e9b5f\"\n}"
+							"raw": "{\n\t\"order_id\": \"65f15366-6851-4890-84b5-d98e6c2b03d9\",\n\t\"options\": [\"refrigerated\"]\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/1",
+							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/17",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"deliveries",
-								"1"
+								"17"
 							]
 						},
 						"description": "Update the delivery information"
@@ -1367,6 +1503,163 @@
 							]
 						},
 						"description": "Delete a trip\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Webhooks",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"a1b2c3d4e5f6g7h8i9\",\n\t\"price\": \"10\",\n\t\"distance\": \"2500\",\n\t\"currencySign\": \"$\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"webhooks",
+								"shippify",
+								"create_delivery"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"prices\": {\n    \"0\": \"9.5\",\n    \"1\": \"10.48\",\n    \"2\": \"3.4\"\n  },\n  \"route_id\": \"abcdefghi123456789\",\n  \"distance\": \"8000\",\n  \"date\": \"1421539200\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"webhooks",
+								"shippify",
+								"create_delivery"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"a1b2c3d4e5f6g7h8i9\",\n\t\"pickup_location\": {\n\t\t\"address\":\"Aeropuerto Internacional José Joaquín de Olmedo, Avenida de Las Americas, Guayaquil, Guayas\",\n\t\t\"lat\":-2.158056,\"lng\":-79.883836\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"webhooks",
+								"shippify",
+								"create_delivery"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShipperAPI",
+			"description": "",
+			"item": [
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/shipper/authenticate",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shipper",
+								"authenticate"
+							]
+						},
+						"description": "Authenticate a Shipper an get the auth_token or errors"
+					},
+					"response": []
+				},
+				{
+					"name": "Hello",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{shipper_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/shipper/hello",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"shipper",
+								"hello"
+							]
+						},
+						"description": "List shippers"
 					},
 					"response": []
 				}

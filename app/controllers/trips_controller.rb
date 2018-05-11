@@ -1,8 +1,13 @@
 class TripsController < ApplicationController
+  include CurrentAndEnsureDependencyLoader
+  include Exporters::Streamable
 
   def index
-    trips = Trip.preload(:shipper, :orders, :deliveries, :packages).all
-    render json: trips, status: :ok # 200
+    optional_institution; return if performed?
+
+    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
+
+    render json: finder.result, status: :ok # 200
   end
 
   def create
@@ -72,6 +77,14 @@ class TripsController < ApplicationController
     end
   end
 
+  def export
+    optional_institution; return if performed?
+
+    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
+
+    stream_xlsx Exporters::Trips, trips: finder.result
+  end
+
   private
 
   def create_trip_params
@@ -89,6 +102,13 @@ class TripsController < ApplicationController
       :shipper_id,
       :status,
       :comments
+    )
+  end
+
+  def filter_params
+    params.permit(
+      :created_since,
+      :created_until
     )
   end
 

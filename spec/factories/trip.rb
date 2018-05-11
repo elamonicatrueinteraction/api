@@ -21,6 +21,14 @@ FactoryBot.define do
       status 'broadcasting'
     end
 
+    trait :created_some_weeks_ago do
+      transient do
+        number_of_weeks 1
+      end
+
+      created_at { number_of_weeks.weeks.ago }
+    end
+
     factory :trip_in_gateway, traits: [ :in_gateway ]
   end
 end

@@ -45,6 +45,7 @@ class ShippersController < ApplicationController
       :gender,
       :birth_date,
       :email,
+      :password,
       :phone_num,
       :photo,
       :active,
