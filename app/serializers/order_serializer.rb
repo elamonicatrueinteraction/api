@@ -1,14 +1,3 @@
-class OrderSerializer < ActiveModel::Serializer
-  attributes :id,
-    :expiration,
-    :amount,
-    :bonified_amount,
-    :created_at,
-    :updated_at
-
-  belongs_to :giver, class_name: 'Institution'
-  belongs_to :receiver, class_name: 'Institution'
-
+class OrderSerializer < Simple::OrderSerializer
   has_many :deliveries, serializer: Simple::DeliverySerializer
-  has_many :payments
 end
