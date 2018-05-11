@@ -54,4 +54,5 @@ group :test do
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 end
