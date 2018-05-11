@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'activerecord-postgis-adapter'
+gem 'activerecord-postgis-adapter', '~> 5.2'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for value coercions, applying constraints and other stuff
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
@@ -22,7 +22,7 @@ gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
 group :development, :test do
   gem 'awesome_rails_console'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
