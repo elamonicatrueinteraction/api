@@ -94,7 +94,6 @@ module Exporters
       order = delivery.order
       giver = order.giver
       receiver = order.receiver
-
       [
         trip.id,
         trip.status,
@@ -105,9 +104,9 @@ module Exporters
         trip.updated_at,
         trip.steps[0]['action'],
         trip.steps[1]['action'],
-        shipper.id,
-        shipper.name,
-        shipper.email,
+        shipper.try(:id),
+        shipper.try(:name),
+        shipper.try(:email),
         trip.steps[0]['delivery_id'],
         delivery.amount,
         delivery.status,
