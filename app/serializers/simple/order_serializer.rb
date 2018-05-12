@@ -18,8 +18,10 @@ class Simple::OrderSerializer < ActiveModel::Serializer
   end
 
   def payments
-    #TO-DO: we should refactor this in order to use the PaymentSerializer instead
-    object.payments
+    ActiveModelSerializers::SerializableResource.new(
+      object.payments,
+      { each_serializer: PaymentSerializer }
+    ).as_json[:payments]
   end
 
   private
