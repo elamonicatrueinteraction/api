@@ -1,36 +1,36 @@
 en:
   exporters:
     delivery:
-      amount: DELIVERY_AMOUNT
-      destination_address: DELIVERY_DESTINATION_ADDRESS
-      destination_id: DELIVERY_DESTINATION_ID
-      gateway: DELIVERY_GATEWAY
-      gateway_id: DELIVERY_GATEWAY_ID
-      id: DELIVERY_ID
-      origin_address: DELIVERY_ORIGIN_ID
-      origin_id: DELIVERY_ORIGIN_ID
-      refrigerated: DELIVERY_REFRIGERATED
-      status: DELIVERY_STATUS
+      amount: Valor del viaje
+      destination_address: Dirección de destino
+      destination_id: ID de destino
+      gateway: Gateway
+      gateway_id: ID de gateway
+      id: ID del delivery
+      origin_address: Dirección de origen
+      origin_id: ID de origen
+      refrigerated: Necesita carga de frío
+      status: Estado del delivery
     giver:
-      id: GIVER_ID
-      name: GIVER_NAME
+      id: ID del origen
+      name: Origen
     order:
-      id: ORDER_ID
-      amount: ORDER_AMOUNT
+      id: ID de la orden
+      amount: Valor del pedido
     receiver:
-      id: RECEIVER_ID
-      name: RECEIVER_NAME
+      id: ID del destino
+      name: Destino
     shipper:
-      email: SHIPPER_EMAIL
-      id: SHIPPER_ID
-      name: SHIPPER_NAME
+      email: Email del chofer
+      id: ID del chofer
+      name: Nombre del chofer
     trip:
-      comments: COMMENTS
-      created_at: CREATED_AT
-      dropoff: DROPOFF
-      gateway: GATEWAY
-      gateway_id: GATEWAY_ID
-      id: TRIP_ID
-      pickup: PICKUP
-      status: STATUS
-      updated_at: UPDATED_AT
+      comments: Comentarios
+      created_at: Fecha de creación
+      dropoff: Dropoff
+      gateway: Gateway
+      gateway_id: ID del gateway
+      id: ID del viaje
+      pickup: Pickup
+      status: Estado del viaje
+      updated_at: Fecha de actualización del viaje
