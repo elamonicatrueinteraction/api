@@ -8,9 +8,11 @@
         "type": "object",
         "required" : [
           "id",
+          "name",
           "first_name",
           "last_name",
           "email",
+          "avatar_url",
           "gender",
           "birth_date",
           "phone_num",
@@ -28,9 +30,11 @@
         ],
         "properties" : {
           "id" : { "type" : "string" },
+          "name" : { "type" : "string" },
           "first_name" : { "type" : "string" },
           "last_name" : { "type" : "string" },
           "email" : { "type" : "string" },
+          "avatar_url" : { "type" : "string" },
           "gender" : { "type" : ["string", "null"] },
           "birth_date" : { "type" : ["string", "null"] },
           "phone_num" : { "type" : ["string", "null"] },

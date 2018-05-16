@@ -12,9 +12,10 @@ class DeliverySerializer < Simple::DeliverySerializer
   has_many :payments
 
   def packages
-    object.packages.map do |package|
-      package.attributes.slice('id','quantity','weight','volume','cooling','fragile','description')
-    end
+    ActiveModelSerializers::SerializableResource.new(
+      object.packages,
+      { each_serializer: Simple::PackageSerializer }
+    ).as_json[:packages]
   end
 end
 

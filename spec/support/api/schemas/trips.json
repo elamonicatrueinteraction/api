@@ -10,22 +10,16 @@
           "id",
           "status",
           "comments",
-          "shipper_name",
-          "shipper_avatar_url",
           "steps",
           "created_at",
           "updated_at",
           "shipper",
-          "orders",
-          "deliveries",
-          "packages"
+          "orders"
         ],
         "properties" : {
           "id" : { "type" : "string" },
           "status" : { "type" : ["string", "null"] },
           "comments" : { "type" : ["string", "null"] },
-          "shipper_name" : { "type" : "string" },
-          "shipper_avatar_url" : { "type" : "string" },
           "steps" : {
             "type" : "array",
             "items": {
@@ -48,10 +42,12 @@
           "shipper" : {
             "type": "object",
             "properties" : {
-              "id" : { "type" : "string" },
-              "first_name" : { "type" : "string" },
-              "last_name" : { "type" : "string" },
-              "email" : { "type" : "string" }
+              "id": { "type" : "string" },
+              "name": { "type" : "string" },
+              "first_name": { "type" : "string" },
+              "last_name": { "type" : "string" },
+              "email": { "type" : ["string"] },
+              "avatar_url": { "type" : ["string"] }
             }
           },
           "orders" : {
@@ -67,7 +63,8 @@
                 "updated_at",
                 "giver",
                 "receiver",
-                "payments"
+                "payments",
+                "deliveries"
               ],
               "properties" : {
                 "id" : { "type" : "string" },
@@ -135,55 +132,103 @@
                       }
                     }
                   }
+                },
+                "deliveries" : {
+                  "type" : "array",
+                  "items": {
+                    "type" : "object",
+                    "required" : [
+                      "id",
+                      "amount",
+                      "bonified_amount",
+                      "status",
+                      "origin_latlng",
+                      "destination_latlng",
+                      "options",
+                      "packages",
+                      "payments"
+                    ],
+                    "properties" : {
+                      "id" : { "type" : "integer" },
+                      "amount": { "type" : "decimal" },
+                      "bonified_amount": { "type" : ["decimal", "null"] },
+                      "status": { "type" : ["string", "null"] },
+                      "origin_latlng": { "type" : "string" },
+                      "destination_latlng": { "type" : "string" },
+                      "options" : { "type": "object" },
+                      "packages" : {
+                        "type" : "array",
+                        "items": {
+                          "type": "object",
+                          "required" : [
+                            "id",
+                            "quantity",
+                            "weight",
+                            "volume",
+                            "cooling",
+                            "fragile",
+                            "description"
+                          ],
+                          "properties" : {
+                            "id": { "type" : "integer" },
+                            "quantity": { "type" : "integer" },
+                            "weight": { "type" : ["integer", "null"] },
+                            "volume": { "type" : ["integer", "null"] },
+                            "cooling": { "type" : "boolean" },
+                            "fragile": { "type" : "boolean" },
+                            "description": { "type" : ["string", "null"] }
+                          }
+                        }
+                      },
+                      "payments" : {
+                        "type" : "array",
+                        "items": {
+                          "type" : "object",
+                          "required" : [
+                            "id",
+                            "payable",
+                            "status",
+                            "amount",
+                            "collected_amount",
+                            "gateway_info"
+                          ],
+                          "properties" : {
+                            "id" : {"type" : "integer"},
+                            "status:" : {"type" : "string"},
+                            "amount" : {"type" : "decimal"},
+                            "collected_amount:" : {"type" : "decimal"},
+                            "payable": {
+                              "type": "object",
+                              "required" : [
+                                "id",
+                                "type"
+                              ],
+                              "properties" : {
+                                "id" : { "type" : "string" },
+                                "type": { "type" : "string" }
+                              }
+                            },
+                            "gateway_info:" : {
+                              "type": "object",
+                              "required" : [
+                                "id",
+                                "name",
+                                "payment_method_id",
+                                "coupon_url"
+                              ],
+                              "properties" : {
+                                "id" : { "type" : "integer" },
+                                "name": { "type" : "string" },
+                                "payment_method_id" : { "type" : "string" },
+                                "coupon_url": { "type" : "string" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
-              }
-            }
-          },
-          "deliveries" : {
-            "type" : "array",
-            "items": {
-              "type": "object",
-              "required" : [
-                "id",
-                "amount",
-                "bonified_amount",
-                "status",
-                "origin_latlng",
-                "destination_latlng",
-                "options"
-              ],
-              "properties" : {
-                "id" : { "type" : "integer" },
-                "amount": { "type" : "decimal" },
-                "bonified_amount": { "type" : ["decimal", "null"] },
-                "status": { "type" : ["string", "null"] },
-                "origin_latlng": { "type" : "string" },
-                "destination_latlng": { "type" : "string" },
-                "options" : { "type": "object" }
-              }
-            }
-          },
-          "packages" : {
-            "type" : "array",
-            "items": {
-              "type": "object",
-              "required" : [
-                "id",
-                "quantity",
-                "weight",
-                "volume",
-                "cooling",
-                "fragile",
-                "description"
-              ],
-              "properties" : {
-                "id": { "type" : "integer" },
-                "quantity": { "type" : "integer" },
-                "weight": { "type" : ["integer", "null"] },
-                "volume": { "type" : ["integer", "null"] },
-                "cooling": { "type" : "boolean" },
-                "fragile": { "type" : "boolean" },
-                "description": { "type" : ["string", "null"] }
               }
             }
           }
