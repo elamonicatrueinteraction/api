@@ -87,7 +87,6 @@ module Exporters
         order.amount.to_f,
         giver.name,
         receiver.name
-        order.packages
       ]
     end
   end
