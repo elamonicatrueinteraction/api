@@ -24,9 +24,11 @@
           "type" : "object",
           "properties" : {
             "id": { "type" : "string" },
+            "name": { "type" : "string" },
             "first_name": { "type" : "string" },
             "last_name": { "type" : "string" },
-            "email": { "type" : ["string"] }
+            "email": { "type" : ["string"] },
+            "avatar_url": { "type" : ["string"] }
           }
         }
       }

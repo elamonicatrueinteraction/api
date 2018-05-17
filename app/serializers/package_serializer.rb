@@ -1,11 +1,3 @@
-class PackageSerializer < ActiveModel::Serializer
-  attributes :id,
-    :quantity,
-    :weight,
-    :volume,
-    :fragile,
-    :cooling,
-    :description
-
+class PackageSerializer < Simple::PackageSerializer
   belongs_to :delivery, serializer: Simple::DeliverySerializer
 end

@@ -35,5 +35,4 @@ class Payment < ApplicationRecord
       status == valid_status
     end
   end
-
 end
