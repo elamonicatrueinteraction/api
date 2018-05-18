@@ -1,36 +1,24 @@
 en:
   exporters:
     delivery:
-      amount: DELIVERY_AMOUNT
-      destination_address: DELIVERY_DESTINATION_ADDRESS
-      destination_id: DELIVERY_DESTINATION_ID
-      gateway: DELIVERY_GATEWAY
-      gateway_id: DELIVERY_GATEWAY_ID
-      id: DELIVERY_ID
-      origin_address: DELIVERY_ORIGIN_ID
-      origin_id: DELIVERY_ORIGIN_ID
-      refrigerated: DELIVERY_REFRIGERATED
-      status: DELIVERY_STATUS
+      amount: Valor del viaje
+      refrigerated: Necesita carga de frío
     giver:
-      id: GIVER_ID
-      name: GIVER_NAME
+      name: Origen
     order:
-      id: ORDER_ID
-      amount: ORDER_AMOUNT
+      amount: Valor del pedido
+    packages:
+      kg:
+        cooled: Frescos y congelados (Kg)
+        groceries: Frutas o verduras (Kg)
+        regular: No perecederos (Kg)
+        total: Total Kilos
     receiver:
-      id: RECEIVER_ID
-      name: RECEIVER_NAME
+      name: Destino
     shipper:
-      email: SHIPPER_EMAIL
-      id: SHIPPER_ID
-      name: SHIPPER_NAME
+      name: Nombre del chofer
     trip:
-      comments: COMMENTS
-      created_at: CREATED_AT
-      dropoff: DROPOFF
-      gateway: GATEWAY
-      gateway_id: GATEWAY_ID
-      id: TRIP_ID
-      pickup: PICKUP
-      status: STATUS
-      updated_at: UPDATED_AT
+      created_at: Fecha de creación
+      gateway_id: ID del gateway
+      id: ID del viaje
+      status: Estado del viaje
