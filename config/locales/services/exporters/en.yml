@@ -2,35 +2,23 @@ en:
   exporters:
     delivery:
       amount: Valor del viaje
-      destination_address: Dirección de destino
-      destination_id: ID de destino
-      gateway: Gateway
-      gateway_id: ID de gateway
-      id: ID del delivery
-      origin_address: Dirección de origen
-      origin_id: ID de origen
       refrigerated: Necesita carga de frío
-      status: Estado del delivery
     giver:
-      id: ID del origen
       name: Origen
     order:
-      id: ID de la orden
       amount: Valor del pedido
+    packages:
+      kg:
+        cooled: Frescos y congelados (Kg)
+        groceries: Frutas o verduras (Kg)
+        regular: No perecederos (Kg)
+        total: Total Kilos
     receiver:
-      id: ID del destino
       name: Destino
     shipper:
-      email: Email del chofer
-      id: ID del chofer
       name: Nombre del chofer
     trip:
-      comments: Comentarios
       created_at: Fecha de creación
-      dropoff: Dropoff
-      gateway: Gateway
       gateway_id: ID del gateway
       id: ID del viaje
-      pickup: Pickup
       status: Estado del viaje
-      updated_at: Fecha de actualización del viaje

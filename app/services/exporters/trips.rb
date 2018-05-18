@@ -7,6 +7,10 @@ module Exporters
       I18n.t('exporters.trip.gateway_id'),
       I18n.t('exporters.trip.created_at'),
       I18n.t('exporters.shipper.name'),
+      I18n.t('exporters.packages.kg.cooled'),
+      I18n.t('exporters.packages.kg.groceries'),
+      I18n.t('exporters.packages.kg.regular'),
+      I18n.t('exporters.packages.kg.total'),
       I18n.t('exporters.delivery.amount'),
       I18n.t('exporters.delivery.refrigerated'),
       I18n.t('exporters.order.amount'),
@@ -82,6 +86,10 @@ module Exporters
         trip.gateway_id,
         trip.created_at,
         shipper.try(:name),
+        cooled_weight(delivery),
+        groceries_weight(delivery),
+        regular_weight(delivery),
+        total_weight(delivery),
         delivery.amount,
         delivery.options['refrigerated'],
         order.amount.to_f,
@@ -89,5 +97,37 @@ module Exporters
         receiver.name
       ]
     end
+
+    def cooled_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'frescos y congelados')
+    end
+
+    def groceries_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'frutas o verduras')
+    end
+
+    def regular_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'no perecederos')
+    end
+
+    def total_weight(delivery)
+      delivery.packages.map(&:weight).sum
+    end
+
+    def sum_packages_weight(packages, package_type)
+      packages.map do |package|
+        package.weight if package.description.downcase == package_type
+      end.compact.sum
+    end
+
   end
 end
