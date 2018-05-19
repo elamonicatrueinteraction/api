@@ -10,6 +10,7 @@
           "id",
           "status",
           "comments",
+          "amount",
           "steps",
           "created_at",
           "updated_at",
@@ -20,6 +21,7 @@
           "id" : { "type" : "string" },
           "status" : { "type" : ["string", "null"] },
           "comments" : { "type" : ["string", "null"] },
+          "amount" : { "type" : ["decimal", "null"] },
           "steps" : {
             "type" : "array",
             "items": {
@@ -77,14 +79,28 @@
                   "type": "object",
                   "properties" : {
                     "id" : { "type" : "string" },
-                    "name" : { "type" : "string" }
+                    "name" : { "type" : "string" },
+                    "address" : {
+                      "type": "object",
+                      "properties" : {
+                        "latlng" : { "type" : "string" },
+                        "lookup" : { "type" : "string" }
+                      }
+                    }
                   }
                 },
                 "receiver" : {
                   "type": "object",
                   "properties" : {
                     "id" : { "type" : "string" },
-                    "name" : { "type" : "string" }
+                    "name" : { "type" : "string" },
+                    "address" : {
+                      "type": "object",
+                      "properties" : {
+                        "latlng" : { "type" : "string" },
+                        "lookup" : { "type" : "string" }
+                      }
+                    }
                   }
                 },
                 "payments" : {

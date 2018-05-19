@@ -2,6 +2,7 @@ class TripSerializer < ActiveModel::Serializer
   attributes :id,
     :status,
     :comments,
+    :amount,
     :steps,
     :created_at,
     :updated_at
