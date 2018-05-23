@@ -1,4 +1,12 @@
 GIT
+  remote: git@github.com:nilusorg/pushme-aws
+  revision: e1932ff35b7846ab3fe3c2d06511a15e1fdd17a6
+  branch: master
+  specs:
+    pushme-aws (0.1.0)
+      aws-sdk-sns (~> 1)
+
+GIT
   remote: git@github.com:nilusorg/shippify-api
   revision: cd0e1de23e772368215bd28c6f8ba11e0e6a27c9
   branch: master
@@ -75,6 +83,17 @@ GEM
       awesome_print
       pry-rails
       railties
+    aws-eventstream (1.0.0)
+    aws-partitions (1.87.0)
+    aws-sdk-core (3.21.2)
+      aws-eventstream (~> 1.0)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-sns (1.1.0)
+      aws-sdk-core (~> 3)
+      aws-sigv4 (~> 1.0)
+    aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     builder (3.2.3)
     capistrano (3.10.0)
@@ -164,6 +183,7 @@ GEM
       rack
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    jmespath (1.4.0)
     json (2.1.0)
     json-schema (2.8.0)
       addressable (>= 2.4)
@@ -357,6 +377,7 @@ DEPENDENCIES
   oj
   pg
   puma (~> 3.0)
+  pushme-aws!
   rack-cors
   rails (~> 5.0)
   rails-controller-testing

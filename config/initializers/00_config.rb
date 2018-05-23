@@ -3,6 +3,10 @@ env = ENV['RAILS_ENV'] || Rails.env
 ALLOWED_APP_TOKENS = APP_CONFIG[env]['allowed_app_access_tokens'].freeze
 ALLOWED_ORIGINS    = APP_CONFIG[env]['allowed_origins'].freeze
 
+aws = APP_CONFIG[env]['aws'].freeze
+AWS_CREDENTIALS = aws['credentials'].freeze
+AWS_REGION      = aws['region'].freeze
+
 HOSTNAME = APP_CONFIG[env]['hostname'].freeze
 
 MERCADOPAGO        = APP_CONFIG[env]['mercadopago'].freeze
