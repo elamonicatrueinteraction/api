@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428151347) do
+ActiveRecord::Schema.define(version: 20180513183626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,7 +187,9 @@ ActiveRecord::Schema.define(version: 20180428151347) do
     t.integer "failed_login_count", default: 0, null: false
     t.datetime "last_login_at"
     t.string "last_login_ip"
+    t.jsonb "devices", default: {}
     t.index ["data"], name: "index_shippers_on_data", using: :gin
+    t.index ["devices"], name: "index_shippers_on_devices", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin

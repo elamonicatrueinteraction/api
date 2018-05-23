@@ -8,6 +8,7 @@ gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT
 gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pg' # The PostgreSQL Adapter
+gem 'pushme-aws', git: "git@github.com:nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'

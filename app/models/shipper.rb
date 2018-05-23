@@ -3,6 +3,7 @@ class Shipper < ApplicationRecord
 
   attribute :data, :jsonb, default: {}
   attribute :national_ids, :jsonb, default: {}
+  attribute :devices, :jsonb, default: {}
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts
