@@ -152,7 +152,7 @@ RSpec.describe TripsController, type: :request do
     end
 
     context 'with invalid conditions' do
-      let(:trip) { create(:trip_in_gateway) }
+      let(:trip) { create(:trip_broadcasted) }
 
       it { expect(Trip.count).to eq(1) }
       it_behaves_like 'a failed request'

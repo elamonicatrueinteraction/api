@@ -50,13 +50,3 @@ class Shipper < ApplicationRecord
     end.deep_merge(attributes['minimum_requirements'].to_h)
   end
 end
-
-# def data_defaults
-#   {
-#     "created_at_shippify": nil,
-#     "enabled_at_shippify": nil,
-#     "sent_email_invitation_shippify": false,
-#     "sent_email_instructions": false,
-#     "comments": nil,
-#   }
-# end

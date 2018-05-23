@@ -145,7 +145,7 @@ RSpec.describe CreateOrder do
         it { expect(result.packages.size).to eq(2) }
         it 'matching packages params' do
           packages = result.packages
-          expect(packages.map(&:quantity)).to eq(packages_params[:packages].map{ |p| p[:quantity] })
+          expect(packages.map(&:quantity)).to contain_exactly(*packages_params[:packages].map{ |p| p[:quantity] })
         end
       end
     end

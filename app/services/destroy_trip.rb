@@ -18,7 +18,7 @@ class DestroyTrip
   end
 
   def can_detroy_trip?
-    if @trip.status.present? && @trip.gateway_setup
+    if @trip.status.present?
       errors.add(:type, I18n.t("services.destroy_trip.trip_on_going")) && nil
       return false
     end

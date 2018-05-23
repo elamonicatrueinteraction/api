@@ -10,10 +10,6 @@ class Trip < ApplicationRecord
 
   belongs_to :shipper, optional: true
 
-  def gateway_setup
-    return true if gateway && gateway_id
-  end
-
   def pickup_window
     @pickup_window ||= initial_pickup['schedule']
   end

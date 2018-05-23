@@ -32,17 +32,6 @@ development: &app_config
   rollbar:
     access_token:
 
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      company_id: ''
-      email: ''
-      password: ''
-      # Or also could be instead of email: and password:
-      # access_token: ''
-
   staging: false
 
   ssl_enabled: false
@@ -52,14 +41,6 @@ production:
 
 test:
   <<: *app_config
-
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      email: ''
-      password: ''
 
   ssl_enabled: true
 

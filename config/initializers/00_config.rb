@@ -21,10 +21,6 @@ $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
 
 ROLLBAR_ACCESS_TOKEN  = APP_CONFIG[env]['rollbar']['access_token'].freeze
 
-SHIPPIFY      = APP_CONFIG[env]['shippify'].freeze
-SHIPPIFY_API  = SHIPPIFY['api'].freeze
-SHIPPIFY_DASH = SHIPPIFY['dash'].freeze
-
 STAGING         = APP_CONFIG[env]['staging'].freeze || false
 
 SSL_ENABLED     = APP_CONFIG[env]['ssl_enabled'].freeze

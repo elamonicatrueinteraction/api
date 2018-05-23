@@ -14,8 +14,6 @@ class TripsController < ApplicationController
     service = CreateTrip.call(create_trip_params)
 
     if service.success?
-      Gateway::Shippify::DeliveryCreateWorker.perform_async(service.result.id)
-
       render json: service.result, status: :created # 201
     else
       render json: { errors: service.errors }, status: :unprocessable_entity # 422
@@ -62,8 +60,6 @@ class TripsController < ApplicationController
   def broadcast
     if trip = Trip.find_by(id: params[:id])
       if trip.status.blank? || %w(draft scheduled processing).include?(trip.status)
-        service = Gateway::Shippify::BroadcastRoute.call(trip)
-
         if service.success?
           render json: trip, status: :ok # 200
         else

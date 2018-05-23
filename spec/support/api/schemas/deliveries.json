@@ -112,7 +112,6 @@
               "telephone",
               "open_hours",
               "notes",
-              "shippify_id",
               "created_at",
               "updated_at"
             ],
@@ -131,7 +130,6 @@
               "telephone" : { "type" : "string" },
               "open_hours" : { "type" : "string" },
               "notes" : { "type" : "string" },
-              "shippify_id" : { "type" : ["string", "null"] },
               "created_at" : { "type" : "datetime" },
               "updated_at" : { "type" : "datetime" }
             }
@@ -153,7 +151,6 @@
               "telephone",
               "open_hours",
               "notes",
-              "shippify_id",
               "created_at",
               "updated_at"
             ],
@@ -172,7 +169,6 @@
               "telephone" : { "type" : "string" },
               "open_hours" : { "type" : "string" },
               "notes" : { "type" : "string" },
-              "shippify_id" : { "type" : ["string", "null"] },
               "created_at" : { "type" : "datetime" },
               "updated_at" : { "type" : "datetime" }
             }

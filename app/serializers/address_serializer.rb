@@ -13,17 +13,10 @@ class AddressSerializer < ActiveModel::Serializer
     :telephone,
     :open_hours,
     :notes,
-    :shippify_id,
     :created_at,
     :updated_at
 
   belongs_to :institution
-
-  def shippify_id
-    return unless object.gateway == 'Shippify'
-
-    object.gateway_id
-  end
 end
 
 

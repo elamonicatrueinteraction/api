@@ -24,15 +24,3 @@ env :PATH, ENV['PATH']
 set :output, lambda { "2>&1 | logger -t whenever_cron" }
 
 set :chronic_options, hours24: true
-
-# every :day, at: '18:00', roles: [:app] do
-#   rake "shippify:trips:import:today"
-# end
-
-every :day, at: '05:00', roles: [:app] do
-  rake "shippify:places:import:all"
-end
-
-every :day, at: '15:00', roles: [:app] do
-  rake "shippify:shippers:import:all"
-end
