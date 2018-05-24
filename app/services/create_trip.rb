@@ -50,7 +50,7 @@ class CreateTrip
   def trip_params
     {
       comments: @allowed_params[:comments],
-      amount: @deliveries.map(&:amount).sum,
+      amount: @allowed_params[:amount] || 0.0,
       steps: steps_data
     }.tap do |_hash|
       _hash[:status] = @allowed_params[:status] if @allowed_params[:status]

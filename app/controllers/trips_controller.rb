@@ -85,6 +85,7 @@ class TripsController < ApplicationController
 
   def create_trip_params
     params.permit(
+      :amount,
       :shipper_id,
       :comments,
       orders_ids: [],
@@ -95,6 +96,7 @@ class TripsController < ApplicationController
 
   def update_trip_params
     params.permit(
+      :amount,
       :shipper_id,
       :status,
       :comments
