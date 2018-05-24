@@ -59,14 +59,12 @@ class TripsController < ApplicationController
 
   def broadcast
     if trip = Trip.find_by(id: params[:id])
-      if trip.status.blank? || %w(draft scheduled processing).include?(trip.status)
-        if service.success?
-          render json: trip, status: :ok # 200
-        else
-          render json: { errors: service.errors }, status: :unprocessable_entity # 422
-        end
+      service = BroadcastTrip.call(trip)
+
+      if service.success?
+        render json: trip, status: :ok # 200
       else
-        render json: { errors: I18n.t('errors.trip.invalid_status', id: params[:id]) }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
       render json: { errors: I18n.t('errors.not_found.trip', id: params[:id]) }, status: :not_found # 404
@@ -98,7 +96,6 @@ class TripsController < ApplicationController
     params.permit(
       :amount,
       :shipper_id,
-      :status,
       :comments
     )
   end

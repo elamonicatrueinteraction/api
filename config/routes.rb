@@ -63,6 +63,16 @@ Rails.application.routes.draw do
 
       resources :trips, only: [ :index, :show ] do
         resources :milestones, only: [ :create ]
+
+        collection do
+          get :pending
+          get :accepted
+        end
+
+        member do
+          post :accept
+          # post :reject
+        end
       end
     # ╰─ End of Private Accesible URL's / Path's
     end

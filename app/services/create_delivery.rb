@@ -39,16 +39,12 @@ class CreateDelivery
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
-      errors.add_multiple_errors( exception_errors(e, @delivery) )
+      errors.add_multiple_errors( exception_errors(e) )
 
       @within_transaction ? (raise Service::Error.new(self)) : (return nil)
     end
 
     @delivery
-  end
-
-  def exception_errors(exception, delivery)
-    exception.is_a?(Service::Error) ? exception.service.errors : delivery.errors.messages
   end
 
   def delivery_params

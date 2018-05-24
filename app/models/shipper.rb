@@ -3,11 +3,14 @@ class Shipper < ApplicationRecord
 
   attribute :data, :jsonb, default: {}
   attribute :national_ids, :jsonb, default: {}
+
+  # TO-DO: We should remove this logic from here
   attribute :devices, :jsonb, default: {}
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts
   has_many :milestones, through: :trips
+  has_many :trip_assignments, dependent: :destroy
   has_many :trips, dependent: :nullify
   has_many :vehicles, dependent: :destroy
 
@@ -37,6 +40,15 @@ class Shipper < ApplicationRecord
     @full_name ||= [first_name, last_name].join(' ').strip
   end
   alias :name :full_name
+
+  # TO-DO: We should remove this logic from here
+  def has_device?(device_hash = {})
+    type, token = device_hash.fetch_values(:type, :token)
+
+    return false unless devices.keys.map(&:to_sym).include?(type.to_sym)
+
+    devices[type.to_sym].key?(token)
+  end
 
   def requirements
     REQUIREMENTS.each_with_object({}) do |requirement, _hash|

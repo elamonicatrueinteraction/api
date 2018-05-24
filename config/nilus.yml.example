@@ -8,6 +8,9 @@ development: &app_config
       access_key: ''
       secret_key: 'R1pPJvDv3nmVaWDNYMM00VCWI9PanJgn08NoOS/A'
     region: 'us-east-1'
+    sns:
+      arn:
+        android: ''
 
   hostname: 'localhost'
 
