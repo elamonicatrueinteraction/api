@@ -4,11 +4,11 @@ module Notifications
 
     def perform(assignment_id)
       @assignment = TripAssignment.find_by(id: assignment_id)
-      @shipper = assignment.shipper
+      @shipper = @assignment.shipper
 
       if (devices = @shipper.devices[:android]) && (@trip = @assignment.trip)
         notification_data = devices.keys.map do |device_token|
-          content = { trip: { id: trip.id } }
+          content = { trip: { id: @trip.id } }
           if notification = Notification.push(device_token, '¡Hay un viaje para aceptar!', content)
             {
               device: device_token,
