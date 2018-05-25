@@ -14,11 +14,11 @@ class BroadcastTrip
   private
 
   def broadcast_trip
-    braodcast = @dispatch.braodcast!
+    broadcast = @dispatch.broadcast!
 
-    return braodcast.trip if braodcast.success?
+    return broadcast.trip if broadcast.success?
 
-    errors.add_multiple_errors( braodcast.errors )
+    errors.add_multiple_errors( broadcast.errors )
 
     @within_transaction ? (raise Service::Error.new(self)) : (return nil)
   end
