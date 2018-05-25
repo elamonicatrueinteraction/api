@@ -2,11 +2,23 @@ module ShipperApi
   class AuthenticateShipper
     prepend Service::Base
 
-    def initialize(email, password, ip = nil)
+    def initialize(email, password, device = {}, ip = nil)
       @email = email
       @password = password
       @expiration = 24.hours.from_now.to_i
       @ip = ip
+      @device = begin
+        return {} unless device
+
+        device = HashWithIndifferentAccess.new(device).deep_symbolize_keys
+        type, token = device.fetch_values(:type, :token)
+        {
+          type: type,
+          token: token
+        }
+      rescue KeyError => e
+        {}
+      end
     end
 
     def call
@@ -37,7 +49,24 @@ module ShipperApi
         login_count: (@shipper.login_count + 1),
         last_login_at: Time.now,
         last_login_ip: @ip
-      }
+      }.tap do |_columns|
+        if @device.present? && !@shipper.has_device?(@device)
+          _columns[:devices] = shipper_devices
+        end
+      end
+    end
+
+    # TO-DO: We should remove this logic from here
+    def shipper_devices
+      devices_hash = (@shipper.devices || {}).symbolize_keys
+
+      type, token = @device.fetch_values(:type, :token)
+      type = type.to_sym
+
+      devices_hash[type] = devices_hash[type] || {}
+      devices_hash[type][token] = Time.current.to_s
+
+      devices_hash
     end
 
   end

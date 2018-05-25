@@ -15,9 +15,7 @@ FactoryBot.define do
     amount { deliveries.map(&:amount).sum }
     steps { steps_data(deliveries, pickup_schedule, dropoff_schedule) }
 
-    trait :in_gateway do
-      gateway 'Shippify'
-      gateway_id 't-nilus-00'
+    trait :broadcasted do
       status 'broadcasting'
     end
 
@@ -29,6 +27,6 @@ FactoryBot.define do
       created_at { number_of_weeks.weeks.ago }
     end
 
-    factory :trip_in_gateway, traits: [ :in_gateway ]
+    factory :trip_broadcasted, traits: [ :broadcasted ]
   end
 end

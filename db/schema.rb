@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428151347) do
+ActiveRecord::Schema.define(version: 20180523182840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,10 +187,26 @@ ActiveRecord::Schema.define(version: 20180428151347) do
     t.integer "failed_login_count", default: 0, null: false
     t.datetime "last_login_at"
     t.string "last_login_ip"
+    t.jsonb "devices", default: {}
     t.index ["data"], name: "index_shippers_on_data", using: :gin
+    t.index ["devices"], name: "index_shippers_on_devices", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
+  end
+
+  create_table "trip_assignments", force: :cascade do |t|
+    t.string "state"
+    t.uuid "trip_id"
+    t.uuid "shipper_id"
+    t.datetime "created_at"
+    t.jsonb "notification_payload", default: {}
+    t.datetime "notified_at"
+    t.datetime "closed_at"
+    t.index ["notification_payload"], name: "index_trip_assignments_on_notification_payload", using: :gin
+    t.index ["shipper_id"], name: "index_trip_assignments_on_shipper_id"
+    t.index ["trip_id", "shipper_id"], name: "index_trip_assignments_on_trip_id_and_shipper_id"
+    t.index ["trip_id"], name: "index_trip_assignments_on_trip_id"
   end
 
   create_table "trips", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -40,7 +40,7 @@
         "created_at" : { "type" : "datetime" },
         "updated_at" : { "type" : "datetime" },
         "shipper" : {
-          "type": "object",
+          "type": ["object", "null"],
           "properties" : {
             "id": { "type" : "string" },
             "name": { "type" : "string" },

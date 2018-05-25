@@ -8,14 +8,13 @@ gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT
 gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pg' # The PostgreSQL Adapter
+gem 'pushme-aws', git: "git@github.com:nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
 gem 'redis-namespace'
 gem 'rgeo-geojson'
 gem 'rollbar' # Rollbar is an error tracking service for Ruby
-gem 'shippify-api', git: "git@github.com:nilusorg/shippify-api", branch: :master
-gem 'shippify-dash', git: "git@github.com:nilusorg/shippify-dash", branch: :master
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files

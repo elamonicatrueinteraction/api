@@ -38,7 +38,6 @@ RSpec.describe CreateTrip do
         before { context }
 
         it { expect(result).to eq(trip) }
-        it { expect(result.shipper).to eq(shipper) }
         it { expect(result.deliveries).to eq(order.deliveries) }
         it { expect(result).to be_a(Trip) }
       end

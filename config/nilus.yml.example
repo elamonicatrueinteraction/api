@@ -3,6 +3,15 @@ development: &app_config
   allowed_origins:
     - 'localhost:3030'
 
+  aws:
+    credentials:
+      access_key: ''
+      secret_key: 'R1pPJvDv3nmVaWDNYMM00VCWI9PanJgn08NoOS/A'
+    region: 'us-east-1'
+    sns:
+      arn:
+        android: ''
+
   hostname: 'localhost'
 
   mercadopago:
@@ -26,17 +35,6 @@ development: &app_config
   rollbar:
     access_token:
 
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      company_id: ''
-      email: ''
-      password: ''
-      # Or also could be instead of email: and password:
-      # access_token: ''
-
   staging: false
 
   ssl_enabled: false
@@ -46,14 +44,6 @@ production:
 
 test:
   <<: *app_config
-
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      email: ''
-      password: ''
 
   ssl_enabled: true
 
