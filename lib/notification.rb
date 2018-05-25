@@ -25,6 +25,7 @@ class Notification
 
     # The same message will be sent to production and sandbox
     message = {
+      default: payload.to_json,
       APNS: payload.to_json,
       APNS_SANDBOX: payload.to_json
     }.to_json
