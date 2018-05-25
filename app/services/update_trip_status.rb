@@ -1,6 +1,5 @@
 class UpdateTripStatus
   prepend Service::Base
-  include Service::Support::Trip
 
   def initialize(milestone)
     @milestone = milestone
@@ -16,7 +15,7 @@ class UpdateTripStatus
 
   private
 
-  def update_trip
+  def update_trip_status
     @trip.assign_attributes(status: trip_status)
 
     return @trip if @trip.save
