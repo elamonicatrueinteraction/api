@@ -28,14 +28,21 @@ module ShipperApi
     end
 
     def accept
-      ensure_trip; return if performed?
+      # TO-DO: We should improve this handling
+      if pending_trip = Trip.find_by(id: params[:id])
+        if [nil, 'waiting_shipper'].include?(pending_trip.status)
+          service = ShipperApi::AcceptTrip.call(current_shipper, pending_trip)
 
-      service = ShipperApi::AcceptTrip.call(current_shipper, current_trip)
-
-      if service.success?
-        render json: service.result, status: :created # 201
+          if service.success?
+            render json: service.result, status: :ok # 200
+          else
+            render json: { errors: service.errors }, status: :unprocessable_entity # 422
+          end
+        else
+          render json: { errors: [ I18n.t("errors.not_found.pending_trip", id: params[:id]) ] }, status: :unprocessable_entity # 422
+        end
       else
-        render json: { errors: service.errors }, status: :unprocessable_entity # 422
+        render json: { errors: [ I18n.t("errors.not_found.trip", id: params[:id]) ] }, status: :not_found # 404
       end
     end
 
