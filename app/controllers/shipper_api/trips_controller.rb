@@ -3,14 +3,14 @@ module ShipperApi
     include ShipperApi::CurrentAndEnsureDependencyLoader
 
     def index
-      trips = current_shipper.trips.preload(:orders, :deliveries, :packages)
+      trips = current_shipper.trips.preload(:orders, :deliveries, :packages, :milestones, :trip_assignments)
       render json: trips, status: :ok # 200
     end
     alias_method :accepted, :index
 
     def pending
       # TO-DO: rethink how we are getting this trips
-      trips = Trip.preload(:orders, :deliveries, :packages)
+      trips = Trip.preload(:orders, :deliveries, :packages, :milestones, :trip_assignments)
         .joins(:trip_assignments)
         .where(trip_assignments: { shipper: current_shipper, state: ['assigned', 'broadcasted'] })
         .where(status: 'waiting_shipper')
