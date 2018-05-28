@@ -6,33 +6,25 @@ class Notification
     sns = Aws::SNS::Client.new(stub_responses: stub_responses)
 
     # Determine device -> message recipient
-    endpoint = sns.create_platform_endpoint(
+    endpoint_arn = sns.create_platform_endpoint(
       platform_application_arn: SNS_SETUP['arn']['android'],
       token: token
     ).endpoint_arn
 
-    # Define a push notification message with metadata
     payload = {
-      notification_id: "15",
-      aps: {
-        alert: text,
-        badge: 1,
-        sound: "default"
-      },
-
-      push_content: push_content
+      data: {
+        message: text
+      }
     }
 
-    # The same message will be sent to production and sandbox
     message = {
       default: payload.to_json,
-      APNS: payload.to_json,
-      APNS_SANDBOX: payload.to_json
+      GCM: payload.to_json
     }.to_json
 
-    # Pushing message to device through endpoint
+    # Pushing message to device through endpoint_arn
     sns.publish(
-      target_arn: endpoint,
+      target_arn: endpoint_arn,
       message: message,
       message_structure: "json",
     )
