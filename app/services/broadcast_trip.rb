@@ -1,10 +1,10 @@
 class BroadcastTrip
   prepend Service::Base
 
-  def initialize(trip, within_transaction = false)
+  def initialize(trip, raise_error = false)
     @trip = trip
     @dispatch = TripDispatch.new(@trip)
-    @within_transaction = within_transaction
+    @raise_error = raise_error
   end
 
   def call
@@ -20,6 +20,6 @@ class BroadcastTrip
 
     errors.add_multiple_errors( broadcast.errors )
 
-    @within_transaction ? (raise Service::Error.new(self)) : (return nil)
+    @raise_error ? (raise Service::Error.new(self)) : (return nil)
   end
 end

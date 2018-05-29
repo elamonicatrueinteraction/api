@@ -2,7 +2,9 @@
 
 # TO-DO: We should move all this to the Pushme Gem
 class Notification
-  def self.push(token, text, push_content, stub_responses = false)
+  class Error < ::StandardError; end
+
+  def self.push(token, text, push_content = {}, stub_responses = false)
     sns = Aws::SNS::Client.new(stub_responses: stub_responses)
 
     # Determine device -> message recipient
@@ -31,7 +33,7 @@ class Notification
 
   # Some error handling need to be made
   rescue Aws::SNS::Errors::ServiceError => e
-    false
+    raise Notification::Error.new(e)
   end
 
 end

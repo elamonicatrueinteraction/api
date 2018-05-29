@@ -33,7 +33,11 @@ class TripDispatch
           )
 
           trip.assign_attributes(status: 'waiting_shipper')
-          trip.save!
+          trip.save! if trip.changed?
+
+          # TO-DO: We should move all this to a BillboardHandler I think
+          Billboard.move_to_tail(shipper)
+          Billboard.update_assignment_scores(shipper)
         else
           raise Service::Error.new(self)
         end
@@ -42,7 +46,7 @@ class TripDispatch
       errors.add_multiple_errors( exception.record.errors.messages ) if exception.is_a?(ActiveRecord::RecordInvalid)
     end
 
-    Notifications::PushWorker.perform_async(@assignment.id) if success?
+    Notifications::PushWorker.perform_async([@assignment.id]) if success?
 
     self
   end
@@ -50,7 +54,7 @@ class TripDispatch
   def broadcast!
     assignments = {}
     begin
-      shippers = Broadcaster.shippers_for(trip)
+      shippers = Shipper.where(id: Billboard.next_in_line)
 
       TripAssignment.transaction do
         # Pessimistic Locking in order to prevent race-conditions
@@ -66,7 +70,10 @@ class TripDispatch
           end
 
           trip.assign_attributes(status: 'waiting_shipper')
-          trip.save!
+          trip.save! if trip.changed?
+
+          # TO-DO: We should move all this to a BillboardHandler I think
+          Billboard.update_assignment_scores(shippers)
         else
           raise Service::Error.new(self)
         end
@@ -76,10 +83,11 @@ class TripDispatch
     end
 
     if success?
-      shippers.each do |_shipper|
-        assignment_id = assignments[_shipper.id].id
-        Notifications::PushWorker.perform_async(assignment_id)
+      #TO-DO: I don't like this approach but it's effective and it's clear in the intentions
+      assignments_ids = shippers.map do |_shipper|
+        assignments[_shipper.id].id
       end
+      Notifications::PushWorker.perform_async(assignments_ids)
     end
 
     self
@@ -91,7 +99,7 @@ class TripDispatch
         # Pessimistic Locking in order to prevent race-conditions
         trip.lock!
 
-        if takable?
+        if takable? # WARNING! This method define the instance var @open_assignments. TO-DO: Improve this
           now = Time.current
 
           @open_assignments.each do |assignment|
@@ -106,6 +114,10 @@ class TripDispatch
           )
 
           trip.update!(shipper: shipper, status: 'confirmed')
+
+          # TO-DO: We should move all this to a BillboardHandler I think
+          Billboard.move_to_tail(shipper)
+          Billboard.update_ranking_scores(trip, shipper)
         else
           raise Service::Error.new(self)
         end
@@ -120,15 +132,19 @@ class TripDispatch
   private
 
   def assignable?
-    return true if trip.status.blank?
+    return true if trip.status.blank? || empty_pending_queue?
 
     errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_assign_trip')) && false
   end
 
   def broadcastable?
-    return true if trip.status.blank?
+    return true if trip.status.blank? || empty_pending_queue?
 
     errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_broadcast_trip')) && false
+  end
+
+  def empty_pending_queue?
+    trip.status == 'waiting_shipper' && trip.trip_assignments.opened.blank?
   end
 
   def takable?
