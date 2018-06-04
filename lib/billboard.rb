@@ -22,7 +22,7 @@ module Billboard
   end
 
   def update_assignment_scores(shipper)
-    shippers = shipper.is_a?(Array) ? shipper : [ shipper ]
+    shippers = shipper.is_a?(Enumerable) ? shipper : Array.new(shipper)
 
     shippers.each do |_shipper|
       $redis.zincrby(SHIPPER_ASSIGNMENT_ZSET, 1, _shipper.id)

@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "a6fab401-3454-4654-b90d-c01c8a5bd3f3",
 		"name": "Nilus - API",
+		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
+		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Shippers",
-			"description": null,
 			"item": [
 				{
 					"name": "Shippers List",
@@ -19,10 +19,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shippers",
 							"protocol": "{{protocol}}",
@@ -47,10 +44,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shippers/1e35686d-70e5-47ea-94df-1c453fd98a93",
 							"protocol": "{{protocol}}",
@@ -141,10 +135,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shippers/4685397e-d7fb-43fc-8532-673e39e03c5f/bank_accounts",
 							"protocol": "{{protocol}}",
@@ -171,10 +162,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shippers/5f5a02ea-9bc8-4d62-a18a-e6abf04c67c9/vehicles",
 							"protocol": "{{protocol}}",
@@ -264,7 +252,7 @@
 		},
 		{
 			"name": "Vehicles",
-			"description": null,
+			"description": "",
 			"item": [
 				{
 					"name": "Vehicle Create",
@@ -341,10 +329,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/vehicles/2e0df63a-45d6-421f-ad89-d7758b6ad8cc/verifications",
 							"protocol": "{{protocol}}",
@@ -469,7 +454,7 @@
 		},
 		{
 			"name": "Institutions",
-			"description": null,
+			"description": "",
 			"item": [
 				{
 					"name": "Institution List",
@@ -481,10 +466,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
 							"protocol": "{{protocol}}",
@@ -639,10 +621,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions/fb32d9cc-c2e0-420f-ae2b-d972ecf8389b/addresses",
 							"protocol": "{{protocol}}",
@@ -738,10 +717,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/orders",
 							"protocol": "{{protocol}}",
@@ -768,10 +744,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/institutions/0502ad2e-b88f-4dc1-9c1f-d617d060aeb1/trips",
 							"protocol": "{{protocol}}",
@@ -792,7 +765,7 @@
 		},
 		{
 			"name": "Orders",
-			"description": null,
+			"description": "",
 			"item": [
 				{
 					"name": "Orders List",
@@ -804,10 +777,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders",
 							"protocol": "{{protocol}}",
@@ -864,10 +834,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0",
 							"protocol": "{{protocol}}",
@@ -959,10 +926,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0/deliveries",
 							"protocol": "{{protocol}}",
@@ -989,10 +953,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/27694f7b-253f-4b69-bc3f-0d3da1defdb0/deliveries/12",
 							"protocol": "{{protocol}}",
@@ -1055,10 +1016,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments",
 							"protocol": "{{protocol}}",
@@ -1085,10 +1043,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments",
 							"protocol": "{{protocol}}",
@@ -1115,10 +1070,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/orders/c2f4e772-a703-458f-9804-a377c5b05b03/payments/cc0b0a8f-62b7-430c-a842-b1d264e0db7b",
 							"protocol": "{{protocol}}",
@@ -1140,7 +1092,7 @@
 		},
 		{
 			"name": "Deliveries",
-			"description": null,
+			"description": "",
 			"item": [
 				{
 					"name": "Deliveries Create",
@@ -1250,10 +1202,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages",
 							"protocol": "{{protocol}}",
@@ -1280,10 +1229,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/deliveries/16/packages/5",
 							"protocol": "{{protocol}}",
@@ -1409,7 +1355,7 @@
 		},
 		{
 			"name": "Trips",
-			"description": null,
+			"description": "",
 			"item": [
 				{
 					"name": "Trips List",
@@ -1421,10 +1367,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/trips",
 							"protocol": "{{protocol}}",
@@ -1481,10 +1424,7 @@
 								"value": "Token {{user_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/trips/eb999237-339e-4e34-8561-b711782b0551",
 							"protocol": "{{protocol}}",
@@ -1565,18 +1505,139 @@
 						"description": "Delete a trip\n"
 					},
 					"response": []
+				},
+				{
+					"name": "Trips Broadcast",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"8b714a02-4ba2-4747-ae22-b145a3786d7e\",\n\t\"status\": \"whatever\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/9315246b-e581-4b9b-9f01-b90eb2a7e40b/broadcast",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"9315246b-e581-4b9b-9f01-b90eb2a7e40b",
+								"broadcast"
+							]
+						},
+						"description": "Update certain info of a trip\n"
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Webhooks",
-			"description": null,
+			"description": "",
 			"item": []
 		},
 		{
 			"name": "ShipperAPI",
-			"description": null,
+			"description": "",
 			"item": [
+				{
+					"name": "Trips",
+					"description": "",
+					"item": [
+						{
+							"name": "Trips - List (alias Accepted)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Accepted Trips - List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/accepted",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips",
+										"accepted"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Pending Trips - List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/pending",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips",
+										"pending"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "Authenticate",
 					"request": {
@@ -1589,7 +1650,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\"\n}"
+							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\",\n\t\"device\": {\n\t\t\"type\": \"android\",\n\t\t\"token\": \"device-token\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shipper/authenticate",
@@ -1607,7 +1668,7 @@
 					"response": []
 				},
 				{
-					"name": "Trips List",
+					"name": "Hello",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1616,164 +1677,7 @@
 								"value": "Token {{shipper_auth_token}}"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shipper",
-								"trips"
-							]
-						},
-						"description": "List shippers"
-					},
-					"response": []
-				},
-				{
-					"name": "Trips List (Pending)",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{shipper_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/pending",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shipper",
-								"trips",
-								"pending"
-							]
-						},
-						"description": "List shippers"
-					},
-					"response": []
-				},
-				{
-					"name": "Trips List (Accepted)",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{shipper_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/accepted",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shipper",
-								"trips",
-								"accepted"
-							]
-						},
-						"description": "List shippers"
-					},
-					"response": []
-				},
-				{
-					"name": "Trips Show",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{shipper_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shipper/hello/b0075b6d-7fbe-4a63-8607-8e0d466767bd",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shipper",
-								"hello",
-								"b0075b6d-7fbe-4a63-8607-8e0d466767bd"
-							]
-						},
-						"description": "List shippers"
-					},
-					"response": []
-				},
-				{
-					"name": "Trips Milestone",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{shipper_auth_token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"some name\",\n\t\"latlng\": \"123,312\"\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/b0075b6d-7fbe-4a63-8607-8e0d466767bd/milestone",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"shipper",
-								"trips",
-								"b0075b6d-7fbe-4a63-8607-8e0d466767bd",
-								"milestone"
-							]
-						},
-						"description": "List shippers"
-					},
-					"response": []
-				},
-				{
-					"name": "Trips Show (Accept)",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token {{shipper_auth_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shipper/hello",
 							"protocol": "{{protocol}}",
