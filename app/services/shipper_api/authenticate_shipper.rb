@@ -12,6 +12,9 @@ module ShipperApi
 
         device = HashWithIndifferentAccess.new(device).deep_symbolize_keys
         type, token = device.fetch_values(:type, :token)
+
+        return {} if token.blank?
+
         {
           type: type,
           token: token

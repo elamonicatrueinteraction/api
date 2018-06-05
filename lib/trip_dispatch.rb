@@ -87,7 +87,10 @@ class TripDispatch
       assignments_ids = shippers.map do |_shipper|
         assignments[_shipper.id].id
       end
+
       Notifications::PushWorker.perform_async(assignments_ids)
+
+      CheckBroadcastWorker.perform_in(2.minutes, assignments_ids)
     end
 
     self

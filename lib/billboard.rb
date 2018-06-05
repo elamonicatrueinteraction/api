@@ -12,13 +12,18 @@ module Billboard
 
   def next_in_line
     shipper_id = $redis.lpop(SHIPPER_QUEUE_LIST)
-    $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id)
-    shipper_id
+    if shipper_id.present?
+      $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id)
+      return shipper_id
+    else
+      recreate
+      next_in_line
+    end
   end
 
   def move_to_tail(shipper)
     shipper_id = $redis.lrem(SHIPPER_QUEUE_LIST, 0, shipper.id)
-    $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id)
+    $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id) if shipper_id
   end
 
   def update_assignment_scores(shipper)
@@ -39,6 +44,10 @@ module Billboard
   private
 
   def recreate
+    $redis.del(SHIPPER_RANKING_ZSET)
+    $redis.del(SHIPPER_ASSIGNMENT_ZSET)
+    $redis.del(SHIPPER_QUEUE_LIST)
+
     Shipper.preload(:trips, :trip_assignments).find_each do |shipper|
       trips_ids = shipper.trips.pluck(:id)
       trip_assignments_ids = shipper.trip_assignments.pluck(:id)

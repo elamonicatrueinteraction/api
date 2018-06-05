@@ -16,7 +16,7 @@ class CheckBroadcastWorker
       end
     end
 
-    trips = assignments.flat_map(:trip).uniq
+    trips = assignments.flat_map(&:trip).uniq
     trips.each do |trip|
       next unless [nil, 'waiting_shipper'].include?(trip.status)
 
