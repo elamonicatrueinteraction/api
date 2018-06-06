@@ -4,31 +4,17 @@ module Exporters
     HEADER = [
       I18n.t('exporters.trip.id'),
       I18n.t('exporters.trip.status'),
-      I18n.t('exporters.trip.comments'),
-      I18n.t('exporters.trip.gateway'),
       I18n.t('exporters.trip.gateway_id'),
       I18n.t('exporters.trip.created_at'),
-      I18n.t('exporters.trip.updated_at'),
-      I18n.t('exporters.trip.pickup'),
-      I18n.t('exporters.trip.dropoff'),
-      I18n.t('exporters.shipper.id'),
       I18n.t('exporters.shipper.name'),
-      I18n.t('exporters.shipper.email'),
-      I18n.t('exporters.delivery.id'),
+      I18n.t('exporters.packages.kg.cooled'),
+      I18n.t('exporters.packages.kg.groceries'),
+      I18n.t('exporters.packages.kg.regular'),
+      I18n.t('exporters.packages.kg.total'),
       I18n.t('exporters.delivery.amount'),
-      I18n.t('exporters.delivery.status'),
-      I18n.t('exporters.delivery.gateway'),
-      I18n.t('exporters.delivery.gateway_id'),
       I18n.t('exporters.delivery.refrigerated'),
-      I18n.t('exporters.delivery.origin_id'),
-      I18n.t('exporters.delivery.origin_address'),
-      I18n.t('exporters.delivery.destination_id'),
-      I18n.t('exporters.delivery.destination_address'),
-      I18n.t('exporters.order.id'),
       I18n.t('exporters.order.amount'),
-      I18n.t('exporters.giver.id'),
       I18n.t('exporters.giver.name'),
-      I18n.t('exporters.receiver.id'),
       I18n.t('exporters.receiver.name'),
     ].freeze
     private_constant :HEADER
@@ -97,44 +83,51 @@ module Exporters
       [
         trip.id,
         trip.status,
-        trip.comments,
-        trip.gateway,
         trip.gateway_id,
         trip.created_at,
-        trip.updated_at,
-        trip.steps[0]['action'],
-        trip.steps[1]['action'],
-        shipper.try(:id),
         shipper.try(:name),
-        shipper.try(:email),
-        trip.steps[0]['delivery_id'],
+        cooled_weight(delivery),
+        groceries_weight(delivery),
+        regular_weight(delivery),
+        total_weight(delivery),
         delivery.amount,
-        delivery.status,
-        delivery.gateway,
-        delivery.gateway_id,
         delivery.options['refrigerated'],
-        delivery.pickup.dig(:address, :id),
-        lookup_address(delivery.pickup[:address]),
-        delivery.dropoff.dig(:address, :id),
-        lookup_address(delivery.dropoff[:address]),
-        delivery.order_id,
         order.amount.to_f,
-        giver.id,
         giver.name,
-        receiver.id,
         receiver.name
       ]
     end
 
-    def lookup_address(address_hash)
-      address_hash ||= {}
-
-      [
-        address_hash[:street_1],
-        [address_hash[:zip_code], address_hash[:city]].compact.join(' '),
-        address_hash[:state],
-        address_hash[:country]
-      ].compact.join(', ')
+    def cooled_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'frescos y congelados')
     end
+
+    def groceries_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'frutas o verduras')
+    end
+
+    def regular_weight(delivery)
+      # TO-DO: We should improve the way we are dealing with this situation,
+      # maybe consider to add a type field or something like that in order to
+      # be more consistant with this.
+      sum_packages_weight(delivery.packages, 'no perecederos')
+    end
+
+    def total_weight(delivery)
+      delivery.packages.map(&:weight).sum
+    end
+
+    def sum_packages_weight(packages, package_type)
+      packages.map do |package|
+        package.weight if package.description.downcase == package_type
+      end.compact.sum
+    end
+
   end
 end

@@ -4,6 +4,7 @@ class CreateTrip
 
   def initialize(allowed_params)
     @allowed_params = allowed_params
+    @shipper = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
     load_deliveries
   end
 
@@ -43,6 +44,8 @@ class CreateTrip
     rescue Service::Error, ActiveRecord::RecordInvalid => e
       return errors.add(:exception, e.message ) && nil
     end
+    # TO-DO: We should think better where and how we need to implement this logic
+    AssignTrip.call(@trip, @shipper) if @shipper
 
     @trip
   end
@@ -50,12 +53,9 @@ class CreateTrip
   def trip_params
     {
       comments: @allowed_params[:comments],
-      amount: @deliveries.map(&:amount).sum,
+      amount: @allowed_params[:amount] || 0.0,
       steps: steps_data
     }.tap do |_hash|
-      _hash[:status] = @allowed_params[:status] if @allowed_params[:status]
-      _hash[:shipper] = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
-
       _hash[:gateway] = @allowed_params[:gateway] if @allowed_params[:gateway]
       _hash[:gateway_id] = @allowed_params[:gateway_id] if @allowed_params[:gateway_id]
       _hash[:gateway_data] = @allowed_params[:gateway_data] if @allowed_params[:gateway_data]

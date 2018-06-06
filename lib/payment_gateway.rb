@@ -1,5 +1,4 @@
 class PaymentGateway
-
   def self.account_for(payable, gateway_name = 'mercadopago')
     new(payable, gateway_name).send(:account)
   end

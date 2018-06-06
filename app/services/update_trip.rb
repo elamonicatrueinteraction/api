@@ -28,6 +28,7 @@ class UpdateTrip
       if _hash[:shipper_id].present? && (shipper = load_shipper(@allowed_params.delete(:shipper_id)))
         _hash[:shipper] = shipper
       end
+      @allowed_params.delete(:amount) if @allowed_params[:amount].blank?
     end
   end
 

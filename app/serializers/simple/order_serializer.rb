@@ -35,3 +35,4 @@ class Simple::OrderSerializer < ActiveModel::Serializer
     }
   end
 end
+

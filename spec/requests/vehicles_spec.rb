@@ -38,8 +38,6 @@ RSpec.describe VehiclesController, type: :request do
 
         it_behaves_like 'a successful create request', :vehicle
         it { expect(response).to match_response_schema("vehicle") }
-        it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(json[:vehicle][:id], 'create') }
-        it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
       end
 
       context 'with invalid vehicle data' do
@@ -64,8 +62,6 @@ RSpec.describe VehiclesController, type: :request do
 
           it_behaves_like 'a successful create request', :vehicle
           it { expect(response).to match_response_schema("vehicle") }
-          it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(json[:vehicle][:id], 'create') }
-          it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
         end
 
         context 'with invalid vehicle data' do
@@ -91,8 +87,6 @@ RSpec.describe VehiclesController, type: :request do
 
         it_behaves_like 'a successful request', :vehicle
         it { expect(response).to match_response_schema("vehicle") }
-        it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(json[:vehicle][:id], 'update') }
-        it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
       end
 
       context 'with invalid data' do
@@ -125,8 +119,6 @@ RSpec.describe VehiclesController, type: :request do
 
           it_behaves_like 'a successful request', :vehicle
           it { expect(response).to match_response_schema("vehicle") }
-          it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(json[:vehicle][:id], 'update') }
-          it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
         end
 
         context 'with invalid data' do

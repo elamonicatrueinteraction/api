@@ -33,14 +33,10 @@ class CreateOrder
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
-      return errors.add_multiple_errors( exception_errors(e, @order) ) && nil
+      return errors.add_multiple_errors( exception_errors(e) ) && nil
     end
 
     @order
-  end
-
-  def exception_errors(exception, order)
-    exception.is_a?(Service::Error) ? exception.service.errors : order.errors.messages
   end
 
   def order_params

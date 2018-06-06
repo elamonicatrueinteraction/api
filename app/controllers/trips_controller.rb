@@ -14,8 +14,6 @@ class TripsController < ApplicationController
     service = CreateTrip.call(create_trip_params)
 
     if service.success?
-      Gateway::Shippify::DeliveryCreateWorker.perform_async(service.result.id)
-
       render json: service.result, status: :created # 201
     else
       render json: { errors: service.errors }, status: :unprocessable_entity # 422
@@ -61,16 +59,12 @@ class TripsController < ApplicationController
 
   def broadcast
     if trip = Trip.find_by(id: params[:id])
-      if trip.status.blank? || %w(draft scheduled processing).include?(trip.status)
-        service = Gateway::Shippify::BroadcastRoute.call(trip)
+      service = BroadcastTrip.call(trip)
 
-        if service.success?
-          render json: trip, status: :ok # 200
-        else
-          render json: { errors: service.errors }, status: :unprocessable_entity # 422
-        end
+      if service.success?
+        render json: trip, status: :ok # 200
       else
-        render json: { errors: I18n.t('errors.trip.invalid_status', id: params[:id]) }, status: :unprocessable_entity # 422
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
     else
       render json: { errors: I18n.t('errors.not_found.trip', id: params[:id]) }, status: :not_found # 404
@@ -89,6 +83,7 @@ class TripsController < ApplicationController
 
   def create_trip_params
     params.permit(
+      :amount,
       :shipper_id,
       :comments,
       orders_ids: [],
@@ -99,8 +94,8 @@ class TripsController < ApplicationController
 
   def update_trip_params
     params.permit(
+      :amount,
       :shipper_id,
-      :status,
       :comments
     )
   end

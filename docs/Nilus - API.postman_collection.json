@@ -1505,109 +1505,139 @@
 						"description": "Delete a trip\n"
 					},
 					"response": []
+				},
+				{
+					"name": "Trips Broadcast",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shipper_id\": \"8b714a02-4ba2-4747-ae22-b145a3786d7e\",\n\t\"status\": \"whatever\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/trips/9315246b-e581-4b9b-9f01-b90eb2a7e40b/broadcast",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"trips",
+								"9315246b-e581-4b9b-9f01-b90eb2a7e40b",
+								"broadcast"
+							]
+						},
+						"description": "Update certain info of a trip\n"
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Webhooks",
 			"description": "",
-			"item": [
-				{
-					"name": "Create Delivery",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"a1b2c3d4e5f6g7h8i9\",\n\t\"price\": \"10\",\n\t\"distance\": \"2500\",\n\t\"currencySign\": \"$\"\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"webhooks",
-								"shippify",
-								"create_delivery"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Trip",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"prices\": {\n    \"0\": \"9.5\",\n    \"1\": \"10.48\",\n    \"2\": \"3.4\"\n  },\n  \"route_id\": \"abcdefghi123456789\",\n  \"distance\": \"8000\",\n  \"date\": \"1421539200\"\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"webhooks",
-								"shippify",
-								"create_delivery"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Update Delivery",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"a1b2c3d4e5f6g7h8i9\",\n\t\"pickup_location\": {\n\t\t\"address\":\"Aeropuerto Internacional José Joaquín de Olmedo, Avenida de Las Americas, Guayaquil, Guayas\",\n\t\t\"lat\":-2.158056,\"lng\":-79.883836\n\t}\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/webhooks/shippify/create_delivery",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{endpoint_url}}"
-							],
-							"path": [
-								"webhooks",
-								"shippify",
-								"create_delivery"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "ShipperAPI",
 			"description": "",
 			"item": [
+				{
+					"name": "Trips",
+					"description": "",
+					"item": [
+						{
+							"name": "Trips - List (alias Accepted)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Accepted Trips - List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/accepted",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips",
+										"accepted"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Pending Trips - List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token {{shipper_auth_token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{protocol}}://{{endpoint_url}}/shipper/trips/pending",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{endpoint_url}}"
+									],
+									"path": [
+										"shipper",
+										"trips",
+										"pending"
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "Authenticate",
 					"request": {
@@ -1620,7 +1650,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\"\n}"
+							"raw": "{\n\t\"email\":\"constanza@winguweb.org\",\n\t\"password\":\"cou!40600\",\n\t\"device\": {\n\t\t\"type\": \"android\",\n\t\t\"token\": \"device-token\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}://{{endpoint_url}}/shipper/authenticate",
