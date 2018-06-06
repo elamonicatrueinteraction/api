@@ -64,7 +64,8 @@ module Billboard
       $redis.sadd( trips_set(trip), shippers_ids) if shippers_ids.present?
     end
 
-    $redis.rpush( SHIPPER_QUEUE_LIST, $redis.zrange(SHIPPER_RANKING_ZSET, 0,  -1) )
+    shipper_ids = $redis.zrange(SHIPPER_RANKING_ZSET, 0,  -1)
+    $redis.rpush( SHIPPER_QUEUE_LIST, shipper_ids ) if shipper_ids.present?
   end
 
   def shippers_set(shipper)
