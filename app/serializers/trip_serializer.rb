@@ -1,58 +1,27 @@
 class TripSerializer < ActiveModel::Serializer
   attributes :id,
     :status,
+    :status_detail,
     :comments,
-    :delivery_amount,
-    :package_amount,
-    :shipper_name,
-    :shipper_avatar_url,
+    :amount,
     :steps,
-    :giver,
-    :receiver,
     :created_at,
     :updated_at
 
   belongs_to :shipper, serializer: Simple::ShipperSerializer
-  has_many :deliveries, serializer: Simple::DeliverySerializer
-  has_many :packages
+  has_many :orders, serializer: Deep::OrderSerializer
 
-  def delivery_amount
-    object.amount.to_f
-  end
-
-  def package_amount
-    object.orders.flat_map(&:amount).compact.sum
-  end
-
-  def shipper_name
-    object.shipper.full_name if object.shipper
-  end
-
-  def shipper_avatar_url
-    ''
-  end
-
-  def giver
-    return {} unless order.giver
-
-    {
-      id: order.giver.id,
-      name: order.giver.name
-    }
-  end
-
-  def receiver
-    return {} unless order.receiver
-
-    {
-      id: order.receiver.id,
-      name: order.receiver.name
-    }
-  end
-
-  private
-
-  def order
-    @order = object.orders.last
+  # TO-DO: Please rethink this maybe in another place
+  def status_detail
+    case object.status
+    when 'waiting_shipper'
+      object.trip_assignments.where(closed_at: nil).last.try(:state)
+    when 'confirmed'
+      'accepted'
+    when 'on_going', 'completed'
+      object.milestones.last.try(:name)
+    else
+      nil
+    end
   end
 end

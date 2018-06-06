@@ -58,9 +58,11 @@ module Gateway
       end
 
       def payer_email
-        MERCADOPAGO_CONFIG['payer_email']
+        emails = HashWithIndifferentAccess.new(
+          MERCADOPAGO_CONFIG['payer_email']
+        )
+        @payment.payable.is_a?(Order) ? emails[:bar] : emails[:nilus]
       end
-
     end
   end
 end

@@ -15,7 +15,7 @@ module Finder
     private
 
     def find_trips
-      @trips = Trip.preload(:shipper, :orders, :deliveries, :packages)
+      @trips = Trip.preload(:shipper, :orders, :deliveries, :packages, :milestones, :trip_assignments)
       @trips = @trips.where('id IN (?)', trips_ids) if @institution
       @trips = @trips.where('DATE(created_at) >= ?', created_since) if created_since
       @trips = @trips.where('DATE(created_at) <= ?', created_until) if created_until

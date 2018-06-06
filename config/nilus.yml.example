@@ -3,12 +3,23 @@ development: &app_config
   allowed_origins:
     - 'localhost:3030'
 
+  aws:
+    credentials:
+      access_key: ''
+      secret_key: 'R1pPJvDv3nmVaWDNYMM00VCWI9PanJgn08NoOS/A'
+    region: 'us-east-1'
+    sns:
+      arn:
+        android: ''
+
   hostname: 'localhost'
 
   mercadopago:
     config:
       notification_host: ''
-      payer_email: 'test_user_92173722@testuser.com'
+      payer_email:
+        nilus: 'test_user_92173722@testuser.com'
+        bar: 'test_user_92173722@testuser.com'
     bar: # for the Test user -> TETE6135026
       public_key: TEST-00699a26-4b22-4ccb-9d1f-c538a7e49550
       access_token: TEST-463061222647738-042314-37ded60b57e20507d4ca94d4aa3124f3-316519508
@@ -24,17 +35,6 @@ development: &app_config
   rollbar:
     access_token:
 
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      company_id: ''
-      email: ''
-      password: ''
-      # Or also could be instead of email: and password:
-      # access_token: ''
-
   staging: false
 
   ssl_enabled: false
@@ -44,14 +44,6 @@ production:
 
 test:
   <<: *app_config
-
-  shippify:
-    api:
-      key: ''
-      secret: ''
-    dash:
-      email: ''
-      password: ''
 
   ssl_enabled: true
 

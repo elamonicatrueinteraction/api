@@ -1,0 +1,6 @@
+en:
+  push:
+    notification:
+      messages:
+        assigned: '¡Tenés un viaje asignado en Nilus! Ingresá para aceptarlo'
+        broadcasted: '¡Hay un nuevo viaje de Nilus! Ingresá para aceptarlo'

@@ -1,14 +1,17 @@
-class OrderSerializer < ActiveModel::Serializer
-  attributes :id,
-    :expiration,
-    :amount,
-    :bonified_amount,
-    :created_at,
-    :updated_at
-
-  belongs_to :giver, class_name: 'Institution'
-  belongs_to :receiver, class_name: 'Institution'
-
+class OrderSerializer < Simple::OrderSerializer
   has_many :deliveries, serializer: Simple::DeliverySerializer
-  has_many :payments
+
+  def giver
+    ActiveModelSerializers::SerializableResource.new(
+      object.giver,
+      { serializer: Simple::InstitutionSerializer }
+    ).as_json[:institution]
+  end
+
+  def receiver
+    ActiveModelSerializers::SerializableResource.new(
+      object.receiver,
+      { serializer: Simple::InstitutionSerializer }
+    ).as_json[:institution]
+  end
 end

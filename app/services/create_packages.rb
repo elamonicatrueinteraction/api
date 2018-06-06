@@ -21,7 +21,6 @@ class CreatePackages
           @packages << Package.create!( package_params(allowed_params) )
         end
       end
-
     rescue ActiveRecord::RecordInvalid => e
       errors.add_multiple_errors( e.record.errors.messages )
 

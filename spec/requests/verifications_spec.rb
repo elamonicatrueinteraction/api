@@ -38,8 +38,6 @@ RSpec.describe VerificationsController, type: :request do
     context 'with valid data' do
       it_behaves_like 'a successful create request', :verification
       it { expect(response).to match_response_schema("verification") }
-      it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(assigns(:current_vehicle).id, 'update') }
-      it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
     end
 
     context 'with invalid data' do
@@ -76,8 +74,6 @@ RSpec.describe VerificationsController, type: :request do
     context 'with valid data' do
       it_behaves_like 'a successful request', :verification
       it { expect(response).to match_response_schema("verification") }
-      it { expect(Gateway::Shippify::VehicleWorker).to have_enqueued_sidekiq_job(assigns(:current_vehicle).id, 'update') }
-      it { expect(Gateway::Shippify::VehicleWorker.jobs.size).to eq(1) }
     end
 
     context 'with invalid data' do

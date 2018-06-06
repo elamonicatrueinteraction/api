@@ -35,6 +35,10 @@ module Service
 
     private
 
+    def exception_errors(exception)
+      exception.is_a?(Service::Error) ? exception.service.errors : exception.record.errors.messages
+    end
+
     def called?
       @called ||= false
     end

@@ -49,8 +49,6 @@ RSpec.describe ShippersController, type: :request do
 
       it_behaves_like 'a successful request', :shipper
       it { expect(response).to match_response_schema("shipper") }
-      it { expect(Gateway::Shippify::ShipperUpdateWorker).to have_enqueued_sidekiq_job(json[:shipper][:id]) }
-      it { expect(Gateway::Shippify::ShipperUpdateWorker.jobs.size).to eq(1) }
     end
 
     context 'with invalid data' do

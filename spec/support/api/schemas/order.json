@@ -13,7 +13,8 @@
         "updated_at",
         "giver",
         "receiver",
-        "deliveries"
+        "deliveries",
+        "payments"
       ],
       "properties" : {
         "id" : { "type" : "string" },

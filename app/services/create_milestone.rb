@@ -17,7 +17,11 @@ class CreateMilestone
 
     return if errors.any?
 
-    return @milestone if @milestone.save
+    if @milestone.save
+      UpdateTripStatus.call(@milestone)
+
+      return @milestone
+    end
 
     errors.add_multiple_errors(@milestone.errors.messages) && nil
   end

@@ -14,8 +14,6 @@ class VerificationsController < ApplicationController
     service = CreateVerification.call(current_vehicle, verification_params, current_user)
 
     if service.success?
-      Gateway::Shippify::VehicleWorker.perform_async(current_vehicle.id, 'update') if params[:type] == 'license_plate'
-
       render json: service.result, status: :created # 201
     else
       render json: { errors: service.errors }, status: :unprocessable_entity # 422
@@ -30,8 +28,6 @@ class VerificationsController < ApplicationController
       service = UpdateVerification.call(verification, verification_params, current_user)
 
       if service.success?
-        Gateway::Shippify::VehicleWorker.perform_async(current_vehicle.id, 'update') if verification.type == 'license_plate'
-
         render json: service.result, status: :ok # 200
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422

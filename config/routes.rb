@@ -7,10 +7,6 @@ Rails.application.routes.draw do
 
     namespace :webhooks do
       post 'mercadopago/payment/:uuid', action: :payment_notification, controller: :mercadopago, as: :mercadopago_payment
-
-      # post 'shippify/create_delivery', action: :create_delivery, controller: :shippify
-      post 'shippify/update_delivery', action: :update_delivery, controller: :shippify
-      # post 'shippify/create_trip', action: :create_trip, controller: :shippify
     end
   # ╰─ End of Public Accesible URL's / Path's
 
@@ -67,6 +63,16 @@ Rails.application.routes.draw do
 
       resources :trips, only: [ :index, :show ] do
         resources :milestones, only: [ :create ]
+
+        collection do
+          get :pending
+          get :accepted
+        end
+
+        member do
+          post :accept
+          # post :reject
+        end
       end
     # ╰─ End of Private Accesible URL's / Path's
     end
