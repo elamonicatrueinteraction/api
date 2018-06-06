@@ -12,7 +12,7 @@ module ShipperApi
       # TO-DO: rethink how we are getting this trips
       trips = Trip.preload(:orders, :deliveries, :packages, :milestones, :trip_assignments)
         .joins(:trip_assignments)
-        .where(trip_assignments: { shipper: current_shipper, state: ['assigned', 'broadcasted'] })
+        .where(trip_assignments: { shipper: current_shipper, state: ['assigned', 'broadcasted'], closed_at: nil })
         .where(status: 'waiting_shipper')
         .order('trip_assignments.created_at DESC')
 

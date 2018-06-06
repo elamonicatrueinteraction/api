@@ -48,7 +48,7 @@ module Billboard
     $redis.del(SHIPPER_ASSIGNMENT_ZSET)
     $redis.del(SHIPPER_QUEUE_LIST)
 
-    Shipper.preload(:trips, :trip_assignments).find_each do |shipper|
+    Shipper.with_android_device_tokens.preload(:trips, :trip_assignments).find_each do |shipper|
       trips_ids = shipper.trips.pluck(:id)
       trip_assignments_ids = shipper.trip_assignments.pluck(:id)
 

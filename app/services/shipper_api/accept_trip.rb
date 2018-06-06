@@ -19,7 +19,7 @@ module ShipperApi
 
       return assignment.trip if assignment.success?
 
-      errors.add_multiple_errors( assignment.errors ) & nil
+      errors.add_multiple_errors( assignment.errors ) && nil
     end
   end
 end
