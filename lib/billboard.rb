@@ -22,12 +22,14 @@ module Billboard
   end
 
   def move_to_tail(shipper)
-    shipper_id = $redis.lrem(SHIPPER_QUEUE_LIST, 0, shipper.id)
-    $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id) if shipper_id
+    shipper_id = shipper.id
+    if $redis.lrem(SHIPPER_QUEUE_LIST, 0, shipper_id) > 0
+      $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id)
+    end
   end
 
   def update_assignment_scores(shipper)
-    shippers = shipper.is_a?(Enumerable) ? shipper : Array.new(shipper)
+    shippers = shipper.is_a?(Enumerable) ? shipper : Array.new([shipper])
 
     shippers.each do |_shipper|
       $redis.zincrby(SHIPPER_ASSIGNMENT_ZSET, 1, _shipper.id)
