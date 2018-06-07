@@ -55,6 +55,7 @@ module ShipperApi
       }.tap do |_columns|
         if @device.present? && !@shipper.has_device?(@device)
           _columns[:devices] = shipper_devices
+          AddShipperToQueueWorker.perform_in(10.seconds, @shipper.id)
         end
       end
     end
