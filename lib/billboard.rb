@@ -10,6 +10,9 @@ module Billboard
   SHIPPER_QUEUE_LIST = "billboard:shippers:queue".freeze
   private_constant :SHIPPER_QUEUE_LIST
 
+  SHIPPER_IN_QUEUE_SET = "billboard:shippers:queue:set".freeze
+  private_constant :SHIPPER_IN_QUEUE_SET
+
   def next_in_line
     shipper_id = $redis.lpop(SHIPPER_QUEUE_LIST)
     if shipper_id.present?
@@ -28,6 +31,13 @@ module Billboard
     end
   end
 
+  def add_shipper_to_queue(shipper_id)
+    return if $redis.sismember(SHIPPER_IN_QUEUE_SET, shipper_id)
+
+    $redis.rpush(SHIPPER_QUEUE_LIST, shipper_id)
+    $redis.sadd(SHIPPER_IN_QUEUE_SET, shipper_id)
+  end
+
   def update_assignment_scores(shipper)
     shippers = shipper.is_a?(Enumerable) ? shipper : Array.new([shipper])
 
@@ -42,6 +52,7 @@ module Billboard
 
     $redis.zincrby(SHIPPER_RANKING_ZSET, 1, shipper.id)
   end
+
 
   private
 
@@ -65,7 +76,11 @@ module Billboard
     end
 
     shipper_ids = $redis.zrange(SHIPPER_RANKING_ZSET, 0,  -1)
-    $redis.rpush( SHIPPER_QUEUE_LIST, shipper_ids ) if shipper_ids.present?
+
+    if shipper_ids.present?
+      $redis.rpush( SHIPPER_QUEUE_LIST, shipper_ids )
+      $redis.sadd( SHIPPER_IN_QUEUE_SET, shipper_ids )
+    end
   end
 
   def shippers_set(shipper)

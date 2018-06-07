@@ -24,3 +24,7 @@ env :PATH, ENV['PATH']
 set :output, lambda { "2>&1 | logger -t whenever_cron" }
 
 set :chronic_options, hours24: true
+
+every 1.hour do
+  rake "maintenance:orders:purge:orphans"
+end
