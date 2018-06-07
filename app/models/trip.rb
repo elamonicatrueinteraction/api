@@ -4,7 +4,7 @@ class Trip < ApplicationRecord
   attribute :gateway_data, :jsonb, default: {}
 
   has_many :deliveries, dependent: :nullify
-  has_many :milestones
+  has_many :milestones, dependent: :destroy
   has_many :orders, through: :deliveries
   has_many :packages, through: :deliveries
   has_many :trip_assignments, dependent: :destroy
