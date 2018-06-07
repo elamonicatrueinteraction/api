@@ -9,7 +9,6 @@ class DeliverySerializer < Simple::DeliverySerializer
   belongs_to :destination, class_name: 'Address'
 
   belongs_to :order, serializer: Simple::OrderSerializer
-  has_many :payments
 
   def packages
     ActiveModelSerializers::SerializableResource.new(
