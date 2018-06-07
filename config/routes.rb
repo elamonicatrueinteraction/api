@@ -77,5 +77,7 @@ Rails.application.routes.draw do
     # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of ShipperApi Endpoints URL's / Path's
+
+    match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
   end
 end
