@@ -5,6 +5,13 @@ class Simple::DeliverySerializer < ActiveModel::Serializer
     :status,
     :origin_latlng,
     :destination_latlng,
-    :options
+    :options,
+    :payments
 
+  def payments
+    ActiveModelSerializers::SerializableResource.new(
+      object.payments,
+      { each_serializer: PaymentSerializer }
+    ).as_json[:payments]
+  end
 end
