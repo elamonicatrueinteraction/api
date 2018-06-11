@@ -17,3 +17,7 @@ In order to clone a branched DB with PostgreSQL:
 
   bundle exec rake db:seed # to create the users
 ```
+
+### Run tests
+
+`bundle exec rspec`
