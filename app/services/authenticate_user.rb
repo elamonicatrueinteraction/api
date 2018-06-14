@@ -4,7 +4,7 @@ class AuthenticateUser
   def initialize(email, password, ip = nil)
     @email = email
     @password = password
-    @expiration = 24.hours.from_now.to_i
+    @expiration = 2.months.from_now.to_i
     @ip = ip
   end
 
