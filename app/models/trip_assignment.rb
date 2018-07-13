@@ -1,6 +1,9 @@
 class TripAssignment < ApplicationRecord
   attribute :notification_payload, :jsonb, default: {}
 
+  scope :assigned, -> { where(state: 'assigned') }
+  scope :broadcasted, -> { where(state: 'broadcasted') }
+
   scope :opened, -> { where(closed_at: nil) }
   scope :closed, -> { where('closed_at IS NOT ?', nil) }
 
