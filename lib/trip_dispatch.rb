@@ -54,7 +54,7 @@ class TripDispatch
   def broadcast!
     assignments = {}
     begin
-      shippers = Shipper.where(id: Billboard.next_in_line)
+      shippers = Shipper.where(id: Billboard.shippers_queue_set)
 
       TripAssignment.transaction do
         # Pessimistic Locking in order to prevent race-conditions
@@ -90,7 +90,7 @@ class TripDispatch
 
       Notifications::PushWorker.perform_async(assignments_ids)
 
-      CheckBroadcastWorker.perform_in(2.minutes, assignments_ids)
+      # CheckBroadcastWorker.perform_in(2.minutes, assignments_ids)
     end
 
     self
@@ -135,19 +135,19 @@ class TripDispatch
   private
 
   def assignable?
-    return true if trip.status.blank? || empty_pending_queue?
+    return true if trip_still_waiting? && trip.trip_assignments.opened.blank?
 
     errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_assign_trip')) && false
   end
 
   def broadcastable?
-    return true if trip.status.blank? || empty_pending_queue?
+    return true if trip_still_waiting? && trip.trip_assignments.opened.blank?
 
     errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_broadcast_trip')) && false
   end
 
-  def empty_pending_queue?
-    trip.status == 'waiting_shipper' && trip.trip_assignments.opened.blank?
+  def trip_still_waiting?
+    trip.status.blank? || trip.status == 'waiting_shipper'
   end
 
   def takable?
@@ -157,7 +157,8 @@ class TripDispatch
   end
 
   def valid_open_assignments?
-    @open_assignments = TripAssignment.where(state: ['assigned', 'broadcasted'], trip: trip, shipper: shipper, closed_at: nil)
+    # TO-DO: We should improve this, in order to handle the shipper information if it's an assigned trip for instance.
+    @open_assignments = TripAssignment.where(state: ['assigned', 'broadcasted'], trip: trip, closed_at: nil)
 
     return true if @open_assignments.present?
 
