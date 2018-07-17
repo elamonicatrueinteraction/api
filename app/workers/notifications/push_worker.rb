@@ -13,7 +13,7 @@ module Notifications
           disabled_devices = []
           notification_data = devices.keys.compact.map do |device_token|
             begin
-              if notification = Notification.push(device_token, message(assignment))
+              if notification = Notification.push(device_token, message(assignment), { trip_id: @trip.id })
                 {
                   device: device_token,
                   message_id: notification.message_id
