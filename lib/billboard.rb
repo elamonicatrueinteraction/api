@@ -53,6 +53,17 @@ module Billboard
     $redis.zincrby(SHIPPER_RANKING_ZSET, 1, shipper.id)
   end
 
+  def shippers_queue
+    $redis.lrange(SHIPPER_QUEUE_LIST, 0, -1)
+  end
+
+  def shippers_queue_set
+    $redis.smembers(SHIPPER_IN_QUEUE_SET)
+  end
+
+  def shipper_ranking(shipper)
+    $redis.zrank(SHIPPER_RANKING_ZSET, shipper.id)
+  end
 
   private
 

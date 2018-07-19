@@ -5,7 +5,7 @@ module ShipperApi
     def initialize(email, password, device = {}, ip = nil)
       @email = email
       @password = password
-      @expiration = 24.hours.from_now.to_i
+      @expiration = 2.months.from_now.to_i
       @ip = ip
       @device = begin
         return {} unless device
