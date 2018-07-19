@@ -16,7 +16,7 @@ class Notification
     payload = {
       data: {
         message: text
-      }
+      }.merge(push_content)
     }
 
     message = {
