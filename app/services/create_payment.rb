@@ -4,7 +4,11 @@ class CreatePayment
   def initialize(payable, amount, payment_type = nil)
     @payable = payable
     @amount = amount.to_f
-    @payment_type = Payment.valid_payment_type?(payment_type) ? payment_type_id : Payment.default_payment_type
+    @payment_type = if Payment.valid_payment_type?(payment_type)
+      payment_type
+    else
+      Payment.default_payment_type
+    end
   end
 
   def call
