@@ -52,7 +52,7 @@ RSpec.describe TripsController, type: :request do
   end
 
   describe "GET #show" do
-    let(:trip) { create(:trip) }
+    let(:trip) { create(:trip_with_shipper) }
     before { get "/trips/#{trip.id}", headers: auth_headers(user) }
 
     it_behaves_like 'a successful request', :trip
@@ -151,11 +151,55 @@ RSpec.describe TripsController, type: :request do
       it_behaves_like 'a not_found request'
     end
 
-    context 'with invalid conditions' do
+    context 'with invalid conditions (broadcasted)' do
       let(:trip) { create(:trip_broadcasted) }
 
       it { expect(Trip.count).to eq(1) }
       it_behaves_like 'a failed request'
+    end
+
+    context 'with invalid conditions (with shipper confirmed)' do
+      let(:trip) { create(:trip_with_shipper) }
+
+      it { expect(Trip.count).to eq(1) }
+      it_behaves_like 'a failed request'
+    end
+  end
+
+  describe "POST #pause" do
+    let(:trip_id) { trip.id }
+
+    before { post "/trips/#{trip_id}/pause", headers: auth_headers(user), params: {} }
+
+    context 'with valid data' do
+      context 'assigned trip' do
+        let(:trip) { create(:trip_assigned) }
+
+        it_behaves_like 'a successful request', :trip
+        it { expect(Trip.count).to eq(1) }
+        it { expect(TripAssignment.opened.count).to eq(0) }
+        it { expect(TripAssignment.closed.count).to eq(1) }
+        it { expect(trip.reload.status).to eq(nil) }
+        it { expect(response).to match_response_schema("trip") }
+      end
+      context 'broadcasted trip' do
+        let(:trip) { create(:trip_broadcasted) }
+
+        it_behaves_like 'a successful request', :trip
+        it { expect(Trip.count).to eq(1) }
+        it { expect(TripAssignment.opened.count).to eq(0) }
+        it { expect(TripAssignment.closed.count).to eq(1) }
+        it { expect(trip.reload.status).to eq(nil) }
+        it { expect(response).to match_response_schema("trip") }
+      end
+    end
+
+    context 'with invalid conditions' do
+      let(:trip) { create(:trip_with_shipper) }
+
+      it_behaves_like 'a failed request'
+      it { expect(Trip.count).to eq(1) }
+      it { expect(trip.reload.status).to eq('confirmed') }
     end
   end
 

@@ -18,6 +18,8 @@ RSpec.describe TripsController, type: :routing do
 
     it { expect(post: '/trips/1/broadcast').to route_to( routes_params.merge(controller: 'trips', action: 'broadcast') ) }
     it { expect(get: '/trips/1/broadcast').not_to be_routable }
+    it { expect(post: '/trips/1/pause').to route_to( routes_params.merge(controller: 'trips', action: 'pause') ) }
+    it { expect(get: '/trips/1/pause').not_to be_routable }
   end
 
   describe 'some other collections paths' do

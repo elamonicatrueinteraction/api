@@ -21,7 +21,7 @@ gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
 group :development, :test do
   gem 'awesome_rails_console'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
