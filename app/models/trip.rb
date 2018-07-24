@@ -25,11 +25,11 @@ class Trip < ApplicationRecord
   end
 
   def pickup_window
-    @pickup_window ||= initial_pickup['schedule']
+    HashWithIndifferentAccess.new(initial_pickup['schedule'])
   end
 
   def dropoff_window
-    @pickup_window ||= last_dropoff['schedule']
+    HashWithIndifferentAccess.new(last_dropoff['schedule'])
   end
 
   private

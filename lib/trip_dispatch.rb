@@ -132,6 +132,31 @@ class TripDispatch
     self
   end
 
+  def pause!
+    begin
+      TripAssignment.transaction do
+        # Pessimistic Locking in order to prevent race-conditions
+        trip.lock!
+
+        if pausable? # WARNING! This method define the instance var @open_assignments. TO-DO: Improve this
+          now = Time.current
+
+          @open_assignments.each do |assignment|
+            assignment.update!(closed_at: now)
+          end
+
+          trip.update!(status: nil)
+        else
+          raise Service::Error.new(self)
+        end
+      end
+    rescue Service::Error, ActiveRecord::RecordInvalid => exception
+      errors.add_multiple_errors( exception.record.errors.messages ) if exception.is_a?(ActiveRecord::RecordInvalid)
+    end
+
+    self
+  end
+
   private
 
   def assignable?
@@ -156,9 +181,15 @@ class TripDispatch
     errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_take_trip')) && false
   end
 
+  def pausable?
+    return true if trip.status == 'waiting_shipper' && valid_open_assignments?
+
+    errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_pause_trip')) && false
+  end
+
   def valid_open_assignments?
     # TO-DO: We should improve this, in order to handle the shipper information if it's an assigned trip for instance.
-    @open_assignments = TripAssignment.where(state: ['assigned', 'broadcasted'], trip: trip, closed_at: nil)
+    @open_assignments = trip.trip_assignments.opened.where(state: ['assigned', 'broadcasted'])
 
     return true if @open_assignments.present?
 

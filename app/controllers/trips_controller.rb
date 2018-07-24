@@ -44,11 +44,24 @@ class TripsController < ApplicationController
 
   def destroy
     if trip = Trip.find_by(id: params[:id])
-
       service = DestroyTrip.call(trip)
 
       if service.success?
         render json: { trip: trip.id }, status: :ok # 200
+      else
+        render json: { errors: service.errors }, status: :unprocessable_entity # 422
+      end
+    else
+      render json: { errors: I18n.t('errors.not_found.trip', id: params[:id]) }, status: :not_found # 404
+    end
+  end
+
+  def pause
+    if trip = Trip.find_by(id: params[:id])
+      service = PauseTrip.call(trip)
+
+      if service.success?
+        render json: trip, status: :ok # 200
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
@@ -96,7 +109,9 @@ class TripsController < ApplicationController
     params.permit(
       :amount,
       :shipper_id,
-      :comments
+      :comments,
+      pickup_schedule: [:start, :end],
+      dropoff_schedule: [:start, :end]
     )
   end
 
