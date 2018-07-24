@@ -43,3 +43,5 @@ en:
       delivery_with_trip: "You are not allowed to delete a package from a delivery that is already associated to a trip"
     destroy_trip:
       trip_on_going: "You are not allowed to delete a trip that is already on going"
+    update_trip:
+      trip_on_going: "You are not allowed to update a trip that the status is %{status}"

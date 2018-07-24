@@ -23,7 +23,7 @@ RSpec.describe ShipperApi::TripsController, type: :request do
     end
 
     context 'with trip_id from other shipper' do
-      let(:trip) { create(:trip) }
+      let(:trip) { create(:trip_with_shipper) }
 
       before { get "/shipper/trips/#{trip.id}", headers: shipper_auth_headers(shipper) }
 
