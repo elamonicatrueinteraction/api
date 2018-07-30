@@ -12,10 +12,14 @@ module Exporters
       I18n.t('exporters.packages.kg.regular'),
       I18n.t('exporters.packages.kg.total'),
       I18n.t('exporters.delivery.amount'),
+      I18n.t('exporters.shipper.amount'),
       I18n.t('exporters.delivery.refrigerated'),
       I18n.t('exporters.order.amount'),
       I18n.t('exporters.giver.name'),
       I18n.t('exporters.receiver.name'),
+      I18n.t('exporters.trip.net_income'),
+      I18n.t('exporters.order.payment'),
+      I18n.t('exporters.delivery.payment')
     ].freeze
     private_constant :HEADER
 
@@ -91,10 +95,14 @@ module Exporters
         regular_weight(delivery),
         total_weight(delivery),
         delivery.amount,
+        trip.amount,
         delivery.options['refrigerated'],
         order.amount.to_f,
         giver.name,
-        receiver.name
+        receiver.name,
+        delivery.amount - trip.amount,
+        order_payment_success?(order),
+        delivery_payment_success?(delivery)
       ]
     end
 
@@ -127,6 +135,14 @@ module Exporters
       packages.map do |package|
         package.weight if package.description.downcase == package_type
       end.compact.sum
+    end
+
+    def order_payment_success?(order)
+      order.payments[0].try(:status) == 'success' 
+    end
+
+    def delivery_payment_success?(delivery)
+      delivery.payments[0].try(:status) == 'success'
     end
 
   end

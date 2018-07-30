@@ -1,12 +1,14 @@
 en:
   exporters:
     delivery:
-      amount: Valor del viaje
+      amount: Valor del viaje abonado por comedor
       refrigerated: Necesita carga de frío
+      payment: Pago del pedido realizado?
     giver:
       name: Origen
     order:
-      amount: Valor del pedido
+      amount: Contribucion Simbolica
+      payment: Pago del pedido realizado?
     packages:
       kg:
         cooled: Frescos y congelados (Kg)
@@ -17,8 +19,10 @@ en:
       name: Destino
     shipper:
       name: Nombre del chofer
+      amount: Valor pagado al chofer
     trip:
       created_at: Fecha de creación
       gateway_id: ID del gateway
       id: ID del viaje
       status: Estado del viaje
+      net_income: Ingresos netos
