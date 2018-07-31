@@ -4,7 +4,6 @@ module Exporters
     HEADER = [
       I18n.t('exporters.trip.id'),
       I18n.t('exporters.trip.status'),
-      I18n.t('exporters.trip.gateway_id'),
       I18n.t('exporters.trip.created_at'),
       I18n.t('exporters.shipper.name'),
       I18n.t('exporters.packages.kg.cooled'),
@@ -12,7 +11,7 @@ module Exporters
       I18n.t('exporters.packages.kg.regular'),
       I18n.t('exporters.packages.kg.total'),
       I18n.t('exporters.delivery.amount'),
-      I18n.t('exporters.shipper.amount'),
+      I18n.t('exporters.trip.amount'),
       I18n.t('exporters.delivery.refrigerated'),
       I18n.t('exporters.order.amount'),
       I18n.t('exporters.giver.name'),
@@ -71,7 +70,7 @@ module Exporters
 
     def yielder
       @trips.each do |trip|
-
+        
         trip.deliveries.each do |delivery|
           yield row_data(trip, delivery)
         end
@@ -87,7 +86,6 @@ module Exporters
       [
         trip.id,
         trip.status,
-        trip.gateway_id,
         trip.created_at,
         shipper.try(:name),
         cooled_weight(delivery),
@@ -100,9 +98,9 @@ module Exporters
         order.amount.to_f,
         giver.name,
         receiver.name,
-        delivery.amount - trip.amount,
-        order_payment_success?(order),
-        delivery_payment_success?(delivery)
+        trip.net_income,
+        order.is_paid?,
+        delivery.is_paid?
       ]
     end
 
@@ -135,14 +133,6 @@ module Exporters
       packages.map do |package|
         package.weight if package.description.downcase == package_type
       end.compact.sum
-    end
-
-    def order_payment_success?(order)
-      order.payments[0].try(:status) == 'success' 
-    end
-
-    def delivery_payment_success?(delivery)
-      delivery.payments[0].try(:status) == 'success'
     end
 
   end

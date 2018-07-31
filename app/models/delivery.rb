@@ -78,10 +78,18 @@ class Delivery < ApplicationRecord
     (amount.to_f - bonified_amount.to_f).to_f
   end
 
+  def is_paid?
+    (approved_payments.sum(&:amount).to_f - amount) >=0
+  end
+
   private
 
   def options_info
     @options_info ||= Array.wrap(extras['options'])
+  end
+
+  def approved_payments
+    payments.select(&:approved?)
   end
 
 
