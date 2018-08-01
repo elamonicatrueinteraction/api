@@ -33,7 +33,7 @@ RSpec.describe ShipperApi::MilestonesController, type: :request do
     end
 
     context 'with trip_id from other shipper' do
-      let(:trip) { create(:trip) }
+      let(:trip) { create(:trip_with_shipper) }
 
       it_behaves_like 'a not_found request'
     end

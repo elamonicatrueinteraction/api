@@ -4,7 +4,6 @@ module Exporters
     HEADER = [
       I18n.t('exporters.trip.id'),
       I18n.t('exporters.trip.status'),
-      I18n.t('exporters.trip.gateway_id'),
       I18n.t('exporters.trip.created_at'),
       I18n.t('exporters.shipper.name'),
       I18n.t('exporters.packages.kg.cooled'),
@@ -12,10 +11,14 @@ module Exporters
       I18n.t('exporters.packages.kg.regular'),
       I18n.t('exporters.packages.kg.total'),
       I18n.t('exporters.delivery.amount'),
+      I18n.t('exporters.trip.amount'),
       I18n.t('exporters.delivery.refrigerated'),
       I18n.t('exporters.order.amount'),
       I18n.t('exporters.giver.name'),
       I18n.t('exporters.receiver.name'),
+      I18n.t('exporters.trip.net_income'),
+      I18n.t('exporters.order.payment'),
+      I18n.t('exporters.delivery.payment')
     ].freeze
     private_constant :HEADER
 
@@ -67,7 +70,7 @@ module Exporters
 
     def yielder
       @trips.each do |trip|
-
+        
         trip.deliveries.each do |delivery|
           yield row_data(trip, delivery)
         end
@@ -83,7 +86,6 @@ module Exporters
       [
         trip.id,
         trip.status,
-        trip.gateway_id,
         trip.created_at,
         shipper.try(:name),
         cooled_weight(delivery),
@@ -91,10 +93,14 @@ module Exporters
         regular_weight(delivery),
         total_weight(delivery),
         delivery.amount,
+        trip.amount,
         delivery.options['refrigerated'],
         order.amount.to_f,
         giver.name,
-        receiver.name
+        receiver.name,
+        trip.net_income,
+        order.is_paid?,
+        delivery.is_paid?
       ]
     end
 

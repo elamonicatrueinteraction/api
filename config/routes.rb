@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       end
       member do
         post :broadcast
+        post :pause
       end
     end
   # ╰─ End of Private Accesible URL's / Path's

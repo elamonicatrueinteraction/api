@@ -54,48 +54,11 @@ class CreateTrip
     {
       comments: @allowed_params[:comments],
       amount: @allowed_params[:amount] || 0.0,
-      steps: steps_data
-    }.tap do |_hash|
-      _hash[:gateway] = @allowed_params[:gateway] if @allowed_params[:gateway]
-      _hash[:gateway_id] = @allowed_params[:gateway_id] if @allowed_params[:gateway_id]
-      _hash[:gateway_data] = @allowed_params[:gateway_data] if @allowed_params[:gateway_data]
-    end
-  end
-
-  def steps_data
-    # TO-DO: We need to rethink this because this should be replaced by a logic of an optimize route.
-    # for now we are routing all the pickups first and then all the dropoff, no optimization applied
-    @deliveries.each_with_object({ pickups: [], dropoffs: [] }) do |delivery, _steps|
-      _steps[:pickups] << {
-        delivery_id: delivery.id,
-        action: 'pickup',
-        schedule: pickup_schedule
-      }
-      _steps[:dropoffs] << {
-        delivery_id: delivery.id,
-        action: 'dropoff',
-        schedule: dropoff_schedule
-      }
-    end.values.flatten
-  end
-
-  def pickup_schedule
-    return @pickup_schedule if defined?(@pickup_schedule)
-
-    @pickup_schedule = schedule_param(@allowed_params[:pickup_schedule])
-  end
-
-  def dropoff_schedule
-    return @dropoff_schedule if defined?(@dropoff_schedule)
-
-    @dropoff_schedule = schedule_param(@allowed_params[:dropoff_schedule])
-  end
-
-  def schedule_param(schedule = {})
-    now = Time.current
-    {
-      start: ( schedule[:start].present? ? schedule[:start] : now ),
-      end: ( schedule[:end].present? ? schedule[:end] : (now + 1.hour) )
+      steps: steps_data(
+        @deliveries,
+        @allowed_params[:pickup_schedule],
+        @allowed_params[:dropoff_schedule]
+      )
     }
   end
 end
