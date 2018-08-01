@@ -33,7 +33,7 @@ class Trip < ApplicationRecord
   end
 
   def net_income
-    deliveries_amount - amount
+    amount - deliveries_amount
   end
 
   private
