@@ -21,7 +21,22 @@ FactoryBot.define do
       options { [ "refrigerated" ] }
     end
 
+    trait :with_pending_payment do
+      after(:create) do |delivery, evaluator|
+        create(:payment, payable: delivery, amount: delivery.amount)
+      end
+    end
+
+    trait :with_approved_payment do
+      after(:create) do |delivery, evaluator|
+        create(:approved_payment, payable: delivery, amount: delivery.amount)
+      end
+    end
+
     factory :delivery_with_packages, traits: [ :with_packages ]
     factory :delivery_with_packages_and_refrigerated, traits: [ :with_packages, :refrigerated ]
+
+    factory :delivery_with_pending_payment, traits: [ :with_pending_payment ]
+    factory :delivery_with_approved_payment, traits: [ :with_approved_payment ]
   end
 end

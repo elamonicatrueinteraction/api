@@ -92,5 +92,4 @@ class Delivery < ApplicationRecord
     payments.select(&:approved?)
   end
 
-
 end

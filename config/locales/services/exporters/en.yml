@@ -21,7 +21,6 @@ en:
       name: Nombre del chofer
     trip:
       created_at: Fecha de creación
-      gateway_id: ID del gateway
       id: ID del viaje
       status: Estado del viaje
       net_income: Ingresos netos
