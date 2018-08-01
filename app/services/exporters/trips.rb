@@ -70,7 +70,7 @@ module Exporters
 
     def yielder
       @trips.each do |trip|
-        
+
         trip.deliveries.each do |delivery|
           yield row_data(trip, delivery)
         end
@@ -92,8 +92,8 @@ module Exporters
         groceries_weight(delivery),
         regular_weight(delivery),
         total_weight(delivery),
-        delivery.amount,
-        trip.amount,
+        delivery.total_amount,
+        trip.amount.to_f,
         delivery.options['refrigerated'],
         order.amount.to_f,
         giver.name,

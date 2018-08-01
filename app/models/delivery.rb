@@ -79,7 +79,7 @@ class Delivery < ApplicationRecord
   end
 
   def is_paid?
-    (approved_payments.sum(&:amount).to_f - amount) >=0
+    (approved_payments.sum(&:amount).to_f - total_amount) >=0
   end
 
   private

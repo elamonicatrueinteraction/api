@@ -33,7 +33,7 @@ class Trip < ApplicationRecord
   end
 
   def net_income
-    amount - deliveries_amount
+    deliveries_amount - amount.to_f
   end
 
   private
@@ -47,6 +47,6 @@ class Trip < ApplicationRecord
   end
 
   def deliveries_amount
-    deliveries.sum(&:amount).to_f
+    deliveries.sum(&:total_amount).to_f
   end
 end
