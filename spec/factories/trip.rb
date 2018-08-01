@@ -11,7 +11,7 @@ FactoryBot.define do
       })
     end
     deliveries { create_list(:delivery_with_packages, 1) }
-    amount { deliveries.map(&:amount).sum }
+    amount { deliveries.sum(&:amount) }
     steps { steps_data(deliveries, pickup_schedule, dropoff_schedule) }
 
     trait :broadcasted do
