@@ -7,7 +7,7 @@ RSpec.describe Milestone, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:gps_coordinates) }
 
-  it { is_expected.to respond_to(:latlng) }
+  it { is_expected.to respond_to(:latlng).with(0).argument }
 
   context "instance with values," do
     subject { build(:milestone) }

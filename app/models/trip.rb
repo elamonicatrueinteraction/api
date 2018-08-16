@@ -32,6 +32,10 @@ class Trip < ApplicationRecord
     HashWithIndifferentAccess.new(last_dropoff['schedule'])
   end
 
+  def net_income
+    deliveries_amount - amount.to_f
+  end
+
   private
 
   def initial_pickup
@@ -40,5 +44,9 @@ class Trip < ApplicationRecord
 
   def last_dropoff
     @last_dropoff ||= steps.reverse.detect{ |step| step['action'] == 'dropoff' }
+  end
+
+  def deliveries_amount
+    deliveries.sum(&:total_amount).to_f
   end
 end

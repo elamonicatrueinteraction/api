@@ -2,8 +2,12 @@ module FactoryBot
   module Syntax
     module Methods
 
-      def steps_data(deliveries, pickup_schedule, dropoff_schedule)
-        deliveries.each_with_object({ pickups: [], dropoffs: [] }) do |delivery, _steps|
+      def steps_data(deliveries,
+        pickup_schedule,
+      dropoff_schedule)
+        deliveries.each_with_object({ pickups: [],
+          dropoffs: [] }) do |delivery,
+          _steps|
           _steps[:pickups] << {
             delivery_id: delivery.id,
             action: 'pickup',
