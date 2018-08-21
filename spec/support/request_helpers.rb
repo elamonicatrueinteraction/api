@@ -19,6 +19,12 @@ module Requests
         'Authorization': "Bearer #{auth_token}"
       }
     end
+
+    def services_auth_headers(token)
+      {
+        'Authorization': "Token token=#{token}"
+      }
+    end
   end
 end
 

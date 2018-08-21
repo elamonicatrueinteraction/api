@@ -19,8 +19,9 @@ RSpec.describe Trip, type: :model do
   context "instance with" do
     context "deliveries" do
       let(:deliveries) { create_list(:delivery_with_packages, 3) }
-      let(:deliveries_amount) { deliveries.sum(&:amount) }
-      subject { create(:trip, deliveries:deliveries, amount: (deliveries_amount + 50) ) }
+      let(:deliveries_amount) { deliveries.sum(&:total_amount) }
+
+      subject { create(:trip, deliveries: deliveries, amount: (deliveries_amount + 50) ) }
 
       it { expect(subject.net_income).to eq(50) }
     end

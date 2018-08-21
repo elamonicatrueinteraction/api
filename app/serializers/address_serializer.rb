@@ -18,6 +18,3 @@ class AddressSerializer < ActiveModel::Serializer
 
   belongs_to :institution
 end
-
-
-

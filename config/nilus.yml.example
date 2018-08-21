@@ -35,6 +35,10 @@ development: &app_config
   rollbar:
     access_token:
 
+  services:
+    marketplace:
+      token: ''
+
   staging: false
 
   ssl_enabled: false
@@ -44,6 +48,10 @@ production:
 
 test:
   <<: *app_config
+
+  services:
+    marketplace:
+      token: 'SERVICE_VALID_TOKEN'
 
   ssl_enabled: true
 
