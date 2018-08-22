@@ -20,6 +20,11 @@ REDIS_PORT = redis['port'].freeze
 REDIS_URL  = "redis://#{REDIS_HOST}:#{REDIS_PORT}/#{REDIS_DB}".freeze
 $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
 
+services = APP_CONFIG[env]['services'].freeze
+SERVICES_TOKENS = services.each_with_object({}) do |(name, data), _hash|
+  _hash[name] = data['token']
+end
+
 ROLLBAR_ACCESS_TOKEN  = APP_CONFIG[env]['rollbar']['access_token'].freeze
 
 STAGING         = APP_CONFIG[env]['staging'].freeze || false
