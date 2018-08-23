@@ -1,5 +1,6 @@
 class Institution < ApplicationRecord
   has_many :addresses, dependent: :nullify
+  has_many :users, dependent: :destroy
 
   VALID_TYPES = %w(
     company
