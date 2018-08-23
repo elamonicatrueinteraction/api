@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           get :export
         end
       end
+      resources :users, only: [ :create, :index, :update, :destroy ]
     end
 
     resources :orders, only: [ :create, :show, :index, :destroy ] do

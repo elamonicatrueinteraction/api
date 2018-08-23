@@ -9,11 +9,18 @@ FactoryBot.define do
       end
     end
 
+    trait :with_users do
+      after(:create) do |institution, evaluator|
+        create_list(:user_with_profile, Faker::Number.between(1, 3), institution: institution)
+      end
+    end
+
     factory :organization do
       name { Faker::Company.ngo_name }
       type 'Institutions::Organization'
 
       factory :organization_with_address, traits: [ :with_address ]
+      factory :organization_with_users, traits: [ :with_users ]
     end
 
     factory :company do

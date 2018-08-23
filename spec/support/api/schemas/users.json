@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "required": ["users"],
+  "properties": {
+    "users" : {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required" : [
+          "id",
+          "username",
+          "email",
+          "active",
+          "confirmed",
+          "last_login_ip",
+          "last_login_at",
+          "profile"
+        ],
+        "properties" : {
+          "id" : { "type" : "string" },
+          "username" : { "type" : "string" },
+          "email" : { "type" : "string" },
+          "active" : { "type" : "boolean" },
+          "confirmed" : { "type" : "boolean" },
+          "last_login_ip" : { "type" : [ "string", "null" ] },
+          "last_login_at" : { "type" : [ "datetime", "null" ] },
+          "profile" : {
+            "type" : "object",
+            "properties" : {
+              "first_name": { "type" : "string" },
+              "last_name": { "type" : "string" },
+              "cellphone": { "type" : [ "string", "null" ] }
+            }
+          }
+        }
+      }
+    }
+  }
+}
