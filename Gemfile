@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'activerecord-postgis-adapter'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
+gem 'discard', '~> 1.0' # Soft deletes for ActiveRecord done right.
 gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for value coercions, applying constraints and other stuff
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only

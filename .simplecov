@@ -1,5 +1,7 @@
 SimpleCov.start do
   add_filter "/.gs/"
+  add_filter "/spec/factories/"
+  add_filter "/spec/support/"
 
   add_group 'Controllers', 'app/controllers'
   add_group 'Mailers', 'app/mailers'

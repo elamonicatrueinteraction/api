@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           get :export
         end
       end
+      resources :users, only: [ :create, :index, :update, :destroy ]
     end
 
     resources :orders, only: [ :create, :show, :index, :destroy ] do
@@ -78,6 +79,19 @@ Rails.application.routes.draw do
     # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of ShipperApi Endpoints URL's / Path's
+
+  # ╭─ Services Endpoints URL's / Path's
+    namespace :services do
+    # ╭─ Private Accesible URL's / Path's
+      get 'hello', action: :hello, controller: :base
+
+      post 'authorize_user', action: :authorize_user, controller: :base
+
+      resources :institutions, only: [ :show, :index ]
+      resources :users, only: [ :show ]
+    # ╰─ End of Private Accesible URL's / Path's
+    end
+  # ╰─ End of Services Endpoints URL's / Path's
 
     match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
   end

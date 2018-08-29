@@ -6,23 +6,17 @@ class AuthorizeRequest
   end
 
   def call
-    user
+    authorize_request
   end
 
   private
 
-  def user
-    if decoded_auth_token
-      user = User.find_by(id: decoded_auth_token[:user_id], token_expire_at: decoded_auth_token[:exp] )
+  def authorize_request
+    authorize_user = AuthorizeUser.call(http_auth_header)
 
-      @user ||= user if user && user.token_expire_at >= Time.now.to_i
-    end
+    @user = authorize_user.result
 
-    @user || errors.add(:token, I18n.t('services.authorize_request.invalid_token')) && nil
-  end
-
-  def decoded_auth_token
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    @user || errors.add_multiple_errors(authorize_user.errors) && nil
   end
 
   def http_auth_header
