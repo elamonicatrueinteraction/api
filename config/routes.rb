@@ -85,10 +85,8 @@ Rails.application.routes.draw do
     # ╭─ Private Accesible URL's / Path's
       get 'hello', action: :hello, controller: :base
 
-      post 'authorize_user', action: :authorize_user, controller: :base
-
       resources :institutions, only: [ :show, :index ]
-      resources :users, only: [ :show ]
+      resources :users, only: [ :show, :index, :update ]
     # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of Services Endpoints URL's / Path's

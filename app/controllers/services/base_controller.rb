@@ -5,17 +5,7 @@ module Services
     before_action :authorize_request
 
     def hello
-      render json: { data: "Hi! ready when you are" }, status: :ok
-    end
-
-    def authorize_user
-      service = AuthorizeUser.call(params[:http_auth_header])
-
-      if service.success? && (user = service.result)
-        render json: { user_id: user.id }, status: :ok
-      else
-        render json: { user_id: nil }, status: :unprocessable_entity
-      end
+      render json: { message: "Hi!" }, status: :ok
     end
 
     private

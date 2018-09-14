@@ -6,14 +6,23 @@ class UserSerializer < ActiveModel::Serializer
     :confirmed,
     :last_login_ip,
     :last_login_at,
+    :token_expire_at,
     :profile
 
   def profile
-    {
-      first_name: object.profile.first_name,
-      last_name: object.profile.last_name,
-      cellphone: object.profile.cellphone
-    }
+    if profile = object.profile
+      {
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        cellphone: profile.cellphone
+      }
+    else
+      {
+        first_name: nil,
+        last_name: nil,
+        cellphone: nil
+      }
+    end
   end
 
 end
