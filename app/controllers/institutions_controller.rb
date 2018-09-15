@@ -1,7 +1,7 @@
 class InstitutionsController < ApplicationController
 
   def index
-    institutions = Institution.preload(:addresses).all
+    institutions = Institution.preload(:addresses, :users).all
     render json: institutions, status: :ok # 200
   end
 
