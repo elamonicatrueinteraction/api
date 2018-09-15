@@ -12,7 +12,7 @@ gem 'pg' # The PostgreSQL Adapter
 gem 'pushme-aws', git: "git@github.com:nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.0'
+gem 'rails', '~> 5.1.0'
 gem 'redis-namespace'
 gem 'rgeo-geojson'
 gem 'rollbar' # Rollbar is an error tracking service for Ruby
