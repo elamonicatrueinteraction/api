@@ -7,6 +7,7 @@ class UserSerializer < ActiveModel::Serializer
     :last_login_ip,
     :last_login_at,
     :token_expire_at,
+    :institution_id,
     :profile
 
   def profile
