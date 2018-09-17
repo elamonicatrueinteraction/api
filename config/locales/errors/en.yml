@@ -12,6 +12,7 @@ en:
         order: "There is no payment with id: %{payment_id} for the order id: %{payable_id}"
       shipper: "There is no shipper with id: %{id}"
       trip: "There is no trip with id: %{id}"
+      user: "There is no user with id: %{user_id} for the institution id: %{institution_id}"
       vehicle: "There is no vehicle with id: %{id}"
       verification: "There is no verification with id: %{verification_id} for the vehicle id: %{vehicle_id}"
     missing:

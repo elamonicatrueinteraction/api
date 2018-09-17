@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def show
-    render json: { data: "Hi! ready when you are" }, status: :ok
+    render json: { message: "Hi!" }, status: :ok
   end
 
 end
