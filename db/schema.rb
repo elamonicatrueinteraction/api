@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180822211239) do
+ActiveRecord::Schema.define(version: 20180918100308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 20180822211239) do
     t.decimal "bonified_amount", precision: 12, scale: 4, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "extras", default: {}
+    t.index ["extras"], name: "index_orders_on_extras", using: :gin
     t.index ["giver_id"], name: "index_orders_on_giver_id"
     t.index ["receiver_id"], name: "index_orders_on_receiver_id"
   end

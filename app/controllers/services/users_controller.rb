@@ -28,7 +28,7 @@ module Services
     private
 
     def allowed_query_params
-      params.permit(:email, :token_expire_at)
+      params.permit(:email, :token_expire_at, :institution_id)
     end
 
     def allowed_update_params

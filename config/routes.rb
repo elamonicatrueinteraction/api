@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       get 'hello', action: :hello, controller: :base
 
       resources :institutions, only: [ :show, :index ]
+      resources :orders, only: [ :create ]
       resources :users, only: [ :show, :index, :update ]
     # ╰─ End of Private Accesible URL's / Path's
     end

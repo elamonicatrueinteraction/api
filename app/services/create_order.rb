@@ -17,6 +17,7 @@ class CreateOrder
     expiration
     amount
     bonified_amount
+    extras
   ).freeze
 
   def create_order
@@ -43,7 +44,8 @@ class CreateOrder
     {
       expiration: @allowed_params[:expiration],
       amount: @allowed_params[:amount],
-      bonified_amount: @allowed_params[:bonified_amount]
+      bonified_amount: @allowed_params[:bonified_amount],
+      extras:  @allowed_params[:extras]
     }.tap do |_hash|
       _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]) if @allowed_params[:giver_id].present?
       _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]) if @allowed_params[:receiver_id].present?
