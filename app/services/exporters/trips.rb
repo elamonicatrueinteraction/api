@@ -131,7 +131,7 @@ module Exporters
 
     def sum_packages_weight(packages, package_type)
       packages.map do |package|
-        package.weight if package.description.downcase == package_type
+        package.weight if package.description.to_s.downcase == package_type
       end.compact.sum
     end
 
