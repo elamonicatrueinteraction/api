@@ -15,7 +15,8 @@
           "uid",
           "created_at",
           "updated_at",
-          "addresses"
+          "addresses",
+          "users"
         ],
         "properties" : {
           "id" : { "type" : "string" },
@@ -47,6 +48,31 @@
                 "notes" : { "type" : "string" },
                 "created_at" : { "type" : "datetime" },
                 "updated_at" : { "type" : "datetime" }
+              }
+            }
+          },
+          "users" : {
+            "type" : "array",
+            "items": {
+              "type": "object",
+              "properties" : {
+                "id" : { "type" : "string" },
+                "username" : { "type" : ["string", "null"] },
+                "email" : { "type" : "string" },
+                "active" : { "type" : "boolean" },
+                "confirmed" : { "type" : "boolean" },
+                "last_login_ip" : { "type" : [ "string", "null" ] },
+                "last_login_at" : { "type" : [ "datetime", "null" ] },
+                "token_expire_at" : { "type" : [ "datetime", "null" ] },
+                "institution_id" : { "type" : "string" },
+                "profile" : {
+                  "type" : "object",
+                  "properties" : {
+                    "first_name": { "type" : "string" },
+                    "last_name": { "type" : "string" },
+                    "cellphone": { "type" : [ "string", "null" ] }
+                  }
+                }
               }
             }
           }

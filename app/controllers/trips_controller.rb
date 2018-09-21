@@ -7,7 +7,9 @@ class TripsController < ApplicationController
 
     finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
 
-    render json: finder.result, status: :ok # 200
+    paginated_results = paginate(finder.result)
+
+    render json: paginated_results, status: :ok # 200
   end
 
   def create
