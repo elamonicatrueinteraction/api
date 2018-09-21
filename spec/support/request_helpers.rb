@@ -26,10 +26,30 @@ module Requests
       }
     end
   end
+
+  module HeadersHelpers
+    def set_accept_header(version: 1)
+      Rack::MockRequest::DEFAULT_ENV['HTTP_ACCEPT'] = "application/vnd.api-nilus+json; version=#{version}"
+    end
+
+    def remove_accept_header
+      Rack::MockRequest::DEFAULT_ENV.delete('HTTP_ACCEPT')
+    end
+  end
 end
 
 RSpec.configure do |config|
   config.include Requests::JsonHelper,  type: :request
   config.include Requests::AuthHelpers, type: :request
-end
+  config.include Requests::HeadersHelpers, type: :routing
 
+  config.before :all, type: :routing do
+    silence_warnings do
+      Rack::MockRequest::DEFAULT_ENV = Rack::MockRequest::DEFAULT_ENV.dup
+    end
+  end
+
+  config.after :all, type: :routing do
+    remove_accept_header
+  end
+end

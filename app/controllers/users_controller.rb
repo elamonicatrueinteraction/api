@@ -5,7 +5,9 @@ class UsersController < ApplicationController
     ensure_institution; return if performed?
 
     users = current_institution.users
-    render json: users, status: :ok # 200
+
+    paginated_results = paginate(users)
+    render json: paginated_results, status: :ok # 200
   end
 
   def create

@@ -11,47 +11,51 @@ Rails.application.routes.draw do
   # ╰─ End of Public Accesible URL's / Path's
 
   # ╭─ Private Accesible URL's / Path's
-    resources :shippers, only: [ :create, :show, :index, :update ] do
-      resources :vehicles, only: [ :create, :index, :update ]
-      resources :bank_accounts, only: [ :index, :show, :create, :update ]
-    end
+  # | Version 1
+    scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
+      resources :shippers, only: [ :create, :show, :index, :update ] do
+        resources :vehicles, only: [ :create, :index, :update ]
+        resources :bank_accounts, only: [ :index, :show, :create, :update ]
+      end
 
-    resources :bank_accounts, only: [ :show, :create, :update ]
+      resources :bank_accounts, only: [ :show, :create, :update ]
 
-    resources :vehicles, only: [ :create, :update ] do
-      resources :verifications, only: [ :create, :index, :update, :destroy ]
-    end
+      resources :vehicles, only: [ :create, :update ] do
+        resources :verifications, only: [ :create, :index, :update, :destroy ]
+      end
 
-    resources :institutions, only: [ :create, :show, :index, :update, :destroy ] do
-      resources :addresses, only: [ :create, :index, :update, :destroy ]
-      resources :orders, only: [ :index ]
-      resources :trips, only: [ :index ] do
+      resources :institutions, only: [ :create, :show, :index, :update, :destroy ] do
+        resources :addresses, only: [ :create, :index, :update, :destroy ]
+        resources :orders, only: [ :index ]
+        resources :trips, only: [ :index ] do
+          collection do
+            get :export
+          end
+        end
+        resources :users, only: [ :create, :index, :update, :destroy ]
+      end
+
+      resources :orders, only: [ :create, :show, :index, :destroy ] do
+        resources :deliveries, only: [ :index, :show, :destroy ]
+        resources :payments, only: [ :index, :show, :create ]
+      end
+
+      resources :deliveries, only: [ :create, :update, :destroy ] do
+        resources :packages, only: [ :create, :index, :show, :update, :destroy ]
+        resources :payments, only: [ :index, :show, :create ]
+      end
+
+      resources :trips, only: [ :create, :show, :index, :update, :destroy  ] do
         collection do
           get :export
         end
-      end
-      resources :users, only: [ :create, :index, :update, :destroy ]
-    end
-
-    resources :orders, only: [ :create, :show, :index, :destroy ] do
-      resources :deliveries, only: [ :index, :show, :destroy ]
-      resources :payments, only: [ :index, :show, :create ]
-    end
-
-    resources :deliveries, only: [ :create, :update, :destroy ] do
-      resources :packages, only: [ :create, :index, :show, :update, :destroy ]
-      resources :payments, only: [ :index, :show, :create ]
-    end
-
-    resources :trips, only: [ :create, :show, :index, :update, :destroy  ] do
-      collection do
-        get :export
-      end
-      member do
-        post :broadcast
-        post :pause
+        member do
+          post :broadcast
+          post :pause
+        end
       end
     end
+  # | - End of Version 1
   # ╰─ End of Private Accesible URL's / Path's
 
   # ╭─ ShipperApi Endpoints URL's / Path's

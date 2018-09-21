@@ -5,7 +5,9 @@ class AddressesController < ApplicationController
     ensure_institution; return if performed?
 
     addresses = current_institution.addresses
-    render json: addresses, status: :ok # 200
+
+    paginated_results = paginate(addresses)
+    render json: paginated_results, status: :ok # 200
   end
 
   def create
