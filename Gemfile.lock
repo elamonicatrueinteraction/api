@@ -263,6 +263,7 @@ GEM
       rgeo (~> 0.3)
     rgeo-geojson (0.4.3)
       rgeo (~> 0.5)
+    role_model (0.8.2)
     rollbar (2.15.5)
       multi_json
     rspec (3.7.0)
@@ -370,6 +371,7 @@ DEPENDENCIES
   rails-erd
   redis-namespace
   rgeo-geojson
+  role_model
   rollbar
   rspec-collection_matchers
   rspec-rails (~> 3.7)

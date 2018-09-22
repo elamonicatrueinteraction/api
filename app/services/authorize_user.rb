@@ -18,11 +18,32 @@ class AuthorizeUser
       @user ||= user if user && user.token_expire_at >= Time.now.to_i
     end
 
-    @user || errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
+    unless @user
+      return errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
+    end
+
+    # TO-DO: We should think a better authorization schema if we are
+    # going to be checking this on other levels, for now is only to
+    # prevent buyers to enter the main application (dash.nilus.org)
+    return @user if @user.has_any_role?(*allowed_roles)
+
+    errors.add(:token, I18n.t('services.authorize_user.not_allowed')) && nil
   end
 
   def decoded_auth_token
     @decoded_auth_token ||= JsonWebToken.decode(@http_auth_header)
+  end
+
+  def allowed_roles
+    %i[
+      god_admin
+      logistics_admin
+      marketplace_admin
+      logistics_manager
+      marketplace_manager
+      shop_admin
+      shop_manager
+    ]
   end
 
 end

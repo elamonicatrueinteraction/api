@@ -17,6 +17,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.0'
 gem 'redis-namespace'
 gem 'rgeo-geojson'
+gem 'role_model'
 gem 'rollbar' # Rollbar is an error tracking service for Ruby
 gem 'sidekiq'
 gem 'whenever', require: false
