@@ -39,6 +39,7 @@ RSpec.describe CreateTrip do
 
         it { expect(result).to eq(trip) }
         it { expect(result.deliveries).to eq(order.deliveries) }
+        it { expect(result.deliveries.map(&:status).uniq).to eq(['assigned']) }
         it { expect(result).to be_a(Trip) }
       end
     end
@@ -70,6 +71,21 @@ RSpec.describe CreateTrip do
 
         it { expect(result).to be_nil }
         it { expect(Trip.all).to be_empty }
+      end
+    end
+
+    context 'when the context is not successful because of an already assigned deliveries' do
+      let!(:another_trip) { create(:trip, deliveries: order.deliveries) }
+
+      it 'fails' do
+        expect(context).to be_failure
+      end
+
+      describe 'result is nil' do
+        before { context }
+
+        it { expect(result).to be_nil }
+        it { expect(Trip.all).to eq([ another_trip ]) }
       end
     end
   end

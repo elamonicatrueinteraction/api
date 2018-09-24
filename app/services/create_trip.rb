@@ -49,7 +49,7 @@ class CreateTrip
         @trip.save!
 
         @deliveries.each do |delivery|
-          delivery.update!(trip: @trip)
+          delivery.update!(trip: @trip, status: 'assigned')
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
