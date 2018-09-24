@@ -5,10 +5,15 @@ class CreateTrip
   def initialize(allowed_params)
     @allowed_params = allowed_params
     @shipper = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
-    load_deliveries
   end
 
   def call
+    load_deliveries
+
+    return if errors.any?
+
+    ensure_non_asigned_deliveries
+
     return if errors.any?
 
     create_trip
@@ -25,6 +30,12 @@ class CreateTrip
       @deliveries = orders.flat_map(&:deliveries)
     else
       errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
+    end
+  end
+
+  def ensure_non_asigned_deliveries
+    if @deliveries.any?{ |delivery| delivery.trip.present? }
+      errors.add(:assign, I18n.t("services.create_trip.deliveries.already_assigned"))
     end
   end
 

@@ -23,7 +23,7 @@ class Deep::OrderSerializer < Simple::OrderSerializer
 
     {
       latlng: delivery.origin_latlng,
-      lookup: lookup_address(pickup_hash[:address])
+      lookup: lookup_address(pickup_hash['address'])
     }
   end
 
@@ -32,7 +32,7 @@ class Deep::OrderSerializer < Simple::OrderSerializer
 
     {
       latlng: delivery.destination_latlng,
-      lookup: lookup_address(dropoff_hash[:address])
+      lookup: lookup_address(dropoff_hash['address'])
     }
   end
 
@@ -42,11 +42,11 @@ class Deep::OrderSerializer < Simple::OrderSerializer
 
   def lookup_address(address_hash)
     [
-      address_hash[:street_1],
-      address_hash[:street_2],
-      [address_hash[:zip_code], address_hash[:city]].compact.join(' '),
-      address_hash[:state],
-      address_hash[:country]
+      address_hash['street_1'],
+      address_hash['street_2'],
+      [address_hash['zip_code'], address_hash['city']].compact.join(' '),
+      address_hash['state'],
+      address_hash['country']
     ].select{ |string| string.present? }.join(', ')
   end
 end

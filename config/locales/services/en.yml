@@ -27,6 +27,7 @@ en:
         has_active_payments: "The delivery with id: %{id} has active payments, please check them before create a new one."
     create_trip:
       deliveries:
+        already_assigned: "At least one of the deliveries that you are trying to assign to this trip is already assigned to other trip"
         missing_or_invalid: "There are no deliveries associated to the order with id: %{id}."
       order:
         missing_or_invalid: "There is no order with id: %{id}."

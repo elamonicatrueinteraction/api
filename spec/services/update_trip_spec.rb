@@ -49,8 +49,10 @@ RSpec.describe UpdateTrip do
           expect(result.shipper).to eq(nil)
           expect(result.comments).to eq(comments)
           expect(result.amount).to eq(new_amount)
-          expect(result.pickup_window).to eq(pickup_schedule)
-          expect(result.dropoff_window).to eq(dropoff_schedule)
+          expect(Time.parse(result.pickup_window['start'])).to eq(pickup_schedule[:start])
+          expect(Time.parse(result.pickup_window['end'])).to eq(pickup_schedule[:end])
+          expect(Time.parse(result.dropoff_window['start'])).to eq(dropoff_schedule[:start])
+          expect(Time.parse(result.dropoff_window['end'])).to eq(dropoff_schedule[:end])
         end
 
       end
@@ -86,8 +88,10 @@ RSpec.describe UpdateTrip do
           expect(result.shipper).to eq(nil)
           expect(result.comments).to eq(trip.comments)
           expect(result.amount).to eq(trip.amount)
-          expect(result.pickup_window).to eq(pickup_schedule)
-          expect(result.dropoff_window).to eq(trip.dropoff_window)
+          expect(Time.parse(result.pickup_window['start'])).to eq(pickup_schedule[:start])
+          expect(Time.parse(result.pickup_window['end'])).to eq(pickup_schedule[:end])
+          expect(Time.parse(result.dropoff_window['start'])).to eq(Time.parse(trip.dropoff_window['start']))
+          expect(Time.parse(result.dropoff_window['end'])).to eq(Time.parse(trip.dropoff_window['end']))
         end
       end
 
@@ -104,8 +108,10 @@ RSpec.describe UpdateTrip do
           expect(result.shipper).to eq(nil)
           expect(result.comments).to eq(trip.comments)
           expect(result.amount).to eq(trip.amount)
-          expect(result.pickup_window).to eq(trip.pickup_window)
-          expect(result.dropoff_window).to eq(dropoff_schedule)
+          expect(Time.parse(result.pickup_window['start'])).to eq(Time.parse(trip.pickup_window['start']))
+          expect(Time.parse(result.pickup_window['end'])).to eq(Time.parse(trip.pickup_window['end']))
+          expect(Time.parse(result.dropoff_window['start'])).to eq(dropoff_schedule[:start])
+          expect(Time.parse(result.dropoff_window['end'])).to eq(dropoff_schedule[:end])
         end
       end
     end

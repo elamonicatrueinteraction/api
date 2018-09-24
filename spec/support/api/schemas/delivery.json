@@ -175,6 +175,7 @@
           "type": "object",
           "required" : [
             "id",
+            "marketplace_order_id",
             "expiration",
             "amount",
             "bonified_amount",
@@ -186,6 +187,7 @@
           ],
           "properties" : {
             "id" : { "type" : "string" },
+            "marketplace_order_id" : { "type" : ["integer", "null"] },
             "expiration" : { "type" : ["date", "null"] },
             "amount" : { "type" : ["decimal", "null"] },
             "bonified_amount" : { "type" : ["decimal", "null"] },

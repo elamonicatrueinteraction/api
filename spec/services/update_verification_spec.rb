@@ -28,8 +28,8 @@ RSpec.describe UpdateVerification do
       describe 'valid result' do
         before { context }
 
-        it { expect(result.information[:number]).to eq(allowed_params[:information][:number]) }
-        it { expect(result.information[:register_date]).to eq(allowed_params[:information][:register_date]) }
+        it { expect(result.information['number']).to eq(allowed_params[:information][:number]) }
+        it { expect(Date.parse(result.information['register_date'])).to eq(allowed_params[:information][:register_date]) }
       end
     end
 
