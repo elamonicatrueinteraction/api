@@ -9,6 +9,23 @@ class Order < ApplicationRecord
 
   attribute :extras, :jsonb, default: {}
 
+  EXTRA_DATA = %w[
+    marketplace_order_id
+    delivery_preference
+  ].freeze
+  private_constant :EXTRA_DATA
+
+  EXTRA_DATA.each do |extra_key|
+    define_method :"#{extra_key}" do
+      _extras = (self.extras || {})
+      _extras[extra_key]
+    end
+
+    define_method :"#{extra_key}=" do |new_value|
+      self.extras[extra_key] = new_value
+    end
+  end
+
   def total_amount
     (amount.to_f - bonified_amount.to_f).to_f
   end

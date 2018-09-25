@@ -14,7 +14,20 @@ class DestroyTrip
   def destroy_trip
     return unless can_detroy_trip?
 
-    @trip.destroy ? @trip : errors.add_multiple_errors(@trip.errors.full_messages) && nil
+    begin
+      Trip.transaction do
+        deliveries = @trip.deliveries
+
+        deliveries.map do |delivery|
+          delivery.update!(status: 'processing')
+        end
+        @trip.destroy!
+      end
+    rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordInvalid => e
+      return errors.add_multiple_errors( exception_errors(e) ) && nil
+    end
+
+    @trip
   end
 
   def can_detroy_trip?

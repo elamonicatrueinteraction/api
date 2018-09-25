@@ -18,20 +18,11 @@ class Delivery < ApplicationRecord
   has_many :packages, dependent: :destroy
 
   VALID_STATUS = %w(
-    draft
-    scheduled
     processing
-    broadcasting
     assigned
-    confirmed_to_pickup
-    at_pickup
-    on_delivery
-    at_dropoff
+    on_route
     completed
     canceled
-    returning
-    returned
-    hold_by_courier
   ).freeze
   private_constant :VALID_STATUS
 

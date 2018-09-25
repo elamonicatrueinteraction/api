@@ -1,6 +1,13 @@
 class PaymentsController < ApplicationController
   include CurrentAndEnsureDependencyLoader
 
+  def index
+    (optional_order || optional_delivery); return if performed?
+
+    paginated_results = paginate(current_payable.payments)
+    render json: paginated_results, status: :ok # 200
+  end
+
   def create
     (optional_order || optional_delivery); return if performed?
 
@@ -21,12 +28,6 @@ class PaymentsController < ApplicationController
     else
       render json: { errors: I18n.t("errors.not_found.payment_on_payable.#{current_payable.class.name.downcase}", payment_id: params[:id], payable_id: current_payable.id) }, status: :not_found # 404
     end
-  end
-
-  def index
-    (optional_order || optional_delivery); return if performed?
-
-    render json: current_payable.payments, status: :ok # 200
   end
 
   private

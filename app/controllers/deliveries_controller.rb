@@ -5,7 +5,9 @@ class DeliveriesController < ApplicationController
     ensure_order; return if performed?
 
     deliveries = current_order.deliveries.preload(:packages, :origin, :destination)
-    render json: deliveries, status: :ok # 200
+
+    paginated_results = paginate(deliveries)
+    render json: paginated_results, status: :ok # 200
   end
 
   def show

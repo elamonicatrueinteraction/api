@@ -7,20 +7,23 @@ class Verification < ApplicationRecord
 
   belongs_to :verificable, polymorphic: true, optional: true
 
-  attribute :type
-  def type
-    data[:type]
-  end
-  def type=(new_value)
-    self.data[:type] = new_value
-  end
+  DATA = %w[
+    type
+    information
+  ].freeze
+  private_constant :DATA
 
-  attribute :information
-  def information
-    data[:information]
-  end
-  def information=(new_value)
-    self.data[:information] = new_value
+  DATA.each do |data_key|
+    attribute :"#{data_key}"
+
+    define_method :"#{data_key}" do
+      _data = (self.data || {})
+      _data[data_key]
+    end
+
+    define_method :"#{data_key}=" do |new_value|
+      self.data[data_key] = new_value
+    end
   end
 
   def verified?

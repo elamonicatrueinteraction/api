@@ -8,17 +8,23 @@ gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for va
 gem 'jwt' # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'mercadopago-custom-checkout', require: 'mercadopago/custom_checkout' # A custom library in order to handle mercadopago custom checkout only
 gem 'oj' # A fast JSON parser and Object marshaller.
+gem 'pagy' # For paginating results that outperforms the others in each and every benchmark and comparison.
 gem 'pg' # The PostgreSQL Adapter
 gem 'pushme-aws', git: "git@github.com:nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'puma', '~> 3.0' # Use Puma as the app server
+gem 'rack-attack'  # Rack middleware for blocking & throttling
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.0'
 gem 'redis-namespace'
 gem 'rgeo-geojson'
+gem 'role_model'
 gem 'rollbar' # Rollbar is an error tracking service for Ruby
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
+
+# This is important to be here at the bottom
+gem 'api-pagination' # For pagination info in your headers, not in your response body.
 
 group :development, :test do
   gem 'awesome_rails_console'

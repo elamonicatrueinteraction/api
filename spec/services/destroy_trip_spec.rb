@@ -8,7 +8,8 @@ RSpec.describe DestroyTrip do
   describe ".call" do
 
     context 'when the context is successful' do
-      let(:trip) { create(:trip) }
+      let(:deliveries) { create_list(:delivery_with_packages, 1, status: 'assigned') }
+      let(:trip) { create(:trip, deliveries: deliveries) }
 
       it 'succeeds' do
         expect(context).to be_success
@@ -18,6 +19,7 @@ RSpec.describe DestroyTrip do
         before { context }
 
         it { expect(result).to eq(trip) }
+        it { expect(deliveries.map(&:status).uniq).to eq(['processing']) }
         it { expect(Trip.all).to be_empty }
       end
     end

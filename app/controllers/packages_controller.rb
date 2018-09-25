@@ -5,7 +5,9 @@ class PackagesController < ApplicationController
     ensure_delivery; return if performed?
 
     packages = current_delivery.packages
-    render json: packages, status: :ok # 200
+
+    paginated_results = paginate(packages)
+    render json: paginated_results, status: :ok # 200
   end
 
   def show

@@ -22,7 +22,9 @@ class JsonbType < ActiveModel::Type::Value
     if value.nil?
       nil
     else
-      Oj.dump(value)
+      # The mode is important to prevent symbols in keys
+      # more in https://github.com/ohler55/oj/blob/master/pages/Modes.md
+      Oj.dump(value, mode: :compat)
     end
   end
 

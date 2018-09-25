@@ -36,7 +36,7 @@ module Services
     end
 
     def choose_serializer
-      params[:for_authenticate] ? UserAuthenticationSerializer : UserSerializer
+      params[:for_authenticate] ? Services::UserAuthenticationSerializer : Services::UserSerializer
     end
 
   end

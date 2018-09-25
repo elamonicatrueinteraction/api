@@ -7,6 +7,7 @@ FactoryBot.define do
     origin_gps_coordinates { origin.gps_coordinates if origin }
     destination { order.receiver.addresses.first if order }
     destination_gps_coordinates { destination.gps_coordinates if destination }
+    status { 'processing' }
 
     pickup { location_data(origin) if origin }
     dropoff { location_data(destination) if destination }

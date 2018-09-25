@@ -8,7 +8,7 @@ RSpec.describe HomeController, type: :request do
     context 'as an authenticated user' do
       before { get '/', headers: auth_headers(user) }
 
-      it_behaves_like 'a successful request', :data
+      it_behaves_like 'a successful request', :message
     end
 
     context 'as guest' do

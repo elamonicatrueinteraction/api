@@ -7,9 +7,9 @@ module Services
       if service.success?
         order = service.result
 
-        order_payment = CreatePayment.call(order, order.amount, payment_type_id)
+        order_payment = CreatePayment.call(order, order.amount, payment_method)
         delivery = order.deliveries.last
-        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_type_id)
+        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
 
         order.reload
 
@@ -29,13 +29,8 @@ module Services
           quantity: order_items.size,
           weight: order_items.map{ |item| item.dig(:total_weight) }
         }]
-        _params[:extras] = {
-          mkp_order_id: mkp_order_id,
-          delivery_data: delivery_data,
-          payment_data: payment_data,
-          original_order_payload: original_order_payload,
-          order_items: order_items
-        }
+        _params[:marketplace_order_id] = marketplace_order_id
+        _params[:delivery_preference] = delivery_preference
       end
     end
 
@@ -53,24 +48,16 @@ module Services
       ).to_unsafe_hash
     end
 
-    def mkp_order_id
-      plain_hash_params.dig(:order, :mkp_order_id)
+    def marketplace_order_id
+      plain_hash_params.dig(:order, :marketplace_order_id)
     end
 
-    def delivery_data
-      plain_hash_params.dig(:order, :delivery_data)
+    def delivery_preference
+      plain_hash_params.dig(:order, :delivery_preference)
     end
 
-    def payment_data
-      plain_hash_params.dig(:order, :payment_data)
-    end
-
-    def payment_type_id
-      @payment_type_id ||= payment_data[:method]
-    end
-
-    def original_order_payload
-      plain_hash_params.dig(:order, :original_order_payload)
+    def payment_method
+      plain_hash_params.dig(:order, :payment_method)
     end
 
     def order_items

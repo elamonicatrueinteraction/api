@@ -5,7 +5,9 @@ class VehiclesController < ApplicationController
     ensure_shipper; return if performed?
 
     vehicles = current_shipper.vehicles
-    render json: vehicles, status: :ok # 200
+
+    paginated_results = paginate(vehicles)
+    render json: paginated_results, status: :ok # 200
   end
 
   def create

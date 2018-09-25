@@ -5,10 +5,15 @@ class CreateTrip
   def initialize(allowed_params)
     @allowed_params = allowed_params
     @shipper = load_shipper(@allowed_params[:shipper_id]) if @allowed_params[:shipper_id]
-    load_deliveries
   end
 
   def call
+    load_deliveries
+
+    return if errors.any?
+
+    ensure_non_asigned_deliveries
+
     return if errors.any?
 
     create_trip
@@ -28,6 +33,12 @@ class CreateTrip
     end
   end
 
+  def ensure_non_asigned_deliveries
+    if @deliveries.any?{ |delivery| delivery.trip.present? }
+      errors.add(:assign, I18n.t("services.create_trip.deliveries.already_assigned"))
+    end
+  end
+
   def create_trip
     @trip = Trip.new( trip_params )
 
@@ -38,7 +49,7 @@ class CreateTrip
         @trip.save!
 
         @deliveries.each do |delivery|
-          delivery.update!(trip: @trip)
+          delivery.update!(trip: @trip, status: 'assigned')
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e

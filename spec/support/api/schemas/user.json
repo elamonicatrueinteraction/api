@@ -12,6 +12,8 @@
         "confirmed",
         "last_login_ip",
         "last_login_at",
+        "token_expire_at",
+        "institution_id",
         "profile"
       ],
       "properties" : {
@@ -22,6 +24,8 @@
         "confirmed" : { "type" : "boolean" },
         "last_login_ip" : { "type" : [ "string", "null" ] },
         "last_login_at" : { "type" : [ "datetime", "null" ] },
+        "token_expire_at" : { "type" : [ "datetime", "null" ] },
+        "institution_id" : { "type" : [ "string", "null" ] },
         "profile" : {
           "type" : "object",
           "properties" : {
