@@ -15,7 +15,10 @@ ActiveRecord::Schema.define(version: 20180918100308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+  enable_extension "fuzzystrmatch"
   enable_extension "pgcrypto"
+  enable_extension "postgis_tiger_geocoder"
+  enable_extension "postgis_topology"
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "institution_id"
