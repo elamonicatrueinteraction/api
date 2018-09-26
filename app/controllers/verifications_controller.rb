@@ -6,8 +6,7 @@ class VerificationsController < ApplicationController
 
     verifications = current_vehicle.verifications
 
-    paginated_results = paginate(verifications)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(verifications), status: :ok # 200
   end
 
   def create

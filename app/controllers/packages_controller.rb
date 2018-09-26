@@ -6,8 +6,7 @@ class PackagesController < ApplicationController
 
     packages = current_delivery.packages
 
-    paginated_results = paginate(packages)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(packages), status: :ok # 200
   end
 
   def show

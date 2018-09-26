@@ -6,8 +6,7 @@ class DeliveriesController < ApplicationController
 
     deliveries = current_order.deliveries.preload(:packages, :origin, :destination)
 
-    paginated_results = paginate(deliveries)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(deliveries), status: :ok # 200
   end
 
   def show

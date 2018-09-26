@@ -6,8 +6,7 @@ class BankAccountsController < ApplicationController
 
     bank_accounts = current_shipper.bank_accounts
 
-    paginated_results = paginate(bank_accounts)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(bank_accounts), status: :ok # 200
   end
 
   def show

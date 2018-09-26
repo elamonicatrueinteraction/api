@@ -3,8 +3,7 @@ class InstitutionsController < ApplicationController
   def index
     institutions = Institution.preload(:addresses, :users).all
 
-    paginated_results = paginate(institutions)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(institutions), status: :ok # 200
   end
 
   def show

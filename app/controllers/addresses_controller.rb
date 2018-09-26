@@ -6,8 +6,7 @@ class AddressesController < ApplicationController
 
     addresses = current_institution.addresses
 
-    paginated_results = paginate(addresses)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(addresses), status: :ok # 200
   end
 
   def create

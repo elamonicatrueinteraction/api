@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
+  include PagingStuff
 
   before_action :authorize_request
 

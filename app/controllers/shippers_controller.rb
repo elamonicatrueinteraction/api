@@ -3,8 +3,7 @@ class ShippersController < ApplicationController
   def index
     shippers = Shipper.preload(:verifications, :bank_accounts, vehicles: :verifications).all
 
-    paginated_results = paginate(shippers)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(shippers), status: :ok # 200
   end
 
   def create

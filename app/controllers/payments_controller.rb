@@ -4,8 +4,7 @@ class PaymentsController < ApplicationController
   def index
     (optional_order || optional_delivery); return if performed?
 
-    paginated_results = paginate(current_payable.payments)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(current_payable.payments), status: :ok # 200
   end
 
   def create

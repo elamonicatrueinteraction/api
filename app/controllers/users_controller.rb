@@ -6,8 +6,7 @@ class UsersController < ApplicationController
 
     users = current_institution.users
 
-    paginated_results = paginate(users)
-    render json: paginated_results, status: :ok # 200
+    render json: list_results(users), status: :ok # 200
   end
 
   def create
