@@ -8,12 +8,20 @@
 In order to clone a branched DB with PostgreSQL:
 `pg_dump -U [username] -h [hostname] [original_db_to_clone] | psql -U [user] -d [destination_db]`
 
-### Populate the DB
+### Requirements
+- Ruby 2.4.1
+- Postgresql 9+
+- Redis
 
-```ruby
-  bundle exec rake db:create # to generate the DB
+### Setup environment
 
-  bundle exec rake db:migrate # to create the tables
+#### Ubuntu
 
-  bundle exec rake db:seed # to create the users
-```
+- sudo apt install postgresql-10-postgis-2.4
+- rbenv install
+- ./bin/setup
+
+#### MacOS
+
+- TODO
+
