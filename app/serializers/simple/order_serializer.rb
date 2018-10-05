@@ -1,6 +1,7 @@
 class Simple::OrderSerializer < ActiveModel::Serializer
   attributes :id,
     :marketplace_order_id,
+    :delivery_preference,
     :expiration,
     :amount,
     :bonified_amount,
