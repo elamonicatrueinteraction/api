@@ -5,8 +5,6 @@
 
 ### Development
 
-In order to clone a branched DB with PostgreSQL:
-`pg_dump -U [username] -h [hostname] [original_db_to_clone] | psql -U [user] -d [destination_db]`
 
 ### Requirements
 - Ruby 2.4.1
@@ -17,11 +15,32 @@ In order to clone a branched DB with PostgreSQL:
 
 #### Ubuntu
 
-- sudo apt install postgresql-10-postgis-2.4
-- rbenv install
-- ./bin/setup
+```
+sudo apt install -y postgresql-10-postgis-2.4
+rbenv install
+./bin/setup
+```
 
 #### MacOS
 
 - TODO
 
+### Test suite
+This project runs their specs with Rspec:
+
+```bash
+- bundle exec rspec
+```
+
+### Seeds & Database
+
+In order to clone a branched DB with PostgreSQL:
+`pg_dump -U [username] -h [hostname] [original_db_to_clone] | psql -U [user] -d [destination_db]`
+
+You can recreate the db migrations from an non existing-db with:
+
+```bash
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails db:seed
+```
