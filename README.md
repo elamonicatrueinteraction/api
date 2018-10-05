@@ -15,7 +15,7 @@
 
 #### Ubuntu
 
-```
+```bash
 sudo apt install -y postgresql-10-postgis-2.4
 rbenv install
 ./bin/setup
