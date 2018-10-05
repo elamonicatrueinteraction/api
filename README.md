@@ -25,6 +25,11 @@ rbenv install
 
 - TODO
 
+### Nilus config
+There's a file called `config/nilus.yml` which stores lot's of business credentials and information, this is planned to be replaced with an easier way to store secret credentials and configurations (see https://richonrails.com/articles/the-rails-4-1-secrets-yml-file). So in the near future you will be able to use the `config/secrets.yml` file to store those config (and even be able to push them to the repo without fear!), because the real values of the sensible credentials will be stored at `.env` file, which is never commited to the repo
+
+In the meanwhile, you can ask @keyserfaty or @hdf1986 to get the `config/nilus.yml` or try creating your own following the structure of the example `config/nilus.yml.example`
+
 ### Test suite
 This project runs their specs with Rspec:
 
