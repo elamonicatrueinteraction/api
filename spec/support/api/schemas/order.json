@@ -7,6 +7,7 @@
       "required" : [
         "id",
         "marketplace_order_id",
+        "delivery_preference",
         "expiration",
         "amount",
         "bonified_amount",
@@ -20,6 +21,7 @@
       "properties" : {
         "id" : { "type" : "string" },
         "marketplace_order_id" : { "type" : ["integer", "null"] },
+        "delivery_preference" : { "type" : ["object", "null"] },
         "expiration" : { "type" : ["string", "null"] },
         "amount" : { "type" : "decimal" },
         "bonified_amount" : { "type" : "decimal" },
