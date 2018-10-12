@@ -47,9 +47,9 @@ class Shipper < ApplicationRecord
   def has_device?(device_hash = {})
     type, token = device_hash.fetch_values(:type, :token)
 
-    return false unless devices.keys.map(&:to_sym).include?(type.to_sym)
+    return false unless devices.keys.include?(type)
 
-    devices[type.to_sym].key?(token)
+    devices[type].key?(token)
   end
 
   def requirements
