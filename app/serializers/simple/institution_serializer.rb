@@ -8,5 +8,6 @@ class Simple::InstitutionSerializer < ActiveModel::Serializer
     :uid_type,
     :uid,
     :created_at,
-    :updated_at
+    :updated_at,
+    :addresses
 end
