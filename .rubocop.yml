@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 # This is the configuration used to check the rubocop source code.
 
 Rails:
@@ -14,9 +16,6 @@ AllCops:
 
 Documentation:
   Enabled: false
-
-LineLength:
-  Max: 99
 
 HasAndBelongsToMany:
   Enabled: false
