@@ -27,8 +27,8 @@ gem 'xlsxtream' # In order to be able to export and stream XLSX files
 gem 'api-pagination' # For pagination info in your headers, not in your response body.
 
 group :development, :test do
-  gem 'awesome_rails_console'
   gem 'rspec-rails', '~> 3.7'
+  gem 'rubocop', require: false
 end
 
 group :development do
