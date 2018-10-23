@@ -7,6 +7,9 @@ class Order < ApplicationRecord
   belongs_to :giver, class_name: 'Institution', optional: true
   belongs_to :receiver, class_name: 'Institution', optional: true
 
+  # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp
+  scope :marketplace, -> { where('orders.extras ->> :key IS NOT NULL', key: :marketplace_order_id) }
+
   attribute :extras, :jsonb, default: {}
 
   EXTRA_DATA = %w[
