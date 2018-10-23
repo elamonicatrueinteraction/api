@@ -1,4 +1,3 @@
-
 namespace :orders do
   namespace :marketplace do
     desc 'Import packages weight from marketplace'
@@ -6,7 +5,7 @@ namespace :orders do
       Rails.logger = Logger.new(STDOUT)
       Rails.logger.info "Starting to import weights"
 
-      orders = Order.marketplace.joins(:packages).where(packages: { weight: 0 })
+      orders = Order.marketplace.joins(:packages).where(packages: { weight: nil })
       remote_order_ids = orders.map(&:marketplace_order_id)
       Rails.logger.info "Total: #{orders.count}"
       next if orders.empty?
