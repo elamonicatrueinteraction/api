@@ -24,6 +24,8 @@ services = APP_CONFIG[env]['services'].freeze
 SERVICES_TOKENS = services.each_with_object({}) do |(name, data), _hash|
   _hash[name] = data['token']
 end
+MARKETPLACE_API_ENDPOINT = APP_CONFIG[env]['services']['marketplace']['endpoint']
+MARKETPLACE_API_TOKEN = APP_CONFIG[env]['services']['marketplace']['token']
 
 ROLLBAR_ACCESS_TOKEN  = APP_CONFIG[env]['rollbar']['access_token'].freeze
 

@@ -23,6 +23,8 @@ gem 'sidekiq'
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
+gem 'activeresource', '~> 5.0'
+
 # This is important to be here at the bottom
 gem 'api-pagination' # For pagination info in your headers, not in your response body.
 

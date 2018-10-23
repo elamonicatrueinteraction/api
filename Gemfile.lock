@@ -42,6 +42,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.1.6)
       activesupport (= 5.1.6)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (5.1.6)
       activemodel (= 5.1.6)
       activesupport (= 5.1.6)
@@ -49,6 +53,10 @@ GEM
     activerecord-postgis-adapter (5.0.3)
       activerecord (~> 5.1)
       rgeo-activerecord (~> 5.1)
+    activeresource (5.0.0)
+      activemodel (>= 5.0, < 6)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (>= 5.0, < 6)
     activesupport (5.1.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -349,6 +357,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   activerecord-postgis-adapter
+  activeresource (~> 5.0)
   api-pagination
   bcrypt
   capistrano
