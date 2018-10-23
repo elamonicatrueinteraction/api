@@ -27,7 +27,7 @@ module Services
         _params[:destination_id] = get_address_id(_params[:receiver_id])
         _params[:packages] = [{
           quantity: order_items.size,
-          weight: order_items.map{ |item| item.dig(:total_weight) }
+          weight: order_items.sum{ |item| item.dig(:total_weight).to_f }
         }]
         _params[:marketplace_order_id] = marketplace_order_id
         _params[:delivery_preference] = delivery_preference
