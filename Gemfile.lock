@@ -116,6 +116,10 @@ GEM
     discard (1.0.0)
       activerecord (>= 4.2, < 6)
     docile (1.1.5)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     dry-configurable (0.7.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.6.0)
@@ -368,6 +372,7 @@ DEPENDENCIES
   capistrano3-puma
   database_cleaner
   discard (~> 1.0)
+  dotenv-rails
   dry-types
   factory_bot_rails (~> 4.0)
   faker

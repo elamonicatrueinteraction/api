@@ -23,6 +23,7 @@ config/nilus.yml
 *.local.*
 /config/deploy/files/**/*
 /config/deploy/production.rb
+.env
 
 # OS generated files #
 ######################
