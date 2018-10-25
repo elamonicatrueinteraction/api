@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     ensure_institution; return if performed?
 
-    users = current_institution.users
+    users = current_institution.users.includes(:profile)
 
     render json: list_results(users), status: :ok # 200
   end

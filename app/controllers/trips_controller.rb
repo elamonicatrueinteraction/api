@@ -5,9 +5,7 @@ class TripsController < ApplicationController
   def index
     optional_institution; return if performed?
 
-    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
-
-    render json: list_results(finder.result), status: :ok # 200
+    render json: list_results(finder.result.includes(:orders)), status: :ok # 200
   end
 
   def create
@@ -87,12 +85,15 @@ class TripsController < ApplicationController
   def export
     optional_institution; return if performed?
 
-    finder = Finder::Trips.call(institution: current_institution, filter_params: filter_params)
-
     stream_xlsx Exporters::Trips, trips: finder.result
   end
 
   private
+
+  def finder
+    @finder ||=
+      Finder::Trips.call(institution: current_institution, filter_params: filter_params)
+  end
 
   def create_trip_params
     params.permit(
@@ -123,17 +124,3 @@ class TripsController < ApplicationController
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
