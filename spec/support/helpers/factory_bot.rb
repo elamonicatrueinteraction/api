@@ -9,12 +9,12 @@ module FactoryBot
           dropoffs: [] }) do |delivery,
           _steps|
           _steps[:pickups] << {
-            delivery_id: delivery.id,
+            delivery_id: [delivery.id],
             action: 'pickup',
             schedule: pickup_schedule
           }
           _steps[:dropoffs] << {
-            delivery_id: delivery.id,
+            delivery_id: [delivery.id],
             action: 'dropoff',
             schedule: dropoff_schedule
           }

@@ -3,7 +3,7 @@ FactoryBot.define do
     amount { Faker::Number.between(200, 300) }
     bonified_amount { Faker::Number.between(0, 50) }
     order
-    origin { order.giver.addresses.first if order }
+    origin { Address.first }
     origin_gps_coordinates { origin.gps_coordinates if origin }
     destination { order.receiver.addresses.first if order }
     destination_gps_coordinates { destination.gps_coordinates if destination }

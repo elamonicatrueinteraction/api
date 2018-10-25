@@ -64,7 +64,7 @@ RSpec.describe TripsController, type: :request do
       {
         shipper_id: shipper.id,
         comments: 'Some comment',
-        orders_ids: [ order.id ],
+        orders_ids: [ *create_list(:full_order, 1).map(&:id) ],
         pickup_schedule: {
           start: Faker::Time.forward(1, :morning),
           end: Faker::Time.forward(1, :evening)
