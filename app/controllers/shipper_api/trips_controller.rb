@@ -3,7 +3,7 @@ module ShipperApi
     include ShipperApi::CurrentAndEnsureDependencyLoader
 
     def index
-      trips = current_shipper.trips.preload(:orders, :deliveries, :packages, :milestones, :trip_assignments)
+      trips = current_shipper.trips.preload(:orders, :deliveries)
       render json: trips, status: :ok # 200
     end
     alias_method :accepted, :index
