@@ -1,0 +1,34 @@
+<%
+  # git config --bool branch.feature.database true
+  # http://mislav.uniqpath.com/rails/branching-the-database-along-with-your-code/
+  branch = `git symbolic-ref HEAD 2>/dev/null`.chomp.sub('refs/heads/', '')
+  suffix = `git config --bool branch.#{branch}.database`.chomp == 'true' ? "_#{branch}" : ""
+%>
+
+default: &default
+  adapter: postgis
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username:
+  password:
+  host: localhost
+  schema_search_path: public
+
+development: &development
+  <<: *default
+  database: nilus-dev-db-development
+
+test:
+  <<: *default
+  database: nilus-test-db-test
+
+production:
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: 'postgis'
+  encoding: 'unicode'
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  schema_search_path: 'public'
