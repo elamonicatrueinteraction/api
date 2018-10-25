@@ -10,11 +10,8 @@ module Services
     end
 
     def index
-      institutions = if filtered_params.present?
-        Institution.where(filtered_params)
-      else
-        Institution.all
-      end
+      institutions = Institution.all.includes(:addresses, :users)
+      institutions = institutions.where(filtered_params) if filtered_params.present?
 
       render json: institutions, status: :ok # 200
     end

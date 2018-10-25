@@ -4,7 +4,7 @@ class DeliveriesController < ApplicationController
   def index
     ensure_order; return if performed?
 
-    deliveries = current_order.deliveries.preload(:packages, :origin, :destination)
+    deliveries = current_order.deliveries.preload(:packages, :origin)
 
     render json: list_results(deliveries), status: :ok # 200
   end

@@ -33,6 +33,7 @@ gem 'dotenv-rails'
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
+  gem 'bullet', '5.7.5'
 end
 
 group :development do
@@ -55,8 +56,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
-  # I use this repo because a missing feature in the Faker gem,
-  # I already open a PR: https://github.com/stympy/faker/pull/1067
   gem 'faker'
   gem "json-schema"
   gem 'rails-controller-testing'
