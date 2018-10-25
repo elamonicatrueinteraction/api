@@ -12,7 +12,6 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-config/database.yml
 config/nilus.yml
 /lib/tasks/log/*
 
@@ -20,6 +19,7 @@ config/nilus.yml
 .byebug_history
 
 # General private stuff
+.env
 *.local.*
 /config/deploy/files/**/*
 /config/deploy/production.rb
