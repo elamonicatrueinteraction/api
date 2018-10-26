@@ -15,9 +15,9 @@ module Service
       def steps_data(deliveries, pickup_schedule, dropoff_schedule)
         # TO-DO: We need to rethink this because this should be replaced by a logic of an optimize route.
         # for now we are routing all the pickups first and then all the dropoff, no optimization applied
-        deliveries.group_by(&:origin_id).map do |(origin_id, grouped_deliveries)|
+        deliveries.group_by(&:origin_id).map do |(_origin_id, grouped_deliveries)|
           compact_steps(grouped_deliveries, 'pickup', pickup_schedule)
-        end + deliveries.group_by(&:destination_id).map do |(origin_id, grouped_deliveries)|
+        end + deliveries.group_by(&:destination_id).map do |(_origin_id, grouped_deliveries)|
           compact_steps(grouped_deliveries, 'dropoff', dropoff_schedule)
         end
       end
