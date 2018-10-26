@@ -27,7 +27,7 @@
           "items": {
             "type": "object",
             "properties" : {
-              "delivery_id" : { "type" : ["integer", "null"] },
+              "delivery_id" : { "type" : "array" },
               "action" : { "type" : "string" },
               "schedule" : {
                 "type": "object",
