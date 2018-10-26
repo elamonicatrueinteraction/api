@@ -10,7 +10,7 @@ FactoryBot.define do
         end: Faker::Time.forward(2, :evening)
       })
     end
-    deliveries { create_list(:delivery_with_packages, 3, status: 'assigned') }
+    deliveries { create_list(:delivery_with_packages, 1, status: 'assigned') }
     amount { deliveries.sum(&:amount) }
     steps { steps_data(deliveries, pickup_schedule, dropoff_schedule) }
 
