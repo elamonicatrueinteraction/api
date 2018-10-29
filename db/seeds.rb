@@ -30,3 +30,5 @@ ADDRESSES.each do |uid, data|
   institution = Institution.find_by(uid: uid)
   institution.addresses.create(data)
 end
+
+User.where(username: 'karen').update(institution_id: Institution.find_by_name('BAR').id)
