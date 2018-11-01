@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   include PagingStuff
 
   before_action :authorize_request
-  before_action :set_current_network
+  before_action :set_current_network, if: :current_user
 
   attr_reader :current_user
 
@@ -11,6 +11,7 @@ class ApplicationController < ActionController::API
 
   def set_current_network
     Rails.logger.info "Network: #{current_network}"
+    ApplicationRecord.current_network = current_network
   end
 
   def current_network

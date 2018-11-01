@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  default_scope_by_network
   include Payable
 
   has_many :deliveries, dependent: :destroy
