@@ -1,4 +1,5 @@
 class Package < ApplicationRecord
+  default_scope_by_network
   belongs_to :delivery
   has_one :order, through: :delivery
 
