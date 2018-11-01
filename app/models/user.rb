@@ -33,4 +33,9 @@ class User < ApplicationRecord
   private_constant :ROLES
 
   roles *ROLES
+
+  # TODO: Remove this
+  def networks
+    [:MDQ]
+  end
 end
