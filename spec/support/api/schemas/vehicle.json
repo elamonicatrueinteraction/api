@@ -9,6 +9,7 @@
         "model" : { "type" : "string" },
         "brand" : { "type" : "string" },
         "year" : { "type" : "integer" },
+        "max_weight" : { "type" : "integer" },
         "verifications" : {
           "type" : "array",
           "items": {
