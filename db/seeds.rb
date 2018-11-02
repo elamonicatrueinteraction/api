@@ -4,6 +4,9 @@ USERS = [
   { username: 'cavi', email: 'agustin@winguweb.org', password: 'nadanada' },
   { username: 'facu', email: 'facundo@winguweb.org', password: 'nadanada' },
   { username: 'carlos', email: 'carlos@winguweb.org', password: 'nadanada' },
+  { username: 'puri', email: 'puri@nilus.org', password: 'nadanada' },
+  { username: 'hugo', email: 'hugo@nilus.org', password: 'nadanada' },
+  { username: 'dummy', email: 'dummy@nilus.org', password: 'nadanada' },
 ]
 User.where(username: USERS.map{ |data| data[:username] }).destroy_all
 USERS.each do |data|
@@ -30,3 +33,5 @@ ADDRESSES.each do |uid, data|
   institution = Institution.find_by(uid: uid)
   institution.addresses.create(data)
 end
+
+User.update_all(institution_id: Institution.find_by_name('BAR').id, roles_mask: 255)

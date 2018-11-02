@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'bullet', '5.7.5'
+  gem 'pry-rails'
 end
 
 group :development do

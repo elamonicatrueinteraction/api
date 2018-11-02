@@ -22,7 +22,7 @@ class CreateTrip
   private
 
   def load_deliveries
-    if orders = Order.where(id: @allowed_params[:orders_ids])
+    if orders = Order.where(id: @allowed_params[:orders_ids]).includes(:deliveries)
       if orders.blank? || orders.any?{ |order| order.deliveries.blank? }
         return errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
       end

@@ -34,14 +34,14 @@ RSpec.describe VehiclesController, type: :request do
       before { post "/shippers/#{shipper_id}/vehicles", headers: auth_headers(user), params: parameters }
 
       context 'with valid vehicle data' do
-        let(:parameters) { { brand: vehicle.brand, model: vehicle.model, year: vehicle.year } }
+        let(:parameters) { { max_weight: 30, brand: vehicle.brand, model: vehicle.model, year: vehicle.year } }
 
         it_behaves_like 'a successful create request', :vehicle
         it { expect(response).to match_response_schema("vehicle") }
       end
 
       context 'with invalid vehicle data' do
-        let(:parameters) { { brand: vehicle.brand, year: vehicle.year } }
+        let(:parameters) { { max_weight: 30, brand: vehicle.brand, year: vehicle.year } }
 
         it_behaves_like 'a failed request'
       end
@@ -51,14 +51,14 @@ RSpec.describe VehiclesController, type: :request do
       before { post "/vehicles", headers: auth_headers(user), params: parameters }
 
       context 'without shipper_id data' do
-        let(:parameters) { { brand: vehicle.brand, model: vehicle.model, year: vehicle.year } }
+        let(:parameters) { { max_weight: 30, brand: vehicle.brand, model: vehicle.model, year: vehicle.year } }
 
         it_behaves_like 'a bad_request request'
       end
 
       context 'with valid shipper_id data' do
         context 'with valid vehicle data' do
-          let(:parameters) { { brand: vehicle.brand, model: vehicle.model, year: vehicle.year, shipper_id: shipper_id } }
+          let(:parameters) { { max_weight: 30, brand: vehicle.brand, model: vehicle.model, year: vehicle.year, shipper_id: shipper_id } }
 
           it_behaves_like 'a successful create request', :vehicle
           it { expect(response).to match_response_schema("vehicle") }
@@ -115,7 +115,7 @@ RSpec.describe VehiclesController, type: :request do
 
       context 'with shipper_id data' do
         context 'with valid data' do
-          let(:parameters) { { brand: vehicle_update.brand, model: vehicle_update.model, year: vehicle.year, shipper_id: shipper_id } }
+          let(:parameters) { { max_weight: 30, brand: vehicle_update.brand, model: vehicle_update.model, year: vehicle.year, shipper_id: shipper_id } }
 
           it_behaves_like 'a successful request', :vehicle
           it { expect(response).to match_response_schema("vehicle") }
@@ -129,13 +129,13 @@ RSpec.describe VehiclesController, type: :request do
 
         context 'with invalid vehicle id' do
           let(:vehicle_id) { SecureRandom.uuid }
-          let(:parameters) { { brand: vehicle_update.brand, model: vehicle_update.model, shipper_id: shipper_id } }
+          let(:parameters) { { max_weight: 30, brand: vehicle_update.brand, model: vehicle_update.model, shipper_id: shipper_id } }
 
           it_behaves_like 'a not_found request'
         end
 
         context 'with invalid shipper id' do
-          let(:parameters) { { brand: vehicle_update.brand, model: vehicle_update.model, shipper_id: SecureRandom.uuid } }
+          let(:parameters) { { max_weight: 30, brand: vehicle_update.brand, model: vehicle_update.model, shipper_id: SecureRandom.uuid } }
 
           it_behaves_like 'a not_found request'
         end
@@ -143,7 +143,7 @@ RSpec.describe VehiclesController, type: :request do
 
       context 'without shipper_id data' do
         context 'with valid data' do
-          let(:parameters) { { brand: vehicle_update.brand, model: vehicle_update.model, year: vehicle.year } }
+          let(:parameters) { { max_weight: 30, brand: vehicle_update.brand, model: vehicle_update.model, year: vehicle.year } }
 
           it_behaves_like 'a successful request', :vehicle
         end

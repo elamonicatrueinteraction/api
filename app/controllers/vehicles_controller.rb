@@ -46,6 +46,7 @@ class VehiclesController < ApplicationController
       :model,
       :brand,
       :year,
+      :max_weight,
       features: []
     )
   end
