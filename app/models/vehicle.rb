@@ -5,7 +5,8 @@ class Vehicle < ApplicationRecord
   has_many :verifications, as: :verificable, dependent: :destroy
 
   validates_presence_of :model
-  validates :max_weight, numericality: { greater_than: 0, only_integer: true }
+  # TODO: Uncomment this when every vehicle has max_weight
+  # validates :max_weight, numericality: { greater_than: 0, only_integer: true }
 
   FEATURES = %w(
     air_conditioner
