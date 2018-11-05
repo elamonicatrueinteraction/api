@@ -52,7 +52,37 @@
               "uid_type": { "type" : "string" },
               "uid": { "type" : "string" },
               "created_at": { "type" : "datetime" },
-              "updated_at": { "type" : "datetime" }
+              "updated_at": { "type" : "datetime" },
+              "addresses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "institution_id": { "type": "string" },
+                    "gps_coordinates": { "type": "object" },
+                    "street_1": { "type": "string" },
+                    "street_2": { "type": "string" },
+                    "zip_code": { "type": "string" },
+                    "city": { "type": "string" },
+                    "state": { "type": "string" },
+                    "country": { "type": "string" },
+                    "contact_name": { "type": "string" },
+                    "contact_cellphone": { "type": "string" },
+                    "contact_email": { "type": "string" },
+                    "telephone": { "type": "string" },
+                    "open_hours": { "type": "string" },
+                    "notes": { "type": "string" },
+                    "created_at": { "type": "string" },
+                    "updated_at": { "type": "string" },
+                    "lookup": { "type": ["string", "null"] },
+                    "gateway": { "type": ["string", "null"] },
+                    "gateway_id": { "type": ["string", "null"] },
+                    "gateway_data": { "type": ["object", "null"] },
+                    "latlng": { "type": "string" }
+                  }
+                }
+              }
             }
           }
         }

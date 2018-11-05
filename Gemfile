@@ -25,12 +25,18 @@ gem 'typhoeus' # In order to make HTTP Requests
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
+gem 'activeresource', '~> 5.0'
+
 # This is important to be here at the bottom
 gem 'api-pagination' # For pagination info in your headers, not in your response body.
 
+gem 'dotenv-rails'
+
 group :development, :test do
-  gem 'awesome_rails_console'
   gem 'rspec-rails', '~> 3.7'
+  gem 'rubocop', require: false
+  gem 'bullet', '5.7.5'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -53,8 +59,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
-  # I use this repo because a missing feature in the Faker gem,
-  # I already open a PR: https://github.com/stympy/faker/pull/1067
   gem 'faker'
   gem "json-schema"
   gem 'rails-controller-testing'

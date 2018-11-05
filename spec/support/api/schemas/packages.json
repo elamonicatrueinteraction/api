@@ -34,6 +34,7 @@
               "origin_latlng": { "type" : "string" },
               "destination_latlng": { "type" : "string" },
               "options" : { "type": "object" },
+              "packages": { "type": "array"},
               "payments" : {
                 "type" : "array",
                 "items": {

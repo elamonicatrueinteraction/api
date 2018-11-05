@@ -5,15 +5,55 @@
 
 ### Development
 
+
+### Requirements
+- Ruby 2.4.1
+- Postgresql 9+
+- Redis
+
+### Setup environment
+
+#### Ubuntu
+
+```bash
+sudo apt install -y postgresql-10-postgis-2.4
+rbenv install
+./bin/setup
+```
+
+#### MacOS
+
+- TODO
+
+### Nilus config
+There's a file called `config/nilus.yml` which stores lot's of business credentials and information, this is planned to be replaced with an easier way to store secret credentials and configurations (see https://richonrails.com/articles/the-rails-4-1-secrets-yml-file). So in the near future you will be able to use the `config/secrets.yml` file to store those config (and even be able to push them to the repo without fear!), because the real values of the sensible credentials will be stored at `.env` file, which is never commited to the repo
+
+In the meanwhile, you can ask @keyserfaty or @hdf1986 to get the `config/nilus.yml` or try creating your own following the structure of the example `config/nilus.yml.example`
+
+### Test suite
+This project runs their specs with Rspec:
+
+```bash
+- bundle exec rspec
+```
+
+### Seeds & Database
+
 In order to clone a branched DB with PostgreSQL:
 `pg_dump -U [username] -h [hostname] [original_db_to_clone] | psql -U [user] -d [destination_db]`
 
-### Populate the DB
+You can recreate the db migrations from an non existing-db with:
 
-```ruby
-  bundle exec rake db:create # to generate the DB
-
-  bundle exec rake db:migrate # to create the tables
-
-  bundle exec rake db:seed # to create the users
+```bash
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails db:seed
 ```
+
+### Hooks
+
+#### Prepush
+TODO
+
+#### Postcheckout & Postpull
+TODO

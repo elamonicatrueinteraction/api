@@ -4,7 +4,7 @@ class VehiclesController < ApplicationController
   def index
     ensure_shipper; return if performed?
 
-    vehicles = current_shipper.vehicles
+    vehicles = current_shipper.vehicles.includes(:verifications)
 
     render json: list_results(vehicles), status: :ok # 200
   end
@@ -46,11 +46,8 @@ class VehiclesController < ApplicationController
       :model,
       :brand,
       :year,
+      :max_weight,
       features: []
     )
   end
 end
-
-
-
-

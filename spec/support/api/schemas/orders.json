@@ -38,7 +38,8 @@
               "uid_type": { "type" : "string" },
               "uid": { "type" : "string" },
               "created_at": { "type" : "datetime" },
-              "updated_at": { "type" : "datetime" }
+              "updated_at": { "type" : "datetime" },
+              "addresses": { "type": "array"}
             }
           },
           "receiver" : {
@@ -51,7 +52,8 @@
               "uid_type": { "type" : "string" },
               "uid": { "type" : "string" },
               "created_at": { "type" : "datetime" },
-              "updated_at": { "type" : "datetime" }
+              "updated_at": { "type" : "datetime" },
+              "addresses": { "type": "array"}
             }
           },
           "deliveries" : {
@@ -76,6 +78,7 @@
                 "origin_latlng": { "type" : "string" },
                 "destination_latlng": { "type" : "string" },
                 "options" : { "type": "object" },
+                "packages": { "type": "array"},
                 "payments" : {
                   "type" : "array",
                   "items": {

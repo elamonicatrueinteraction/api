@@ -37,7 +37,6 @@ development: &app_config
 
   services:
     marketplace:
-      endpoint: 'http://localhost:9090/services'
       token: ''
 
   staging: false

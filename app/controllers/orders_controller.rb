@@ -54,6 +54,7 @@ class OrdersController < ApplicationController
       :destination_id, # For the delivery
       :delivery_amount, # For the delivery
       :delivery_bonified_amount, # For the delivery
+      delivery_preference: [:day, :time],
       options: [], # For the delivery
       packages: [
         :quantity,

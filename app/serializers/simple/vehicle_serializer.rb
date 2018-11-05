@@ -3,7 +3,8 @@ class Simple::VehicleSerializer < ActiveModel::Serializer
     :model,
     :brand,
     :year,
-    :verifications
+    :verifications,
+    :max_weight
 
   def verifications
     object.verifications.map do |verification|

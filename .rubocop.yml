@@ -1,0 +1,31 @@
+inherit_from: .rubocop_todo.yml
+
+# This is the configuration used to check the rubocop source code.
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Include:
+    - spec/**/*.rb
+    - app/**/*.rb
+  Exclude:
+    - spec/support/spec_helper.rb
+    - spec/rails_helper.rb
+    - db/**/*
+    - docs/**/*
+    - config/**/*
+    - bin/**/*
+
+Documentation:
+  Enabled: false
+
+HasAndBelongsToMany:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
