@@ -32,7 +32,6 @@ class CreateDelivery
 
     begin
       Delivery.transaction do
-        binding.pry
         @delivery.save!
 
         if should_create_packages?
