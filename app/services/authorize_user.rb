@@ -50,7 +50,7 @@ class AuthorizeUser
       "Accept-Encoding" => "application/json",
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{@http_auth_header}",
-      "Nilus-Service-Authorization" => "Token #{USER_SERVICE_TOKEN}",
+      "Nilus-Service-Authorization" => "Token #{USER_SERVICE_TOKEN}"
     }
   end
 
@@ -69,10 +69,8 @@ class AuthorizeUser
   # TO-DO: This is a duplicated method, we should probably think a better
   # place for this kind of helpers methods for the services
   def json_load(string)
-    begin
-      Oj.load(string)
-    rescue Oj::ParseError => e
-      string
-    end
+    Oj.load(string)
+  rescue Oj::ParseError => e
+    string
   end
 end

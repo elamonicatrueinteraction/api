@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_user
-    authenticate_with_http_token do |token, options|
+    authenticate_with_http_token do |token, _options|
       @current_user ||= AuthorizeUser.call(token, request).result
     end
   end

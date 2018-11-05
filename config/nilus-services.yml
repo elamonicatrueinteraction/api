@@ -5,7 +5,7 @@ development: &app_config
     token: '39cd9643cce7b31fa1b8d1be1af5c3e3ad92fa7a4d2fd5082c650f07a5b2a791e8316f211a2c7d4ff084aad45fd40db251a2725ebf589592ecbc73b36d8849bb'
   user:
     endpoint: 'http://localhost:3010'
-    token: '8809ac85b363d86d3d94475feaf1012e69979ed83559e0a86282345e33d984400afc1c65b8300efe34215e88c3a6fd233216b7a7bcd7beccf734da1ee98b7d4e'
+    token: '39cd9643cce7b31fa1b8d1be1af5c3e3ad92fa7a4d2fd5082c650f07a5b2a791e8316f211a2c7d4ff084aad45fd40db251a2725ebf589592ecbc73b36d8849bb'
 
 production:
   <<: *app_config

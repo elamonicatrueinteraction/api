@@ -1,15 +1,18 @@
 class UserApiResource < ActiveResource::Base
-  alias :read_attribute_for_serialization :send
+  alias read_attribute_for_serialization send
 
   self.site = "#{USER_SERVICE_ENDPOINT}/resources"
-  self.headers['Authorization'] = "Token token=#{USER_SERVICE_TOKEN}"
+  headers['Authorization'] = "Token token=#{USER_SERVICE_TOKEN}"
+
+  def initialize(args = {}, _arg = nil)
+    super(args)
+  rescue StandardError => e
+  end
 
   def self.find_by(id: nil)
-    begin
-      find(id)
-    rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED => e
-      nil
-    end
+    find(id)
+  rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED => e
+    nil
   end
 
 end

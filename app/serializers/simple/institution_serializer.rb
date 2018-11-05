@@ -2,7 +2,6 @@ class Simple::InstitutionSerializer < ActiveModel::Serializer
   type :institution
 
   attributes :id,
-    :type_name,
     :name,
     :legal_name,
     :uid_type,
