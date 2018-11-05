@@ -35,10 +35,6 @@ development: &app_config
   rollbar:
     access_token:
 
-  services:
-    marketplace:
-      token: ''
-
   staging: false
 
   ssl_enabled: false

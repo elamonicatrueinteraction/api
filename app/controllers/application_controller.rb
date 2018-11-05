@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::HttpAuthentication::Token::ControllerMethods
   include ActionController::MimeResponds
   include PagingStuff
 
@@ -9,11 +10,13 @@ class ApplicationController < ActionController::API
   private
 
   def authorize_request
-    authenticate_user || render_unauthorized('Nilus API')
+    authorize_user || render_unauthorized('Nilus - Logistics API')
   end
 
-  def authenticate_user
-    @current_user ||= AuthorizeRequest.call(request.headers).result
+  def authorize_user
+    authenticate_with_http_token do |token, options|
+      @current_user ||= AuthorizeUser.call(token, request).result
+    end
   end
 
   def render_unauthorized(realm = "Application")
