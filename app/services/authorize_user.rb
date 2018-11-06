@@ -70,7 +70,7 @@ class AuthorizeUser
   # place for this kind of helpers methods for the services
   def json_load(string)
     Oj.load(string)
-  rescue Oj::ParseError => e
+  rescue Oj::ParseError
     string
   end
 end

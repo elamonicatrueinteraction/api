@@ -6,12 +6,11 @@ class UserApiResource < ActiveResource::Base
 
   def initialize(args = {}, _arg = nil)
     super(args)
-  rescue StandardError => e
   end
 
   def self.find_by(id: nil)
     find(id)
-  rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED => e
+  rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED
     nil
   end
 
