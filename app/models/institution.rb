@@ -1,4 +1,5 @@
 class Institution < ApplicationRecord
+  belongs_to :district
   has_many :addresses, dependent: :nullify
   has_many :users, dependent: :destroy
 

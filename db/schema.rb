@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181102151606) do
+ActiveRecord::Schema.define(version: 20181106184309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,6 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.uuid "shipper_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "network_id"
-    t.index ["network_id"], name: "index_bank_accounts_on_network_id"
     t.index ["shipper_id"], name: "index_bank_accounts_on_shipper_id"
   end
 
@@ -86,6 +84,12 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.index ["trip_id"], name: "index_deliveries_on_trip_id"
   end
 
+  create_table "districts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "institutions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "legal_name"
@@ -94,6 +98,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "district_id"
+    t.index ["district_id"], name: "index_institutions_on_district_id"
   end
 
   create_table "milestones", force: :cascade do |t|
@@ -103,10 +109,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.jsonb "data", default: {}
     t.geography "gps_coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at"
-    t.string "network_id"
     t.index ["data"], name: "index_milestones_on_data", using: :gin
     t.index ["gps_coordinates"], name: "index_milestones_on_gps_coordinates", using: :gist
-    t.index ["network_id"], name: "index_milestones_on_network_id"
     t.index ["trip_id"], name: "index_milestones_on_trip_id"
   end
 
@@ -119,10 +123,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "extras", default: {}
-    t.string "network_id"
     t.index ["extras"], name: "index_orders_on_extras", using: :gin
     t.index ["giver_id"], name: "index_orders_on_giver_id"
-    t.index ["network_id"], name: "index_orders_on_network_id"
     t.index ["receiver_id"], name: "index_orders_on_receiver_id"
   end
 
@@ -137,10 +139,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.boolean "fragile", default: false
-    t.string "network_id"
     t.index ["attachment_id"], name: "index_packages_on_attachment_id"
     t.index ["delivery_id"], name: "index_packages_on_delivery_id"
-    t.index ["network_id"], name: "index_packages_on_network_id"
   end
 
   create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -155,10 +155,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.jsonb "notifications"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "network_id"
     t.index ["gateway", "gateway_id"], name: "index_payments_on_gateway_and_gateway_id"
     t.index ["gateway_data"], name: "index_payments_on_gateway_data", using: :gin
-    t.index ["network_id"], name: "index_payments_on_network_id"
     t.index ["notifications"], name: "index_payments_on_notifications", using: :gin
     t.index ["payable_type", "payable_id"], name: "index_payments_on_payable_type_and_payable_id"
   end
@@ -200,12 +198,10 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.datetime "last_login_at"
     t.string "last_login_ip"
     t.jsonb "devices", default: {}
-    t.string "network_id"
     t.index ["data"], name: "index_shippers_on_data", using: :gin
     t.index ["devices"], name: "index_shippers_on_devices", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
     t.index ["national_ids"], name: "index_shippers_on_national_ids", using: :gin
-    t.index ["network_id"], name: "index_shippers_on_network_id"
     t.index ["requirements"], name: "index_shippers_on_requirements", using: :gin
   end
 
@@ -217,8 +213,6 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.jsonb "notification_payload", default: {}
     t.datetime "notified_at"
     t.datetime "closed_at"
-    t.string "network_id"
-    t.index ["network_id"], name: "index_trip_assignments_on_network_id"
     t.index ["notification_payload"], name: "index_trip_assignments_on_notification_payload", using: :gin
     t.index ["shipper_id"], name: "index_trip_assignments_on_shipper_id"
     t.index ["trip_id", "shipper_id"], name: "index_trip_assignments_on_trip_id_and_shipper_id"
@@ -236,9 +230,7 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "steps", default: [], null: false
-    t.string "network_id"
     t.index ["gateway_data"], name: "index_trips_on_gateway_data", using: :gin
-    t.index ["network_id"], name: "index_trips_on_network_id"
     t.index ["shipper_id"], name: "index_trips_on_shipper_id"
     t.index ["steps"], name: "index_trips_on_steps", using: :gin
   end
@@ -276,10 +268,8 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.jsonb "extras", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "network_id"
     t.integer "max_weight"
     t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
-    t.index ["network_id"], name: "index_vehicles_on_network_id"
     t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"
   end
 
@@ -293,9 +283,7 @@ ActiveRecord::Schema.define(version: 20181102151606) do
     t.datetime "expire_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "network_id"
     t.index ["data"], name: "index_verifications_on_data", using: :gin
-    t.index ["network_id"], name: "index_verifications_on_network_id"
     t.index ["verificable_type", "verificable_id"], name: "index_verifications_on_verificable_type_and_verificable_id"
   end
 
@@ -313,6 +301,7 @@ ActiveRecord::Schema.define(version: 20181102151606) do
   add_foreign_key "bank_accounts", "shippers"
   add_foreign_key "deliveries", "orders"
   add_foreign_key "deliveries", "trips"
+  add_foreign_key "institutions", "districts"
   add_foreign_key "packages", "deliveries"
   add_foreign_key "trips", "shippers"
   add_foreign_key "vehicles", "shippers"
