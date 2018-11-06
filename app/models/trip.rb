@@ -1,4 +1,5 @@
 class Trip < ApplicationRecord
+  default_scope_by_network
   attribute :steps, :jsonb, default: []
 
   attribute :gateway_data, :jsonb, default: {}

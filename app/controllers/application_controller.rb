@@ -4,10 +4,20 @@ class ApplicationController < ActionController::API
   include PagingStuff
 
   before_action :authorize_request
+  before_action :set_current_network, if: :current_user
 
   attr_reader :current_user
 
   private
+
+  def set_current_network
+    Rails.logger.info "Network: #{current_network}"
+    ApplicationRecord.current_network = current_network
+  end
+
+  def current_network
+    @current_network ||= request.headers.fetch('X-Network-Id', current_user.networks.first)
+  end
 
   def authorize_request
     authorize_user || render_unauthorized('Nilus - Logistics API')

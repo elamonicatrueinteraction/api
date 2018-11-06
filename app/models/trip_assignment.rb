@@ -1,4 +1,5 @@
 class TripAssignment < ApplicationRecord
+  default_scope_by_network
   attribute :notification_payload, :jsonb, default: {}
 
   scope :assigned, -> { where(state: 'assigned') }
