@@ -20,10 +20,11 @@ class PaymentGateway
     @gateway_account_class.new(@credentials)
   end
 
-  private
-
   def get_credentials_for(payable)
-    payable.is_a?(Order) ? MERCADOPAGO['bar'] : MERCADOPAGO['nilus']
+    return MERCADOPAGO['nilus'] if payable.is_a?(Delivery)
+    # TODO: Move this to a database record
+    return MERCADOPAGO['bar'] if payable.network_id == 'MDQ'
+    return MERCADOPAGO['mdq'] if payable.network_id == 'ROS'
   end
 
 end
