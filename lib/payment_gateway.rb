@@ -23,8 +23,8 @@ class PaymentGateway
   def get_credentials_for(payable)
     return MERCADOPAGO['nilus'] if payable.is_a?(Delivery)
     # TODO: Move this to a database record
-    MERCADOPAGO['bar'] if payable.giver.institution.name == 'BAR'
-    MERCADOPAGO['mdq'] if payable.giver.institution.name == 'BAMDQ'
+    return MERCADOPAGO['bar'] if payable.giver.institution.name == 'BAR'
+    return MERCADOPAGO['mdq'] if payable.giver.institution.name == 'BAMDQ'
   end
 
 end
