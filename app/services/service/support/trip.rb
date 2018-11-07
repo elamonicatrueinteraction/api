@@ -37,7 +37,9 @@ module Service
         {
           delivery_id: [delivery.id],
           action: action,
-          schedule: schedule_param(schedule)
+          schedule: schedule_param(schedule),
+          institution: action == 'pickup' ? delivery.giver : delivery.receiver,
+          address: action == 'pickup' ? delivery.origin : delivery.destination
         }
       end
 
