@@ -13,6 +13,5 @@ class Simple::InstitutionSerializer < ActiveModel::Serializer
     :beneficiaries,
     :offered_services
 
-
   belongs_to :district
 end
