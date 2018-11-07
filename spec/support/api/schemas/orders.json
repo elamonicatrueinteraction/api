@@ -39,7 +39,10 @@
               "uid": { "type" : "string" },
               "created_at": { "type" : "datetime" },
               "updated_at": { "type" : "datetime" },
-              "addresses": { "type": "array"}
+              "addresses": { "type": "array"},
+              "beneficiaries": { "type": "integer" },
+              "offered_services": { "type": "array" },
+              "district": { "type": "object" }
             }
           },
           "receiver" : {
@@ -53,7 +56,10 @@
               "uid": { "type" : "string" },
               "created_at": { "type" : "datetime" },
               "updated_at": { "type" : "datetime" },
-              "addresses": { "type": "array"}
+              "addresses": { "type": "array"},
+              "beneficiaries": { "type": "integer" },
+              "offered_services": { "type": "array" },
+              "district": { "type": "object" }
             }
           },
           "deliveries" : {

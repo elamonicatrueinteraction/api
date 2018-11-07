@@ -36,6 +36,9 @@
             "legal_name": { "type" : ["string", "null"] },
             "uid_type": { "type" : "string" },
             "uid": { "type" : "string" },
+            "beneficiaries": { "type": "integer" },
+            "offered_services": { "type": "array" },
+            "district": { "type": "object" },
             "created_at": { "type" : "datetime" },
             "updated_at": { "type" : "datetime" },
             "addresses": { "type": "array"}
@@ -50,6 +53,9 @@
             "legal_name": { "type" : ["string", "null"] },
             "uid_type": { "type" : "string" },
             "uid": { "type" : "string" },
+            "beneficiaries": { "type": "integer" },
+            "offered_services": { "type": "array" },
+            "district": { "type": "object" },
             "created_at": { "type" : "datetime" },
             "updated_at": { "type" : "datetime" },
             "addresses": { "type": "array"}

@@ -55,8 +55,11 @@ class InstitutionsController < ApplicationController
     params.permit(
       :name,
       :legal_name,
+      :beneficiaries,
+      :district_id,
       :uid_type,
-      :uid
+      :uid,
+      offered_services: []
     )
   end
 
