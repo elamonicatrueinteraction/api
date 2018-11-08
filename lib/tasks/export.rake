@@ -19,7 +19,7 @@ namespace :export do
     puts "Exported"
   end
 
-  desc "TODO"
+  desc "Export profiles"
   task profiles: :environment do
     profiles = Profile.unscoped
     keys = [:id, :first_name, :first_name, :user_id, :extras]
@@ -37,7 +37,7 @@ namespace :export do
     puts "Exported"
   end
 
-  desc "TODO"
+  desc "Export users"
   task users: :environment do
     users = User.unscoped
     keys = [:id, :username, :email, :password_digest, :token_expire_at, :login_count,
@@ -57,7 +57,7 @@ namespace :export do
     puts "Exported"
   end
 
-  desc "TODO"
+  desc "Export addresses"
   task addresses: :environment do
     addresses = Address.unscoped
     keys = [:institution_id, :gps_coordinates, :street_1, :street_2, :zip_code, :city, :state,
