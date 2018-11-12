@@ -11,11 +11,13 @@ RSpec.describe UpdateTrip do
   let(:pickup_schedule) { HashWithIndifferentAccess.new({
     start: Faker::Time.forward(5, :morning),
     end: Faker::Time.forward(5, :evening)
-  }) }
+  })
+  }
   let(:dropoff_schedule) { HashWithIndifferentAccess.new({
     start: Faker::Time.forward(6, :morning),
     end: Faker::Time.forward(6, :evening)
-  }) }
+  })
+  }
   let(:comments) { 'Some extra comments' }
 
   describe ".call" do
