@@ -27,6 +27,8 @@
           "items": {
             "type": "object",
             "properties" : {
+              "institution": { "type": "object" },
+              "address": { "type": "object" },
               "delivery_id" : { "type" : "array" },
               "action" : { "type" : "string" },
               "schedule" : {
