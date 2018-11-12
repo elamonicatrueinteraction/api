@@ -9,12 +9,16 @@ module FactoryBot
           _steps[:pickups] << {
             delivery_id: [delivery.id],
             action: 'pickup',
-            schedule: pickup_schedule
+            schedule: pickup_schedule,
+            institution: delivery.giver,
+            address: delivery.origin
           }
           _steps[:dropoffs] << {
             delivery_id: [delivery.id],
             action: 'dropoff',
-            schedule: dropoff_schedule
+            schedule: dropoff_schedule,
+            institution: delivery.receiver,
+            address: delivery.destination
           }
         end.values.flatten
       end

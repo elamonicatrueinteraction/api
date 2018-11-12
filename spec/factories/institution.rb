@@ -2,6 +2,9 @@ FactoryBot.define do
   factory :institution do
     uid_type 'CUIT'
     uid { Faker::Company.cuit }
+    offered_services { ['lunch'] }
+    beneficiaries { 300 }
+    district
 
     trait :with_address do
       after(:create) do |institution, evaluator|

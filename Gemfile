@@ -27,14 +27,18 @@ gem 'activeresource', '~> 5.0'
 
 # This is important to be here at the bottom
 gem 'api-pagination' # For pagination info in your headers, not in your response body.
+gem 'querifier'
 
 gem 'dotenv-rails'
+
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'bullet', '5.7.5'
   gem 'pry-rails'
+
+  gem 'faker'
 end
 
 group :development do
@@ -57,7 +61,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'faker'
   gem "json-schema"
   gem 'rails-controller-testing'
   gem 'rspec-collection_matchers'

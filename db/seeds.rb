@@ -13,17 +13,30 @@ USERS.each do |data|
   User.create(data)
 end
 
+[
+  'Distrito Centro',
+  'Distrito Norte',
+  'Distrito Noroeste',
+  'Distrito Oeste',
+  'Distrito Sudoeste',
+  'Distrito Sur'
+].each do |district_name|
+  District.find_or_create_by(
+    name: district_name
+  )
+end
+
 # # Institutions
 INSTITUTIONS = [
-  { type: "Institutions::Company", name: "Carrefour", legal_name: "CARREFOUR ARGENTINA SOCIEDAD ANONIMA", uid_type: "CUIT", uid: "30-58462038-9" },
-  { type: "Institutions::Organization", name: "BAR", legal_name: "FUNDACION BANCO DE ALIMENTOS DE ROSARIO", uid_type: "CUIT", uid: "30-71000841-4" },
-  { type: "Institutions::Organization", name: "Comedor Rosario Vera", legal_name: "Asociacion Civil Comedor Rosario Vera", uid_type: "CUIT", uid: "30-70815267-2" },
+  { offered_services: ['dinner'], type: "Institutions::Company", name: "Carrefour", legal_name: "CARREFOUR ARGENTINA SOCIEDAD ANONIMA", uid_type: "CUIT", uid: "30-58462038-9", district: District.all.sample },
+  { offered_services: ['dinner'], type: "Institutions::Organization", name: "BAR", legal_name: "FUNDACION BANCO DE ALIMENTOS DE ROSARIO", uid_type: "CUIT", uid: "30-71000841-4", district: District.find_by_name('Distrito Noroeste') },
+  { offered_services: ['dinner'], type: "Institutions::Organization", name: "Comedor Rosario Vera", legal_name: "Asociacion Civil Comedor Rosario Vera", uid_type: "CUIT", uid: "30-70815267-2", district: District.all.sample },
 ]
 institutions = Institution.where(uid: INSTITUTIONS.map{ |data| data[:uid] })
 institutions.each{ |institution| institution.addresses.destroy_all }
 institutions.destroy_all
 INSTITUTIONS.each do |data|
-  Institution.create(data)
+  Institution.create!(data)
 end
 # Addresses
 ADDRESSES = {

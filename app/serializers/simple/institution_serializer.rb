@@ -9,5 +9,9 @@ class Simple::InstitutionSerializer < ActiveModel::Serializer
     :uid,
     :created_at,
     :updated_at,
-    :addresses
+    :addresses,
+    :beneficiaries,
+    :offered_services
+
+  belongs_to :district
 end
