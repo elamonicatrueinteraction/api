@@ -1,4 +1,5 @@
 class Milestone < ApplicationRecord
+  default_scope_by_network
   attribute :data, :jsonb, default: {}
 
   belongs_to :trip
