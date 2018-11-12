@@ -1,5 +1,4 @@
 class Vehicle < ApplicationRecord
-  default_scope_by_network
   attribute :extras, :jsonb, default: {}
 
   belongs_to :shipper

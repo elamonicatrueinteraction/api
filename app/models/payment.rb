@@ -1,5 +1,4 @@
 class Payment < ApplicationRecord
-  default_scope_by_network
   attribute :gateway_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}
 

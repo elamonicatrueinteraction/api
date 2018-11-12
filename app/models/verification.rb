@@ -1,5 +1,4 @@
 class Verification < ApplicationRecord
-  default_scope_by_network
   self.inheritance_column = 'type_of'
 
   attribute :data, :jsonb, default: {}

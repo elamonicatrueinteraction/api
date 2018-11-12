@@ -5,12 +5,12 @@ module Service
       private
 
       def load_address(action, id)
-        if address = ::Address.find(id)
+        if address = ::Address.find_by(id: id)
           address
+        else
+          id = id.blank? ? '(empty)' : id
+          errors.add(:type, I18n.t("services.create_delivery.#{action}.missing_or_invalid", id: id)) && nil
         end
-      rescue ActiveResource::ResourceNotFound
-        id = id.blank? ? '(empty)' : id
-        errors.add(:type, I18n.t("services.create_delivery.#{action}.missing_or_invalid", id: id)) && nil
       end
 
       def params_status_or_default(params_status, actual_status = nil)

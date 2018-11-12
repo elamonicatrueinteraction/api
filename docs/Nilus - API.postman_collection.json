@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
 		"name": "Nilus - API",
-		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"_postman_id": "85b35f31-1ec8-92da-4e91-5266cd3bbfdc",
+		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -252,6 +252,7 @@
 		},
 		{
 			"name": "Vehicles",
+			"description": "",
 			"item": [
 				{
 					"name": "Vehicle Create",
@@ -453,7 +454,163 @@
 		},
 		{
 			"name": "Institutions",
+			"description": "",
 			"item": [
+				{
+					"name": "Institution List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "List of institutions"
+					},
+					"response": []
+				},
+				{
+					"name": "Company Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"company\",\n\t\"name\": \"Carrefour\",\n\t\"legal_name\": \"\",\n\t\"uid_type\": \"CUIT\",\n\t\"uid\": \"30-58462038-9\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "Create an company"
+					},
+					"response": []
+				},
+				{
+					"name": "Organization Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"organization\",\n\t\"name\": \"Wingu\",\n\t\"legal_name\": \"Res Non Verba AC\",\n\t\"uid_type\": \"CUIT\",\n\t\"uid\": \"30-70783337-4\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions"
+							]
+						},
+						"description": "Create an organization"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"legal_name\": \"Carrefour Argentina Sociedad Anonima\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/b861b77a-996a-475d-9600-5dc9f1d7e489",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"b861b77a-996a-475d-9600-5dc9f1d7e489"
+							]
+						},
+						"description": "Update the institution information"
+					},
+					"response": []
+				},
+				{
+					"name": "Institutions Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{user_auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/930f4910-ce12-457b-b648-c18ff5478d22",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{endpoint_url}}"
+							],
+							"path": [
+								"institutions",
+								"930f4910-ce12-457b-b648-c18ff5478d22"
+							]
+						},
+						"description": "Delete an Institution"
+					},
+					"response": []
+				},
 				{
 					"name": "Institutions - Addresses List",
 					"request": {
@@ -466,14 +623,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{protocol}}://{{endpoint_url}}/institutions/b2dfff41-3a5d-4c95-8380-d06ca0f91437/addresses",
+							"raw": "{{protocol}}://{{endpoint_url}}/institutions/fb32d9cc-c2e0-420f-ae2b-d972ecf8389b/addresses",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{endpoint_url}}"
 							],
 							"path": [
 								"institutions",
-								"b2dfff41-3a5d-4c95-8380-d06ca0f91437",
+								"fb32d9cc-c2e0-420f-ae2b-d972ecf8389b",
 								"addresses"
 							]
 						},
@@ -608,6 +765,7 @@
 		},
 		{
 			"name": "Orders",
+			"description": "",
 			"item": [
 				{
 					"name": "Orders List",
@@ -934,6 +1092,7 @@
 		},
 		{
 			"name": "Deliveries",
+			"description": "",
 			"item": [
 				{
 					"name": "Deliveries Create",
@@ -1196,6 +1355,7 @@
 		},
 		{
 			"name": "Trips",
+			"description": "",
 			"item": [
 				{
 					"name": "Trips List",
@@ -1384,13 +1544,16 @@
 		},
 		{
 			"name": "Webhooks",
+			"description": "",
 			"item": []
 		},
 		{
 			"name": "ShipperAPI",
+			"description": "",
 			"item": [
 				{
 					"name": "Trips",
+					"description": "",
 					"item": [
 						{
 							"name": "Trips - List (alias Accepted)",
@@ -1413,7 +1576,8 @@
 										"shipper",
 										"trips"
 									]
-								}
+								},
+								"description": ""
 							},
 							"response": []
 						},
@@ -1439,7 +1603,8 @@
 										"trips",
 										"accepted"
 									]
-								}
+								},
+								"description": ""
 							},
 							"response": []
 						},
@@ -1465,7 +1630,8 @@
 										"trips",
 										"pending"
 									]
-								}
+								},
+								"description": ""
 							},
 							"response": []
 						}
@@ -1554,6 +1720,34 @@
 					]
 				},
 				"description": "Just to get a summy response"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"facundo@winguweb.org\",\n\t\"password\":\"nadanada\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{endpoint_url}}/authenticate",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{endpoint_url}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				},
+				"description": "Authenticate a User an get the auth_token or errors"
 			},
 			"response": []
 		}
