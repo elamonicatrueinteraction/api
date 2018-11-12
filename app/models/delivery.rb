@@ -1,4 +1,6 @@
 class Delivery < ApplicationRecord
+  attribute :origin, :jsonb
+  attribute :destination, :jsonb
   attribute :amount, :float
   attribute :bonified_amount, :float
   attribute :origin_latlng
@@ -9,8 +11,8 @@ class Delivery < ApplicationRecord
 
   include Payable
 
-  belongs_to :origin, class_name: 'Address'
-  belongs_to :destination, class_name: 'Address'
+  # belongs_to :origin, class_name: 'Address'
+  # belongs_to :destination, class_name: 'Address'
   belongs_to :order
   belongs_to :trip, optional: true
   has_one :giver, through: :order, class_name: 'Institution'
