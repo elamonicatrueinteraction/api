@@ -4,7 +4,7 @@ class Institution < UserApiResource
 
   # Because the Address is an ApplicationRecord we need to do this
   # instead of using has_many :addresses
-  # def addresses
-  #   @addresses ||= Address.where(institution_id: id)
-  # end
+  def addresses
+    @addresses ||= Address.where(institution_id: id)
+  end
 end
