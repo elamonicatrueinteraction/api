@@ -1,22 +1,11 @@
 class Order < ApplicationRecord
-  default_scope_by_network
   include Payable
 
   has_many :deliveries, dependent: :destroy
   has_many :packages, through: :deliveries
 
-  # belongs_to :giver, class_name: 'Institution', optional: true
-  # belongs_to :receiver, class_name: 'Institution', optional: true
-
-  def giver
-    @giver ||= Institution.find_by(id: giver_id)
-  end
-  attribute :giver
-
-  def receiver
-    @receiver ||= Institution.find_by(id: receiver_id)
-  end
-  attribute :receiver
+  belongs_to :giver, class_name: 'Institution', optional: true
+  belongs_to :receiver, class_name: 'Institution', optional: true
 
   # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp
   scope :marketplace, -> { where('orders.extras ->> :key IS NOT NULL', key: :marketplace_order_id) }

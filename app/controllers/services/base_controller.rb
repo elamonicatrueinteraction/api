@@ -4,15 +4,19 @@ module Services
 
     before_action :authorize_request
 
+    def hello
+      render json: { message: "Hi!" }, status: :ok
+    end
+
     private
 
     def authorize_request
-      authorize_service || render_unauthorized('Nilus Logistics-API - Resources')
+      authenticate_service || render_unauthorized('Nilus API - Services')
     end
 
-    def authorize_service
+    def authenticate_service
       authenticate_with_http_token do |token, options|
-        NILUS_SERVICES_TOKENS.values.include?(token)
+        SERVICES_TOKENS.values.include?(token)
       end
     end
 

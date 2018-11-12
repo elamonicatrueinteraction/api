@@ -1,9 +1,12 @@
-class User < UserApiResource
+class User < ApplicationRecord
+  include Discard::Model
   include RoleModel
+  has_secure_password
 
-  belongs_to :institution
+  has_one :profile, dependent: :destroy
+  belongs_to :institution, optional: true
 
-  delegate :first_name, :last_name, :cellphone, to: :profile
+  validates_presence_of :email, :password_digest
 
   # The order of this is important, don't change it
   # append new roles at the end

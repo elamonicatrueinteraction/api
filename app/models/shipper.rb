@@ -1,5 +1,4 @@
 class Shipper < ApplicationRecord
-  default_scope_by_network
   has_secure_password
 
   attribute :data, :jsonb, default: {}

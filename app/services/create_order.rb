@@ -35,7 +35,6 @@ class CreateOrder
         end
       end
     rescue Service::Error, ActiveRecord::RecordInvalid => e
-      Rails.logger.info e
       return errors.add_multiple_errors( exception_errors(e) ) && nil
     end
 
@@ -46,12 +45,10 @@ class CreateOrder
     {
       expiration: @allowed_params[:expiration],
       amount: @allowed_params[:amount],
-      bonified_amount: @allowed_params[:bonified_amount],
-      giver_id: @allowed_params[:giver_id],
-      receiver_id: @allowed_params[:receiver_id]
+      bonified_amount: @allowed_params[:bonified_amount]
     }.tap do |_hash|
-      _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]).as_json if @allowed_params[:giver_id].present?
-      _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]).as_json if @allowed_params[:receiver_id].present?
+      _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]) if @allowed_params[:giver_id].present?
+      _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]) if @allowed_params[:receiver_id].present?
 
       _hash[:marketplace_order_id] = @allowed_params[:marketplace_order_id] if @allowed_params[:marketplace_order_id].present?
       _hash[:delivery_preference] = @allowed_params[:delivery_preference] if @allowed_params[:delivery_preference].present?

@@ -23,6 +23,8 @@ module Services
 
     def full_params
       order_params.tap do |_params|
+        _params[:origin_id] = get_address_id(_params[:giver_id])
+        _params[:destination_id] = get_address_id(_params[:receiver_id])
         _params[:packages] = [{
           quantity: order_items.size,
           weight: order_items.sum{ |item| item.dig(:total_weight).to_f }
@@ -40,8 +42,6 @@ module Services
       params.require(:order).permit(
         :giver_id,
         :receiver_id,
-        :origin_id,
-        :destination_id,
         :amount,
         :delivery_amount, # For the delivery
         options: [], # For the delivery
@@ -63,5 +63,10 @@ module Services
     def order_items
       plain_hash_params.dig(:order, :order_items)
     end
+
+    def get_address_id(institution_id)
+      Address.find_by(institution_id: institution_id).try(:id)
+    end
+
   end
 end
