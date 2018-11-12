@@ -7,8 +7,4 @@ class Institution < UserApiResource
   def addresses
     @addresses ||= Address.where(institution_id: id)
   end
-
-  def district
-    @district  ||= District.find(district_id)
-  end
 end
