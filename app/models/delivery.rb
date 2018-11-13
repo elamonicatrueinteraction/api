@@ -15,8 +15,8 @@ class Delivery < ApplicationRecord
   # belongs_to :destination, class_name: 'Address'
   belongs_to :order
   belongs_to :trip, optional: true
-  has_one :giver, through: :order, class_name: 'Institution'
-  has_one :receiver, through: :order, class_name: 'Institution'
+  # has_one :giver, through: :order, class_name: 'Institution'
+  # has_one :receiver, through: :order, class_name: 'Institution'
   has_many :packages, dependent: :destroy
 
   VALID_STATUS = %w(
@@ -32,6 +32,22 @@ class Delivery < ApplicationRecord
     refrigerated
   ).freeze
   private_constant :OPTIONS
+
+  def origin
+    @origin ||= Address.find_by(id: origin_id)
+  end
+
+  def destination
+    @destination ||= Address.find_by(id: origin_id)
+  end
+
+  def giver
+    @giver ||= order.giver
+  end
+
+  def receiver
+    @receiver ||= order.receiver
+  end
 
   def options
     return @options if defined?(@options)

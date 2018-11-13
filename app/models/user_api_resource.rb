@@ -6,7 +6,7 @@ class UserApiResource < ActiveResource::Base
 
   def initialize(args = {}, _arg = nil)
     super(args)
-  rescue StandardError => e
+  rescue # rubocop:disable Lint/HandleExceptions, Style/RescueStandardError
   end
 
   def self.find_by(id: nil)
