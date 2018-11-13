@@ -1,6 +1,4 @@
 class Delivery < ApplicationRecord
-  attribute :origin, :jsonb
-  attribute :destination, :jsonb
   attribute :amount, :float
   attribute :bonified_amount, :float
   attribute :origin_latlng

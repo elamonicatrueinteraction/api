@@ -32,13 +32,12 @@ gem 'api-pagination' # For pagination info in your headers, not in your response
 gem 'querifier'
 
 gem 'dotenv-rails'
-
+gem 'pry-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'bullet', '5.7.5'
-  gem 'pry-rails'
 
   gem 'faker'
 end
