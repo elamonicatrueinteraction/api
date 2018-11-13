@@ -50,21 +50,23 @@ class CreateDelivery
   def delivery_params
     {
       order: @order,
-      origin: load_address('origin', @allowed_params[:origin_id]),
-      destination: load_address('destination', @allowed_params[:destination_id]),
+      origin_id: @allowed_params[:origin_id],
+      destination_id: @allowed_params[:destination_id],
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount],
       status: params_status_or_default(@allowed_params[:status]),
       options: @allowed_params[:options]
     }.tap do |_hash|
-      if _hash[:origin]
-        _hash[:origin_gps_coordinates] = _hash[:origin].gps_coordinates
-        _hash[:pickup] = location_data(_hash[:origin])
+      if _hash[:origin_id]
+        origin = Address.find_by(id: _hash[:origin_id])
+        _hash[:origin_gps_coordinates] = origin.gps_coordinates
+        _hash[:pickup] = location_data(origin)
       end
 
-      if _hash[:destination]
-        _hash[:destination_gps_coordinates] =  _hash[:destination].gps_coordinates
-        _hash[:dropoff] = location_data(_hash[:destination])
+      if _hash[:destination_id]
+        destination = Address.find_by(id: _hash[:destination_id])
+        _hash[:destination_gps_coordinates] = destination.gps_coordinates
+        _hash[:dropoff] = location_data(destination)
       end
 
       _hash[:gateway] = @allowed_params[:gateway] if @allowed_params[:gateway]
