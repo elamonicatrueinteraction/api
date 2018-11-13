@@ -32,6 +32,7 @@ class CreateDelivery
 
     begin
       Delivery.transaction do
+        Rails.logger.info @delivery.attributes
         @delivery.save!
 
         if should_create_packages?

@@ -36,10 +36,12 @@ class Delivery < ApplicationRecord
   def origin
     @origin ||= Address.find_by(id: origin_id)
   end
+  attribute :origin
 
   def destination
-    @destination ||= Address.find_by(id: origin_id)
+    @destination ||= Address.find_by(id: destination_id)
   end
+  attribute :destination
 
   def giver
     @giver ||= order.giver
