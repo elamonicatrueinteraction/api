@@ -49,6 +49,14 @@ class Delivery < ApplicationRecord
     )
   end
 
+  def destination_gps_coordinates
+    RGeo::Geographic::SphericalPointImpl.new(
+      RGeo::Geographic.spherical_factory(srid: 4326),
+      destination.gps_coordinates.coordinates.first,
+      destination.gps_coordinates.coordinates.last
+    )
+  end
+
   def giver
     @giver ||= order.giver
   end
