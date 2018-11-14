@@ -1,4 +1,11 @@
 class InstitutionSerializer < Simple::InstitutionSerializer
-  has_many :addresses
+  attributes :addresses
   has_many :users
+
+  def addresses
+    ActiveModelSerializers::SerializableResource.new(
+      object.addresses,
+      { each_serializer: Simple::AddressSerializer }
+    ).as_json[:packages]
+  end
 end
