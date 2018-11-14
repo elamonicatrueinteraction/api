@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe TripsController, type: :request do
-  let(:user) { create(:user_with_profile) }
   let(:shipper) { create(:shipper_with_vehicle_and_bank_account) }
   let(:order) { create(:full_order) }
 
@@ -52,6 +51,7 @@ RSpec.describe TripsController, type: :request do
   end
 
   describe "GET #show" do
+    include_context 'an authenticated user'
     let(:trip) { create(:trip_with_shipper) }
     before { get "/trips/#{trip.id}", headers: auth_headers(user) }
 

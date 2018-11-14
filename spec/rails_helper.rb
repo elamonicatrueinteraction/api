@@ -29,19 +29,19 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-require 'support/shoulda_matchers'
-require 'support/factory_bot'
-require 'support/database_cleaner'
-require 'support/request_helpers'
-require 'support/api_shared_context'
-require 'support/api_schema_matcher'
-require 'support/sidekiq'
+# require 'support/shoulda_matchers'
+# require 'support/factory_bot'
+# require 'support/database_cleaner'
+# require 'support/request_helpers'
+# require 'support/api_shared_context'
+# require 'support/api_schema_matcher'
+# require 'support/sidekiq'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true

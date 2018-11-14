@@ -1,0 +1,77 @@
+RSpec.configure do |config|
+  config.before(:suite) do
+    districts = [
+      { name: 'Distrito Centro' },
+      { name: 'Distrito Norte' },
+      { name: 'Distrito Noroeste' },
+      { name: 'Distrito Oeste' },
+      { name: 'Distrito Sudoeste' },
+      { name: 'Distrito Sur' }
+    ]
+
+    institution = {
+      id: '37d4970a-53ea-49f5-a2f1-2cdf26f36454',
+      name: 'BAR'
+    }
+
+    users = [
+      {
+        "id": "f8245403-703f-4f0d-974f-ec23f818391d",
+        "username": "dummy",
+        "email": "dummy@nilus.org",
+        "active": false,
+        "confirmed": false,
+        "last_login_ip": "127.0.0.1",
+        "last_login_at": "2018-11-14T15:24:26.815Z",
+        "token_expire_at": 1547479466,
+        "institution_id": "37d4970a-53ea-49f5-a2f1-2cdf26f36454",
+        "profile": {
+          "first_name": nil,
+          "last_name": nil,
+          "cellphone": nil
+        },
+        "networks": ["ROS"],
+        "roles_mask": 255,
+        "cities": []
+      }
+    ]
+
+    address = {
+      city: "Rosario",
+      contact_cellphone: nil,
+      contact_email: nil,
+      contact_name: nil,
+      coordinates: { type: "Point", coordinates: [-60.63752090000003, -32.9639928] },
+      country: "AR",
+      gps_coordinates: { type: "Point", coordinates: [-60.63752090000003, -32.9639928] },
+      id: "fb803694-60f1-4f43-b04f-fb593f7a7871",
+      institution_id: "37d4970a-53ea-49f5-a2f1-2cdf26f36454",
+      latlng: "-32.9639928,-60.63752090000003",
+      notes: nil,
+      open_hours: nil,
+      state: "Santa Fe",
+      street_1: "Riobamba 739",
+      street_2: nil,
+      telephone: nil,
+      zip_code: nil
+    }
+
+    request_headers = {
+      "Accept" => "application/json",
+      "Authorization" => "Token token=#{USER_SERVICE_TOKEN}"
+    }
+
+    ActiveResource::HttpMock.respond_to do |mock|
+      mock.get('/resources/districts.json', request_headers, districts.to_json)
+      mock.get("/resources/institutions.json", request_headers, [institution].to_json)
+      mock.get("/resources/institutions/#{institution[:id]}.json",
+               request_headers, institution.to_json)
+      mock.get('/resources/users.json', request_headers, users.to_json)
+      mock.get('/resources/users.json?email=dummy%40nilus.org', request_headers, users.to_json)
+      mock.get("/resources/users/#{users.first[:id]}.json", request_headers, users.first.to_json)
+      mock.get("/resources/addresses/#{address[:id]}.json", request_headers, address.to_json)
+      mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
+               request_headers, [address].to_json)
+    end
+  end
+end
