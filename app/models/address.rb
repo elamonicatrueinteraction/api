@@ -27,27 +27,31 @@ class Address < UserApiResource
     ].compact.join(', ')
   end
 
+  def gps_coordinates
+    GpsCoordinates.new(coordinates.attributes)
+  end
+
   # TODO: Fix this, it's mainly caused because the config of RGeo
   # doesn't initialize well on activeresources
-  # class GpsCoordinates
-  #   def factory
-  #     RGeo::Geographic.spherical_factory(srid: 4326)
-  #   end
-  #
-  #   def geometry_type
-  #     RGeo::Feature::Point
-  #   end
-  #
-  #   delegate :srid, to: :factory
-  #
-  #   def x
-  #     @x ||= coordinates.first
-  #   end
-  #
-  #   def y
-  #     @y ||= coordinates.last
-  #   end
-  #
-  #   attr_reader :z
-  # end
+  class GpsCoordinates < UserApiResource
+    def factory
+      RGeo::Geographic.spherical_factory(srid: 4326)
+    end
+
+    def geometry_type
+      RGeo::Feature::Point
+    end
+
+    delegate :srid, to: :factory
+
+    def x
+      @x ||= coordinates.first
+    end
+
+    def y
+      @y ||= coordinates.last
+    end
+
+    attr_reader :z
+  end
 end
