@@ -5,7 +5,7 @@ class InstitutionSerializer < Simple::InstitutionSerializer
   def addresses
     ActiveModelSerializers::SerializableResource.new(
       object.addresses,
-      { each_serializer: Simple::AddressSerializer }
+      { each_serializer: AddressSerializer }
     ).as_json[:packages]
   end
 end
