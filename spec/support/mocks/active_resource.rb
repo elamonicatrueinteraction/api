@@ -38,22 +38,22 @@ RSpec.configure do |config|
 
     address = {
       city: "Rosario",
-      contact_cellphone: nil,
-      contact_email: nil,
-      contact_name: nil,
+      contact_cellphone: '111-11111',
+      contact_email: 'dummy@nilus.org',
+      contact_name: 'Test',
       coordinates: { type: "Point", coordinates: [-60.63752090000003, -32.9639928] },
       country: "AR",
       gps_coordinates: { type: "Point", coordinates: [-60.63752090000003, -32.9639928] },
       id: "fb803694-60f1-4f43-b04f-fb593f7a7871",
       institution_id: "37d4970a-53ea-49f5-a2f1-2cdf26f36454",
       latlng: "-32.9639928,-60.63752090000003",
-      notes: nil,
-      open_hours: nil,
+      notes: '',
+      open_hours: '12hs a 18hs',
       state: "Santa Fe",
       street_1: "Riobamba 739",
-      street_2: nil,
-      telephone: nil,
-      zip_code: nil
+      street_2: 'Oro 2116',
+      telephone: '111-1111',
+      zip_code: '1414',
     }
 
     request_headers = {
@@ -71,6 +71,8 @@ RSpec.configure do |config|
       mock.get('/resources/users.json?email=dummy%40nilus.org', request_headers, users.to_json)
       mock.get("/resources/users/#{users.first[:id]}.json", request_headers, users.first.to_json)
       mock.get("/resources/addresses/#{address[:id]}.json", request_headers, address.to_json)
+      mock.get("/resources/addresses/fake-id.json", request_headers, nil, 404)
+      mock.get('/resources/addresses.json', request_headers, [address].to_json)
       mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
                request_headers, [address].to_json)
     end
