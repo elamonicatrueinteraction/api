@@ -4,6 +4,7 @@ FactoryBot.define do
     bonified_amount { Faker::Number.number(2) }
     giver_id { Institution.all.sample.id }
     receiver_id { Institution.all.sample.id }
+    network_id { 'ROS' }
 
     trait :with_deliveries do
       after(:create) do |order, evaluator|

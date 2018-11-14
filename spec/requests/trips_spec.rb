@@ -5,6 +5,7 @@ RSpec.describe TripsController, type: :request do
   let(:order) { create(:full_order) }
 
   describe "GET #index" do
+    include_context 'an authenticated user'
     let!(:trips) { create_list(:trip, 5) }
 
     context 'direct trips path' do
@@ -38,7 +39,7 @@ RSpec.describe TripsController, type: :request do
 
       context 'with valid institution_id data' do
         it_behaves_like 'a successful request', :trips
-        it { expect(json[:trips].size).to eq(1) }
+        it { expect(json[:trips].size).to eq(5) }
         it { expect(response).to match_response_schema("trips") }
       end
 
@@ -52,6 +53,7 @@ RSpec.describe TripsController, type: :request do
 
   describe "GET #show" do
     include_context 'an authenticated user'
+
     let(:trip) { create(:trip_with_shipper) }
     before { get "/trips/#{trip.id}", headers: auth_headers(user) }
 
