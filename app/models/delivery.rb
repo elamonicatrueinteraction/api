@@ -42,6 +42,8 @@ class Delivery < ApplicationRecord
   attribute :destination
 
   def origin_gps_coordinates
+    return if destination.nil?
+
     RGeo::Geographic::SphericalPointImpl.new(
       RGeo::Geographic.spherical_factory(srid: 4326),
       origin.gps_coordinates.coordinates.first,
@@ -50,6 +52,8 @@ class Delivery < ApplicationRecord
   end
 
   def destination_gps_coordinates
+    return if destination.nil?
+
     RGeo::Geographic::SphericalPointImpl.new(
       RGeo::Geographic.spherical_factory(srid: 4326),
       destination.gps_coordinates.coordinates.first,
