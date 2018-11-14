@@ -5,6 +5,7 @@ FactoryBot.define do
     email { Faker::Internet.free_email }
     gateway_id { Faker::Number.number(10) }
     password { Faker::Internet.password }
+    network_id { 'ROS' }
 
     trait :with_vehicle do
       after(:create) do |shipper, evaluator|

@@ -66,6 +66,7 @@ RSpec.configure do |config|
       mock.get("/resources/institutions.json", request_headers, [institution].to_json)
       mock.get("/resources/institutions/#{institution[:id]}.json",
                request_headers, institution.to_json)
+      mock.get("/resources/institutions/fake-id.json", request_headers, nil, 404)
       mock.get('/resources/users.json', request_headers, users.to_json)
       mock.get('/resources/users.json?email=dummy%40nilus.org', request_headers, users.to_json)
       mock.get("/resources/users/#{users.first[:id]}.json", request_headers, users.first.to_json)

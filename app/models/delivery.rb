@@ -32,11 +32,15 @@ class Delivery < ApplicationRecord
   private_constant :OPTIONS
 
   def origin
+    return nil if origin_id.nil?
+
     @origin ||= Address.find_by(id: origin_id)
   end
   attribute :origin
 
   def destination
+    return nil if destination_id.nil?
+
     @destination ||= Address.find_by(id: destination_id)
   end
   attribute :destination

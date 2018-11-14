@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe TripsController, type: :request do
+  include_context 'an authenticated user'
   let(:shipper) { create(:shipper_with_vehicle_and_bank_account) }
   let(:order) { create(:full_order) }
 
   describe "GET #index" do
-    include_context 'an authenticated user'
     let!(:trips) { create_list(:trip, 5) }
 
     context 'direct trips path' do
@@ -44,7 +44,7 @@ RSpec.describe TripsController, type: :request do
       end
 
       context 'with invalid institution_id data' do
-        let(:institution_id) { SecureRandom.uuid }
+        let(:institution_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -52,7 +52,6 @@ RSpec.describe TripsController, type: :request do
   end
 
   describe "GET #show" do
-    include_context 'an authenticated user'
 
     let(:trip) { create(:trip_with_shipper) }
     before { get "/trips/#{trip.id}", headers: auth_headers(user) }
@@ -243,7 +242,7 @@ RSpec.describe TripsController, type: :request do
       end
 
       context 'with invalid institution_id' do
-        let(:institution_id) { SecureRandom.uuid }
+        let(:institution_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
