@@ -13,8 +13,6 @@ class AddressSerializer < ActiveModel::Serializer
     :telephone,
     :open_hours,
     :notes,
-    :created_at,
-    :updated_at,
     :gps_coordinates
 
   belongs_to :institution
