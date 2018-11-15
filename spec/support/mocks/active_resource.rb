@@ -11,7 +11,15 @@ RSpec.configure do |config|
 
     institution = {
       id: '37d4970a-53ea-49f5-a2f1-2cdf26f36454',
-      name: 'BAR'
+      legal_name: 'BAR',
+      uid_type: 'CUIT',
+      uid: '30-71000841-4',
+      name: 'BAR',
+      beneficiaries: 400,
+      offered_services: ['lunch'],
+      district: districts.first,
+      created_at: Time.zone.now,
+      updated_at: Time.zone.now
     }
 
     users = [
