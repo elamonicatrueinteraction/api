@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe UpdateVerification do
+  include_context 'an authenticated user'
   subject(:context) { described_class.call(verification, allowed_params, user) }
 
   let(:result) { context.result }
-  let(:user) { create(:user_with_profile) }
   let(:vehicle) { create(:vehicle) }
   let(:verification) { create(:license_plate_verification, verificable: vehicle) }
 
