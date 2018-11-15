@@ -1,6 +1,7 @@
 # Uggly hack to make some fields to appear
 
 if Rails.env.test?
+  puts 'Patched activeresource'
   class ActiveResourcePatch
     def initialize
       districts = [
