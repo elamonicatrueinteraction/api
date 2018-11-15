@@ -6,7 +6,7 @@ module Requests
   end
 
   module AuthHelpers
-    def auth_headers(user)
+    def auth_headers(_user)
       auth_token =  AuthorizeUser.call('dummy_header', {}).result
       {
         'Authorization': "Bearer #{auth_token}",

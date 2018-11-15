@@ -61,7 +61,7 @@ RSpec.configure do |config|
       street_1: "Riobamba 739",
       street_2: 'Oro 2116',
       telephone: '111-1111',
-      zip_code: '1414',
+      zip_code: '1414'
     }
 
     request_headers = {

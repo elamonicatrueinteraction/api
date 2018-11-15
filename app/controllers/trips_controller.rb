@@ -4,6 +4,7 @@ class TripsController < ApplicationController
 
   def index
     optional_institution; return if performed?
+
     render json: list_results(finder.result.includes(:orders)), status: :ok # 200
   end
 
