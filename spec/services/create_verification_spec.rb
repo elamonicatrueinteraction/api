@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe CreateVerification do
+  include_context 'an authenticated user'
   subject(:context) { described_class.call(verificable, allowed_params, user) }
 
   let(:result) { context.result }
-  let(:user) { create(:user_with_profile) }
+
   let(:vehicle) { create(:vehicle) }
   let(:verified) { Faker::Boolean.boolean }
 

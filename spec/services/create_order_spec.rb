@@ -4,12 +4,12 @@ RSpec.describe CreateOrder do
   subject(:context) { described_class.call(allowed_params) }
 
   let(:result) { context.result }
-  let(:giver) { create(:company_with_address) }
-  let(:receiver) { create(:organization_with_address) }
+  let(:giver) { Institution.all.sample }
+  let(:receiver) { Institution.all.sample }
   let(:giver_id) { giver.id }
   let(:receiver_id) { receiver.id }
-  let(:origin) { create(:company_with_address) }
-  let(:destination) { create(:company_with_address) }
+  let(:origin) { Institution.all.sample }
+  let(:destination) { Institution.all.sample }
   let(:origin_id) { origin.addresses.first.id }
   let(:destination_id) { destination.addresses.first.id }
 
@@ -63,8 +63,8 @@ RSpec.describe CreateOrder do
     end
 
     context 'when the context is not successful' do
-      let(:giver_id) { SecureRandom.uuid }
-      let(:receiver_id) { SecureRandom.uuid }
+      let(:giver_id) { 'fake-id' }
+      let(:receiver_id) { 'fake-id' }
 
       it 'fails' do
         expect(context).to be_failure
@@ -107,7 +107,7 @@ RSpec.describe CreateOrder do
     end
 
     context 'when the context is not successful' do
-      let(:origin_id) { SecureRandom.uuid }
+      let(:origin_id) { 'fake-id' }
 
       it 'fails' do
         expect(context).to be_failure
