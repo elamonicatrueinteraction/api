@@ -6,6 +6,7 @@ FactoryBot.define do
     cooling { Faker::Boolean.boolean }
     fragile { Faker::Boolean.boolean }
     description { 'Caja de alimentos' }
+    network_id { 'ROS' }
 
     factory :package do
       delivery
