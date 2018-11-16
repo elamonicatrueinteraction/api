@@ -11,7 +11,9 @@ module Notifications
       @assignments.each do |assignment|
         @shipper = assignment.shipper
 
+        logger.info "About to evaluate if the shipper should receive push #{@shipper.id}"
         if (devices = @shipper.devices[:android]) && (@trip = assignment.trip)
+          logger.info "Shipper should receive push #{@shipper.id}"
           disabled_devices = []
           notification_data = devices.keys.compact.map do |device_token|
             begin
