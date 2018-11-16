@@ -3,7 +3,8 @@ module Notifications
     include Sidekiq::Worker
     sidekiq_options queue: :high_priority
 
-    def perform(assignments_ids)
+    def perform(assignments_ids) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      logger.info "Sending push notification for #{assignments_ids.inspect}"
       @assignments = TripAssignment.preload(:shipper, :trip).where(id: assignments_ids)
 
       @assignments.each do |assignment|
