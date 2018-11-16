@@ -25,6 +25,7 @@ module Notifications
                 }
               end
             rescue Notification::Error => e
+              logger.info "Device #{device_token} is disabled"
               disabled_devices << device_token if e.cause.is_a?(Aws::SNS::Errors::EndpointDisabled)
               Rollbar.error(e, device_token: device_token, assignment: assignment.id) if defined?(Rollbar)
               nil
