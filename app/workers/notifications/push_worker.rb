@@ -6,6 +6,7 @@ module Notifications
     def perform(assignments_ids) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       logger.info "Sending push notification for #{assignments_ids.inspect}"
       @assignments = TripAssignment.preload(:shipper, :trip).where(id: assignments_ids)
+      logger.info "Found #{@assignments.ids.inspect}"
 
       @assignments.each do |assignment|
         @shipper = assignment.shipper
