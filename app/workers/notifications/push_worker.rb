@@ -8,12 +8,12 @@ module Notifications
       @assignments = TripAssignment.preload(:shipper, :trip).where(id: assignments_ids)
       logger.info "Found #{@assignments.ids.inspect}"
 
-      @assignments.each do |assignment|
+      @assignments.each do |assignment| # rubocop:disable Metrics/BlockLength
         @shipper = assignment.shipper
 
         logger.info "About to evaluate if the shipper should receive push #{@shipper.id}"
-        logger.info "#{@shipper.devices.inspect}"
-        if (devices = @shipper.devices[:android]) && (@trip = assignment.trip)
+        logger.info "Shipper #{@shipper.devices.inspect}"
+        if (devices = @shipper.devices['android']) && (@trip = assignment.trip)
           logger.info "Shipper should receive push #{@shipper.id}"
           disabled_devices = []
           notification_data = devices.keys.compact.map do |device_token|
