@@ -22,7 +22,7 @@ module Notifications
               end
             rescue Notification::Error => e
               disabled_devices << device_token if e.cause.is_a?(Aws::SNS::Errors::EndpointDisabled)
-              Rollbar.info(e, device_token: device_token, assignment: assignment.id) if defined?(Rollbar)
+              Rollbar.error(e, device_token: device_token, assignment: assignment.id) if defined?(Rollbar)
               nil
             end
           end.compact
@@ -32,6 +32,7 @@ module Notifications
           end
 
           if disabled_devices.present?
+            logger.info "Disabling devices #{disabled_devices.inspect}"
             PurgeDisabledDevicesWorker.perform_async(@shipper.id, disabled_devices)
           end
 
