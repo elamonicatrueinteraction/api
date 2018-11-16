@@ -25,6 +25,8 @@ class Notification
     }.to_json
 
     # Pushing message to device through endpoint_arn
+    logger.info "ARN: #{endpoint_arn}"
+    logger.info "message: #{message}"
     sns.publish(
       target_arn: endpoint_arn,
       message: message,
