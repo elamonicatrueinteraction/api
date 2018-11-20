@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PackagesController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
   let(:delivery) { create(:delivery) }
   let(:delivery_id) { delivery.id }
 
@@ -17,7 +17,7 @@ RSpec.describe PackagesController, type: :request do
     end
 
     context 'with invalid delivery_id data' do
-      let(:delivery_id) { SecureRandom.uuid }
+      let(:delivery_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
@@ -35,13 +35,13 @@ RSpec.describe PackagesController, type: :request do
     end
 
     context 'with invalid delivery_id data' do
-      let(:delivery_id) { SecureRandom.uuid }
+      let(:delivery_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
 
     context 'with invalid package_id data' do
-      let(:package_id) { SecureRandom.uuid }
+      let(:package_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
@@ -79,7 +79,7 @@ RSpec.describe PackagesController, type: :request do
     end
 
     context 'with invalid delivery_id data' do
-      let(:delivery_id) { SecureRandom.uuid }
+      let(:delivery_id) { 'fake-id' }
 
       it { expect(Package.count).to eq(0) }
       it_behaves_like 'a not_found request'
@@ -117,13 +117,13 @@ RSpec.describe PackagesController, type: :request do
     end
 
     context 'with invalid package id' do
-      let(:package_id) { SecureRandom.uuid }
+      let(:package_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
 
     context 'with invalid delivery id' do
-      let(:delivery_id) { SecureRandom.uuid }
+      let(:delivery_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
@@ -142,13 +142,13 @@ RSpec.describe PackagesController, type: :request do
     end
 
     context 'with invalid package id' do
-      let(:package_id) { SecureRandom.uuid }
+      let(:package_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end
 
     context 'with invalid delivery id' do
-      let(:delivery_id) { SecureRandom.uuid }
+      let(:delivery_id) { 'fake-id' }
 
       it { expect(Package.count).to eq(1) }
       it_behaves_like 'a not_found request'

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DeliveriesController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
   let(:order) { create(:order) }
   let(:origin) { order.giver.addresses.first }
   let(:destination) { order.receiver.addresses.first }
@@ -20,7 +20,7 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid order_id data' do
-        let(:order_id) { SecureRandom.uuid }
+        let(:order_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -40,13 +40,13 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid order_id data' do
-        let(:order_id) { SecureRandom.uuid }
+        let(:order_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
 
       context 'with invalid delivery_id data' do
-        let(:delivery_id) { SecureRandom.uuid }
+        let(:delivery_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -88,7 +88,7 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid order_id' do
-        let(:parameters) { delivery_parameters.merge(order_id: SecureRandom.uuid) }
+        let(:parameters) { delivery_parameters.merge(order_id: 'fake-id') }
 
         it_behaves_like 'a not_found request'
       end
@@ -111,7 +111,7 @@ RSpec.describe DeliveriesController, type: :request do
         end
 
         context 'with invalid data' do
-          let(:parameters) { delivery_parameters.merge(order_id: order_id, origin_id: SecureRandom.uuid) }
+          let(:parameters) { delivery_parameters.merge(order_id: order_id, origin_id: 'fake-id') }
 
           it_behaves_like 'a failed request'
         end
@@ -123,7 +123,7 @@ RSpec.describe DeliveriesController, type: :request do
     let(:delivery) { create(:delivery_with_packages, order: order) }
     let(:delivery_id) { delivery.id }
     let(:delivery_update) { build_stubbed(:delivery) }
-    let(:destination_update) { create(:organization_address) }
+    let(:destination_update) { Address.all.sample }
 
     let(:delivery_parameters) {
       {
@@ -143,7 +143,7 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid order_id' do
-        let(:parameters) { delivery_parameters.merge(order_id: SecureRandom.uuid) }
+        let(:parameters) { delivery_parameters.merge(order_id: 'fake-id') }
 
         it_behaves_like 'a not_found request'
       end
@@ -157,7 +157,7 @@ RSpec.describe DeliveriesController, type: :request do
         end
 
         context 'with invalid data' do
-          let(:parameters) { delivery_parameters.merge(order_id: order_id, destination_id: SecureRandom.uuid) }
+          let(:parameters) { delivery_parameters.merge(order_id: order_id, destination_id: 'fake-id') }
 
           it_behaves_like 'a failed request'
         end
@@ -178,13 +178,13 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid delivery_id' do
-        let(:delivery_id) { SecureRandom.uuid }
+        let(:delivery_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
 
       context 'with invalid order_id' do
-        let(:order_id) { SecureRandom.uuid }
+        let(:order_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -199,7 +199,7 @@ RSpec.describe DeliveriesController, type: :request do
       end
 
       context 'with invalid order_id' do
-        let(:parameters) { { order_id: SecureRandom.uuid } }
+        let(:parameters) { { order_id: 'fake-id' } }
 
         it_behaves_like 'a not_found request'
       end

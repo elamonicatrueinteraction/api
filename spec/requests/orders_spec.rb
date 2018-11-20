@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :request do
-  let(:user) { create(:user_with_profile) }
-  let(:giver) { create(:company_with_address) }
-  let(:receiver) { create(:organization_with_address) }
+  include_context 'an authenticated user'
+  let(:giver) { Institution.all.sample }
+  let(:receiver) { Institution.all.sample }
 
   describe "GET #index" do
     let!(:orders) { create_list(:full_order, 3) }
@@ -23,12 +23,12 @@ RSpec.describe OrdersController, type: :request do
 
       context 'with valid institution_id data' do
         it_behaves_like 'a successful request', :orders
-        it { expect(json[:orders].size).to eq(1) }
+        it { expect(json[:orders].size).to eq(3) }
         it { expect(response).to match_response_schema("orders") }
       end
 
       context 'with invalid institution_id data' do
-        let(:institution_id) { SecureRandom.uuid }
+        let(:institution_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -94,7 +94,7 @@ RSpec.describe OrdersController, type: :request do
       end
 
       context 'with invalid data' do
-        let(:parameters) { order_parameters.merge(giver_id:  SecureRandom.uuid) }
+        let(:parameters) { order_parameters.merge(giver_id:  'fake-id') }
 
         it_behaves_like 'a failed request'
         it { expect(Order.all).to be_blank }
@@ -115,7 +115,7 @@ RSpec.describe OrdersController, type: :request do
       end
 
       context 'with invalid data' do
-        let(:parameters) { order_parameters.merge(delivery_parameters).merge(origin_id:  SecureRandom.uuid) }
+        let(:parameters) { order_parameters.merge(delivery_parameters).merge(origin_id:  'fake-id') }
 
         it_behaves_like 'a failed request'
         it { expect(Order.all).to be_blank }
@@ -136,7 +136,7 @@ RSpec.describe OrdersController, type: :request do
       end
 
       context 'with invalid data' do
-        let(:parameters) { order_parameters.merge(delivery_parameters).merge(origin_id:  SecureRandom.uuid).merge(packages: packages_parameters) }
+        let(:parameters) { order_parameters.merge(delivery_parameters).merge(origin_id:  'fake-id').merge(packages: packages_parameters) }
 
         it_behaves_like 'a failed request'
         it { expect(Order.all).to be_blank }
@@ -161,7 +161,7 @@ RSpec.describe OrdersController, type: :request do
     end
 
     context 'with invalid order_id' do
-      let(:order_id) { SecureRandom.uuid }
+      let(:order_id) { 'fake-id' }
 
       it_behaves_like 'a not_found request'
     end

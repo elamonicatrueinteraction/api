@@ -13,6 +13,7 @@ FactoryBot.define do
     deliveries { create_list(:delivery_with_packages, 1, status: 'assigned') }
     amount { deliveries.sum(&:amount) }
     steps { steps_data(deliveries, pickup_schedule, dropoff_schedule) }
+    network_id { 'ROS' }
 
     trait :broadcasted do
       status 'waiting_shipper'

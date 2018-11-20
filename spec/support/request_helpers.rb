@@ -6,10 +6,11 @@ module Requests
   end
 
   module AuthHelpers
-    def auth_headers(user)
-      auth_token =  AuthenticateUser.call(user.email, user.password).result
+    def auth_headers(_user)
+      auth_token =  AuthorizeUser.call('dummy_header', {}).result
       {
-        'Authorization': "Bearer #{auth_token}"
+        'Authorization': "Bearer #{auth_token}",
+        'X-Network-Id': auth_token.networks.first
       }
     end
 

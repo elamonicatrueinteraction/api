@@ -57,14 +57,12 @@ class CreateDelivery
       status: params_status_or_default(@allowed_params[:status]),
       options: @allowed_params[:options]
     }.tap do |_hash|
-      if _hash[:origin_id]
-        origin = Address.find_by(id: _hash[:origin_id])
+      if _hash[:origin_id] && origin = Address.find_by(id: _hash[:origin_id])
         _hash[:origin_gps_coordinates] = origin.gps_coordinates
         _hash[:pickup] = location_data(origin)
       end
 
-      if _hash[:destination_id]
-        destination = Address.find_by(id: _hash[:destination_id])
+      if _hash[:destination_id] && destination = Address.find_by(id: _hash[:destination_id])
         _hash[:destination_gps_coordinates] = destination.gps_coordinates
         _hash[:dropoff] = location_data(destination)
       end

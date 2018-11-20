@@ -31,18 +31,24 @@ class Delivery < ApplicationRecord
   ).freeze
   private_constant :OPTIONS
 
+  validates :origin, :destination, presence: true
+
   def origin
+    return nil if origin_id.nil?
+
     @origin ||= Address.find_by(id: origin_id)
   end
   attribute :origin
 
   def destination
+    return nil if destination_id.nil?
+
     @destination ||= Address.find_by(id: destination_id)
   end
   attribute :destination
 
   def origin_gps_coordinates
-    return if destination.nil?
+    return if origin.nil?
 
     RGeo::Geographic::SphericalPointImpl.new(
       RGeo::Geographic.spherical_factory(srid: 4326),

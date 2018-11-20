@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TripsController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
   let(:shipper) { create(:shipper_with_vehicle_and_bank_account) }
   let(:order) { create(:full_order) }
 
@@ -39,12 +39,12 @@ RSpec.describe TripsController, type: :request do
 
       context 'with valid institution_id data' do
         it_behaves_like 'a successful request', :trips
-        it { expect(json[:trips].size).to eq(1) }
+        it { expect(json[:trips].size).to eq(5) }
         it { expect(response).to match_response_schema("trips") }
       end
 
       context 'with invalid institution_id data' do
-        let(:institution_id) { SecureRandom.uuid }
+        let(:institution_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -52,6 +52,7 @@ RSpec.describe TripsController, type: :request do
   end
 
   describe "GET #show" do
+
     let(:trip) { create(:trip_with_shipper) }
     before { get "/trips/#{trip.id}", headers: auth_headers(user) }
 
@@ -241,7 +242,7 @@ RSpec.describe TripsController, type: :request do
       end
 
       context 'with invalid institution_id' do
-        let(:institution_id) { SecureRandom.uuid }
+        let(:institution_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end

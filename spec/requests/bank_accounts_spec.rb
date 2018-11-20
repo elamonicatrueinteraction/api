@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BankAccountsController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
   let(:shipper) { create(:shipper) }
   let(:shipper_id) { shipper.id }
 
@@ -18,7 +18,7 @@ RSpec.describe BankAccountsController, type: :request do
       end
 
       context 'with invalid shipper_id data' do
-        let(:shipper_id) { SecureRandom.uuid }
+        let(:shipper_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -38,13 +38,13 @@ RSpec.describe BankAccountsController, type: :request do
       end
 
       context 'with invalid shipper_id data' do
-        let(:shipper_id) { SecureRandom.uuid }
+        let(:shipper_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
 
       context 'with invalid bank_account_id data' do
-        let(:bank_account_id) { SecureRandom.uuid }
+        let(:bank_account_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -59,7 +59,7 @@ RSpec.describe BankAccountsController, type: :request do
       end
 
       context 'with invalid bank_account_id data' do
-        let(:bank_account_id) { SecureRandom.uuid }
+        let(:bank_account_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -103,7 +103,7 @@ RSpec.describe BankAccountsController, type: :request do
       end
 
       context 'with invalid shipper_id' do
-        let(:parameters) { bank_account_parameters.merge(shipper_id: SecureRandom.uuid) }
+        let(:parameters) { bank_account_parameters.merge(shipper_id: 'fake-id') }
 
         it_behaves_like 'a not_found request'
       end
@@ -157,13 +157,13 @@ RSpec.describe BankAccountsController, type: :request do
       end
 
       context 'with invalid bank account id' do
-        let(:bank_account_id) { SecureRandom.uuid }
+        let(:bank_account_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
 
       context 'with invalid shipper id' do
-        let(:shipper_id) { SecureRandom.uuid }
+        let(:shipper_id) { 'fake-id' }
 
         it_behaves_like 'a not_found request'
       end
@@ -187,14 +187,14 @@ RSpec.describe BankAccountsController, type: :request do
         end
 
         context 'with invalid bank account id' do
-          let(:bank_account_id) { SecureRandom.uuid }
+          let(:bank_account_id) { 'fake-id' }
           let(:parameters) { bank_account_parameters.merge(shipper_id: shipper_id) }
 
           it_behaves_like 'a not_found request'
         end
 
         context 'with invalid shipper id' do
-          let(:parameters) { bank_account_parameters.merge(shipper_id: SecureRandom.uuid) }
+          let(:parameters) { bank_account_parameters.merge(shipper_id: 'fake-id') }
 
           it_behaves_like 'a not_found request'
         end
@@ -213,7 +213,7 @@ RSpec.describe BankAccountsController, type: :request do
         end
 
         context 'with invalid bank account id' do
-          let(:bank_account_id) { SecureRandom.uuid }
+          let(:bank_account_id) { 'fake-id' }
 
           it_behaves_like 'a not_found request'
         end

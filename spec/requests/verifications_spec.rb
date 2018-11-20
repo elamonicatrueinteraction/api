@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VerificationsController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
 
   describe "GET #index" do
     let(:vehicle) { create(:vehicle) }

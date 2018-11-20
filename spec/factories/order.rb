@@ -2,8 +2,9 @@ FactoryBot.define do
   factory :order do
     amount { Faker::Number.decimal(3, 2) }
     bonified_amount { Faker::Number.number(2) }
-    association :giver, factory: :company_with_address
-    association :receiver, factory: :organization_with_address
+    giver_id { Institution.all.sample.id }
+    receiver_id { Institution.all.sample.id }
+    network_id { 'ROS' }
 
     trait :with_deliveries do
       after(:create) do |order, evaluator|

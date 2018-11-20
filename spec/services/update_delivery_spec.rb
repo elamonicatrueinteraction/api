@@ -8,7 +8,7 @@ RSpec.describe UpdateDelivery do
 
   describe ".call" do
     let(:new_amount) { 500 }
-    let(:new_destination) { create(:organization_address) }
+    let(:new_destination) { Address.all.sample }
 
     context 'when the context is successful' do
       let(:allowed_params) {
@@ -29,7 +29,7 @@ RSpec.describe UpdateDelivery do
 
     context 'when the context is not successful' do
       let(:allowed_params) {
-        HashWithIndifferentAccess.new({ origin_id: SecureRandom.uuid })
+        HashWithIndifferentAccess.new({ origin_id: 'fake-id' })
       }
 
       it 'fails' do
