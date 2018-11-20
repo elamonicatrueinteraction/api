@@ -48,11 +48,11 @@ class CreateOrder
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount],
       giver_id: @allowed_params[:giver_id],
-      receiver_id: @allowed_params[:receiver_id]
+      receiver_id: @allowed_params[:receiver_id],
     }.tap do |_hash|
       _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]).as_json if @allowed_params[:giver_id].present?
       _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]).as_json if @allowed_params[:receiver_id].present?
-
+      _hash[:network_id] = _hash[:giver]['network_id'] if _hash[:giver].present?
       _hash[:marketplace_order_id] = @allowed_params[:marketplace_order_id] if @allowed_params[:marketplace_order_id].present?
       _hash[:delivery_preference] = @allowed_params[:delivery_preference] if @allowed_params[:delivery_preference].present?
     end

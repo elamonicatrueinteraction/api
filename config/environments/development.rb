@@ -59,4 +59,6 @@ Rails.application.configure do
     :request_id,
     ->(req) { req.headers.fetch('X-Client-Version', 'No version') }
   ]
+
+  config.cache_store = :redis_store, "redis://localhost:6379/0/cache"
 end

@@ -4,9 +4,7 @@ class OrdersController < ApplicationController
   def index
     optional_institution; return if performed?
 
-    finder = Finder::Orders.call(institution: current_institution, filter_params: filter_params)
-
-    render json: list_results(finder.result), status: :ok # 200
+    render json: cached_list
   end
 
   def create
@@ -42,6 +40,19 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def cached_list
+    Rails.cache.fetch('orders', expires_in: 1.hour) do
+      Rails.logger.info "Generating cache for 'orders' in #{@units}"
+
+      finder = Finder::Orders.call(institution: current_institution, filter_params: filter_params)
+      list_results(finder).to_json
+    end
+  end
+
+  def list_cache_key
+    "orders"
+  end
 
   def order_params
     params.permit(

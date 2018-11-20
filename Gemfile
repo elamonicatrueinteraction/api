@@ -33,6 +33,7 @@ gem 'querifier'
 
 gem 'dotenv-rails'
 gem 'pry-rails'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'

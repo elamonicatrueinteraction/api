@@ -286,8 +286,8 @@ ActiveRecord::Schema.define(version: 20181106194555) do
     t.jsonb "extras", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "max_weight"
     t.string "network_id"
+    t.integer "max_weight"
     t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
     t.index ["network_id"], name: "index_vehicles_on_network_id"
     t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"
