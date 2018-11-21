@@ -15,4 +15,9 @@ class UserApiResource < ActiveResource::Base
     nil
   end
 
+  def self.default_scope_by_network
+    return unless ApplicationRecord.current_network
+
+    headers['X-Network-ID'] = ApplicationRecord.current_network
+  end
 end
