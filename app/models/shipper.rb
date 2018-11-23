@@ -8,7 +8,7 @@ class Shipper < ApplicationRecord
   # TO-DO: We should remove this logic from here
   attribute :devices, :jsonb, default: {}
 
-  scope :with_android_device_tokens, -> { where("devices->>':android' IS NOT NULL") }
+  scope :with_android_device_tokens, -> { where("devices->>'android' IS NOT NULL") }
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts
