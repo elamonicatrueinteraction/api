@@ -18,6 +18,8 @@ class UserApiResource < ActiveResource::Base
     Rails.logger.info(
       "Find User resource with #{UserApiResource.current_network}"
     )
+    ActiveResource::Base.headers['X-Network-Id'] =
+      UserApiResource.current_network
     find(id)
   rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED
     nil
