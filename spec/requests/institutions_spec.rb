@@ -28,6 +28,9 @@ RSpec.describe InstitutionsController, type: :request do
         type: 'Organization',
         name: institution.name,
         legal_name: institution.legal_name,
+        offered_services: ['lunch'],
+        beneficiaries: 300,
+        district_id: create(:district).id,
         uid_type: institution.uid_type,
         uid: institution.uid
       }

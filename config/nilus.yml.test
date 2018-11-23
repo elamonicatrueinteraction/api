@@ -20,6 +20,11 @@ development: &app_config
       payer_email:
         nilus: 'test_user_92173722@testuser.com'
         bar: 'test_user_92173722@testuser.com'
+        mdq: 'test_user_62958989@testuser.com'
+
+    mdq: # for the Test user -> TEST0548
+      public_key: TEST-00699a26-4b22-4ccb-9d1f-c538a7e49550
+      access_token: TEST-463061222647738-042314-37ded60b57e20507d4ca94d4aa3124f3-316519508
     bar: # for the Test user -> TETE6135026
       public_key: TEST-00699a26-4b22-4ccb-9d1f-c538a7e49550
       access_token: TEST-463061222647738-042314-37ded60b57e20507d4ca94d4aa3124f3-316519508

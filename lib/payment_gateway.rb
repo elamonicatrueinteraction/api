@@ -20,8 +20,6 @@ class PaymentGateway
     @gateway_account_class.new(@credentials)
   end
 
-  private
-
   def get_credentials_for(payable)
     payable.is_a?(Order) ? MERCADOPAGO['bar'] : MERCADOPAGO['nilus']
   end

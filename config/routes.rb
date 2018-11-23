@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # ╭─ Private Accesible URL's / Path's
   # | Version 1
     scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
+      resources :districts, only: [:index]
       resources :shippers, only: [ :create, :show, :index, :update ] do
         resources :vehicles, only: [ :create, :index, :update ]
         resources :bank_accounts, only: [ :index, :show, :create, :update ]

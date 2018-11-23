@@ -26,7 +26,10 @@
           "uid_type" : { "type" : "string" },
           "uid" : { "type" : "string" },
           "created_at" : { "type" : "datetime" },
-          "updated_at" : { "type" : "datetime" },
+          "updated_at" : { "type" : "datetime" },          
+          "beneficiaries": { "type": "integer" },
+          "offered_services": { "type": "array" },
+          "district": { "type": "object" },
           "addresses" : {
             "type" : "array",
             "items": {

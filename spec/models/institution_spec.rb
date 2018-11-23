@@ -8,4 +8,6 @@ RSpec.describe Institution, type: :model do
   it { expect(subject.class.valid_types).to contain_exactly('organization', 'company') }
 
   it { is_expected.to respond_to(:type_name).with(0).argument }
+
+  it { should validate_presence_of(:offered_services) }
 end
