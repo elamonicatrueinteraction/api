@@ -4,6 +4,10 @@ class UserApiResource < ActiveResource::Base
   self.site = "#{USER_SERVICE_ENDPOINT}/resources"
   headers['Authorization'] = "Token token=#{USER_SERVICE_TOKEN}"
 
+  class << self
+    attr_accessor :current_network
+  end
+
   def initialize(args = {}, _arg = nil)
     super(args)
   rescue # rubocop:disable Lint/HandleExceptions, Style/RescueStandardError
@@ -11,6 +15,7 @@ class UserApiResource < ActiveResource::Base
 
   def self.find_by(id: nil)
     Rails.logger.info "Find User resource with #{headers['X-Network-ID']}"
+    Rails.logger.info "Find User resource with #{current_network}"
     find(id)
   rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED
     nil
@@ -21,6 +26,7 @@ class UserApiResource < ActiveResource::Base
 
     Rails.logger.info "User resource with current network #{current_network}"
     Rails.logger.info "User resource with network #{headers['X-Network-ID']}"
+    UserApiResource.current_network = current_network
     headers['X-Network-ID'] = current_network
   end
 end
