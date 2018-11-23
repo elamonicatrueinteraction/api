@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   def set_current_network
     Rails.logger.info "Network: #{current_network}"
     ApplicationRecord.current_network = current_network
-    UserApiResource.default_scope_by_network
+    UserApiResource.default_scope_by_network(current_network)
   end
 
   def current_network
