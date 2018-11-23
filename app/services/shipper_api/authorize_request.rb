@@ -14,7 +14,7 @@ module ShipperApi
 
     def shipper
       if decoded_auth_token
-        shipper = Shipper.find_by(id: decoded_auth_token[:shipper_id], token_expire_at: decoded_auth_token[:exp] )
+        shipper = Shipper.unscoped.find_by(id: decoded_auth_token[:shipper_id], token_expire_at: decoded_auth_token[:exp] )
 
         @shipper ||= shipper if shipper && shipper.token_expire_at >= Time.now.to_i
       end
