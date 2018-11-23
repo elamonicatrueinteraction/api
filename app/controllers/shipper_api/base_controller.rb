@@ -1,5 +1,6 @@
 module ShipperApi
   class BaseController < ActionController::API
+    before_action :log_extra
     before_action :authorize_request
 
     attr_reader :current_shipper
@@ -9,6 +10,10 @@ module ShipperApi
     end
 
     private
+
+    def log_extra
+      Rails.logger.info(request.env.select { |k, _v| k =~ /^HTTP_/ })
+    end
 
     def authorize_request
       authenticate_shipper || render_unauthorized('Nilus Shipper API')
