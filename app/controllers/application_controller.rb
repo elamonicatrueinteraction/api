@@ -3,8 +3,8 @@ class ApplicationController < ActionController::API
   include ActionController::MimeResponds
   include PagingStuff
 
-  before_action :set_current_network, if: :current_user
   before_action :authorize_request
+  before_action :set_current_network, if: :current_user
 
   attr_reader :current_user
 
