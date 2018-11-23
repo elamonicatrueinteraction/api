@@ -24,7 +24,7 @@ class PaymentGateway
     return MERCADOPAGO['nilus'] if payable.is_a?(Delivery)
     # TODO: Move this to a database record
     return MERCADOPAGO['bar'] if payable.network_id == 'ROS'
-    return MERCADOPAGO['mdq'] if payable.network_id == 'mdq'
+    return MERCADOPAGO['mdq'] if payable.network_id == 'MDQ'
   end
 
 end
