@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Finder::Orders do
-  subject(:service) { described_class.call(institution: institution) }
+  subject(:service) { described_class.call(institution_id: institution&.id) }
 
   let!(:orders) { create_list(:full_order, 5) }
 

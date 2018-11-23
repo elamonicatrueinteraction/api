@@ -26,7 +26,7 @@ module Finder
     # TO-DO:  This is ugly as fuck!! :(, we should consider refactor the data model to improve
     # this and other aspects of the relationships between ORDER <-> TRIPS <-> DELIVERIES <-> INSTITUTIONS
     def trips_ids
-      orders_ids = Finder::Orders.call(institution: @institution).result.pluck(:id)
+      orders_ids = Finder::Orders.call(institution_id: @institution&.id).result.pluck(:id)
 
       Delivery.where('order_id IN (?)', orders_ids).pluck(:trip_id)
     end
