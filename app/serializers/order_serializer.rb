@@ -2,8 +2,6 @@ class OrderSerializer < Simple::OrderSerializer
   has_many :deliveries, serializer: Simple::DeliverySerializer
 
   def giver
-    return nil if object.giver.nil?
-
     ActiveModelSerializers::SerializableResource.new(
       object.giver,
       { serializer: Simple::InstitutionSerializer }
@@ -11,8 +9,6 @@ class OrderSerializer < Simple::OrderSerializer
   end
 
   def receiver
-    return nil if object.giver.nil?
-
     ActiveModelSerializers::SerializableResource.new(
       object.receiver,
       { serializer: Simple::InstitutionSerializer }
