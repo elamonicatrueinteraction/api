@@ -16,7 +16,7 @@ class UserApiResource < ActiveResource::Base
   end
 
   def self.default_scope_by_network(current_network)
-    return unless ApplicationRecord.current_network
+    return unless current_network
 
     Rails.logger.info "User resource with current network #{current_network}"
     Rails.logger.info "User resource with network #{headers['X-Network-ID']}"
