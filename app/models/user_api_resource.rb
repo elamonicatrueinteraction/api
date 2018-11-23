@@ -20,6 +20,6 @@ class UserApiResource < ActiveResource::Base
 
     Rails.logger.info "User resource with current network #{current_network}"
     Rails.logger.info "User resource with network #{headers['X-Network-ID']}"
-    headers['X-Network-ID'] = ApplicationRecord.current_network
+    headers['X-Network-ID'] = current_network
   end
 end
