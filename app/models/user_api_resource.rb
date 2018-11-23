@@ -10,6 +10,7 @@ class UserApiResource < ActiveResource::Base
   end
 
   def self.find_by(id: nil)
+    Rails.logger.info "Find User resource with #{headers['X-Network-ID']}"
     find(id)
   rescue ActiveResource::ResourceNotFound, Errno::ECONNREFUSED
     nil
