@@ -45,8 +45,12 @@ class Shipper < ApplicationRecord
   alias :name :full_name
 
   # TO-DO: We should remove this logic from here
-  def has_device?(_device_hash = {})
-    !devices.empty?
+  def has_device?(device_hash = {})
+    type, token = device_hash.fetch_values(:type, :token)
+
+    return false unless devices.keys.include?(type)
+
+    devices[type].key?(token)
   end
 
   def requirements
