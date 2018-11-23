@@ -35,8 +35,9 @@ module ShipperApi
     def shipper
       return @shipper unless @shipper.blank?
 
-      @shipper = Shipper.find_by(email: email)
+      @shipper = Shipper.unscoped.find_by(email: email)
       if @shipper && @shipper.authenticate(password)
+        Rails.logger.info 'Password and email is valid'
         @shipper.update( columns_to_update )
         return @shipper
       end

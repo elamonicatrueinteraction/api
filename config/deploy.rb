@@ -30,7 +30,7 @@ set :puma_preload_app, false
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 
-set :linked_files, %w{config/nilus.yml config/secrets.yml config/puma.rb config/sidekiq.yml .env}
+set :linked_files, %w{config/nilus.yml config/secrets.yml config/puma.rb config/sidekiq.yml .env config/nilus-services.yml}
 set :linked_dirs,  %w{bundle lib/tasks/log log public/system tmp/cache tmp/pids tmp/sockets}
 
 set :whenever_roles, ->{ :app }

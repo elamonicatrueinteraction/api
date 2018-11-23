@@ -1,6 +1,17 @@
 FactoryBot.define do
   factory :address do
-    gps_coordinates { "POINT(#{Faker::Address.longitude} #{Faker::Address.latitude})" }
+    gps_coordinates do
+      puts
+      puts 'The address factory is deprecated, consider using the address class directly'
+      Address::GpsCoordinates.new(
+        "POINT(#{Faker::Address.longitude} #{Faker::Address.latitude})"
+      )
+    end
+    coordinates do
+      Address::GpsCoordinates.new(
+        "POINT(#{Faker::Address.longitude} #{Faker::Address.latitude})"
+      )
+    end
     street_1  { Faker::Address.street_address }
     street_2  { Faker::Address.secondary_address }
     zip_code  { Faker::Address.zip_code }
@@ -15,11 +26,11 @@ FactoryBot.define do
     notes  { Faker::Lorem.sentence }
 
     trait :for_organization do
-      association :institution, factory: [ :organization ]
+      institution_id { Institution.all.sample.id }
     end
 
     trait :for_company do
-      association :institution, factory: [ :company ]
+      institution_id { Institution.all.sample.id }
     end
 
     factory :organization_address, traits: [ :for_organization ]

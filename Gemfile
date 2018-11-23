@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'activerecord-postgis-adapter'
+gem 'activeresource', '~> 5.0'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'discard', '~> 1.0' # Soft deletes for ActiveRecord done right.
 gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for value coercions, applying constraints and other stuff
@@ -20,6 +21,7 @@ gem 'rgeo-geojson'
 gem 'role_model'
 gem 'rollbar' # Rollbar is an error tracking service for Ruby
 gem 'sidekiq'
+gem 'typhoeus' # In order to make HTTP Requests
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
 
@@ -30,13 +32,12 @@ gem 'api-pagination' # For pagination info in your headers, not in your response
 gem 'querifier'
 
 gem 'dotenv-rails'
-
+gem 'pry-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'bullet', '5.7.5'
-  gem 'pry-rails'
 
   gem 'faker'
 end

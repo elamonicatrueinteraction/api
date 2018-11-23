@@ -1,3 +1,2 @@
-class District < ApplicationRecord
-  validates :name, presence: true
+class District < UserApiResource
 end

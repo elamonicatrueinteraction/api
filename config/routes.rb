@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # ╭─ Public Accesible URL's / Path's
     root to: 'home#show'
-    post 'authenticate', action: :authenticate, controller: :authentication
 
     namespace :webhooks do
       post 'mercadopago/payment/:uuid', action: :payment_notification, controller: :mercadopago, as: :mercadopago_payment
@@ -25,7 +24,7 @@ Rails.application.routes.draw do
         resources :verifications, only: [ :create, :index, :update, :destroy ]
       end
 
-      resources :institutions, only: [ :create, :show, :index, :update, :destroy ] do
+      resources :institutions, only: [] do
         resources :addresses, only: [ :create, :index, :update, :destroy ]
         resources :orders, only: [ :index ]
         resources :trips, only: [ :index ] do
@@ -33,7 +32,6 @@ Rails.application.routes.draw do
             get :export
           end
         end
-        resources :users, only: [ :create, :index, :update, :destroy ]
       end
 
       resources :orders, only: [ :create, :show, :index, :destroy ] do
@@ -87,12 +85,8 @@ Rails.application.routes.draw do
 
   # ╭─ Services Endpoints URL's / Path's
     namespace :services do
-    # ╭─ Private Accesible URL's / Path's
-      get 'hello', action: :hello, controller: :base
-
-      resources :institutions, only: [ :show, :index ]
+    # ╭─ Private Accesible URL's / Path's\
       resources :orders, only: [ :create ]
-      resources :users, only: [ :show, :index, :update ]
     # ╰─ End of Private Accesible URL's / Path's
     end
   # ╰─ End of Services Endpoints URL's / Path's

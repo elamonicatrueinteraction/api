@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ShippersController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
 
   describe "GET #index" do
     let!(:shippers) { create_list(:shipper_with_vehicle, 5) }
@@ -58,7 +58,7 @@ RSpec.describe ShippersController, type: :request do
     end
 
     context 'with invalid shipper id' do
-      let(:shipper_id) { SecureRandom.uuid }
+      let(:shipper_id) { 'fake-id' }
       let(:parameters) { { email: shipper_update.email } }
 
       it_behaves_like 'a not_found request'

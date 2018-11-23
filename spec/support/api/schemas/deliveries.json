@@ -111,9 +111,7 @@
               "contact_email",
               "telephone",
               "open_hours",
-              "notes",
-              "created_at",
-              "updated_at"
+              "notes"
             ],
             "properties" : {
               "id" : { "type" : "string" },
@@ -129,9 +127,7 @@
               "contact_email" : { "type" : "string" },
               "telephone" : { "type" : "string" },
               "open_hours" : { "type" : "string" },
-              "notes" : { "type" : "string" },
-              "created_at" : { "type" : "datetime" },
-              "updated_at" : { "type" : "datetime" }
+              "notes" : { "type" : "string" }
             }
           },
           "destination" : {
@@ -150,9 +146,7 @@
               "contact_email",
               "telephone",
               "open_hours",
-              "notes",
-              "created_at",
-              "updated_at"
+              "notes"
             ],
             "properties" : {
               "id" : { "type" : "string" },
@@ -168,9 +162,7 @@
               "contact_email" : { "type" : "string" },
               "telephone" : { "type" : "string" },
               "open_hours" : { "type" : "string" },
-              "notes" : { "type" : "string" },
-              "created_at" : { "type" : "datetime" },
-              "updated_at" : { "type" : "datetime" }
+              "notes" : { "type" : "string" }
             }
           },
           "order" : {

@@ -4,7 +4,9 @@ class OrdersController < ApplicationController
   def index
     optional_institution; return if performed?
 
-    finder = Finder::Orders.call(institution: current_institution, filter_params: filter_params)
+    finder =
+      Finder::Orders.call(institution_id: params.fetch(:institution_id, current_institution&.id),
+                          filter_params: filter_params)
 
     render json: list_results(finder.result), status: :ok # 200
   end

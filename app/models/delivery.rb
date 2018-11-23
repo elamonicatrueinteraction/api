@@ -9,12 +9,12 @@ class Delivery < ApplicationRecord
 
   include Payable
 
-  belongs_to :origin, class_name: 'Address'
-  belongs_to :destination, class_name: 'Address'
+  # belongs_to :origin, class_name: 'Address'
+  # belongs_to :destination, class_name: 'Address'
   belongs_to :order
   belongs_to :trip, optional: true
-  has_one :giver, through: :order, class_name: 'Institution'
-  has_one :receiver, through: :order, class_name: 'Institution'
+  # has_one :giver, through: :order, class_name: 'Institution'
+  # has_one :receiver, through: :order, class_name: 'Institution'
   has_many :packages, dependent: :destroy
 
   VALID_STATUS = %w(
@@ -30,6 +30,50 @@ class Delivery < ApplicationRecord
     refrigerated
   ).freeze
   private_constant :OPTIONS
+
+  validates :origin, :destination, presence: true
+
+  def origin
+    return nil if origin_id.nil?
+
+    @origin ||= Address.find_by(id: origin_id)
+  end
+  attribute :origin
+
+  def destination
+    return nil if destination_id.nil?
+
+    @destination ||= Address.find_by(id: destination_id)
+  end
+  attribute :destination
+
+  def origin_gps_coordinates
+    return if origin.nil?
+
+    RGeo::Geographic::SphericalPointImpl.new(
+      RGeo::Geographic.spherical_factory(srid: 4326),
+      origin.gps_coordinates.coordinates.first,
+      origin.gps_coordinates.coordinates.last
+    )
+  end
+
+  def destination_gps_coordinates
+    return if destination.nil?
+
+    RGeo::Geographic::SphericalPointImpl.new(
+      RGeo::Geographic.spherical_factory(srid: 4326),
+      destination.gps_coordinates.coordinates.first,
+      destination.gps_coordinates.coordinates.last
+    )
+  end
+
+  def giver
+    @giver ||= order.giver
+  end
+
+  def receiver
+    @receiver ||= order.receiver
+  end
 
   def options
     return @options if defined?(@options)

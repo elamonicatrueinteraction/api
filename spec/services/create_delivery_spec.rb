@@ -37,8 +37,8 @@ RSpec.describe CreateDelivery do
     end
 
     context 'when the context is not successful' do
-      let(:origin_id) { SecureRandom.uuid }
-      let(:destination_id) { SecureRandom.uuid }
+      let(:origin_id) { 'fake-id' }
+      let(:destination_id) { 'fake-id' }
 
       it 'fails' do
         expect(context).to be_failure
@@ -75,8 +75,8 @@ RSpec.describe CreateDelivery do
     end
 
     context 'when the context is not successful' do
-      let(:origin_id) { SecureRandom.uuid }
-      let(:destination_id) { SecureRandom.uuid }
+      let(:origin_id) { 'fake-id' }
+      let(:destination_id) { 'fake-id' }
 
       it 'raise error' do
         expect{ context }.to raise_error(Service::Error)

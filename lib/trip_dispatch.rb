@@ -46,6 +46,7 @@ class TripDispatch
       errors.add_multiple_errors( exception.record.errors.messages ) if exception.is_a?(ActiveRecord::RecordInvalid)
     end
 
+    Rails.logger.info "Push notification status #{success?}"
     Notifications::PushWorker.perform_async([@assignment.id]) if success?
 
     self

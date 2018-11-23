@@ -25,6 +25,8 @@ class Notification
     }.to_json
 
     # Pushing message to device through endpoint_arn
+    Rails.logger.info "ARN: #{endpoint_arn}"
+    Rails.logger.info "message: #{message}"
     sns.publish(
       target_arn: endpoint_arn,
       message: message,
@@ -33,7 +35,8 @@ class Notification
 
   # Some error handling need to be made
   rescue Aws::SNS::Errors::ServiceError => e
-    raise Notification::Error.new(e)
+    Rails.logger.info endpoint_arn
+    Rails.logger.info e.inspect
   end
 
 end

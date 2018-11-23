@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VehiclesController, type: :request do
-  let(:user) { create(:user_with_profile) }
+  include_context 'an authenticated user'
   let(:shipper) { create(:shipper) }
 
   describe "GET #index" do

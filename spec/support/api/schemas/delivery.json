@@ -109,9 +109,7 @@
             "contact_email",
             "telephone",
             "open_hours",
-            "notes",
-            "created_at",
-            "updated_at"
+            "notes"
           ],
           "properties" : {
             "id" : { "type" : "string" },
@@ -148,9 +146,7 @@
             "contact_email",
             "telephone",
             "open_hours",
-            "notes",
-            "created_at",
-            "updated_at"
+            "notes"
           ],
           "properties" : {
             "id" : { "type" : "string" },
