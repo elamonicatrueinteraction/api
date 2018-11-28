@@ -83,13 +83,9 @@ Rails.application.routes.draw do
     end
   # ╰─ End of ShipperApi Endpoints URL's / Path's
 
-  # ╭─ Services Endpoints URL's / Path's
     namespace :services do
-    # ╭─ Private Accesible URL's / Path's\
-      resources :orders, only: [ :create ]
-    # ╰─ End of Private Accesible URL's / Path's
+      resources :orders, only: [:index, :create]
     end
-  # ╰─ End of Services Endpoints URL's / Path's
 
     match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
   end

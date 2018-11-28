@@ -21,6 +21,12 @@ module Requests
       }
     end
 
+    def resource_authentication_headers
+      {
+        Authorization: "Token token=#{NILUS_SERVICES_TOKENS.values.sample}"
+      }
+    end
+
     def services_auth_headers(token)
       {
         'Authorization': "Token token=#{token}"
