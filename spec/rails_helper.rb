@@ -1,8 +1,24 @@
 require 'simplecov'
-require 'simplecov-console'
+require 'simplecov-json'
+SimpleCov.use_merging true
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::JSONFormatter,
+  SimpleCov::Formatter::HTMLFormatter
+])
+SimpleCov.minimum_coverage 40
+SimpleCov.start do
+  add_filter 'spec'
+  add_filter 'config'
+  add_group "Controllers", "app/controllers"
+  add_group "Channels", "app/channels" if defined?(ActionCable)
+  add_group "Models", "app/models"
+  add_group "Mailers", "app/mailers"
+  add_group "Helpers", "app/helpers"
+  add_group "Jobs", %w[app/jobs app/workers]
+  add_group "Libraries", "lib/"
 
-SimpleCov.formatter = SimpleCov::Formatter::Console
-SimpleCov.start
+  track_files "{app,lib}/**/*.rb"
+end
 
 require 'support/faker'
 require 'database_cleaner'

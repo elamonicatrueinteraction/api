@@ -1,5 +1,8 @@
 module Services
   class OrdersController < BaseController
+    def index
+      render json: Services::OrderQuery.new(params).collection, adapter: :attributes
+    end
 
     def create
       service = CreateOrder.call(full_params)
