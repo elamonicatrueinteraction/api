@@ -13,6 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 config/nilus.yml
+config/nilus-services.yml
 /lib/tasks/log/*
 
 # Ignore Byebug command history file.
