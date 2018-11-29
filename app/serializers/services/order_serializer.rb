@@ -1,4 +1,4 @@
-module Service
+module Services
   class OrderSerializer < ActiveModel::Serializer
     attributes :id,
                :marketplace_order_id,
