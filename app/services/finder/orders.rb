@@ -16,7 +16,7 @@ module Finder
 
     def find_orders
       @orders = Order.preload(:deliveries, :payments)
-      @orders = @orders.where('giver_id = ? OR receiver_id = ?', institution_id, institution_id) if @institution
+      @orders = @orders.where('giver_id = ? OR receiver_id = ?', institution_id, institution_id) if @institution_id
 
       @orders
     end
