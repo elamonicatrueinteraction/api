@@ -1,0 +1,11 @@
+development: &app_config
+  marketplace:
+    endpoint: 'http://localhost:9090'
+    token: '39cd9643cce7b31fa1b8d1be1af5c3e3ad92fa7a4d2fd5082c650f07a5b2a791e8316f211a2c7d4ff084aad45fd40db251a2725ebf589592ecbc73b36d8849bb'
+  user:
+    endpoint: 'http://localhost:3010'
+    token: '39cd9643cce7b31fa1b8d1be1af5c3e3ad92fa7a4d2fd5082c650f07a5b2a791e8316f211a2c7d4ff084aad45fd40db251a2725ebf589592ecbc73b36d8849bb'
+production:
+  <<: *app_config
+test:
+  <<: *app_config

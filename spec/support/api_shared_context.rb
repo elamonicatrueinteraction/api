@@ -4,10 +4,12 @@ RSpec.shared_context 'a successful request' do |root|
     expect(response).to have_http_status(:success)
   end
 
-  it "json response has the '#{root.to_s}' key with content" do
-    expect(json).not_to be_blank
-    expect(json.keys).to contain_exactly(root)
-    expect(json[root]).not_to be_blank
+  if root.present?
+    it "json response has the '#{root.to_s}' key with content" do
+      expect(json).not_to be_blank
+      expect(json.keys).to contain_exactly(root)
+      expect(json[root]).not_to be_blank
+    end
   end
 end
 
