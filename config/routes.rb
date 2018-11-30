@@ -87,6 +87,7 @@ Rails.application.routes.draw do
       resources :orders, only: [:index, :create]
     end
 
+    health_check_routes
     match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
   end
 end

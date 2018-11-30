@@ -31,6 +31,7 @@ gem 'api-pagination' # For pagination info in your headers, not in your response
 gem 'querifier'
 
 gem 'dotenv-rails'
+gem "health_check", github: 'ianheggie/health_check', ref: '0b799ea'
 gem 'pry-rails'
 
 group :development, :test do

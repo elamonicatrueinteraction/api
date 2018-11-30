@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/ianheggie/health_check.git
+  revision: 0b799ead604f900ed50685e9b2d469cd2befba5b
+  ref: 0b799ea
+  specs:
+    health_check (4.0.0.pre)
+      rails (>= 4.0)
+
+GIT
   remote: git@github.com:nilusorg/pushme-aws
   revision: e1932ff35b7846ab3fe3c2d06511a15e1fdd17a6
   branch: master
@@ -393,6 +401,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.0)
   faker
   guard-rspec
+  health_check!
   httplog
   json-schema
   jwt

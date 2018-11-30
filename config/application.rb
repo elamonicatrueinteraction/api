@@ -45,5 +45,7 @@ module Api
     config.api_only = true
 
     config.middleware.use Rack::Attack if Rails.env.production?
+    
+    config.middleware.insert_after Rails::Rack::Logger, HealthCheck::MiddlewareHealthcheck
   end
 end
