@@ -89,4 +89,10 @@ Rails.application.routes.draw do
 
     match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
   end
+
+  namespace :v2 do
+    resources :institutions, only: [] do
+      resources :payments, only: [:index], on: :member
+    end
+  end
 end
