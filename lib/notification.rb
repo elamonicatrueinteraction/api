@@ -37,6 +37,7 @@ class Notification
   rescue Aws::SNS::Errors::ServiceError => e
     Rails.logger.info endpoint_arn
     Rails.logger.info e.inspect
+    false
   end
 
 end
