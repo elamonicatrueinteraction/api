@@ -32,6 +32,7 @@ module Services
         }]
         _params[:marketplace_order_id] = marketplace_order_id
         _params[:delivery_preference] = delivery_preference
+        _params[:network_id] = request.headers['X-Network-Id']
       end
     end
 
