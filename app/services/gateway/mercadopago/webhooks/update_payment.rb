@@ -25,6 +25,7 @@ module Gateway
 
           @payment.status = new_gateway_data[:status]
           @payment.collected_amount = new_gateway_data.dig(:transaction_details, :total_paid_amount)
+          @payment.paid_at = Time.zone.now
           @payment.notifications = updated_notifications( new_gateway_data )
 
           return @payment if @payment.save
