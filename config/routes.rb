@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :v2 do
+    resources :institutions, only: [] do
+      resources :payments, only: [:index, :update]
+    end
+  end
+
   scope protocol: SECURE_PROTOCOL do
 
   # ╭─ Public Accesible URL's / Path's
