@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181204195830) do
+ActiveRecord::Schema.define(version: 20181206182205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20181204195830) do
     t.datetime "updated_at", null: false
     t.string "network_id"
     t.string "comment", default: ""
+    t.datetime "paid_at"
     t.index ["gateway", "gateway_id"], name: "index_payments_on_gateway_and_gateway_id"
     t.index ["gateway_data"], name: "index_payments_on_gateway_data", using: :gin
     t.index ["network_id"], name: "index_payments_on_network_id"

@@ -19,11 +19,12 @@ module Gateway
 
         def update_payment
           new_gateway_data = @account.payment(@gateway_id).deep_symbolize_keys
+          Rails.logger.info "Mercadopago request: #{new_gateway_data.inspect}"
 
           return @payment if @payment.status == new_gateway_data[:status]
 
           @payment.status = new_gateway_data[:status]
-          @payment.collected_amount = new_gateway_data[:collected_amount]
+          @payment.collected_amount = new_gateway_data.dig(:transaction_details, :total_paid_amount)
           @payment.notifications = updated_notifications( new_gateway_data )
 
           return @payment if @payment.save

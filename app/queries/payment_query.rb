@@ -15,6 +15,10 @@ class PaymentQuery
     )
   end
 
+  def self.default_collection
+    Payment.all
+  end
+
   private
 
   def default_institution_id!

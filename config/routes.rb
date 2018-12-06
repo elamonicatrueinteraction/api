@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :v2 do
     resources :institutions, only: [] do
-      resources :payments, only: [:index], on: :member
+      resources :payments, only: [:index, :update]
     end
   end
 
