@@ -22,6 +22,7 @@ class CreateOrder
   ).freeze
 
   def create_order
+    ApplicationRecord.current_network = @allowed_params[:network_id]
     @order = Order.new( order_params )
 
     return if errors.any?
@@ -48,7 +49,8 @@ class CreateOrder
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount],
       giver_id: @allowed_params[:giver_id],
-      receiver_id: @allowed_params[:receiver_id]
+      receiver_id: @allowed_params[:receiver_id],
+      network_id: @allowed_params[:network_id]
     }.tap do |_hash|
       _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]).as_json if @allowed_params[:giver_id].present?
       _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]).as_json if @allowed_params[:receiver_id].present?
