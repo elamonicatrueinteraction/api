@@ -22,7 +22,7 @@ class CreateOrder
   ).freeze
 
   def create_order
-    ApplicationRecord.current_network = @allowed_params[:network_id]
+    ApplicationRecord.current_network = @allowed_params[:network_id] if @allowed_params[:network_id]
     @order = Order.new( order_params )
 
     return if errors.any?
