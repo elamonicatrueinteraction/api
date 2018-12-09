@@ -27,7 +27,7 @@ class CreateTrip
         return errors.add(:type, I18n.t("services.create_trip.deliveries.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
       end
 
-      @deliveries = orders.flat_map(&:deliveries)
+      @deliveries = @allowed_params[:orders_ids].map { |order_id| orders.find { |order| order.id == order_id } }.flat_map(&:deliveries)
     else
       errors.add(:type, I18n.t("services.create_trip.order.missing_or_invalid", id: @allowed_params[:orders_ids].join(', ')))
     end
