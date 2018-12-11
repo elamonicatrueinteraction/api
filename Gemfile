@@ -33,6 +33,10 @@ gem 'querifier'
 gem 'dotenv-rails'
 gem 'pry-rails'
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
