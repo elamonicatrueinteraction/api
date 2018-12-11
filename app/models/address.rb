@@ -1,4 +1,5 @@
 class Address < UserApiResource
+  cached_resource ttl: 1.minute.to_i
   # Because the Institution is not an ApplicationRecord we need to do this
   # instead of using belongs_to :institution
 
