@@ -10,8 +10,9 @@ class PaymentQuery
   order_attributes :id
 
   def filter_by_institution_id(value)
+    order_ids = Order.by_institution_id(value).ids
     @collection = @collection.where(
-      payable_id: Order.by_institution_id(value).ids
+      payable_id: [*order_ids, *Delivery.where(order_id: order_ids).ids]
     )
   end
 
