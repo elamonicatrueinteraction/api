@@ -1,8 +1,8 @@
 module Services
   class Base
     attr_reader :attributes
-    def initialize(attributes = {})
-      @attributes = read_map(attributes)
+    def initialize(attrs = {})
+      @attributes = read_map(attrs)
       @dirty = false
       define_methods!
     end
@@ -30,25 +30,35 @@ module Services
       @dirty = true
     end
 
+    def inspect
+      "<#{self.class.name} \n\t#{attributes.map { |(k, v)| "#{k}: #{v.inspect}" }.join(",\n\t")}>"
+    end
+
     alias [] read_attribute
     alias []= write_attribute
+    alias to_s inspect
 
     private
 
     def define_methods!
       self.class.attributes.each do |attribute|
-        define_singleton_method :email { attributes[:email] }
-        define_singleton_method :email= { |value| attributes[:email] = value }
-        send("#{:email}=", attributes[attribute])
+        define_singleton_method ("#{attribute}".to_sym) { attributes[attribute.to_sym] }
+        define_singleton_method ("#{attribute}=")  { |value| attributes[attribute.to_sym] = value }
       end
     end
 
     class Relation
       include Enumerable
-      attr_reader :arguments, :root_key
+      attr_reader :arguments, :root_key, :where_chain
       def initialize(arguments = {}, root_key = nil)
         @arguments = arguments
         @root_key = root_key
+        @where_chain = {}
+      end
+
+      def where(args = {})
+        where_chain.merge!(args)
+        self
       end
 
       def raw_results
@@ -65,7 +75,7 @@ module Services
         @results = items.map { |i| self.class.parent.new i }
       end
 
-      def to_s
+      def inspect
         results
       end
 
@@ -77,20 +87,31 @@ module Services
 
       private
 
-      # TODO: THis doesn't belong here
-      def headers
-        {
-          Authorization: 'Token DEFAULT_TOKEN'
-        }
+      def query_for(key, value)
+        "#{key}=#{value}"
       end
 
+      def query_params
+        where_chain.map do |(key, value)|
+          query_for(key, value)
+        end.join('&')
+      end
+
+      # TODO: Abstract this
       def build_url
-        'http://localhost:3010/resources/users.json'
+        "#{self.class.parent.service_path}/#{self.class.parent.name.demodulize.underscore.pluralize}.json?#{query_params}"
+      end
+
+      # TODO: THis doesn't belong here
+      def headers
+        self.class.parent.headers
       end
     end
 
     class << self
       attr_writer :root_key
+      delegate :where, to: :all
+
       def all
         find(:all)
       end
@@ -105,10 +126,22 @@ module Services
         @root_key ||= self.name.demodulize.underscore.pluralize # rubocop:disable Style/RedundantSelf
       end
 
-      def attributes(attrs = nil)
-        return @attributes ||= {} if attrs.nil?
+      def service_path(path = nil)
+        return @service_path ||= self.superclass.service_path if path.nil?
 
-        @attributes = *attrs
+        @service_path = path
+      end
+
+      def headers(headers = nil)
+        return @headers ||= (self.superclass.headers || {}) if headers.nil?
+
+        @headers = headers
+      end
+
+      def attributes(*attrs)
+        return @attributes ||= [] if attrs.empty?
+
+        @attributes = [*attrs]
       end
 
       private
