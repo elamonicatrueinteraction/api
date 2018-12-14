@@ -49,10 +49,11 @@ module Services
 
     class Relation
       include Enumerable
-      attr_reader :arguments, :root_key, :where_chain
-      def initialize(arguments = {}, root_key = nil)
+      attr_reader :arguments, :root_key, :root_singular_key, :where_chain
+      def initialize(arguments = {}, root_key = nil, root_singular_key = nil)
         @arguments = arguments
         @root_key = root_key
+        @root_singular_key = root_singular_key
         @where_chain = {}
       end
 
@@ -61,29 +62,41 @@ module Services
         self
       end
 
-      def raw_results
-        @raw_results ||= HTTParty.get(
-          build_url,
+      def find_from_id(id)
+        item = root_singular_key ? raw_single_results(id)[root_singular_key] : raw_single_results(id)
+        self.class.parent.new item
+      end
+
+      def raw_single_results(id)
+        @raw_single_results ||= HTTParty.get(
+          build_single_url(id),
           headers: headers
         )
       end
 
-      def results
-        return @results if @results
+      def raw_collection_results
+        @raw_collection_results ||= HTTParty.get(
+          build_collection_url,
+          headers: headers
+        )
+      end
 
-        items = root_key ? raw_results[root_key] : raw_results
-        @results = items.map { |i| self.class.parent.new i }
+      def collection_results
+        return @collection_results if @collection_results
+
+        items = root_key ? raw_collection_results[root_key] : raw_collection_results
+        @collection_results = items.map { |i| self.class.parent.new i }
       end
 
       def inspect
-        results
+        collection_results
       end
 
       def each(&block)
         to_a.each(&block)
       end
 
-      alias to_a results
+      alias to_a collection_results
 
       private
 
@@ -97,8 +110,11 @@ module Services
         end.join('&')
       end
 
-      # TODO: Abstract this
-      def build_url
+      def build_single_url(id)
+        "#{self.class.parent.service_path}/#{self.class.parent.name.demodulize.underscore.pluralize}/#{id}.json?#{query_params}"
+      end
+
+      def build_collection_url
         "#{self.class.parent.service_path}/#{self.class.parent.name.demodulize.underscore.pluralize}.json?#{query_params}"
       end
 
@@ -109,8 +125,9 @@ module Services
     end
 
     class << self
-      attr_writer :root_key
+      attr_writer :root_key, :root_singular_key
       delegate :where, to: :all
+      delegate :find_from_id, to: :all
 
       def all
         find(:all)
@@ -119,6 +136,7 @@ module Services
       def find(*args)
         case args.first
         when :all then find_every
+        else find_from_id(args.first)
         end
       end
 
@@ -126,10 +144,23 @@ module Services
         @root_key ||= self.name.demodulize.underscore.pluralize # rubocop:disable Style/RedundantSelf
       end
 
+      def root_singular_key
+        @root_singular_key ||= root_key.singularize # rubocop:disable Style/RedundantSelf
+      end
+
       def service_path(path = nil)
         return @service_path ||= self.superclass.service_path if path.nil?
 
         @service_path = path
+      end
+
+      def belongs_to(attribute, class_name: nil, foreign_key: nil, reload: true)
+        class_name ||= "#{self.parent}::#{attribute.to_s.camelize}".safe_constantize || "#{attribute.to_s.camelize}".safe_constantize
+        foreign_key ||= "#{attribute}_id"
+        define_method(attribute.to_sym) do
+          instance_variable_set("@#{attribute}".to_sym, class_name.find(send(foreign_key))) unless instance_variable_get "@#{attribute}".to_sym
+          instance_variable_get "@#{attribute}".to_sym
+        end
       end
 
       def headers(headers = nil)
@@ -152,7 +183,7 @@ module Services
 
       def relation(options)
         const_set "Relation".to_sym, Class.new(Services::Base::Relation) if self::Relation == Services::Base::Relation
-        self::Relation.new(options, root_key)
+        self::Relation.new(options, root_key, root_singular_key)
       end
     end
   end
