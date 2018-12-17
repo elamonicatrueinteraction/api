@@ -20,7 +20,7 @@ module Finder
       @trips = @trips.where('DATE(created_at) >= ?', created_since) if created_since
       @trips = @trips.where('DATE(created_at) <= ?', created_until) if created_until
 
-      @trips.order(created_at: :desc).limit(20)
+      @trips.order(created_at: :desc)
     end
 
     # TO-DO:  This is ugly as fuck!! :(, we should consider refactor the data model to improve
