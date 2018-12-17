@@ -24,9 +24,9 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle('req/ip', limit: 300, period: 5.minutes) do |req|
-    req.ip # unless req.path.start_with?('/assets')
-  end
+  # throttle('req/ip', limit: 300, period: 5.minutes) do |req|
+  #   req.ip # unless req.path.start_with?('/assets')
+  # end
 
   ### Prevent Brute-Force Login Attacks ###
 
@@ -40,17 +40,17 @@ class Rack::Attack
   # Throttle POST requests to /login by IP address
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
-  throttle('authenticate/ip', limit: 5, period: 20.seconds) do |req|
-    if req.path == '/authenticate' && req.post?
-      req.ip
-    end
-  end
-
-  throttle('shipper/authenticate/ip', limit: 5, period: 20.seconds) do |req|
-    if req.path == '/shipper/authenticate' && req.post?
-      req.ip
-    end
-  end
+  # throttle('authenticate/ip', limit: 5, period: 20.seconds) do |req|
+  #   if req.path == '/authenticate' && req.post?
+  #     req.ip
+  #   end
+  # end
+  #
+  # throttle('shipper/authenticate/ip', limit: 5, period: 20.seconds) do |req|
+  #   if req.path == '/shipper/authenticate' && req.post?
+  #     req.ip
+  #   end
+  # end
 
   # Throttle POST requests to /login by email param
   #

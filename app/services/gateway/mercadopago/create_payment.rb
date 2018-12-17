@@ -61,7 +61,7 @@ module Gateway
         emails = HashWithIndifferentAccess.new(
           MERCADOPAGO_CONFIG['payer_email']
         )
-        @payment.payable.is_a?(Order) ? emails[:bar] : emails[:nilus]
+        @payment.payable.is_a?(Order) ? (@payment.payable.network_id == 'ROS' ? emails[:bar] : emails[:mdq]) : emails[:nilus] # rubocop:disable Style/NestedTernaryOperator
       end
     end
   end
