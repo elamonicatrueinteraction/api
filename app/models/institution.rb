@@ -1,5 +1,4 @@
 class Institution < UserApiResource
-  cached_resource ttl: 24.hours.to_i
   # has_many :addresses, dependent: :nullify
   has_many :users # rubocop:disable Rails/HasManyOrHasOneDependent
 

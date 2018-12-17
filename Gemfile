@@ -32,7 +32,6 @@ gem 'querifier'
 
 gem 'dotenv-rails'
 gem 'pry-rails'
-gem 'cached_resource'
 
 group :production do
   gem 'newrelic_rpm'

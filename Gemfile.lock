@@ -86,10 +86,6 @@ GEM
     bullet (5.7.5)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
-    cached_resource (5.1.1)
-      activeresource (>= 4.0)
-      activesupport (>= 4.0)
-      nilio (>= 1.0)
     capistrano (3.10.0)
       airbrussh (>= 1.0.0)
       i18n
@@ -213,7 +209,6 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
     newrelic_rpm (5.5.0.348)
-    nilio (1.0.0)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -386,7 +381,6 @@ DEPENDENCIES
   api-pagination
   bcrypt
   bullet (= 5.7.5)
-  cached_resource
   capistrano
   capistrano-bundler
   capistrano-inspeqtor
@@ -436,4 +430,4 @@ DEPENDENCIES
   xlsxtream
 
 BUNDLED WITH
-   1.16.6
+   1.17.2
