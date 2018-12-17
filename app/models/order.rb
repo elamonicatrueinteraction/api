@@ -20,7 +20,7 @@ class Order < ApplicationRecord
 
   # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp
   scope :marketplace, -> { where('orders.extras ->> :key IS NOT NULL', key: :marketplace_order_id) }
-  scope :by_institution_id, ->(id) { where('orders.giver_id = :id OR orders.receiver_id = ?', id: id) }
+  scope :by_institution_id, ->(id) { where('orders.giver_id = :id OR orders.receiver_id = :id', id: id) }
 
   attribute :extras, :jsonb, default: {}
 
