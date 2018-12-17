@@ -51,7 +51,7 @@ module Gateway
 
       def payment_description
         if @payment.payable.is_a?(Order)
-          "NILUS/BAR - Pago por la orden ##{@payment.payable_id} e institución #{@payment.payable.receiver.name}"
+          "NILUS/BAR - Pago por la orden ##{@payment.payable_id}"
         else
           "NILUS - Pago por la entrega ##{@payment.payable_id}"
         end
