@@ -1,3 +1,4 @@
+# rubocop:disable
 module Services
   class Base
     attr_reader :attributes
@@ -155,7 +156,7 @@ module Services
       end
 
       def belongs_to(attribute, class_name: nil, foreign_key: nil, reload: true)
-        class_name ||= "#{self.parent}::#{attribute.to_s.camelize}".safe_constantize || "#{attribute.to_s.camelize}".safe_constantize
+        class_name ||= "#{parent}::#{attribute.to_s.camelize}".safe_constantize || attribute.to_s.camelize.to_s.safe_constantize
         foreign_key ||= "#{attribute}_id"
         define_method(attribute.to_sym) do
           instance_variable_set("@#{attribute}".to_sym, class_name.find(send(foreign_key))) unless instance_variable_get "@#{attribute}".to_sym
@@ -164,9 +165,9 @@ module Services
       end
 
       def has_many(attribute, class_name: nil, foreign_key: nil, reload: true)
-        class_name ||= "#{self.parent}::#{attribute.to_s.singularize.camelize}".safe_constantize || "#{attribute.to_s.singularize.camelize}".safe_constantize
+        class_name ||= "#{parent}::#{attribute.to_s.singularize.camelize}".safe_constantize || attribute.to_s.singularize.camelize.to_s.safe_constantize
         foreign_key ||= "#{attribute}_id"
-        (@has_manys ||= {}).merge!(attribute: { class_name: class_name, foreign_key: foreign_key })
+        (@has_manys ||= {})[:attribute] = { class_name: class_name, foreign_key: foreign_key }
         define_method(attribute.to_s.pluralize.to_sym) do
           instance_variable_set("@#{attribute}".to_sym, class_name.where(foreign_key => id)) unless instance_variable_get "@#{attribute}".to_sym
           instance_variable_get "@#{attribute}".to_sym
@@ -174,7 +175,7 @@ module Services
       end
 
       def headers(headers = nil)
-        return @headers ||= (self.superclass.headers || {}) if headers.nil?
+        return @headers ||= (superclass.headers || {}) if headers.nil?
 
         @headers = headers
       end
@@ -198,3 +199,4 @@ module Services
     end
   end
 end
+# rubocop:enable
