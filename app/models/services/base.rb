@@ -67,7 +67,7 @@ module Services
         self
       end
 
-      def find_from_id(id, cache: true, cache_expiration: 30.minutes)
+      def find_from_id(id, cache: true, cache_expiration: 2.hours)
         item = Rails.cache.fetch("#{self.class.name}_#{id}", expires_in: cache_expiration) do
           results = raw_single_results(id)
           next unless results
