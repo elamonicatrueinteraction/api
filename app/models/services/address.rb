@@ -2,7 +2,7 @@ module Services
   class Address < Services::UserService
     attributes :id, :street_1, :street_2, :zip_code, :city, :state, :country,
                :contact_name, :contact_cellphone, :contact_email, :telephone,
-               :open_hours, :notes, :coordinates, :gps_coordinates,
+               :open_hours, :notes, :coordinates,
                :institution_id, :latln
 
     belongs_to :institution
@@ -27,7 +27,7 @@ module Services
     end
 
     def gps_coordinates
-      GpsCoordinates.new(coordinates.attributes)
+      GpsCoordinates.new(coordinates)
     end
 
     # TODO: Fix this, it's mainly caused because the config of RGeo
