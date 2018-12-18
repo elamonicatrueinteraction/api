@@ -1,6 +1,6 @@
 module Services
   class UserService < Services::Base
-    service_path 'http://localhost:3010/resources'
-    headers Authorization: 'Token DEFAULT_TOKEN'
+    service_path "#{USER_SERVICE_ENDPOINT}/resources"
+    headers Authorization: "Token #{USER_SERVICE_TOKEN}"
   end
 end
