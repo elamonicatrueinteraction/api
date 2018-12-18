@@ -8,6 +8,10 @@ module Services
       define_methods!
     end
 
+    def ==(other)
+      other.id == id
+    end
+
     def read_map(attributes)
       attributes.with_indifferent_access.select do |(key, _value)|
         self.class.attributes.include? key.to_sym
@@ -65,6 +69,8 @@ module Services
 
       def find_from_id(id, cache: true, cache_expiration: 30.minutes)
         item = Rails.cache.fetch("#{self.class.name}_#{id}", expires_in: cache_expiration) do
+          results = raw_single_results(id)
+          next unless results
           root_singular_key ? raw_single_results(id)[root_singular_key] : raw_single_results(id)
         end
 
@@ -73,10 +79,12 @@ module Services
       end
 
       def raw_single_results(id)
-        @raw_single_results ||= JSON.parse(HTTParty.get(
+        response = HTTParty.get(
           build_single_url(id),
           headers: headers
-        ))
+        )
+        return unless response.parsed_response
+        @raw_single_results ||= JSON.parse(response)
       end
 
       def raw_collection_results
@@ -101,6 +109,7 @@ module Services
       end
 
       alias to_a collection_results
+      delegate :sample, to: :collection_results
 
       private
 
