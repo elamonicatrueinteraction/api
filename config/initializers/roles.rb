@@ -79,35 +79,35 @@ if Rails.env.test?
         "X-Network-ID" => "ROS"
       }
 
-      # ActiveResource::HttpMock.respond_to do |mock|
-      #   mock.get('/resources/districts.json', request_headers, districts.to_json)
-      #   mock.get("/resources/institutions.json", request_headers, [institution].to_json)
-      #   mock.get("/resources/institutions/#{institution[:id]}.json",
-      #            request_headers, institution.to_json)
-      #   mock.get("/resources/institutions/fake-id.json", request_headers, nil, 404)
-      #   mock.get('/resources/users.json', request_headers, users.to_json)
-      #   mock.get('/resources/users.json?email=dummy%40nilus.org', request_headers, users.to_json)
-      #   mock.get("/resources/users/#{users.first[:id]}.json", request_headers, users.first.to_json)
-      #   mock.get("/resources/addresses/#{address[:id]}.json", request_headers, address.to_json)
-      #   mock.get("/resources/addresses/fake-id.json", request_headers, nil, 404)
-      #   mock.get('/resources/addresses.json', request_headers, [address].to_json)
-      #   mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
-      #            request_headers, [address].to_json)
-      #
-      #  mock.get('/resources/districts.json', ros_request_headers, districts.to_json)
-      #  mock.get("/resources/institutions.json", ros_request_headers, [institution].to_json)
-      #  mock.get("/resources/institutions/#{institution[:id]}.json",
-      #           ros_request_headers, institution.to_json)
-      #  mock.get("/resources/institutions/fake-id.json", ros_request_headers, nil, 404)
-      #  mock.get('/resources/users.json', ros_request_headers, users.to_json)
-      #  mock.get('/resources/users.json?email=dummy%40nilus.org', ros_request_headers, users.to_json)
-      #  mock.get("/resources/users/#{users.first[:id]}.json", ros_request_headers, users.first.to_json)
-      #  mock.get("/resources/addresses/#{address[:id]}.json", ros_request_headers, address.to_json)
-      #  mock.get("/resources/addresses/fake-id.json", ros_request_headers, nil, 404)
-      #  mock.get('/resources/addresses.json', ros_request_headers, [address].to_json)
-      #  mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
-      #           ros_request_headers, [address].to_json)
-      # end
+      ActiveResource::HttpMock.respond_to do |mock|
+        mock.get('/resources/districts.json', request_headers, districts.to_json)
+        mock.get("/resources/institutions.json", request_headers, [institution].to_json)
+        mock.get("/resources/institutions/#{institution[:id]}.json",
+                 request_headers, institution.to_json)
+        mock.get("/resources/institutions/fake-id.json", request_headers, nil, 404)
+        mock.get('/resources/users.json', request_headers, users.to_json)
+        mock.get('/resources/users.json?email=dummy%40nilus.org', request_headers, users.to_json)
+        mock.get("/resources/users/#{users.first[:id]}.json", request_headers, users.first.to_json)
+        mock.get("/resources/addresses/#{address[:id]}.json", request_headers, address.to_json)
+        mock.get("/resources/addresses/fake-id.json", request_headers, nil, 404)
+        mock.get('/resources/addresses.json', request_headers, [address].to_json)
+        mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
+                 request_headers, [address].to_json)
+
+       mock.get('/resources/districts.json', ros_request_headers, districts.to_json)
+       mock.get("/resources/institutions.json", ros_request_headers, [institution].to_json)
+       mock.get("/resources/institutions/#{institution[:id]}.json",
+                ros_request_headers, institution.to_json)
+       mock.get("/resources/institutions/fake-id.json", ros_request_headers, nil, 404)
+       mock.get('/resources/users.json', ros_request_headers, users.to_json)
+       mock.get('/resources/users.json?email=dummy%40nilus.org', ros_request_headers, users.to_json)
+       mock.get("/resources/users/#{users.first[:id]}.json", ros_request_headers, users.first.to_json)
+       mock.get("/resources/addresses/#{address[:id]}.json", ros_request_headers, address.to_json)
+       mock.get("/resources/addresses/fake-id.json", ros_request_headers, nil, 404)
+       mock.get('/resources/addresses.json', ros_request_headers, [address].to_json)
+       mock.get("/resources/addresses.json?institution_id=#{institution[:id]}",
+                ros_request_headers, [address].to_json)
+      end
     end
   end
 
