@@ -38,10 +38,6 @@ group :production do
   gem 'newrelic_rpm'
 end
 
-group :production do
-  gem 'newrelic_rpm'
-end
-
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
@@ -68,6 +64,7 @@ group :development do
 end
 
 group :test do
+  gem 'webmock'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
   gem "json-schema"

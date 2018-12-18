@@ -65,26 +65,26 @@ module Services
 
       def find_from_id(id)
         item = root_singular_key ? raw_single_results(id)[root_singular_key] : raw_single_results(id)
+
         self.class.parent.new item
       end
 
       def raw_single_results(id)
-        @raw_single_results ||= HTTParty.get(
+        @raw_single_results ||= JSON.parse(HTTParty.get(
           build_single_url(id),
           headers: headers
-        )
+        ))
       end
 
       def raw_collection_results
-        @raw_collection_results ||= HTTParty.get(
+        @raw_collection_results ||= JSON.parse(HTTParty.get(
           build_collection_url,
           headers: headers
-        )
+        ))
       end
 
       def collection_results
         return @collection_results if @collection_results
-
         items = root_key ? raw_collection_results[root_key] : raw_collection_results
         @collection_results = items.map { |i| self.class.parent.new i }
       end
@@ -166,7 +166,7 @@ module Services
 
       def has_many(attribute, class_name: nil, foreign_key: nil, reload: true)
         class_name ||= "#{parent}::#{attribute.to_s.singularize.camelize}".safe_constantize || attribute.to_s.singularize.camelize.to_s.safe_constantize
-        foreign_key ||= "#{attribute}_id"
+        foreign_key ||= "#{self.name.demodulize.underscore.singularize}_id"
         (@has_manys ||= {})[:attribute] = { class_name: class_name, foreign_key: foreign_key }
         define_method(attribute.to_s.pluralize.to_sym) do
           instance_variable_set("@#{attribute}".to_sym, class_name.where(foreign_key => id)) unless instance_variable_get "@#{attribute}".to_sym
