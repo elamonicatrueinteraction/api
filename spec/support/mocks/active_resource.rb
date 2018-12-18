@@ -83,7 +83,7 @@ RSpec.configure do |config|
     stub_request(:get, USER_SERVICE_ENDPOINT + '/resources/users.json').with(headers: request_headers).to_return(body: users.to_json)
     stub_request(:get, USER_SERVICE_ENDPOINT + '/resources/users.json?email=dummy%40nilus.org').with(headers: request_headers).to_return(body: users.to_json)
     stub_request(:get, USER_SERVICE_ENDPOINT + "/resources/users/#{users.first[:id]}.json").with(headers: request_headers).to_return(body: users.first.to_json)
-    stub_request(:get, USER_SERVICE_ENDPOINT + "/resources/addresses/#{address[:id]}.json").with(headers: request_headers).to_return(body: address.to_json)
+    stub_request(:get, USER_SERVICE_ENDPOINT + "/resources/addresses/#{address[:id]}.json").with(headers: request_headers).to_return(body: {address: address}.to_json)
     stub_request(:get, USER_SERVICE_ENDPOINT + "/resources/addresses/fake-id.json").with(headers: request_headers).to_return(body: nil, status: 404)
     stub_request(:get, USER_SERVICE_ENDPOINT + '/resources/addresses.json').with(headers: request_headers).to_return(body: { addresses: [address] }.to_json)
     stub_request(:get, USER_SERVICE_ENDPOINT + "/resources/addresses.json?institution_id=#{institution[:id]}").with(headers: request_headers).to_return(body: { addresses: [address] }.to_json)
