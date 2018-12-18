@@ -63,9 +63,11 @@ module Services
         self
       end
 
-      def find_from_id(id)
-        item = root_singular_key ? raw_single_results(id)[root_singular_key] : raw_single_results(id)
-
+      def find_from_id(id, cache: true, cache_expiration: 30.minutes)
+        item = Rails.cache.fetch("#{self.class.name}_#{id}", expires_in: cache_expiration) do
+          root_singular_key ? raw_single_results(id)[root_singular_key] : raw_single_results(id)
+        end
+        return unless item
         self.class.parent.new item
       end
 
