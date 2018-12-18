@@ -15,7 +15,7 @@ module Finder
     private
 
     def find_trips
-      @trips = Trip.includes(:shipper, deliveries: [:order])
+      @trips = Trip.includes(:shipper, deliveries: [:order]).limit(20)
       @trips = @trips.where('id IN (?)', trips_ids) if @institution
       @trips = @trips.where('DATE(created_at) >= ?', created_since) if created_since
       @trips = @trips.where('DATE(created_at) <= ?', created_until) if created_until
