@@ -1,3 +1,4 @@
+# rubocop:disable all
 module Services
   class Base
     attr_reader :attributes
@@ -154,11 +155,21 @@ module Services
         @service_path = path
       end
 
-      def belongs_to(attribute, class_name: nil, foreign_key: nil)
+      def belongs_to(attribute, class_name: nil, foreign_key: nil, reload: true)
         class_name ||= "#{parent}::#{attribute.to_s.camelize}".safe_constantize || attribute.to_s.camelize.to_s.safe_constantize
         foreign_key ||= "#{attribute}_id"
         define_method(attribute.to_sym) do
           instance_variable_set("@#{attribute}".to_sym, class_name.find(send(foreign_key))) unless instance_variable_get "@#{attribute}".to_sym
+          instance_variable_get "@#{attribute}".to_sym
+        end
+      end
+
+      def has_many(attribute, class_name: nil, foreign_key: nil, reload: true)
+        class_name ||= "#{parent}::#{attribute.to_s.singularize.camelize}".safe_constantize || attribute.to_s.singularize.camelize.to_s.safe_constantize
+        foreign_key ||= "#{attribute}_id"
+        (@has_manys ||= {})[:attribute] = { class_name: class_name, foreign_key: foreign_key }
+        define_method(attribute.to_s.pluralize.to_sym) do
+          instance_variable_set("@#{attribute}".to_sym, class_name.where(foreign_key => id)) unless instance_variable_get "@#{attribute}".to_sym
           instance_variable_get "@#{attribute}".to_sym
         end
       end
@@ -188,3 +199,4 @@ module Services
     end
   end
 end
+# rubocop:enable all
