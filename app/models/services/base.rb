@@ -42,8 +42,8 @@ module Services
 
     def define_methods!
       self.class.attributes.each do |attribute|
-        define_singleton_method ("#{attribute}".to_sym) { attributes[attribute.to_sym] }
-        define_singleton_method ("#{attribute}=")  { |value| attributes[attribute.to_sym] = value }
+        define_singleton_method(attribute.to_s.to_sym) { attributes[attribute.to_sym] }
+        define_singleton_method("#{attribute}=") { |value| attributes[attribute.to_sym] = value }
       end
     end
 
@@ -145,17 +145,17 @@ module Services
       end
 
       def root_singular_key
-        @root_singular_key ||= root_key.singularize # rubocop:disable Style/RedundantSelf
+        @root_singular_key ||= root_key.singularize
       end
 
       def service_path(path = nil)
-        return @service_path ||= self.superclass.service_path if path.nil?
+        return @service_path ||= superclass.service_path if path.nil?
 
         @service_path = path
       end
 
-      def belongs_to(attribute, class_name: nil, foreign_key: nil, reload: true)
-        class_name ||= "#{self.parent}::#{attribute.to_s.camelize}".safe_constantize || "#{attribute.to_s.camelize}".safe_constantize
+      def belongs_to(attribute, class_name: nil, foreign_key: nil)
+        class_name ||= "#{parent}::#{attribute.to_s.camelize}".safe_constantize || attribute.to_s.camelize.to_s.safe_constantize
         foreign_key ||= "#{attribute}_id"
         define_method(attribute.to_sym) do
           instance_variable_set("@#{attribute}".to_sym, class_name.find(send(foreign_key))) unless instance_variable_get "@#{attribute}".to_sym
@@ -164,7 +164,7 @@ module Services
       end
 
       def headers(headers = nil)
-        return @headers ||= (self.superclass.headers || {}) if headers.nil?
+        return @headers ||= (superclass.headers || {}) if headers.nil?
 
         @headers = headers
       end
