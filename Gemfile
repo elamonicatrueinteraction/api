@@ -23,6 +23,7 @@ gem 'sidekiq'
 gem 'typhoeus' # In order to make HTTP Requests
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
+gem 'httparty'
 
 gem 'activeresource', '~> 5.0'
 

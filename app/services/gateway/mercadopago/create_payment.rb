@@ -58,7 +58,7 @@ module Gateway
       end
 
       def payment_institution
-        @payment.payable.network_id == 'MDQ' ? 'MDQ' : 'BAR' 
+        @payment.payable.network_id == 'MDQ' ? 'MDQ' : 'BAR'
       end
 
       def payer_email
