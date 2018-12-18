@@ -4,6 +4,6 @@ module Services
                :created_at, :updated_at, :beneficiaries, :offered_services,
                :network_id, :external_reference, :district, :addresses
 
-    has_many :users
+    has_many :users # rubocop:disable Rails/HasManyOrHasOneDependent
   end
 end

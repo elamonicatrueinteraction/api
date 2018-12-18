@@ -1,4 +1,4 @@
-# rubocop:disable
+# rubocop:disable all
 module Services
   class Base
     attr_reader :attributes
@@ -199,4 +199,4 @@ module Services
     end
   end
 end
-# rubocop:enable
+# rubocop:enable all
