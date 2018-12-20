@@ -36,14 +36,14 @@ class Delivery < ApplicationRecord
   def origin
     return nil if origin_id.nil?
 
-    @origin ||= Services::Address.find(origin_id)
+    @origin ||= Address.find_by(id: origin_id)
   end
   attribute :origin
 
   def destination
     return nil if destination_id.nil?
 
-    @destination ||= Services::Address.find(destination_id)
+    @destination ||= Address.find_by(id: destination_id)
   end
   attribute :destination
 
