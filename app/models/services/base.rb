@@ -94,9 +94,12 @@ module Services
         ))
       end
 
-      def collection_results
+      def collection_results(cache: true, cache_expiration: 2.hours)
         return @collection_results if @collection_results
-        items = root_key ? raw_collection_results[root_key] : raw_collection_results
+
+        items = Rails.cache.fetch("#{self.class.name}_#{serialized_where}_collection", expires_in: cache_expiration) do
+          root_key ? raw_collection_results[root_key] : raw_collection_results
+        end
         @collection_results = items.map { |i| self.class.parent.new i }
       end
 
@@ -106,6 +109,10 @@ module Services
 
       def each(&block)
         to_a.each(&block)
+      end
+
+      def serialized_where
+        query_params
       end
 
       alias to_a collection_results
