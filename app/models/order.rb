@@ -9,12 +9,12 @@ class Order < ApplicationRecord
   # belongs_to :receiver, class_name: 'Institution', optional: true
 
   def giver
-    @giver ||= Services::Institution.find(giver_id)
+    @giver ||= Institution.find_by(id: giver_id)
   end
   attribute :giver
 
   def receiver
-    @receiver ||= Services::Institution.find(receiver_id)
+    @receiver ||= Institution.find_by(id: receiver_id)
   end
   attribute :receiver
 

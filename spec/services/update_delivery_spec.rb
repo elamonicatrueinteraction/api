@@ -8,7 +8,7 @@ RSpec.describe UpdateDelivery do
 
   describe ".call" do
     let(:new_amount) { 500 }
-    let(:new_destination) { Services::Address.all.sample }
+    let(:new_destination) { Address.all.sample }
 
     context 'when the context is successful' do
       let(:allowed_params) {

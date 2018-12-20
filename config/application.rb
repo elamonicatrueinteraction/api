@@ -45,6 +45,5 @@ module Api
     config.api_only = true
 
     config.middleware.use Rack::Attack if Rails.env.production?
-
   end
 end
