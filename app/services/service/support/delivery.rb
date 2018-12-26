@@ -5,7 +5,7 @@ module Service
       private
 
       def load_address(action, id)
-        if address = ::Address.find(id)
+        if address = Services::Address.find(id)
           address
         end
       rescue ActiveResource::ResourceNotFound
