@@ -1,7 +1,7 @@
 # rubocop:disable all
 module Services
   class Base
-    attr_reader :attributes
+    attr_reader :attributes,:errors
     def initialize(attrs = {})
       @attributes = read_map(attrs)
       @dirty = false
@@ -37,6 +37,54 @@ module Services
 
     def inspect
       "<#{self.class.name} \n\t#{attributes.map { |(k, v)| "#{k}: #{v.inspect}" }.join(",\n\t")}>"
+    end
+
+    def update(args = {})
+      assign_attributes(args)
+      save
+    end
+
+    def assign_attributes(args = {})
+      args.each { |(k, v)| send("#{k}=", v) }
+    end
+
+    def save
+      response = HTTParty.put(
+        build_single_url,
+        headers: headers,
+        body: {
+          self.class.name.demodulize.underscore.singularize => request_body
+        }
+      )
+      if response.parsed_response
+        case response.code
+        when 200
+          reset_cache!
+        when 422
+          @errors = response.parsed_response['errors']
+        else
+
+        end
+        end
+      self
+    end
+
+    def reset_cache!
+      Rails.cache.delete_matched "#{self.class.name}::Relation*"
+    end
+
+    private
+
+    def request_body
+      attributes
+    end
+
+    def build_single_url
+      "#{self.class.service_path}/#{self.class.name.demodulize.underscore.pluralize}/#{id}.json"
+    end
+
+    def headers
+      self.class.headers
     end
 
     alias [] read_attribute
@@ -146,6 +194,7 @@ module Services
 
     class << self
       attr_writer :root_key, :root_singular_key
+      delegate :first, to: :all
       delegate :where, to: :all
       delegate :find_from_id, to: :all
 
