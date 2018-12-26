@@ -10,7 +10,6 @@ module Services
 
     def calculated_total_debt
       Payment.where(id: PaymentQuery.new({ institution_id: id }).collection.ids).sum('coalesce(amount, 0) - coalesce(collected_amount, 0)')
-      15
     end
   end
 end
