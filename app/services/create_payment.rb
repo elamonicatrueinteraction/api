@@ -34,6 +34,7 @@ class CreatePayment
 
         @payment.update!(status: gateway_status, gateway: 'Mercadopago', gateway_id: gateway_id, gateway_data: gateway_result)
       end
+      UpdateTotalDebtWorker.perform_async(@payment.id)
     rescue Service::Error, ActiveRecord::RecordInvalid => e
       errors.add_multiple_errors( e.record.errors.messages )
 
