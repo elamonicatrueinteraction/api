@@ -8,6 +8,7 @@ module V2
       payment = Payment.find(params.require(:id))
 
       if payment.update(permitted_params)
+        UpdateTotalDebtWorker.perform_async(@payment.id)
         render json: payment
       else
         render json: payment.errors, status: :unprocessable_entity
