@@ -73,6 +73,10 @@ module Services
       Rails.cache.delete_matched "#{self.class.name}::Relation*"
     end
 
+    def as_json
+      attributes
+    end
+
     private
 
     def request_body
