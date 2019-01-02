@@ -19,8 +19,13 @@ module Finder
       @trips = @trips.where('id IN (?)', trips_ids) if @institution
       @trips = @trips.where('DATE(created_at) >= ?', created_since) if created_since
       @trips = @trips.where('DATE(created_at) <= ?', created_until) if created_until
+      @trips = @trips.delivery_at(delivery_at) if delivery_at
 
       @trips.order(created_at: :desc)
+    end
+
+    def delivery_at
+      @filter_params[:delivery_at]
     end
 
     # TO-DO:  This is ugly as fuck!! :(, we should consider refactor the data model to improve

@@ -119,7 +119,8 @@ class TripsController < ApplicationController
   def filter_params
     params.permit(
       :created_since,
-      :created_until
+      :created_until,
+      :delivery_at
     )
   end
 
