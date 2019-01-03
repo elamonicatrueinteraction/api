@@ -23,6 +23,8 @@ gem 'sidekiq'
 gem 'typhoeus' # In order to make HTTP Requests
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
+gem 'httparty'
+gem 'redis-rails'
 
 gem 'activeresource', '~> 5.0'
 
@@ -32,10 +34,6 @@ gem 'querifier'
 
 gem 'dotenv-rails'
 gem 'pry-rails'
-
-group :production do
-  gem 'newrelic_rpm'
-end
 
 group :production do
   gem 'newrelic_rpm'
@@ -67,6 +65,7 @@ group :development do
 end
 
 group :test do
+  gem 'webmock'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
   gem "json-schema"
