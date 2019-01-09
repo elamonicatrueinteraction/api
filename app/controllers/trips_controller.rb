@@ -85,7 +85,7 @@ class TripsController < ApplicationController
   def export
     optional_institution; return if performed?
 
-    stream_xlsx Exporters::Trips, trips: finder.result.limit(nil).includes(orders: :payments)
+    stream_xlsx Exporters::Trips, trips: finder.result.limit(nil).includes(orders: :payments, deliveries: :payments)
   end
 
   private
