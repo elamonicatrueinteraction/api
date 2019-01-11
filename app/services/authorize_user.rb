@@ -33,7 +33,7 @@ class AuthorizeUser
     response = request.run
     body = json_load(response.body)
 
-    response.success? ? User.new(body, true) : nil
+    response.success? ? Services::User.new(body, true) : nil
   end
 
   # TO-DO: We should specify the logic here. The idea is to be able
