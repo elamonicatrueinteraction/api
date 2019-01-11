@@ -57,6 +57,10 @@ module Gateway
         end
       end
 
+      def payment_institution
+        @payment.payable.network_id == 'MDQ' ? 'MDQ' : 'BAR'
+      end
+
       def payer_email
         emails = HashWithIndifferentAccess.new(
           MERCADOPAGO_CONFIG['payer_email']

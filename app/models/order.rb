@@ -9,18 +9,19 @@ class Order < ApplicationRecord
   # belongs_to :receiver, class_name: 'Institution', optional: true
 
   def giver
-    @giver ||= Institution.find_by(id: giver_id)
+    @giver ||= Services::Institution.find(giver_id)
   end
   attribute :giver
 
   def receiver
-    @receiver ||= Institution.find_by(id: receiver_id)
+    @receiver ||= Services::Institution.find(receiver_id)
   end
   attribute :receiver
 
   # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp
   scope :marketplace, -> { where('orders.extras ->> :key IS NOT NULL', key: :marketplace_order_id) }
   scope :by_institution_id, ->(id) { where('orders.giver_id = :id OR orders.receiver_id = :id', id: id) }
+  scope :by_receiver_id, ->(id) { where('orders.receiver_id = :id', id: id) }
 
   attribute :extras, :jsonb, default: {}
 

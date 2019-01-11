@@ -28,9 +28,12 @@ module Gateway
           @payment.paid_at = Time.zone.now
           @payment.notifications = updated_notifications( new_gateway_data )
 
-          return @payment if @payment.save
-
-          errors.add_multiple_errors(@payment.errors.messages) && nil
+          if @payment.save
+            UpdateTotalDebtWorker.perform_async(@payment.id)
+            return @payment
+          else
+            errors.add_multiple_errors(@payment.errors.messages) && nil
+          end
         end
 
         def updated_notifications(new_gateway_data)

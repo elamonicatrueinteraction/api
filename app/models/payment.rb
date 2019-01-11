@@ -31,6 +31,10 @@ class Payment < ApplicationRecord
     'pagofacil'
   end
 
+  def payer_institution_id
+    payable_type == 'Order' ? payable.receiver.id : payable.destination.institution_id
+  end
+
   STATUSES.each do |valid_status|
     define_method :"#{valid_status}?" do
       status == valid_status

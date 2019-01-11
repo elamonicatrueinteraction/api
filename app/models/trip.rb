@@ -12,6 +12,8 @@ class Trip < ApplicationRecord
 
   belongs_to :shipper, optional: true
 
+  scope :delivery_at, ->(date) { where("((steps->0)->'schedule'->>'start')::date = ?", date.to_date) }
+
   ALLOWED_STATUSES = %w[
     waiting_shipper
     confirmed

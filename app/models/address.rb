@@ -9,7 +9,7 @@ class Address < UserApiResource
   def institution
     return nil unless institution_id
 
-    @institution ||= Institution.find_by(id: institution_id)
+    @institution ||= Services::Institution.find(institution_id)
   end
 
   def latlng
