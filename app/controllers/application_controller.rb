@@ -25,6 +25,12 @@ class ApplicationController < ActionController::API
     authorize_user || render_unauthorized('Nilus - Logistics API')
   end
 
+  def authorize_user_without_roles
+    authenticate_with_http_token do |token, _options|
+      @current_user ||= AuthorizeUser.call(token, request, false).result
+    end
+  end
+
   def authorize_user
     authenticate_with_http_token do |token, _options|
       @current_user ||= AuthorizeUser.call(token, request).result

@@ -1,6 +1,9 @@
 class PaymentsController < ApplicationController
   include CurrentAndEnsureDependencyLoader
 
+  skip_before_action :authorize_request, only: [:show]
+  before_action :authorize_user_without_roles, only: [:show]
+
   def index
     (optional_order || optional_delivery); return if performed?
 

@@ -1,9 +1,10 @@
 class AuthorizeUser
   prepend Service::Base
 
-  def initialize(http_auth_header, request_context)
+  def initialize(http_auth_header, request_context, with_roles = true)
     @http_auth_header = http_auth_header
     @request_context = request_context
+    @with_roles = with_roles
   end
 
   def call
@@ -19,7 +20,7 @@ class AuthorizeUser
       return errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
     end
 
-    return @user if ensure_user_ability
+    return @user if !@with_roles || ensure_user_ability
 
     errors.add(:token, I18n.t('services.authorize_user.not_allowed')) && nil
   end
@@ -41,9 +42,6 @@ class AuthorizeUser
   #
   # Right now the logic is very basic and that's why it's written like this
   def ensure_user_ability
-    Rails.logger.info "User is"
-    Rails.logger.info @user.attributes
-
     @user.has_any_role?(*allowed_roles)
   end
 
