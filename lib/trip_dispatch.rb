@@ -185,7 +185,7 @@ class TripDispatch
   def pausable?
     return true if trip.status == 'waiting_shipper' && valid_open_assignments?
 
-    errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_pause_trip')) && false
+    # errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.cannot_pause_trip')) && false
   end
 
   def valid_open_assignments?
