@@ -34,7 +34,7 @@ class AuthorizeUser
     body = json_load(response.body)
     Rails.logger.info "User logged"
     Rails.logger.info user_authentication_headers
-    Rails.logger.info response.headers
+    Rails.logger.info response.body
     Rails.logger.info response.code
     response.success? ? User.new(body, true) : nil
   end
