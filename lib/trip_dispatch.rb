@@ -194,7 +194,7 @@ class TripDispatch
 
     return true if @open_assignments.present?
 
-    errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.no_valid_open_assignments')) && false
+    # errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.no_valid_open_assignments')) && false
   end
 
 end
