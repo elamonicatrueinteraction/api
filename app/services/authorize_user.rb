@@ -20,9 +20,13 @@ class AuthorizeUser
       return errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
     end
 
-    return @user if !@with_roles || ensure_user_ability
+    if @with_roles
+      return @user if ensure_user_ability
+      errors.add(:token, I18n.t('services.authorize_user.not_allowed')) && nil
+    else
+      return @user
+    end
 
-    errors.add(:token, I18n.t('services.authorize_user.not_allowed')) && nil
   end
 
   def load_user_from_authentication
