@@ -1,5 +1,9 @@
 module V2
   class PaymentsController < ApplicationController
+    skip_before_action :authorize_request, only: [:index]
+    before_action :authorize_user_without_roles, only: [:index]
+
+
     def index
       render json: PaymentQuery.new(params).collection
     end
