@@ -42,7 +42,7 @@ class AuthorizeUser
   # Right now the logic is very basic and that's why it's written like this
   def ensure_user_ability
     Rails.logger.info "User is"
-    Rails.logger.info @user
+    Rails.logger.info @user.attributes
 
     @user.has_any_role?(*allowed_roles)
   end
