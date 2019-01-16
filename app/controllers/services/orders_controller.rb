@@ -1,5 +1,6 @@
 module Services
   class OrdersController < BaseController
+    after_action :log_response, only: [:create]
     def index
       render json: Services::OrderQuery.new(params).collection, adapter: :attributes
     end
@@ -24,6 +25,11 @@ module Services
     end
 
     private
+
+    def log_response
+      Rails.logger.info 'Response'
+      Rails.logger.info response.body
+    end
 
     def full_params
       order_params.tap do |_params|
