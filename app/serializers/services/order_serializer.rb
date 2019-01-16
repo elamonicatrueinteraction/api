@@ -17,6 +17,7 @@ module Services
         _payments,
         { each_serializer: PaymentSerializer }
       ).as_json[:payments]
+      []
     end
   end
 end
