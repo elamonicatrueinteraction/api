@@ -11,7 +11,7 @@ module Services
                :payments
 
     def payments
-      _payments = (object.payments + object.deliveries.map(&:payments).flatten).compact
+      _payments = (object.payments + object.deliveries.map(&:payments).flatten).compact.reverse
 
       ActiveModelSerializers::SerializableResource.new(
         _payments,
