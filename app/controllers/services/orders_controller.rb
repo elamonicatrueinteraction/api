@@ -15,11 +15,9 @@ module Services
         delivery = order.deliveries.last
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
 
+        order.payments = (order.payments + order.deliveries.map(&:payments).flatten).compact
 
-        order = Order.find(order.id)
-        Rails.logger.info _payments = (order.payments + order.deliveries.map(&:payments).flatten).compact.count
-
-        render json: Order.find(order.id), status: :created # 201
+        render json: order, status: :created # 201
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
