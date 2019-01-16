@@ -17,7 +17,7 @@ module Services
         order.payments.reload
         order.reload
 
-        render json: order, status: :created # 201
+        render json: Order.find(order.id), status: :created # 201
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
