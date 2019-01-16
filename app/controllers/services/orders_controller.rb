@@ -17,10 +17,7 @@ module Services
         order.payments.reload
         order.reload
 
-        Rails.logger.info 'Order'
-        Rails.logger.info Services::OrderSerializer.new(order).as_json
-
-        render json: Services::OrderSerializer.new(order).as_json, status: :created # 201
+        render json: Order.find(order.id), status: :created # 201
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
       end
