@@ -15,8 +15,9 @@ module Services
         delivery = order.deliveries.last
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
 
-        order.payments.reload
-        order.reload
+
+        order = Order.find(order.id)
+        Rails.logger.info _payments = (order.payments + order.deliveries.map(&:payments).flatten).compact
 
         render json: Order.find(order.id), status: :created # 201
       else
@@ -28,6 +29,7 @@ module Services
 
     def log_response
       Rails.logger.info 'Response'
+
       Rails.logger.info response.body
     end
 
