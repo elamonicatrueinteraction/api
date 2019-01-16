@@ -17,6 +17,9 @@ module Services
         order.payments.reload
         order.reload
 
+        Rails.logger.info order.payments.inspect
+
+
         render json: Order.find(order.id), status: :created # 201
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
