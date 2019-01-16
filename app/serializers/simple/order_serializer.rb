@@ -20,8 +20,10 @@ class Simple::OrderSerializer < ActiveModel::Serializer
   end
 
   def payments
+    _payments = (object.payments + object.deliveries.map(&:payments).flatten).compact
+
     ActiveModelSerializers::SerializableResource.new(
-      object.payments,
+      _payments,
       { each_serializer: PaymentSerializer }
     ).as_json[:payments]
   end
@@ -37,4 +39,3 @@ class Simple::OrderSerializer < ActiveModel::Serializer
     }
   end
 end
-
