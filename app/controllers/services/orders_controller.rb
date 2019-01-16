@@ -14,7 +14,6 @@ module Services
         delivery = order.deliveries.last
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
 
-        order.payments.reload
         order.reload
 
         render json: order, status: :created # 201
