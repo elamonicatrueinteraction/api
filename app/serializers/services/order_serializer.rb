@@ -12,6 +12,9 @@ module Services
 
     def payments
       _payments = (object.payments + object.deliveries.map(&:payments).flatten).compact
+      Rails.logger.info 'About to send'
+      Rails.logger.info _payments.length
+
       ActiveModelSerializers::SerializableResource.new(
         _payments,
         { each_serializer: PaymentSerializer }
