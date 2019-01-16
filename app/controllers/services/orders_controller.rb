@@ -17,7 +17,7 @@ module Services
 
 
         order = Order.find(order.id)
-        Rails.logger.info _payments = (order.payments + order.deliveries.map(&:payments).flatten).compact
+        Rails.logger.info _payments = (order.payments + order.deliveries.map(&:payments).flatten).compact.count
 
         render json: Order.find(order.id), status: :created # 201
       else
