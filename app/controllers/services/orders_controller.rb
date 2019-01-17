@@ -14,8 +14,8 @@ module Services
         delivery = order.deliveries.last
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
 
+        order.payments.reload
         order.reload
-
         render json: order, status: :created # 201
       else
         render json: { errors: service.errors }, status: :unprocessable_entity # 422
