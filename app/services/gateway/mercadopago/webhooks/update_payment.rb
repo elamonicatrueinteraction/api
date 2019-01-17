@@ -20,7 +20,7 @@ module Gateway
         def update_payment
           new_gateway_data = @account.payment(@gateway_id).deep_symbolize_keys
           Rails.logger.info "Mercadopago request: #{new_gateway_data.inspect}"
-
+          Rollbar.info('Mercadopago starte', new_gateway_data)
           return @payment if @payment.status == new_gateway_data[:status]
 
           @payment.status = new_gateway_data[:status]
