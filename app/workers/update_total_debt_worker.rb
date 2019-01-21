@@ -2,6 +2,10 @@ class UpdateTotalDebtWorker
   include Sidekiq::Worker
 
   def perform(payment_id)
+    if institution.nil?
+      Rails.logger.info "Payment #{payment_id} has ##{payment.payer_institution_id}, it does not exist"
+      return
+    end
     @payment_id = payment_id
     Rails.logger.info "About to update #{institution.id} total debt"
     Rails.logger.info "Calculated debt is #{institution.calculated_total_debt}"
