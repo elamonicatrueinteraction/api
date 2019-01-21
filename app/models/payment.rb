@@ -32,7 +32,7 @@ class Payment < ApplicationRecord
   end
 
   def payer_institution_id
-    payable_type == 'Order' ? payable.receiver.id : payable.destination.institution_id
+    payable_type == 'Order' ? payable.receiver_id : payable.destination_id
   end
 
   STATUSES.each do |valid_status|
