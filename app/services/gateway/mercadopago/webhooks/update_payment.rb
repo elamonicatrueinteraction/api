@@ -17,10 +17,10 @@ module Gateway
 
         private
 
-        def update_payment
+        def update_payment # rubocop:disable Metrics/AbcSize
           new_gateway_data = @account.payment(@gateway_id).deep_symbolize_keys
           Rails.logger.info "Mercadopago request: #{new_gateway_data.inspect}"
-          Rollbar.info('Mercadopago started', new_gateway_data)
+          Rollbar.info("Mercadopago started #{new_gateway_data[:status]}", new_gateway_data)
           return @payment if @payment.status == new_gateway_data[:status]
 
           @payment.status = new_gateway_data[:status]
