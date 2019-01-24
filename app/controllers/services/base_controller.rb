@@ -1,6 +1,10 @@
 module Services
   class BaseController < ActionController::API
     include ActionController::HttpAuthentication::Token::ControllerMethods
+    NILUS_SERVICES_TOKENS = {
+      user: Rails.application.secrets.user_token,
+      marketplace: Rails.application.secrets.marketplace_token
+    }.freeze
 
     before_action :authorize_request
 

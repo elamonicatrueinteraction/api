@@ -70,12 +70,12 @@ if Rails.env.test?
 
       request_headers = {
         "Accept" => "application/json",
-        "Authorization" => "Token token=#{USER_SERVICE_TOKEN}"
+        "Authorization" => "Token token=#{Rails.application.secrets.user_token}"
       }
 
       ros_request_headers = {
         "Accept" => "application/json",
-        "Authorization" => "Token token=#{USER_SERVICE_TOKEN}",
+        "Authorization" => "Token token=#{Rails.application.secrets.user_token}",
         "X-Network-ID" => "ROS"
       }
 

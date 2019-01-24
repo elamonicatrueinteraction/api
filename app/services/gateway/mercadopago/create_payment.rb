@@ -38,11 +38,11 @@ module Gateway
           external_reference: @payment.id,
           idempotency_key: @payment.id
         }.tap do |_hash|
-          if MERCADOPAGO_CONFIG['notification_host'].present?
+          if Rails.application.secrets.mercadopago_notification_host.present?
             # We user the URL helper like this because they are not available in the services nor the models
             _hash[:notification_url] = Rails.application.routes.url_helpers.webhooks_mercadopago_payment_url(
-              protocol: SECURE_PROTOCOL,
-              host: MERCADOPAGO_CONFIG['notification_host'],
+              protocol: 'https',
+              host: Rails.application.secrets.mercadopago_notification_host,
               uuid: @payment.id
             )
           end
@@ -62,9 +62,11 @@ module Gateway
       end
 
       def payer_email
-        emails = HashWithIndifferentAccess.new(
-          MERCADOPAGO_CONFIG['payer_email']
-        )
+        emails = {
+          nilus: Rails.application.secrets.mercadopago_payer_email_nilus,
+          bar: Rails.application.secrets.mercadopago_payer_email_bar,
+          mdq: Rails.application.secrets.mercadopago_payer_email_ros
+        }
         @payment.payable.is_a?(Order) ? (@payment.payable.network_id == 'ROS' ? emails[:bar] : emails[:mdq]) : emails[:nilus] # rubocop:disable Style/NestedTernaryOperator
       end
     end

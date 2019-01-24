@@ -1,4 +1,7 @@
 Aws.config.update({
-  region: AWS_REGION,
-  credentials: Aws::Credentials.new(AWS_CREDENTIALS['access_key'], AWS_CREDENTIALS['secret_key'])
+  region: Rails.application.secrets.aws_region,
+  credentials: Aws::Credentials.new(
+    Rails.application.secrets.aws_credentials_access_key,
+    Rails.application.secrets.aws_credentials_secret_key
+  )
 })

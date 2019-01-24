@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ShippersController, type: :routing do
   describe 'some REST resources' do
-    let(:routes_params){ { protocol: 'https' } }
+    let(:routes_params){ {} }
 
     it { expect(get: '/shippers').to route_to( routes_params.merge(controller: 'v1/shippers', action: 'index') ) }
     it { expect(get: '/shippers/new').to route_to( routes_params.merge(controller: 'v1/shippers', action: 'show', id: 'new') ) }

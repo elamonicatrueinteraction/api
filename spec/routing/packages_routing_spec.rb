@@ -24,7 +24,7 @@ RSpec.describe PackagesController, type: :routing do
   end
 
   describe 'some resources under deliveries' do
-    let(:routes_params){ { protocol: 'https', delivery_id: '1' } }
+    let(:routes_params){ { delivery_id: '1' } }
 
     it { expect(get: '/deliveries/1/packages').to route_to( routes_params.merge(controller: 'v1/packages', action: 'index') ) }
     it { expect(get: '/deliveries/1/packages/new').to route_to( routes_params.merge(controller: 'v1/packages', action: 'show', id: 'new') ) }

@@ -23,7 +23,7 @@ module Requests
 
     def resource_authentication_headers
       {
-        Authorization: "Token token=#{NILUS_SERVICES_TOKENS.values.sample}"
+        Authorization: "Token token=#{Services::BaseController::NILUS_SERVICES_TOKENS.values.sample}"
       }
     end
 

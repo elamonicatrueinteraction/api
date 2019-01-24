@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrdersController, type: :routing do
   describe 'some REST resources' do
-    let(:routes_params){ { protocol: 'https' } }
+    let(:routes_params){ {} }
 
     it { expect(get: '/orders').to route_to( routes_params.merge(controller: 'v1/orders', action: 'index') ) }
     it { expect(get: '/orders/new').to route_to( routes_params.merge(controller: 'v1/orders', action: 'show', id: 'new') ) }
@@ -26,7 +26,7 @@ RSpec.describe OrdersController, type: :routing do
   end
 
   describe 'some resources under institutions' do
-    let(:routes_params){ { protocol: 'https', institution_id: '1' } }
+    let(:routes_params){ { institution_id: '1' } }
 
     it { expect(get: '/institutions/1/orders').to route_to( routes_params.merge(controller: 'v1/orders', action: 'index') ) }
     it { expect(get: '/institutions/1/orders/new').not_to be_routable }
