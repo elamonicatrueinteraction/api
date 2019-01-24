@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TripsController, type: :routing do
   describe 'some REST resources' do
-    let(:routes_params){ { protocol: 'https' } }
+    let(:routes_params){ {} }
 
     it { expect(get: '/trips').to route_to( routes_params.merge(controller: 'v1/trips', action: 'index') ) }
     it { expect(get: '/trips/new').to route_to( routes_params.merge(controller: 'v1/trips', action: 'show', id: 'new') ) }
@@ -26,7 +26,7 @@ RSpec.describe TripsController, type: :routing do
   end
 
   describe 'some other member paths' do
-    let(:routes_params){ { protocol: 'https', id: '1' } }
+    let(:routes_params){ { id: '1' } }
 
     it { expect(post: '/trips/1/broadcast').to route_to( routes_params.merge(controller: 'v1/trips', action: 'broadcast') ) }
     it { expect(get: '/trips/1/broadcast').not_to be_routable }
@@ -44,7 +44,7 @@ RSpec.describe TripsController, type: :routing do
   end
 
   describe 'some other collections paths' do
-    let(:routes_params){ { protocol: 'https' } }
+    let(:routes_params){ {} }
 
     it { expect(get: '/trips/export').to route_to( routes_params.merge(controller: 'v1/trips', action: 'export') ) }
     it { expect(post: '/trips/export').not_to be_routable }
@@ -58,7 +58,7 @@ RSpec.describe TripsController, type: :routing do
   end
 
   describe 'some resources under institutions' do
-    let(:routes_params){ { protocol: 'https', institution_id: '1' } }
+    let(:routes_params){ { institution_id: '1' } }
 
     it { expect(get: '/institutions/1/trips').to route_to( routes_params.merge(controller: 'v1/trips', action: 'index') ) }
     it { expect(get: '/institutions/1/trips/new').not_to be_routable }

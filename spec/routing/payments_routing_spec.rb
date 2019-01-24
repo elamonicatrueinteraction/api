@@ -24,7 +24,7 @@ RSpec.describe PaymentsController, type: :routing do
   end
 
   describe 'some resources under orders' do
-    let(:routes_params){ { protocol: 'https', order_id: '1' } }
+    let(:routes_params){ { order_id: '1' } }
 
     it { expect(get: '/orders/1/payments').to route_to( routes_params.merge(controller: 'v1/payments', action: 'index') ) }
     it { expect(post: '/orders/1/payments').to route_to( routes_params.merge(controller: 'v1/payments', action: 'create') ) }
@@ -40,7 +40,7 @@ RSpec.describe PaymentsController, type: :routing do
   end
 
   describe 'some resources under deliveries' do
-    let(:routes_params){ { protocol: 'https', delivery_id: '1' } }
+    let(:routes_params){ { delivery_id: '1' } }
 
     it { expect(get: '/deliveries/1/payments').to route_to( routes_params.merge(controller: 'v1/payments', action: 'index') ) }
     it { expect(post: '/deliveries/1/payments').to route_to( routes_params.merge(controller: 'v1/payments', action: 'create') ) }
