@@ -10,6 +10,7 @@ module Webhooks
           service = ::Gateway::Mercadopago::Webhooks::UpdatePayment.call(payment, mercadopago_id, notification_body)
 
           unless service.success?
+            Rollbar.info("Payment unsuccessful #{payment}", not_body: notification_body, par: params)
             render json: nil, status: :unprocessable_entity and return
           end
         end
@@ -50,11 +51,3 @@ module Webhooks
 
   end
 end
-
-
-
-
-
-
-
-
