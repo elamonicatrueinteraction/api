@@ -26,7 +26,7 @@ class AuthorizeUser
 
   def load_user_from_authentication
     request = Typhoeus::Request.new(
-      "#{Rails.application.secrets.user_endpoint}/authorize",
+      "https://#{URI.parse(Rails.application.secrets.user_endpoint).host}/authorize",
       headers: user_authentication_headers,
       method: :get
     )
