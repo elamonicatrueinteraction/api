@@ -26,7 +26,7 @@ class AuthorizeUser
 
   def load_user_from_authentication
     request = Typhoeus::Request.new(
-      "#{USER_SERVICE_ENDPOINT}/authorize",
+      "#{Rails.application.secrets.user_endpoint}/authorize",
       headers: user_authentication_headers,
       method: :get
     )
@@ -50,7 +50,7 @@ class AuthorizeUser
       "Accept-Encoding" => "application/json",
       "Content-Type" => "application/json",
       "Authorization" => "Bearer #{@http_auth_header}",
-      "Nilus-Service-Authorization" => "Token #{USER_SERVICE_TOKEN}"
+      "Nilus-Service-Authorization" => "Token #{Rails.application.secrets.user_token}"
     }
   end
 
