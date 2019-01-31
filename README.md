@@ -1,14 +1,17 @@
 # Nilus - API - Backend
+
+Last Update: 31/01/2019
+
 [![Build Status](https://img.shields.io/codeship/fe7da910-3d14-0136-59ad-1ed0266f5d63/master.svg)](https://app.codeship.com/projects/290661)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d4885e6adb6c7d2127d1/maintainability)](https://codeclimate.com/repos/5af4aa870297440293002282/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d4885e6adb6c7d2127d1/test_coverage)](https://codeclimate.com/repos/5af4aa870297440293002282/test_coverage)
 
-### Development
+### Dependencies
 
-
+**Mission critical:** User API must be up and running for logistic-api to work.
 ### Requirements
 - Ruby 2.4.1
-- Postgresql 9+
+- PostGIS 9+
 - Redis
 
 ### Setup environment
@@ -48,6 +51,13 @@ You can recreate the db migrations from an non existing-db with:
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails db:seed
+```
+
+Due to an error in rail seeds it is necessary to manually enable created stocks and variants with:
+
+```Bash
+$ rails console
+$ Variant.update_all(revised_at: Time.zone.now, revised: true)
 ```
 
 ### Hooks
