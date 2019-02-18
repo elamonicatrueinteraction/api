@@ -17,7 +17,7 @@ class PaymentQuery
   end
 
   def self.default_collection
-    Payment.all
+    Payment.unscoped.all
   end
 
   private
