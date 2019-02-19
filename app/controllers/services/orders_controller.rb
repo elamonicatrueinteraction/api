@@ -12,7 +12,7 @@ module Services
 
         order_payment = CreatePayment.call(order, order.amount, payment_method)
         delivery = order.deliveries.last
-        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
+        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless full_params[:offer_id]
 
         order.payments.reload
         order.reload
@@ -47,6 +47,7 @@ module Services
         :origin_id,
         :destination_id,
         :amount,
+        :offer_id,
         :delivery_amount, # For the delivery
         options: [], # For the delivery
       ).to_unsafe_hash
