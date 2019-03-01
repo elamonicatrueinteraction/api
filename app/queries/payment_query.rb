@@ -11,7 +11,7 @@ class PaymentQuery
 
   def filter_by_institution_id(value)
     order_ids = Order.by_receiver_id(value).ids
-    @collection = @collection.where(
+    @collection = Payment.unscoped.all.where(
       payable_id: [*order_ids, *Delivery.where(order_id: order_ids).ids]
     )
   end
