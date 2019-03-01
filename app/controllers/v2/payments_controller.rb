@@ -4,7 +4,7 @@ module V2
     before_action :authorize_user_without_roles, only: [:index]
 
     def index
-      render json: PaymentQuery.new(params).collection.where(network_id: current_network)
+      render json: PaymentQuery.new(params).collection
     end
 
     def update

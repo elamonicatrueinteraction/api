@@ -10,9 +10,9 @@ class PaymentQuery
   order_attributes :id
 
   def filter_by_institution_id(value)
-    order_ids = Order.by_receiver_id(value).ids
-    @collection = Payment.unscoped.all.where(
-      payable_id: [*order_ids, *Delivery.where(order_id: order_ids).ids]
+    order_ids = Order.unscoped.by_receiver_id(value).ids
+    @collection = @collection.where(
+      payable_id: [*order_ids, *Delivery.unscoped.where(order_id: order_ids).ids]
     )
   end
 
