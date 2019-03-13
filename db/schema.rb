@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181206182205) do
+ActiveRecord::Schema.define(version: 20190308124719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20181206182205) do
     t.datetime "updated_at", null: false
     t.jsonb "extras", default: {}
     t.string "network_id"
+    t.boolean "with_delivery"
     t.index ["extras"], name: "index_orders_on_extras", using: :gin
     t.index ["giver_id"], name: "index_orders_on_giver_id"
     t.index ["network_id"], name: "index_orders_on_network_id"
