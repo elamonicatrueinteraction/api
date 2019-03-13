@@ -9,10 +9,10 @@ module Services
 
       if service.success?
         order = service.result
-
         order_payment = CreatePayment.call(order, order.amount, payment_method)
         delivery = order.deliveries.last
-        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless full_params[:offer_id] || full_params[:with_delivery] == 0
+        withoutDelivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0
+        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless withoutDelivery
 
         order.payments.reload
         order.reload
