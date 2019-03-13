@@ -12,7 +12,7 @@ module Services
 
         order_payment = CreatePayment.call(order, order.amount, payment_method)
         delivery = order.deliveries.last
-        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless full_params[:offer_id]
+        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless full_params[:offer_id] || full_params[:with_delivery] == 0
 
         order.payments.reload
         order.reload
