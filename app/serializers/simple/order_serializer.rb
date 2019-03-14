@@ -9,7 +9,8 @@ class Simple::OrderSerializer < ActiveModel::Serializer
     :updated_at,
     :giver,
     :receiver,
-    :payments
+    :payments,
+    :with_delivery
 
   def giver
     institution_data(object.giver)
