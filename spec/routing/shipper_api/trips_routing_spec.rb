@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ShipperApi::TripsController, type: :routing do
   describe 'some REST resources' do
-    let(:routes_params){ { protocol: 'https' } }
+    let(:routes_params){ {} }
 
     it { expect(get: '/shipper/trips').to route_to( routes_params.merge(controller: 'shipper_api/trips', action: 'index') ) }
     it { expect(get: '/shipper/trips/new').to route_to( routes_params.merge(controller: 'shipper_api/trips', action: 'show', id: 'new') ) }

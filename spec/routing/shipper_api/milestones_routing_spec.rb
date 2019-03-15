@@ -12,7 +12,7 @@ RSpec.describe ShipperApi::MilestonesController, type: :routing do
   end
 
   describe 'some resources under trips' do
-    let(:routes_params){ { protocol: 'https', trip_id: '1' } }
+    let(:routes_params){ { trip_id: '1' } }
 
     it { expect(get: '/shipper/trips/1/milestones').not_to be_routable }
     it { expect(get: '/shipper/trips/1/milestones/new').not_to be_routable }

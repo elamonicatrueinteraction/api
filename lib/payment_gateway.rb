@@ -21,10 +21,19 @@ class PaymentGateway
   end
 
   def get_credentials_for(payable)
-    return MERCADOPAGO['nilus'] if payable.is_a?(Delivery)
+    return {
+      public_key: Rails.application.secrets.mercadopago_nilus_public_key,
+      access_token: Rails.application.secrets.mercadopago_nilus_access_token
+    } if payable.is_a?(Delivery)
     # TODO: Move this to a database record
-    return MERCADOPAGO['bar'] if payable.network_id == 'ROS'
-    return MERCADOPAGO['mdq'] if payable.network_id == 'MDQ'
+    return {
+      public_key: Rails.application.secrets.mercadopago_bar_public_key,
+      access_token: Rails.application.secrets.mercadopago_bar_access_token
+    } if payable.network_id == 'ROS'
+    return {
+      public_key: Rails.application.secrets.mercadopago_mdq_public_key,
+      access_token: Rails.application.secrets.mercadopago_mdq_access_token
+    } if payable.network_id == 'MDQ'
   end
 
 end

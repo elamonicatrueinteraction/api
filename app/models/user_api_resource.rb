@@ -1,8 +1,8 @@
 class UserApiResource < ActiveResource::Base
   alias read_attribute_for_serialization send
 
-  self.site = "#{USER_SERVICE_ENDPOINT}/resources"
-  headers['Authorization'] = "Token token=#{USER_SERVICE_TOKEN}"
+  self.site = Rails.application.secrets.user_endpoint
+  headers['Authorization'] = "Token token=#{Rails.application.secrets.user_token}"
 
   class << self
     attr_accessor :current_network

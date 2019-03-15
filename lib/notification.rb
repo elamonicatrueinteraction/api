@@ -9,7 +9,7 @@ class Notification
 
     # Determine device -> message recipient
     endpoint_arn = sns.create_platform_endpoint(
-      platform_application_arn: SNS_SETUP['arn']['android'],
+      platform_application_arn: Rails.application.secrets.aws_sns_arn_android,
       token: token
     ).endpoint_arn
 

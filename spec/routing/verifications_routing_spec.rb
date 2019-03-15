@@ -24,7 +24,7 @@ RSpec.describe VerificationsController, type: :routing do
   end
 
   describe 'some resources under vehicles' do
-    let(:routes_params){ { protocol: 'https', vehicle_id: '1' } }
+    let(:routes_params){ { vehicle_id: '1' } }
 
     it { expect(get: '/vehicles/1/verifications').to route_to( routes_params.merge(controller: 'v1/verifications', action: 'index') ) }
     it { expect(get: '/vehicles/1/verifications/new').not_to be_routable }
