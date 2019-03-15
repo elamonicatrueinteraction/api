@@ -50,7 +50,6 @@ class CreateOrder
       amount: @allowed_params[:amount],
       bonified_amount: @allowed_params[:bonified_amount],
       giver_id: @allowed_params[:giver_id],
-      with_delivery: @allowed_params[:with_delivery],
       receiver_id: @allowed_params[:receiver_id],
       network_id: @allowed_params[:network_id] || ApplicationRecord.current_network,
       with_delivery: true
