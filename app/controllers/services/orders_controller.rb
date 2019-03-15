@@ -11,7 +11,7 @@ module Services
         order = service.result
         order_payment = CreatePayment.call(order, order.amount, payment_method)
         delivery = order.deliveries.last
-        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery].zero?
+        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless without_delivery
 
         order.payments.reload
