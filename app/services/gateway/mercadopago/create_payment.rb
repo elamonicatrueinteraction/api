@@ -18,7 +18,9 @@ module Gateway
 
       def create_payment
         begin
-          @account.create_payment( coupon_payment_payload )
+          email = payer_email
+          payload = coupon_payment_payload(email)
+          @account.create_payment(payload)
         rescue StandardError => e
           errors.add_multiple_errors( e.errors.messages )
 
@@ -26,14 +28,14 @@ module Gateway
         end
       end
 
-      def coupon_payment_payload
+      def coupon_payment_payload(email)
         {
           transaction_amount: @payment.amount.to_f,
           description: payment_description,
           payment_method_id: @payment_type,
           statement_descriptor: "NILUS",
           payer: {
-            email: payer_email
+            email: email
           },
           external_reference: @payment.id,
           idempotency_key: @payment.id
@@ -65,9 +67,13 @@ module Gateway
         emails = {
           nilus: Rails.application.secrets.mercadopago_payer_email_nilus,
           bar: Rails.application.secrets.mercadopago_payer_email_bar,
-          mdq: Rails.application.secrets.mercadopago_payer_email_ros
+          mdq: Rails.application.secrets.mercadopago_payer_email_mdq
         }
-        @payment.payable.is_a?(Order) ? (@payment.payable.network_id == 'ROS' ? emails[:bar] : emails[:mdq]) : emails[:nilus] # rubocop:disable Style/NestedTernaryOperator
+        if @payment.payable.is_a?(Order)
+          @payment.payable.network_id == 'ROS' ? emails[:bar] : emails[:mdq]
+        else
+          emails[:nilus]
+        end
       end
     end
   end
