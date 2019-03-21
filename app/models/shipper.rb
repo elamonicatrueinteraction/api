@@ -9,6 +9,7 @@ class Shipper < ApplicationRecord
   attribute :devices, :jsonb, default: {}
 
   scope :with_android_device_tokens, -> { where("devices->>'android' IS NOT NULL") }
+  scope :active_and_verified, -> { where(active: true).where(verified: true)}
 
   has_many :verifications, as: :verificable, dependent: :destroy
   has_many :bank_accounts

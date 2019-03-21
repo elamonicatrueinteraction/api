@@ -55,7 +55,7 @@ class TripDispatch
   def broadcast!
     assignments = {}
     begin
-      shippers = Shipper.where(id: Billboard.shippers_queue_set)
+      shippers = Shipper.active_and_verified
 
       TripAssignment.transaction do
         # Pessimistic Locking in order to prevent race-conditions
