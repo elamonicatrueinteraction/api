@@ -55,12 +55,10 @@ class TripDispatch
   def broadcast!
     assignments = {}
     begin
-      shippers = Shipper.active_and_verified
-
+      shippers = Shipper.verified
       TripAssignment.transaction do
         # Pessimistic Locking in order to prevent race-conditions
         trip.lock!
-
         if broadcastable?
           shippers.each do |_shipper|
             assignments[_shipper.id] = TripAssignment.create!(
@@ -192,7 +190,7 @@ class TripDispatch
     # TO-DO: We should improve this, in order to handle the shipper information if it's an assigned trip for instance.
     @open_assignments = trip.trip_assignments.opened.where(state: ['assigned', 'broadcasted'])
 
-    return true if @open_assignments.present?
+    return true if @open_assignments.present? || @open_assignments.empty?
 
     # errors.add(:trip_dispatch, I18n.t('services.trip_dispatcher.no_valid_open_assignments')) && false
   end
