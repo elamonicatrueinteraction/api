@@ -47,6 +47,7 @@ module Services
         :origin_id,
         :destination_id,
         :amount,
+        :with_delivery,
         :offer_id,
         :delivery_amount, # For the delivery
         options: [], # For the delivery
