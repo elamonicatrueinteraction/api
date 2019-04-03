@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
       Rails.logger.debug "First order giver #{results[0].giver.to_yaml}"
       Rails.logger.debug "First order giver #{results[0].receiver.to_yaml}"
     end
-    render json: list_results(finder.result), status: :ok # 200
+    render json: list_results(finder.result), each_serializer: OrderSerializer, status: :ok # 200
   end
 
   def create
