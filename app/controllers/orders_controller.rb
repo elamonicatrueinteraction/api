@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     if results.length > 0
       Rails.logger.debug "Example order  #{results[0].to_yaml}"
       Rails.logger.debug "First order giver #{results[0].giver.to_yaml}"
-      Rails.logger.debug "First order giver #{results[0].receiver.to_yaml}"
+      Rails.logger.debug "First order receiver #{results[0].receiver.to_yaml}"
     end
     render json: list_results(finder.result), each_serializer: OrderSerializer, status: :ok # 200
   end
