@@ -7,7 +7,9 @@ class OrdersController < ApplicationController
     finder =
       Finder::Orders.call(institution_id: params.fetch(:institution_id, current_institution&.id),
                           filter_params: filter_params)
-    Rails.logger.info "Found #{finder.result.length}"
+    results = finder.results
+    Rails.logger.debug "Found #{results.length} orders"
+    Rollbar.debug("Found orders", results)
     render json: list_results(finder.result), status: :ok # 200
   end
 
