@@ -9,7 +9,9 @@ class OrdersController < ApplicationController
                           filter_params: filter_params)
     results = finder.result
     Rails.logger.debug "Found #{results.length} orders"
-    Rollbar.debug("Found orders", results)
+    if results.length > 0
+      Rails.logger.debug "Example order  #{results[0]}"
+    end
     render json: list_results(finder.result), status: :ok # 200
   end
 
