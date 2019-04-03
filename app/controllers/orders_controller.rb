@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
     results = finder.result
     Rails.logger.debug "Found #{results.length} orders"
     if results.length > 0
-      Rails.logger.debug "Example order  #{results[0]}"
+      Rails.logger.debug "Example order  #{results[0].to_yaml}"
     end
     render json: list_results(finder.result), status: :ok # 200
   end
