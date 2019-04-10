@@ -11,6 +11,8 @@ module Services
         order = service.result
         if order.network_id != 'ROS'
           order_payment = CreatePayment.call(order, order.amount, payment_method)
+        else
+          Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO."
         end
         delivery = order.deliveries.last
         without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate

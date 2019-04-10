@@ -12,7 +12,7 @@ module Services
 
     def payments
       _payments = (object.payments + object.deliveries.map(&:payments).flatten).compact.reverse
-
+      return [] if _payments.empty?
       ActiveModelSerializers::SerializableResource.new(
         _payments,
         { each_serializer: PaymentSerializer }
