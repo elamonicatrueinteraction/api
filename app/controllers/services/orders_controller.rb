@@ -9,7 +9,11 @@ module Services
 
       if service.success?
         order = service.result
-        order_payment = CreatePayment.call(order, order.amount, payment_method)
+        if order.network_id != 'ROS'
+          order_payment = CreatePayment.call(order, order.amount, payment_method)
+        else
+          Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO."
+        end
         delivery = order.deliveries.last
         without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
         delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless without_delivery
