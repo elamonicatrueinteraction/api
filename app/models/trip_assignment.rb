@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: trip_assignments
+#
+#  id                   :bigint(8)        not null, primary key
+#  state                :string
+#  trip_id              :uuid
+#  shipper_id           :uuid
+#  created_at           :datetime
+#  notification_payload :jsonb
+#  notified_at          :datetime
+#  closed_at            :datetime
+#  network_id           :string
+#
+
 class TripAssignment < ApplicationRecord
   default_scope_by_network
   attribute :notification_payload, :jsonb, default: {}
