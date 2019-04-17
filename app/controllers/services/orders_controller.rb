@@ -14,10 +14,10 @@ module Services
         else
           Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
         end
-        is_offer_order = order.offer_id.nil?
+
         delivery = order.deliveries.last
-        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
-        if (not without_delivery) or is_offer_order
+        without_delivery = full_params[:offer_id].nil? && full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
+        unless without_delivery
           delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
         end
         order.payments.reload
