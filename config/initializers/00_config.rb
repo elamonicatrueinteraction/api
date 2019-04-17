@@ -14,11 +14,11 @@
 # MERCADOPAGO_CONFIG = MERCADOPAGO['config'].freeze
 #
 # redis = APP_CONFIG[env]['redis'].freeze
-redis_db   = Rails.application.secrets.redis_db
-redis_host = Rails.application.secrets.redis_host
-redis_port = Rails.application.secrets.redis_port
-redis_url  = "redis://#{redis_host}:#{redis_port}/#{redis_db}".freeze
-$redis = Redis.new(host: redis_host, port: redis_port)
+REDIS_DB   = Rails.application.secrets.redis_db
+REDIS_HOST = Rails.application.secrets.redis_host
+REDIS_PORT = Rails.application.secrets.redis_port
+redis_url  = "redis://#{REDIS_HOST}:#{REDIS_PORT}/#{REDIS_DB}".freeze
+$redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
 #
 # services = APP_CONFIG[env]['services'].freeze
 # SERVICES_TOKENS = services.each_with_object({}) do |(name, data), _hash|
