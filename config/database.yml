@@ -9,8 +9,8 @@ default: &default
   adapter: postgis
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username:
-  password:
+  username: sa
+  password: password
   host: localhost
   schema_search_path: public
 
