@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: payments
+#
+#  id               :uuid             not null, primary key
+#  status           :string
+#  amount           :decimal(10, 2)
+#  collected_amount :decimal(10, 2)
+#  payable_type     :string
+#  payable_id       :string
+#  gateway          :string
+#  gateway_id       :string
+#  gateway_data     :jsonb
+#  notifications    :jsonb
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  network_id       :string
+#  comment          :string           default("")
+#  paid_at          :datetime
+#
+
 class Payment < ApplicationRecord
   default_scope_by_network
   attribute :gateway_data, :jsonb, default: {}

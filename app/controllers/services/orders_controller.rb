@@ -9,11 +9,17 @@ module Services
 
       if service.success?
         order = service.result
-        order_payment = CreatePayment.call(order, order.amount, payment_method)
-        delivery = order.deliveries.last
-        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
-        delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method) unless without_delivery
+        if not order.giver.name == 'BAR'
+          order_payment = CreatePayment.call(order, order.amount, payment_method)
+        else
+          Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
+        end
 
+        delivery = order.deliveries.last
+        without_delivery = full_params[:offer_id].nil? && full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
+        unless without_delivery
+          delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
+        end
         order.payments.reload
         order.reload
         render json: order, status: :created # 201
@@ -47,6 +53,7 @@ module Services
         :origin_id,
         :destination_id,
         :amount,
+        :with_delivery,
         :offer_id,
         :delivery_amount, # For the delivery
         options: [], # For the delivery
@@ -67,6 +74,10 @@ module Services
 
     def order_items
       plain_hash_params.dig(:order, :order_items)
+    end
+
+    def with_order_coupon
+
     end
   end
 end
