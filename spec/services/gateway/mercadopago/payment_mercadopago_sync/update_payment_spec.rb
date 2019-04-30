@@ -20,11 +20,12 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
 
     it 'should update payment and update total_debt' do
       total_debt_init = @institution.calculated_total_debt
-      Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
+      response = Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
       total_debt_final = @institution.calculated_total_debt
       total_debt_expect = total_debt_init - @pending_payment.amount
 
       expect(total_debt_final).to eql(total_debt_expect)
+      expect(response.result).to be(true)
     end
   end
 
@@ -37,11 +38,12 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
 
     it 'should not update payment and update total_debt' do
       total_debt_init = @institution.calculated_total_debt
-      Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
+      response = Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
       total_debt_final = @institution.calculated_total_debt
       total_debt_expect = total_debt_init
 
       expect(total_debt_final).to eql(total_debt_expect)
+      expect(response.result).to be(false)
     end
   end
 
@@ -54,11 +56,12 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
 
     it 'should not update payment and update total_debt' do
       total_debt_init = @institution.calculated_total_debt
-      Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
+      response = Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
       total_debt_final = @institution.calculated_total_debt
       total_debt_expect = total_debt_init
 
       expect(total_debt_final).to eql(total_debt_expect)
+      expect(response.result).to be(false)
     end
   end
 

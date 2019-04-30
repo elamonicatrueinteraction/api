@@ -20,9 +20,11 @@ module Gateway
           if state != "pending"
             if state == "approved"
               approved
+            else
+              false
             end
           else
-            @payment
+            false
           end
         end
 
@@ -34,19 +36,17 @@ module Gateway
           @payment.gateway_data = @mercadopago_data
           @payment.status = "approved"
 
-          if @payment.save
-            update_total_debt
-          end
+          update_total_debt if @payment.save
         end
 
         def update_total_debt
           institution ||= Services::Institution.find(@payment.payer_institution_id)
           if institution.nil?
             Rails.logger.info "Payment #{@payment.id} has ##{@payment.payer_institution_id}, it does not exist"
-            return
+            return false
           end
           institution.total_debt = institution.calculated_total_debt
-          institution.save
+          true if institution.save
         end
       end
     end

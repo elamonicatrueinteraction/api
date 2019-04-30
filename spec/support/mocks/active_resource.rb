@@ -74,8 +74,6 @@ RSpec.configure do |config|
       "X-Network-ID": "ROS"
     }
 
-    request_params = 'institution[id]=37d4970a-53ea-49f5-a2f1-2cdf26f36454&institution[legal_name]=BAR&institution[uid_type]=CUIT&institution[uid]=30-71000841-4&institution[name]=BAR&institution[beneficiaries]=400&institution[offered_services][]=lunch&institution[created_at]=2019-04-29T12%3A27%3A16.404Z&institution[updated_at]=2019-04-29T12%3A27%3A16.404Z&institution[total_debt]=0.0&institution[district][name]=Distrito%20Centro'
-
     user_service_endpoint = Rails.application.secrets.user_endpoint
     # New mocks
     stub_request(:get, user_service_endpoint + '/institutions.json').with(headers: request_headers).to_return(body: [institution].to_json)
@@ -104,7 +102,7 @@ RSpec.configure do |config|
     stub_request(:get, user_service_endpoint + "/addresses.json?institution_id=#{institution[:id]}").with(headers: ros_request_headers).to_return(body: [address].to_json)
 
     stub_request(:put, user_service_endpoint + "/institutions/#{institution[:id]}.json")
-        .with(body: request_params, headers: request_headers)
+        .with(headers: request_headers)
         .to_return(status: 200, body: "")
 
   end

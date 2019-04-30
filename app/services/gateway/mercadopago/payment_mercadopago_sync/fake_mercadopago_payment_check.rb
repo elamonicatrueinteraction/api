@@ -18,8 +18,8 @@ module Gateway
         def get_payment_mercadopago
           data = @payment.gateway_data
           data['status'] = @state
-          data['date_approved'] = Time.zone.now
           data['status_detail'] = "State_#{@state}"
+          data['date_approved'] = Time.zone.now if @state == "approved"
           data
         end
       end
