@@ -60,5 +60,5 @@ Rails.application.configure do
     ->(req) { req.headers.fetch('X-Client-Version', 'No version') }
   ]
 
-  config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
+  config.cache_store = :redis_store, "redis://192.168.99.100:6379/0/cache", { expires_in: 90.minutes }
 end

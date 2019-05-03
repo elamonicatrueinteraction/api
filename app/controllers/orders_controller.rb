@@ -76,10 +76,7 @@ class OrdersController < ApplicationController
   end
 
   def filter_params
-    params.permit(
-      :created_since,
-      :created_until
-    )
+    params.permit(:delivery_date)
   end
 
 end
