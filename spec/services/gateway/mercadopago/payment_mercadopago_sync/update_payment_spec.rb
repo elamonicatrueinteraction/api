@@ -15,7 +15,7 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
     before do
       response_mercadopago = @pending_payment.gateway_data
       response_mercadopago["status"] = "approved"
-      @response_mercadopago = response_mercadopago
+      @response_mercadopago = response_mercadopago.to_h
     end
 
     it 'should update payment and update total_debt' do
@@ -26,6 +26,7 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
 
       expect(total_debt_final).to eql(total_debt_expect)
       expect(response.result).to be(true)
+      expect(Payment.find_by(id: @pending_payment.id).status).to eql("approved")
     end
   end
 
@@ -33,6 +34,25 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
     before do
       response_mercadopago = @pending_payment.gateway_data
       response_mercadopago["status"] = "cancelled"
+      @response_mercadopago = response_mercadopago
+    end
+
+    it 'should not update total_debt but update status payment' do
+      total_debt_init = @institution.calculated_total_debt
+      response = Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(@pending_payment, @response_mercadopago)
+      total_debt_final = @institution.calculated_total_debt
+      total_debt_expect = total_debt_init
+
+      expect(total_debt_final).to eql(total_debt_expect)
+      expect(response.result).to be(true)
+      expect(Payment.find_by(id: @pending_payment.id).status).to eql("cancelled")
+    end
+  end
+
+  describe 'when status is pending' do
+    before do
+      response_mercadopago = @pending_payment.gateway_data
+      response_mercadopago["status"] = "pending"
       @response_mercadopago = response_mercadopago
     end
 
@@ -47,10 +67,10 @@ RSpec.describe Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment do
     end
   end
 
-  describe 'when status is pending' do
+  describe 'when status is in_process' do
     before do
       response_mercadopago = @pending_payment.gateway_data
-      response_mercadopago["status"] = "cancelled"
+      response_mercadopago["status"] = "in_process"
       @response_mercadopago = response_mercadopago
     end
 

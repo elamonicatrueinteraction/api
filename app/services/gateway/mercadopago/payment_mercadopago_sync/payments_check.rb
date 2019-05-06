@@ -17,12 +17,21 @@ module Gateway
         end
 
         def mercadopago_check(payment)
-          mercadopago_data = Gateway::Mercadopago::PaymentMercadopagoSync::MercadopagoPaymentCheck.call(payment)
-          update_payment(payment, mercadopago_data) if payment.status != mercadopago_data.result['status']
+          mercadopago_data = Gateway::Mercadopago::PaymentMercadopagoSync::MercadopagoPaymentCheck.call(payment).result
+          status = mercadopago_data[:status]
+          if status != nil
+            update_payment(payment, mercadopago_data) if payment.status != status
+          else
+            notify(payment)
+          end
         end
 
         def update_payment(payment, mercadopago_data)
           Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(payment, mercadopago_data)
+        end
+
+        def notify(payment)
+        #   Deberia de notificar que no existe este payment en mercadopago
         end
 
       end

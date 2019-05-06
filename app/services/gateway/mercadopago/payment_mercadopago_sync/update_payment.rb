@@ -16,12 +16,16 @@ module Gateway
         private
 
         def update
-          state = @mercadopago_data["status"]
+          state = @mercadopago_data[:status] || @mercadopago_data["status"]
           if state != "pending"
             if state == "approved"
               approved
             else
-              false
+              if state == "cancelled"
+                update_status(state)
+              else
+                false
+              end
             end
           else
             false
@@ -29,14 +33,20 @@ module Gateway
         end
 
         def approved
-          collected_amount = @mercadopago_data["transaction_details"]["total_paid_amount"] #monto pagado por el comprador(incluye comisiones)
-          date_approved = @mercadopago_data["date_approved"] || Time.zone.now #fecha que se aprobo el pago
+          transactions_details = @mercadopago_data[:transaction_details] || @mercadopago_data["transaction_details"]
+          collected_amount = transactions_details[:total_paid_amount] || transactions_details["total_paid_amount"] #monto pagado por el comprador(incluye comisiones)
+          date_approved = @mercadopago_data[:date_approved] || @mercadopago_data["date_approved"] || Time.now.strftime('%Y-%m-%dT%H:%M:%S.%L%z') #fecha que se aprobo el pago
           @payment.collected_amount = collected_amount
-          @payment.paid_at = Time.at(date_approved)
+          @payment.paid_at = date_approved
           @payment.gateway_data = @mercadopago_data
           @payment.status = "approved"
 
           update_total_debt if @payment.save
+        end
+
+        def update_status(status)
+          @payment.status = status
+          @payment.save
         end
 
         def update_total_debt
@@ -46,7 +56,11 @@ module Gateway
             return false
           end
           institution.total_debt = institution.calculated_total_debt
-          true if institution.save
+          if institution.save
+            true
+          else
+            false
+          end
         end
       end
     end
