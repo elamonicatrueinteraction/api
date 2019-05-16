@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'job/sync_coupons'
+
   get '_healthcheck', action: :health, controller: :health
 
   require 'sidekiq/web'
