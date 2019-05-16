@@ -13,8 +13,10 @@ class HealthController < ActionController::API
 
   def is_redis_alive
     begin
-      puts "Connecting to Redis..."
-      r = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
+      redis_host = Rails.application.secrets.redis_host
+      redis_port = Rails.application.secrets.redis_port
+      puts "Connecting to Redis at #{redis_host}:#{redis_port}"
+      r = Redis.new(host: redis_host, port: redis_port)
       r.ping
     rescue Errno::ECONNREFUSED => e
       puts "[Redis]: ERROR - Redis server unavailable"
