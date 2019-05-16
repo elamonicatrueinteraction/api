@@ -18,6 +18,10 @@ module Finder
       @orders = Order.preload(:deliveries, :payments).order(created_at: :desc)
       @orders = @orders.where('giver_id = ? OR receiver_id = ?', institution_id, institution_id) if @institution_id
 
+      if @filter_params[:delivery_date]
+        date = Time.parse(@filter_params[:delivery_date]).to_date
+        @orders = @orders.where("cast(cast(extras -> 'delivery_preference' -> 'day' as text) as date) = ?", date)
+      end
       @orders
     end
 

@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:nilusorg/pushme-aws
+  remote: https://github.com/nilusorg/pushme-aws
   revision: e1932ff35b7846ab3fe3c2d06511a15e1fdd17a6
   branch: master
   specs:
@@ -73,17 +73,18 @@ GEM
     api-pagination (4.8.1)
     arel (8.0.0)
     ast (2.4.0)
-    aws-eventstream (1.0.0)
-    aws-partitions (1.87.0)
-    aws-sdk-core (3.21.2)
-      aws-eventstream (~> 1.0)
+    aws-eventstream (1.0.3)
+    aws-partitions (1.161.0)
+    aws-sdk-core (3.52.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
-      aws-sigv4 (~> 1.0)
+      aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-sns (1.1.0)
-      aws-sdk-core (~> 3)
-      aws-sigv4 (~> 1.0)
-    aws-sigv4 (1.0.2)
+    aws-sdk-sns (1.14.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.11)
     builder (3.2.3)
     bullet (5.7.5)
@@ -468,4 +469,4 @@ DEPENDENCIES
   xlsxtream
 
 BUNDLED WITH
-   1.17.2
+   2.0.1
