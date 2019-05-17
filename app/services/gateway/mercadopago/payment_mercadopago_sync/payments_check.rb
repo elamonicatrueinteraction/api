@@ -14,7 +14,7 @@ module Gateway
           @amount_of_coupons_processed = 0
           @amount_of_meli_errors = 0
           @amount_of_coupon_errors = 0
-          Sidekiq.logger.info 'Request all pending payments'
+          Rails.logger.info 'Request all pending payments'
 
           pending_payments = Gateway::Mercadopago::PaymentMercadopagoSync::PendingPayments.call.result
 
@@ -24,7 +24,7 @@ module Gateway
         end
 
         def mercadopago_check(payment)
-          Sidekiq.logger.info "Request to mercadopago about a payment with id: #{payment.id} and gateway_id: #{payment.gateway_id}"
+          Rails.logger.info "Request to mercadopago about a payment with id: #{payment.id} and gateway_id: #{payment.gateway_id}"
           status = nil
           begin
             mercadopago_data = Gateway::Mercadopago::PaymentMercadopagoSync::MercadopagoPaymentCheck.call(payment).result
@@ -33,7 +33,7 @@ module Gateway
             Rails.logger.info "MercadoPago Error: #{e}"
             @amount_of_meli_errors += 1
           end
-          Sidekiq.logger.info "Response mercadopago status: #{status}"
+          Rails.logger.info "Response mercadopago status: #{status}"
           begin
             payment.network_id
           rescue StandardError => e
@@ -50,11 +50,11 @@ module Gateway
         end
 
         def update_payment(payment, mercadopago_data)
-          Sidekiq.logger.info 'In update payment'
+          Rails.logger.info 'In update payment'
 
           result = Gateway::Mercadopago::PaymentMercadopagoSync::UpdatePayment.call(payment, mercadopago_data)
 
-          Sidekiq.logger.info "Result update: #{result.result}"
+          Rails.logger.info "Result update: #{result.result}"
         end
 
         def notify(payment)
