@@ -3,9 +3,6 @@ Rails.application.routes.draw do
 
   get '_healthcheck', action: :health, controller: :health
 
-  require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
-
   namespace :v2 do
     resources :institutions, only: [] do
       resources :payments, only: [:index, :update]
