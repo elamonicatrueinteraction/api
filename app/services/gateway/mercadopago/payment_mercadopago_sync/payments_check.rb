@@ -58,7 +58,7 @@ module Gateway
         end
 
         def notify(payment)
-          #   Deberia de notificar que no existe este payment en mercadopago
+          #TODO: Deberia de notificar que no existe este payment en mercadopago
         end
 
       end
