@@ -9,11 +9,12 @@ class JobController < ApplicationController
     begin
       Gateway::Mercadopago::PaymentMercadopagoSync::PaymentsCheck.call
       Rails.logger.info '[PaymentMercadopagoSync] - Sync ended succesfully!'
-      render json: "OK", status: :ok
+      render plain: "OK", status: :ok
     rescue StandardError => e
       Rails.logger.info "[PaymentMercadopagoSync] - ERROR in payment sync. Message: #{e}"
       render plain: "ERROR #{e.message}", status: :internal_server_error
     end
+    render plain: "OK", status: :ok
   end
 
   private
