@@ -1,6 +1,6 @@
 class HealthController < ActionController::API
 
-  VERSION = "1.7.0".freeze
+  VERSION = "1.8.0".freeze
 
   def health
     is_healthy = is_redis_alive && db_connection_alive
