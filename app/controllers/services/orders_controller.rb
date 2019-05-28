@@ -9,7 +9,7 @@ module Services
 
       if service.success?
         order = service.result
-        if not order.giver.name == 'BAR'
+        if (not order.giver.name == 'BAR') || order.network_id == 'MDQ'
           order_payment = CreatePayment.call(order, order.amount, payment_method)
         else
           Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
