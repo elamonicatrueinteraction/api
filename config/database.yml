@@ -17,7 +17,7 @@ default: &default
 
 development: &development
   <<: *default
-  database: nilus-dev-db-development
+  database: <%= ENV.fetch("DATABASE_NAME", 'nilus-dev-db-development')%>
 
 test:
   <<: *default
