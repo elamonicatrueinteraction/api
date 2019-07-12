@@ -44,6 +44,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
+  REDIS_DB = Rails.application.secrets.redis_db
+  REDIS_HOST = Rails.application.secrets.redis_host
+  REDIS_PORT = Rails.application.secrets.redis_port
+  REDIS_URL  = "redis://#{REDIS_HOST}:#{REDIS_PORT}/#{REDIS_DB}".freeze
+  config.cache_store = :redis_store, REDIS_URL, { expires_in: 90.minutes }
 end

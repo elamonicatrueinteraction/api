@@ -37,8 +37,7 @@ module Gateway
           payer: {
             email: email
           },
-          external_reference: @payment.id,
-          idempotency_key: @payment.id
+          external_reference: @payment.id
         }.tap do |_hash|
           if Rails.application.secrets.mercadopago_notification_host.present?
             # We user the URL helper like this because they are not available in the services nor the models

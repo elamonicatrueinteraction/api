@@ -29,13 +29,13 @@ class CreatePayment
         gateway_call = Gateway::Mercadopago::CreatePayment.call(@payment, @payment_type, true)
         gateway_result = gateway_call.result
 
-        gateway_id = gateway_result[:id]
-        gateway_status = gateway_result[:status]
+        gateway_id = gateway_result['response']['id']
+        gateway_status = gateway_result['status'].to_i
 
         @payment.update!(status: gateway_status, gateway: 'Mercadopago', gateway_id: gateway_id, gateway_data: gateway_result)
       end
       UpdateTotalDebtWorker.perform_async(@payment.id)
-    rescue Service::Error, ActiveRecord::RecordInvalid => e
+    rescue StandardError, ActiveRecord::RecordInvalid => e
       errors.add_multiple_errors( e.record.errors.messages )
 
       @within_transaction ? (raise Service::Error.new(self)) : (return nil)

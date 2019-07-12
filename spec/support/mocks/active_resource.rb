@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  WebMock.disable_net_connect!
+  WebMock.disable_net_connect!(allow: 'https://api.mercadopago.com')
   config.before(:each) do
     districts = [
       { name: 'Distrito Centro' },
