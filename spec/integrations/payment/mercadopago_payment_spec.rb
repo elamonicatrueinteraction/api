@@ -58,7 +58,7 @@ describe 'MercadoPago payment creation and search' do
       end
     end
 
-    it 'creates payment in mercadopago' do
+    it 'creates payment in mercadopago and cancels it' do
       CreatePayment.call(payable, payable.amount, 'ticket')
       expect(Payment.all.length).to eq 1
       payment = Payment.first
@@ -67,5 +67,7 @@ describe 'MercadoPago payment creation and search' do
       response = meli_client.cancel_payment(meli_coupon_id)
       expect(response['status'].to_i).to eq 200
     end
+
+
   end
 end
