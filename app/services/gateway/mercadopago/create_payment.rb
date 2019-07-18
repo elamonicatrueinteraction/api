@@ -59,18 +59,13 @@ module Gateway
         end
       end
 
-      def payment_institution
-        @payment.payable.network_id == 'MDQ' ? 'MDQ' : 'BAR'
-      end
-
       def payer_email
         emails = {
           nilus: Rails.application.secrets.mercadopago_payer_email_nilus,
-          bar: Rails.application.secrets.mercadopago_payer_email_bar,
-          mdq: Rails.application.secrets.mercadopago_payer_email_mdq
         }
         if @payment.payable.is_a?(Order)
-          @payment.payable.network_id == 'ROS' ? emails[:bar] : emails[:mdq]
+          tenant_emails = Tenant::TenantEmail.new
+          tenant_emails.email(@payment.payable.network_id)
         else
           emails[:nilus]
         end

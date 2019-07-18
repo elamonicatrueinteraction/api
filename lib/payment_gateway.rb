@@ -26,14 +26,8 @@ class PaymentGateway
       access_token: Rails.application.secrets.mercadopago_nilus_access_token
     } if payable.is_a?(Delivery)
     # TODO: Move this to a database record
-    return {
-      public_key: Rails.application.secrets.mercadopago_bar_public_key,
-      access_token: Rails.application.secrets.mercadopago_bar_access_token
-    } if payable.network_id == 'ROS'
-    return {
-      public_key: Rails.application.secrets.mercadopago_mdq_public_key,
-      access_token: Rails.application.secrets.mercadopago_mdq_access_token
-    } if payable.network_id == 'MDQ'
+    meli_tokens = Tenant::TenantMeliTokens.new
+    meli_tokens.tokens(payable.network_id)
   end
 
 end
