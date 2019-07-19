@@ -28,4 +28,4 @@ module Tenant
       }.with_indifferent_access
     end
   end
-end 
+end
