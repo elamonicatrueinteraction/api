@@ -13,6 +13,11 @@ module Tenant
       end
     end
 
+    def lack_emails_of
+      emails = secret_emails
+      emails.keys.select { |x| emails[x].blank? }
+    end
+
     private
 
     def secret_emails

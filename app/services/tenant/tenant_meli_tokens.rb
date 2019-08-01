@@ -13,6 +13,19 @@ module Tenant
       end
     end
 
+    def lacks_tokens_of
+      result = {}
+      tokens = secret_tokens
+      tokens.keys.each do |tenant|
+        missing_credentials = lacking_tokens_for(tokens, tenant)
+        result[tenant] = missing_credentials if missing_credentials.any?
+      end
+      result
+    end
+
+    def lacking_tokens_for(tokens, tenant)
+      tokens[tenant].keys.select { |y| tokens[tenant][y].blank? }
+    end
     private
 
     def secret_tokens
