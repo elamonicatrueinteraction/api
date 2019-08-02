@@ -9,13 +9,15 @@ module Services
 
       if service.success?
         order = service.result
-        if (not order.giver.name == 'BAR') || order.network_id == 'MDQ'
+        make_order_rule = Tenant::ShouldMakeOrderCouponRule.new
+        if make_order_rule.should_make?(order)
           order_payment = CreatePayment.call(order, order.amount, payment_method)
         else
           Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
         end
 
         delivery = order.deliveries.last
+        # TODO: Refactor. Should take this out into a Rule object
         without_delivery = full_params[:offer_id].nil? && full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
         unless without_delivery
           delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
