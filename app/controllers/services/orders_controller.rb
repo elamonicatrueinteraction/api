@@ -5,6 +5,9 @@ module Services
     end
 
     def create
+      marketplace_order_id = full_params[:marketplace_order_id]
+      network_id = full_params[:network_id]
+      Rails.logger.info "[CreateOrderService] - Creating order #{marketplace_order_id} in #{network_id} from MKP"
       service = CreateOrder.call(full_params)
 
       if service.success?
