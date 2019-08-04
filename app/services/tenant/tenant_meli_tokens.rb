@@ -37,6 +37,14 @@ module Tenant
         MDQ: {
           public_key: Rails.application.secrets.mercadopago_mdq_public_key,
           access_token: Rails.application.secrets.mercadopago_mdq_access_token
+        },
+        MCBA: {
+          public_key: Rails.application.secrets.mercadopago_mcba_public_key,
+          access_token: Rails.application.secrets.mercadopago_mcba_access_token
+        },
+        LP: {
+          public_key: Rails.application.secrets.mercadopago_lp_public_key,
+          access_token: Rails.application.secrets.mercadopago_lp_access_token
         }
       }.with_indifferent_access
     end

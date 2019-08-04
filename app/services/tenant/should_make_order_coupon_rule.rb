@@ -6,7 +6,9 @@ module Tenant
       # que llama que hace que las ordenes pertenezcan a MDQ pero figure como dador el BAR.
       # A falta de test automatizado para revisar esto siempre se hace este chanchuyo que garantiza que no se rompa
       # @author: Tom.
-      order.giver.name != 'BAR' || order.network_id == 'MDQ'
+
+      whitelisted_networks = %w(MDQ MCBA LP)
+      order.giver.name != 'BAR' || whitelisted_networks.include?(order.network_id)
     end
   end
 end

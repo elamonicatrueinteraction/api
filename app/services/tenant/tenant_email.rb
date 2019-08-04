@@ -23,7 +23,9 @@ module Tenant
     def secret_emails
       {
         BAR: Rails.application.secrets.mercadopago_payer_email_bar,
-        MDQ: Rails.application.secrets.mercadopago_payer_email_mdq
+        MDQ: Rails.application.secrets.mercadopago_payer_email_mdq,
+        MCBA: Rails.application.secrets.mercadopago_payer_email_mcba,
+        LP: Rails.application.secrets.mercadopago_payer_email_lp
       }.with_indifferent_access
     end
   end
