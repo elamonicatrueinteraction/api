@@ -45,6 +45,7 @@ class CreateOrder
   end
 
   def order_params
+    giver = load_institution('giver', @allowed_params[:giver_id]).as_json
     {
       expiration: @allowed_params[:expiration],
       amount: @allowed_params[:amount],
@@ -52,9 +53,9 @@ class CreateOrder
       giver_id: @allowed_params[:giver_id],
       with_delivery: @allowed_params[:with_delivery],
       receiver_id: @allowed_params[:receiver_id],
-      network_id: @allowed_params[:network_id] || ApplicationRecord.current_network
+      network_id: giver.network_id
     }.tap do |_hash|
-      _hash[:giver] = load_institution('giver', @allowed_params[:giver_id]).as_json if @allowed_params[:giver_id].present?
+      _hash[:giver] = giver
       _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]).as_json if @allowed_params[:receiver_id].present?
 
       _hash[:marketplace_order_id] = @allowed_params[:marketplace_order_id] if @allowed_params[:marketplace_order_id].present?
