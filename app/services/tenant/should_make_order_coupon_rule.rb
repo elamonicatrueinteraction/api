@@ -7,7 +7,7 @@ module Tenant
       # A falta de test automatizado para revisar esto siempre se hace este chanchuyo que garantiza que no se rompa
       # @author: Tom.
 
-      whitelisted_networks = %w(MDQ MCBA LP)
+      whitelisted_networks = %w[MDQ MCBA LP]
       order.giver.name != 'BAR' || whitelisted_networks.include?(order.network_id)
     end
   end
