@@ -53,7 +53,7 @@ class CreateOrder
       giver_id: @allowed_params[:giver_id],
       with_delivery: @allowed_params[:with_delivery],
       receiver_id: @allowed_params[:receiver_id],
-      network_id: giver.network_id
+      network_id: giver["network_id"]
     }.tap do |_hash|
       _hash[:giver] = giver
       _hash[:receiver] = load_institution('receiver', @allowed_params[:receiver_id]).as_json if @allowed_params[:receiver_id].present?
