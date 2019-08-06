@@ -6,7 +6,8 @@ class HealthController < ActionController::API
     is_healthy = is_redis_alive && db_connection_alive
     message = "ERROR"
     message = "Ready. Nilus v#{VERSION}" if is_healthy
-    render plain: message, status: :ok
+    status = is_healthy ? 200 : 500
+    render plain: message, status: status
   end
 
   private
@@ -29,10 +30,10 @@ class HealthController < ActionController::API
       ActiveRecord::Base.establish_connection # Establishes connection
       ActiveRecord::Base.connection # Calls connection object
       puts "CONNECTED!" if ActiveRecord::Base.connected?
-      puts "NOT CONNECTED!" unless ActiveRecord::Base.connected?
+      puts "DB NOT CONNECTED!" unless ActiveRecord::Base.connected?
       true
     rescue
-      puts "NOT CONNECTED!"
+      puts "DB NOT CONNECTED!"
       false
     end
   end
