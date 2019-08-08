@@ -21,8 +21,8 @@ module Services
 
         delivery = order.deliveries.last
         # TODO: Refactor. Should take this out into a Rule object
-        without_delivery = full_params[:offer_id].nil? && full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
-        unless without_delivery
+        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
+        if without_delivery
           delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
         end
         order.payments.reload
