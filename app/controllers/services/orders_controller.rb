@@ -20,9 +20,7 @@ module Services
         end
 
         delivery = order.deliveries.last
-        # TODO: Refactor. Should take this out into a Rule object
-        without_delivery = full_params[:offer_id] || full_params[:delivery_preference][:with_delivery] == 0 # rubocop:disable Style/NumericPredicate
-        if without_delivery
+        if with_delivery_payment
           delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
         end
         order.payments.reload
@@ -81,8 +79,8 @@ module Services
       plain_hash_params.dig(:order, :order_items)
     end
 
-    def with_order_coupon
-
+    def with_delivery_payment
+      plain_hash_params[:with_delivery_payment]
     end
   end
 end
