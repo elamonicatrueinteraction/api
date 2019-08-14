@@ -6,15 +6,22 @@ module V2
                :paid_at
 
     def gateway_id
+      return object.gateway_id if object.gateway_data['id'].nil?
+
       object.gateway_data['id']
     end
 
     def gateway_code
+      return object.gateway_id if object.gateway_data['id'].nil?
+
       object.gateway_data['id']
     end
 
     def gateway_coupon_url
-      return if object.status == 'failed'
+      return if object.status == 'failed' || object.status != "201"
+      if object.gateway_data.dig(:transaction_details, :external_resource_url).nil?
+        return object.gateway_data["response"]["transaction_details"]["external_resource_url"]
+      end
 
       object.gateway_data.dig(:transaction_details, :external_resource_url)
     end
@@ -24,6 +31,8 @@ module V2
     end
 
     def gateway_payment_name
+
+      return object.gateway_data["response"]["payment_method_id"] if object.gateway_data['payment_method_id'].nil?
       object.gateway_data['payment_method_id']
     end
   end
