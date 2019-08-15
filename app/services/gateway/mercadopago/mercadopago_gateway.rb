@@ -18,6 +18,10 @@ module Gateway
         @client.get_payment(id)
       end
 
+      def paid?(id)
+        @client.get_payment(id).status == "approved"
+      end
+
       def cancel_payment(id)
         @client.cancel_payment(id)
       end

@@ -35,6 +35,7 @@ class Payment < ApplicationRecord
     pending
     rejected
     refunded
+    obsolete
   ).freeze
   private_constant :STATUSES
 
