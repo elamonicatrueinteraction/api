@@ -9,9 +9,7 @@ class UpdateTotalDebtWorker
     end
     Rails.logger.info "About to update #{institution.id} total debt"
     Rails.logger.info "Calculated debt is #{institution.calculated_total_debt}"
-    institution.update(
-      total_debt: institution.calculated_total_debt
-    )
+    institution.update(total_debt: institution.calculated_total_debt)
     Rails.logger.info "Updated debt"
   end
 

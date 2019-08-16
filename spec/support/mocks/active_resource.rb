@@ -12,7 +12,7 @@ RSpec.configure do |config|
 
     institution = {
       id: '37d4970a-53ea-49f5-a2f1-2cdf26f36454',
-      legal_name: 'BAR',
+      legal_name: 'TEST INSTITUTION',
       uid_type: 'CUIT',
       uid: '30-71000841-4',
       name: 'BAR',

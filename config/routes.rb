@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'job/sync_coupons'
-
   get '_healthcheck', action: :health, controller: :health
 
   require 'sidekiq/web'
@@ -14,8 +12,17 @@ Rails.application.routes.draw do
 
   root to: 'home#show'
 
+  namespace :jobs do
+    get 'cancel_remote_payment/:payment_id', action: :cancel_remote_payment
+    get 'sync_coupons', action: :sync_coupons
+  end
+
   namespace :webhooks do
     post 'mercadopago/payment/:uuid', action: :payment_notification, controller: :mercadopago, as: :mercadopago_payment
+  end
+
+  namespace :payments do
+    put 'obsolesce/:id', action: :obsolesce
   end
 
   scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JobController, type: :controller do
+RSpec.describe JobsController, type: :controller do
 
   describe "GET #sync_coupons" do
     it "returns http success" do

@@ -57,6 +57,14 @@ class Payment < ApplicationRecord
     payable_type == 'Order' ? payable.receiver_id : payable.destination_id
   end
 
+  def obsolesce
+    @status = "obsolete"
+  end
+
+  def has_remote?
+    !gateway_id.nil?
+  end
+
   STATUSES.each do |valid_status|
     define_method :"#{valid_status}?" do
       status == valid_status
