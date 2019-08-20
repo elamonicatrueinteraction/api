@@ -1,5 +1,5 @@
 module Scheduler
-  module RestJob
+  module Jobs
     class RestJobContinuation
       attr_accessor :jobs
       attr_accessor :StopOnFailure

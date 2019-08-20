@@ -28,18 +28,12 @@ module Gateway
           status = nil
           begin
             mercadopago_data = Gateway::Mercadopago::PaymentMercadopagoSync::MercadopagoPaymentCheck.call(payment).result
-            status = mercadopago_data[:status]
+            status = mercadopago_data["status"]
           rescue StandardError => e
             Rails.logger.info "MercadoPago Error: #{e}"
             @amount_of_meli_errors += 1
           end
           Rails.logger.info "Response mercadopago status: #{status}"
-          begin
-            payment.network_id
-          rescue StandardError => e
-            Rails.logger.info "My error #{e}"
-            @amount_of_coupon_errors += 1
-          end
           if !status.nil?
             update_payment(payment, mercadopago_data) if payment.status != status
           else

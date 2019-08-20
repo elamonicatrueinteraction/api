@@ -1,5 +1,5 @@
 module Scheduler
-  module RestJob
+  module Jobs
     class SchedulingInfo
       attr_accessor :CronExpression
       attr_accessor :delayed

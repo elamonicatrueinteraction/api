@@ -1,5 +1,5 @@
 module Scheduler
-  module RestJob
+  module Jobs
     class SchedulingDelayedInfo
       attr_accessor :days
       attr_accessor :hours

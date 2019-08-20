@@ -1,10 +1,10 @@
 module Scheduler
-  module RestJob
+  module Jobs
     class RestJobBase
       attr_accessor :SchedulingInfo
 
       def initialize
-        @SchedulingInfo = GreenSchedulerClient::RestJob::SchedulingInfo.new
+        @SchedulingInfo = Jobs::SchedulingInfo.new
       end
     end
   end

@@ -1,5 +1,5 @@
 module Scheduler
-  module RestJob
+  module Jobs
     class RestJob < RestJobBase
       attr_accessor :job
     end

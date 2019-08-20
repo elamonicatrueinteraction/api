@@ -45,7 +45,7 @@ class CreatePayment
   end
 
   def payment_params(payable:)
-    { amount: @amount, network_id: payable}
+    { amount: @amount, network_id: payable.network_id }
   end
 
 end

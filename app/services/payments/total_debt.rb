@@ -2,7 +2,7 @@ module Payments
   class TotalDebt
 
     def calculate(institution)
-      orders = Order.by_receiver_id(institution.id).includes(:deliveries)
+      orders = Order.by_receiver_id(institution.id).includes(:payments, deliveries: [:payments])
       order_payments = orders.map(&:payments)
                              .flatten
                              .pluck(:status, :amount)

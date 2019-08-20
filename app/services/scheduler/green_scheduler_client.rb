@@ -33,8 +33,8 @@ module Scheduler
     end
 
     def build_fire_and_forget(job_info)
-      rest_job = RestJob.new
-      rest_job.job = Job.new('fire-and-forget', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
+      rest_job = Scheduler::Jobs::RestJob.new
+      rest_job.job = Scheduler::Jobs::Job.new('fire-and-forget', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
 
       rest_job
     end
@@ -49,10 +49,10 @@ module Scheduler
     end
 
     def build_delayed(job_info, days, hours, minutes, seconds)
-      rest_job = RestJob.new
-      rest_job.job = Job.new('delayed', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
-      rest_job.SchedulingInfo = SchedulingInfo.new
-      rest_job.SchedulingInfo.delayed = SchedulingDelayedInfo.new(days, hours, minutes, seconds)
+      rest_job = Scheduler::Jobs::RestJob.new
+      rest_job.job = Scheduler::Jobs::Job.new('delayed', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
+      rest_job.SchedulingInfo = Scheduler::Jobs::SchedulingInfo.new
+      rest_job.SchedulingInfo.delayed = Scheduler::Jobs::SchedulingDelayedInfo.new(days, hours, minutes, seconds)
       rest_job
     end
 
@@ -66,10 +66,10 @@ module Scheduler
     end
 
     def build_recurring(id, job_info, cron_expression)
-      rest_job = RestJob.new
-      rest_job.job = Job.new('recurring', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
+      rest_job = Scheduler::Jobs::RestJob.new
+      rest_job.job = Scheduler::Jobs::Job.new('recurring', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
       rest_job.job.id = id
-      rest_job.SchedulingInfo = SchedulingInfo.new
+      rest_job.SchedulingInfo = Scheduler::Jobs::SchedulingInfo.new
       rest_job.SchedulingInfo.CronExpression = cron_expression
 
       rest_job
@@ -85,8 +85,10 @@ module Scheduler
     end
 
     def build_continuation(jobs, stop_on_failure = true)
-      rest_job_continuation = RestJobContinuation.new
-      rest_job_continuation.jobs = jobs.map { |job_info| Job.new('fire-and-forget', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body]) }
+      rest_job_continuation = Scheduler::Jobs::RestJobContinuation.new
+      rest_job_continuation.jobs = jobs.map do |job_info|
+        Scheduler::Jobs::Job.new('fire-and-forget', job_info[:retry_on_failure], job_info[:verb], job_info[:url], job_info[:body])
+      end
       rest_job_continuation.StopOnFailure = stop_on_failure
 
       rest_job_continuation

@@ -11,7 +11,7 @@ module Gateway
         private
 
         def get_pending_payments
-          Payment.select{|x| x.status == "pending"}
+          Payment.select{|x| x.status == "pending" || x.status == "201"}.select {|x| x.network_id == 'MCBA'}
         end
       end
     end

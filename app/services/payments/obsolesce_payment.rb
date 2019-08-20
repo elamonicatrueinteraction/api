@@ -25,8 +25,8 @@ module Payments
       end
       payment.obsolesce
       payment.save!
-      Scheduler::Provider.logistic_scheduler.cancel_remote_payment_async(payment) if payment.has_remote?
       @debt_updater.update_debt_for(institution: institution)
+      Scheduler::Provider.logistic_scheduler.cancel_remote_payment_async(payment) if payment.has_remote?
     end
   end
 end

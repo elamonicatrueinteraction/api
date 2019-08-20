@@ -7,7 +7,8 @@ module Payments
 
     def update_debt_for(institution:)
       debt = @debt_calculator.calculate(institution)
-      institution.update_attributes({total_debt: debt})
+      institution.total_debt = debt
+      institution.save
     end
   end
 end

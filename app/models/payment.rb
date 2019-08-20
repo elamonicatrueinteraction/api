@@ -58,7 +58,7 @@ class Payment < ApplicationRecord
   end
 
   def obsolesce
-    @status = "obsolete"
+    write_attribute(:status, "obsolete")
   end
 
   def has_remote?
