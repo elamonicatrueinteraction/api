@@ -24,15 +24,12 @@ class CreatePayment
   def create_payment
     begin
       Payment.transaction do
-        @payment = @payable.payments.create!( payment_params )
-
+        @payment = @payable.payments.create!(payment_params(@payable))
         gateway_call = Gateway::Mercadopago::CreatePayment.call(@payment, @payment_type, true)
         gateway_result = gateway_call.result
-
-        gateway_id = gateway_result['response']['id']
-        gateway_status = gateway_result['status'].to_i
-
-        @payment.update!(status: gateway_status, gateway: 'Mercadopago', gateway_id: gateway_id, gateway_data: gateway_result)
+        assigner = Gateway::Mercadopago::MercadopagoGatewayDataAssigner.new
+        @payment = assigner.assign(@payment, gateway_result)
+        @payment.save!
       end
       UpdateTotalDebtWorker.perform_async(@payment.id)
     rescue StandardError, ActiveRecord::RecordInvalid => e
@@ -44,8 +41,8 @@ class CreatePayment
     @payment
   end
 
-  def payment_params
-    { amount: @amount }
+  def payment_params(payable)
+    { amount: @amount, network_id: payable.network_id }
   end
 
 end

@@ -10,7 +10,7 @@
 #  payable_id       :string
 #  gateway          :string
 #  gateway_id       :string
-#  gateway_data     :jsonb
+#  mercadopago_data     :jsonb
 #  notifications    :jsonb
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -20,28 +20,31 @@
 #
 
 class Payment < ApplicationRecord
+  module Types
+    APPROVED = "approved".freeze
+    CANCELLED = "cancelled".freeze
+    IN_PROGRESS = "in_progress".freeze
+    PENDING = "pending".freeze
+    REJECTED = "rejected".freeze
+    REFUNDED = "refunded".freeze
+  end
+
   default_scope_by_network
-  attribute :gateway_data, :jsonb, default: {}
+  attribute :mercadopago_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}
 
   belongs_to :payable, polymorphic: true
 
   default_scope { order(created_at: :asc) }
 
-  STATUSES = %w(
-    approved
-    cancelled
-    in_process
-    pending
-    rejected
-    refunded
-  ).freeze
+  STATUSES = [ Types::APPROVED, Types::CANCELLED, Types::IN_PROGRESS,
+               Types::PENDING, Types::REJECTED, Types::REFUNDED].freeze
   private_constant :STATUSES
 
-  PAYMENT_TYPES = %w(
+  PAYMENT_TYPES = %w[
     pagofacil
     rapipago
-  ).freeze
+  ].freeze
   private_constant :PAYMENT_TYPES
 
   def self.valid_payment_type?(payment_type_to_check)

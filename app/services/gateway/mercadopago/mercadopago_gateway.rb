@@ -11,15 +11,18 @@ module Gateway
       end
 
       def create_payment(payload)
-        @client.post("/v1/payments", payload)
+        res = @client.post("/v1/payments", payload)
+        Data.new(res)
       end
 
       def payment(id)
-        @client.get_payment(id)
+        res = @client.get_payment(id)
+        Data.new(res)
       end
 
       def cancel_payment(id)
-        @client.cancel_payment(id)
+        res = @client.cancel_payment(id)
+        Data.new(res)
       end
     end
   end
