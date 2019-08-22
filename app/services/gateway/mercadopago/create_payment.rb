@@ -52,9 +52,9 @@ module Gateway
 
       def payment_description
         if @payment.payable.is_a?(Order)
-          "Pedido Nilus de '#{@payment.payable&.receiver&.name}' por la orden ##{@payment.payable_id}"
+          "Order para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
         else
-          "NILUS - Pago por la entrega ##{@payment.payable_id}"
+          "Entrega para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
         end
       end
 
