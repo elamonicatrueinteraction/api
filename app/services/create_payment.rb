@@ -33,6 +33,7 @@ class CreatePayment
       end
       UpdateTotalDebtWorker.perform_async(@payment.id)
     rescue StandardError, ActiveRecord::RecordInvalid => e
+      Rails.logger.info "[CreatePayment] - Error: #{e.message}"
       errors.add_multiple_errors( e.record.errors.messages )
 
       @within_transaction ? (raise Service::Error.new(self)) : (return nil)
