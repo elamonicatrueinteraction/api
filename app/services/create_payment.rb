@@ -27,7 +27,7 @@ class CreatePayment
         @payment = @payable.payments.create!(payment_params(@payable))
         gateway_call = Gateway::Mercadopago::CreatePayment.call(@payment, @payment_type, true)
         gateway_result = gateway_call.result
-        assigner = Gateway::Mercadopago::MercadopagoGatewayDataAssigner.new
+        assigner = Gateway::GatewayDataAssigner.new
         @payment = assigner.assign(@payment, gateway_result)
         @payment.save!
       end

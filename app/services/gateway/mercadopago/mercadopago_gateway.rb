@@ -12,17 +12,17 @@ module Gateway
 
       def create_payment(payload)
         res = @client.post("/v1/payments", payload)
-        Data.new(res)
+        Mercadopago::Data.new(res)
       end
 
       def payment(id)
         res = @client.get_payment(id)
-        Data.new(res)
+        Mercadopago::Data.new(res)
       end
 
       def cancel_payment(id)
         res = @client.cancel_payment(id)
-        Data.new(res)
+        Mercadopago::Data.new(res)
       end
     end
   end

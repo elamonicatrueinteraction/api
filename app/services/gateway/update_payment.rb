@@ -33,7 +33,9 @@ module Gateway
     end
 
     def update_status(status)
+      status = Payment::Types::PENDING if status == "404"
       @payment.status = status
+      @payment.gateway_data = @gateway_data.raw_data
       @payment
     end
   end
