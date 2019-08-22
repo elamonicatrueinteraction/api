@@ -1,6 +1,9 @@
 module Tenant
   class TenantMeliTokens
 
+    attr_reader :secret_tokens
+    attr_reader :nilus_tokens
+
     def initialize
       @tokens = secret_tokens
     end
@@ -26,7 +29,6 @@ module Tenant
     def lacking_tokens_for(tokens, tenant)
       tokens[tenant].keys.select { |y| tokens[tenant][y].blank? }
     end
-    private
 
     def secret_tokens
       {
@@ -47,6 +49,13 @@ module Tenant
           access_token: Rails.application.secrets.mercadopago_lp_access_token
         }
       }.with_indifferent_access
+    end
+
+    def nilus_tokens
+      {
+        public_key: Rails.application.secrets.mercadopago_nilus_public_key,
+        access_token: Rails.application.secrets.mercadopago_nilus_access_token
+      }
     end
   end
 end
