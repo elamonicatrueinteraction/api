@@ -9,7 +9,7 @@ module Payments
     private
 
     def pending_payments
-      Payment.where(status: Payment::Types::PENDING)
+      Payment.includes(:payable).where(status: Payment::Types::PENDING)
     end
   end
 end

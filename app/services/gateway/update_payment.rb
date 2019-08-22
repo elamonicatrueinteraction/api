@@ -14,11 +14,13 @@ module Gateway
     private
 
     def update
-      state = @gateway_data.status
-      if state == Payment::Types::APPROVED
+      status = @gateway_data.status
+      if status == Payment::Types::APPROVED
         approved
-      elsif state != Payment::Types::PENDING
-        update_status(state)
+      elsif status == "404"
+        update_not_found
+      elsif status != Payment::Types::PENDING
+        update_status(status)
       else
         @payment
       end
@@ -33,9 +35,13 @@ module Gateway
     end
 
     def update_status(status)
-      status = Payment::Types::PENDING if status == "404"
       @payment.status = status
       @payment.gateway_data = @gateway_data.raw_data
+      @payment
+    end
+
+    def update_not_found
+      @payment.gateway_data = @payment.gateway_data.merge!({ when_searched_with_all_tokens_got: "404" })
       @payment
     end
   end

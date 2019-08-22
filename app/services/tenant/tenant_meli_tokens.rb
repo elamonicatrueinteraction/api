@@ -55,7 +55,7 @@ module Tenant
       {
         public_key: Rails.application.secrets.mercadopago_nilus_public_key,
         access_token: Rails.application.secrets.mercadopago_nilus_access_token
-      }
+      }.with_indifferent_access
     end
   end
 end

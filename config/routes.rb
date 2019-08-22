@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'job/sync_coupons'
+  get 'job/sync_missing_coupons'
 
   get 'reports/remote_payment_report'
 

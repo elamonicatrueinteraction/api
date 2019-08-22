@@ -21,6 +21,23 @@ class JobController < ApplicationController
     end
   end
 
+  def sync_missing_coupons
+    Rails.logger.info '[MissingPaymentSync] - Starting Sync'
+    begin
+      payment_sync = Gateway::RemoteNotFoundPaymentSync.new
+      debt_update = Payments::UpdateInstitutionDebt.new
+      payment_sync.sync_payments
+      Rails.logger.info '[MissingPaymentSync] - Sync ended succesfully!'
+      Rails.logger.info '[MissingPaymentSync] - Updating institution debt...'
+      debt_update.update_all
+      Rails.logger.info '[MissingPaymentSync] - Finished updating institution debt...'
+      return render plain: "OK", status: :ok
+    rescue StandardError => e
+      Rails.logger.info "[MissingPaymentSync] - ERROR in payment sync. Message: #{e}"
+      return render plain: "ERROR #{e.message}", status: :internal_server_error
+    end
+  end
+
   private
 
   def authorize
