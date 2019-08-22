@@ -141,6 +141,10 @@ class Delivery < ApplicationRecord
     (approved_payments.sum(&:amount).to_f - total_amount) >=0
   end
 
+  def network_id
+    order.network_id
+  end
+
   private
 
   def options_info
@@ -149,10 +153,6 @@ class Delivery < ApplicationRecord
 
   def approved_payments
     payments.select(&:approved?)
-  end
-
-  def network_id
-    order.network_id
   end
 
 end
