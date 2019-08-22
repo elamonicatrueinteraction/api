@@ -151,4 +151,8 @@ class Delivery < ApplicationRecord
     payments.select(&:approved?)
   end
 
+  def network_id
+    order.network_id
+  end
+
 end
