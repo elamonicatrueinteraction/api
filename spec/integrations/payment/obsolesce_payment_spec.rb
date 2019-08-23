@@ -40,7 +40,8 @@ describe 'MercadoPago Obsolesce Payment', type: :request do
       put "/payments/obsolesce/#{payment.id}", headers: { Authorization: 'Token asd' }
       expect(response).to have_http_status(:ok)
       expect(debt_calculator.calculate(institution)).to eq(0)
-      expect(payment.status).to eq("obsolete")
+      payment.reload
+      expect(payment.status).to eq(Payment::Types::OBSOLETE)
       expect(scheduler.times).to eq(1)
     end
   end

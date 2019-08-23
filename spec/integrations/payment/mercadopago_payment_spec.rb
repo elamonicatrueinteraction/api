@@ -6,7 +6,8 @@ describe 'MercadoPago payment creation and search' do
   let(:meli_test_client_id) { Rails.application.secrets.mercadopago_bar_public_key }
   let(:meli_test_client_secret) { Rails.application.secrets.mercadopago_bar_access_token }
   let(:meli_client) { Gateway::Mercadopago::MercadopagoGateway.new(meli_test_client_secret) }
-  let!(:payable) { create(:order) }
+  let!(:order) { create(:order) }
+  let!(:delivery) { create(:delivery) }
 
   before :all do
     $continue = true
@@ -58,16 +59,32 @@ describe 'MercadoPago payment creation and search' do
       end
     end
 
-    it 'creates payment in mercadopago and cancels it' do
-      CreatePayment.call(payable, payable.amount, 'ticket')
+    it 'creates payment with order in mercadopago and cancels it' do
+      CreatePayment.call(order, order.amount, 'ticket')
       expect(Payment.all.length).to eq 1
       payment = Payment.first
-      expect(payment.status.to_i).to eq 201
+      expect(payment.status).to eq Payment::Types::PENDING
+      expect(payment.gateway_id).to_not be_nil
+      expect(payment.gateway_data).to_not eq({})
+      expect(payment.network_id).to_not be_nil
+      expect(payment.gateway).to eq 'Mercadopago'
       meli_coupon_id = payment.gateway_id
       response = meli_client.cancel_payment(meli_coupon_id)
-      expect(response['status'].to_i).to eq 200
+      expect(response.status).to eq Payment::Types::CANCELLED
     end
 
-
+    it 'creates payment with delivery in mercadopago and cancels it' do
+      CreatePayment.call(delivery, delivery.amount, 'ticket')
+      expect(Payment.all.length).to eq 1
+      payment = Payment.first
+      expect(payment.status).to eq Payment::Types::PENDING
+      expect(payment.gateway_id).to_not be_nil
+      expect(payment.gateway_data).to_not eq({})
+      expect(payment.network_id).to_not be_nil
+      expect(payment.gateway).to eq 'Mercadopago'
+      meli_coupon_id = payment.gateway_id
+      response = meli_client.cancel_payment(meli_coupon_id)
+      expect(response.status).to eq Payment::Types::CANCELLED
+    end
   end
 end

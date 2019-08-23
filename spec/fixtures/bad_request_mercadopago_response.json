@@ -1,0 +1,15 @@
+{
+  "status": "400",
+  "response": {
+    "message": "payer.email must be a valid email",
+    "error": "bad_request",
+    "status": 400,
+    "cause": [
+      {
+        "code": 4050,
+        "description": "payer.email must be a valid email",
+        "data": null
+      }
+    ]
+  }
+}

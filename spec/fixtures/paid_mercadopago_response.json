@@ -1,0 +1,95 @@
+{
+  "status": "200",
+  "response": {
+    "metadata": {},
+    "operation_type": "regular_payment",
+    "fee_details": [
+      {
+        "amount": 6.82,
+        "fee_payer": "collector",
+        "type": "mercadopago_fee"
+      }
+    ],
+    "notification_url": null,
+    "date_approved": "2019-07-26T10:02:10.000-04:00",
+    "acquirer": null,
+    "money_release_schema": null,
+    "payer": {
+      "entity_type": null,
+      "identification": {
+        "number": "36893975",
+        "type": "DNI"
+      },
+      "phone": {
+        "number": "3415852391",
+        "extension": null,
+        "area_code": " "
+      },
+      "operator_id": null,
+      "last_name": "Nilus",
+      "id": "303698574",
+      "type": "guest",
+      "first_name": "Colo",
+      "email": "colo@nilus.org"
+    },
+    "transaction_details": {
+      "total_paid_amount": 225,
+      "acquirer_reference": null,
+      "installment_amount": 0,
+      "financial_institution": null,
+      "net_received_amount": 218.18,
+      "overpaid_amount": 0,
+      "external_resource_url": "http://www.mercadopago.com/mla/payments/ticket/helper?payment_id=4981869268&payment_method_reference_id=4703372032&caller_id=303698574&hash=225a0244-e023-4e7e-bb86-53d2024d6d2a",
+      "payable_deferral_period": null,
+      "payment_method_reference_id": "4703372032",
+      "verification_code": "4703372032"
+    },
+    "statement_descriptor": null,
+    "call_for_authorize_id": null,
+    "installments": 1,
+    "pos_id": null,
+    "external_reference": "b4cd4f4d-f167-433d-93c9-95bf4c4f741b",
+    "date_of_expiration": null,
+    "id": 4981869268,
+    "payment_type_id": "ticket",
+    "barcode": {
+      "width": 1,
+      "type": "Code128C",
+      "content": "6001907246005003036985740047033720320000225006",
+      "height": 30
+    },
+    "order": {},
+    "counter_currency": null,
+    "status_detail": "accredited",
+    "differential_pricing_id": null,
+    "additional_info": {},
+    "live_mode": true,
+    "card": {},
+    "status": "approved",
+    "transaction_amount_refunded": 0,
+    "transaction_amount": 225,
+    "description": "NILUS - Pago por la entrega #2941",
+    "money_release_date": "2019-08-09T10:02:10.000-04:00",
+    "merchant_number": null,
+    "refunds": [],
+    "authorization_code": null,
+    "captured": true,
+    "collector_id": 442381846,
+    "merchant_account_id": null,
+    "taxes_amount": 0,
+    "date_last_updated": "2019-07-26T10:02:10.000-04:00",
+    "coupon_amount": 0,
+    "store_id": null,
+    "date_created": "2019-07-19T07:55:56.000-04:00",
+    "acquirer_reconciliation": [],
+    "sponsor_id": null,
+    "shipping_amount": 0,
+    "issuer_id": null,
+    "payment_method_id": "rapipago",
+    "binary_mode": false,
+    "deduction_schema": null,
+    "processing_mode": "aggregator",
+    "currency_id": "ARS",
+    "shipping_cost": 0
+  }
+}

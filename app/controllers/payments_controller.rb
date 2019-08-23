@@ -31,19 +31,12 @@ class PaymentsController < ApplicationController
 
   def obsolesce
     payment_id = params[:id]
-    payment = nil
-
-    Payment.unscoped {
-      Order.unscoped {
-        Delivery.unscoped {
-          payment = Payment.includes(:payable).find(payment_id)
-        }
-      }
-    }
+    payment = Payment.includes(:payable).find(payment_id)
     if payment
       institution = payment.payable.receiver
       action = Payments::ObsolescePayment.new
       action.obsolesce(payment: payment, institution: institution)
+      render json: "OK", status: :ok
     else
       render json: { error: "No se encontró el payment con id #{payment_id}" }, status: :not_found
     end

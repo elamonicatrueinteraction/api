@@ -10,7 +10,7 @@ module Payments
                                 .flatten
                                 .pluck(:status, :amount)
       total_payments = order_payments + delivery_payments
-      total_payments.select { |x| x[0] == "pending" }.map { |x| x[1] }.sum
+      total_payments.select { |x| x[0] == Payment::Types::PENDING }.map { |x| x[1] }.sum
     end
   end
 end

@@ -11,11 +11,14 @@ module Gateway
       end
 
       def create_payment(payload)
-        @client.post("/v1/payments", payload)
+        res = @client.post("/v1/payments", payload)
+        Mercadopago::Data.new(res)
       end
 
       def payment(id)
-        @client.get_payment(id)
+        res = @client.get_payment(id)
+        res = eval(res) if res.is_a?(String)
+        Mercadopago::Data.new(res)
       end
 
       def cancelled?(id)
@@ -27,7 +30,8 @@ module Gateway
       end
 
       def cancel_payment(id)
-        @client.cancel_payment(id)
+        res = @client.cancel_payment(id)
+        Mercadopago::Data.new(res)
       end
     end
   end

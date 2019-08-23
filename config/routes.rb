@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get '_healthcheck', action: :health, controller: :health
 
   require 'sidekiq/web'
@@ -12,9 +13,14 @@ Rails.application.routes.draw do
 
   root to: 'home#show'
 
-  namespace :jobs do
-    get 'cancel_remote_payment/:payment_id', action: :cancel_remote_payment
+  namespace :job do
     get 'sync_coupons', action: :sync_coupons
+    get 'sync_missing_coupons', action: :sync_missing_coupons
+    get 'cancel_remote_payment/:payment_id', action: :cancel_remote_payment
+  end
+
+  namespace :reports do
+    get 'remote_payment_report', action: :remote_payment_report
   end
 
   namespace :webhooks do
