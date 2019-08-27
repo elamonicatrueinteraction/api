@@ -26,12 +26,7 @@ module Payments
       payment.obsolesce
       payment.save!
       @debt_updater.update_debt_for(institution: institution)
-
-
-      # TODO: @author: Tom. Comentado por razones de seguridad
-      # Lo comenté por temas de seguridad. Alguien podría cancelar el pago de una cuenta ajena sobre
-      # la que no tiene derechos
-      # Scheduler::Provider.logistic_scheduler.cancel_remote_payment_async(payment) if payment.has_remote?
+      Scheduler::Provider.logistic_scheduler.cancel_remote_payment_async(payment) if payment.has_remote?
     end
   end
 end
