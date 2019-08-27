@@ -41,16 +41,34 @@ class JobController < ApplicationController
   def cancel_remote_payment
     payment_id = cancel_payment_params[:payment_id]
     payment = Payment.find_by(id: payment_id)
-    return render plain: "El pago con id #{payment_id} no fue encontrado", status: :not_found if payment.nil?
+    if payment.nil?
+      message = "El pago con id #{payment_id} no fue encontrado"
+      result = JobResult.new(name: "CancelRemotePaymentJob", result: JobResult::Types::FAILED,
+                             message: message, extra_info: {})
+      result.save!
+      return render plain: "Cancellation was unsuccesfull", status: :ok
+    end
     unless payment.has_remote?
-      return render plain: "El pago con id #{payment_id} no tiene remote asociado", status: :unprocessable_entity
+      message = "El pago con id #{payment_id} no fue encontrado"
+      result = JobResult.new(name: "CancelRemotePaymentJob", result: JobResult::Types::FAILED,
+                             message: message, extra_info: {})
+      result.save!
+      return render plain: "Cancellation was unsuccesfull", status: :ok
     end
     payment_canceler = Gateway::Mercadopago::CancelRemotePayment.new
     data = payment_canceler.cancel_payment(payment)
     if data.raw_data['status'].to_i == 200
+      message = "La cancelación del cupón remoto del pago #{payment_id} fue exitosa"
+      result = JobResult.new(name: "CancelRemotePaymentJob", result: JobResult::Types::SUCCESSFUL,
+                             message: message, extra_info: data.raw_data)
+      result.save!
       render plain: "OK", status: :ok
     else
-      render plain: "Cancellation was unsuccesfull", status: :bad_request
+      message = "Couldn't cancel remote payment of #{payment_id}. Request went with status code #{data.raw_data['status'].to_i}"
+      result = JobResult.new(name: "CancelRemotePaymentJob", result: JobResult::Types::FAILED,
+                             message: message, extra_info: data.raw_data)
+      result.save!
+      render plain: "Cancellation was unsuccesfull", status: :ok
     end
   end
 

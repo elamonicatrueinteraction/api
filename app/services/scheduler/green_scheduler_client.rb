@@ -97,7 +97,7 @@ module Scheduler
     private
 
     def get_url_for(action)
-      @end_point + "restjobs/#{action}?auth_token=#{@token}"
+      @end_point + "api/RestJobs/#{action}?auth_token=#{@token}"
     end
   end
 
