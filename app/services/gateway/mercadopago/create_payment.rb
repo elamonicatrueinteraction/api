@@ -22,7 +22,7 @@ module Gateway
           payload = coupon_payment_payload(email)
           @account.create_payment(payload)
         rescue StandardError => e
-          errors.add_multiple_errors( e.errors.messages )
+          errors.add(e.class.to_s, e.message)
 
           @within_transaction ? (raise Service::Error.new(self)) : (return nil)
         end

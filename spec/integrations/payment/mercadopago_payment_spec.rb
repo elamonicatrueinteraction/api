@@ -7,7 +7,7 @@ describe 'MercadoPago payment creation and search' do
   let(:meli_test_client_secret) { Rails.application.secrets.mercadopago_bar_access_token }
   let(:meli_client) { Gateway::Mercadopago::MercadopagoGateway.new(meli_test_client_secret) }
   let!(:order) { create(:order) }
-  let!(:delivery) { create(:delivery) }
+  let!(:delivery) { create(:delivery, order: order) }
 
   before :all do
     $continue = true
@@ -59,32 +59,36 @@ describe 'MercadoPago payment creation and search' do
       end
     end
 
-    it 'creates payment with order in mercadopago and cancels it' do
-      CreatePayment.call(order, order.amount, 'ticket')
-      expect(Payment.all.length).to eq 1
-      payment = Payment.first
-      expect(payment.status).to eq Payment::Types::PENDING
-      expect(payment.gateway_id).to_not be_nil
-      expect(payment.gateway_data).to_not eq({})
-      expect(payment.network_id).to_not be_nil
-      expect(payment.gateway).to eq 'Mercadopago'
-      meli_coupon_id = payment.gateway_id
-      response = meli_client.cancel_payment(meli_coupon_id)
-      expect(response.status).to eq Payment::Types::CANCELLED
-    end
+    context 'when amount is bigger than 0' do
+      it 'creates payment with order in mercadopago and cancels it' do
+        CreatePayment.call(order, order.amount, 'ticket')
+        expect(Payment.all.length).to eq 1
+        payment = Payment.first
+        expect(payment.status).to eq Payment::Types::PENDING
+        expect(payment.gateway_id).to_not be_nil
+        expect(payment.gateway_data).to_not eq({})
+        expect(payment.network_id).to_not be_nil
+        expect(payment.gateway).to eq 'Mercadopago'
+        expect(Order.first.payments.length).to eq 1
+        meli_coupon_id = payment.gateway_id
+        response = meli_client.cancel_payment(meli_coupon_id)
+        expect(response.status).to eq Payment::Types::CANCELLED
+      end
 
-    it 'creates payment with delivery in mercadopago and cancels it' do
-      CreatePayment.call(delivery, delivery.amount, 'ticket')
-      expect(Payment.all.length).to eq 1
-      payment = Payment.first
-      expect(payment.status).to eq Payment::Types::PENDING
-      expect(payment.gateway_id).to_not be_nil
-      expect(payment.gateway_data).to_not eq({})
-      expect(payment.network_id).to_not be_nil
-      expect(payment.gateway).to eq 'Mercadopago'
-      meli_coupon_id = payment.gateway_id
-      response = meli_client.cancel_payment(meli_coupon_id)
-      expect(response.status).to eq Payment::Types::CANCELLED
+      it 'creates payment with delivery in mercadopago and cancels it' do
+        CreatePayment.call(delivery, delivery.amount, 'ticket')
+        expect(Payment.all.length).to eq 1
+        payment = Payment.first
+        expect(payment.status).to eq Payment::Types::PENDING
+        expect(payment.gateway_id).to_not be_nil
+        expect(payment.gateway_data).to_not eq({})
+        expect(payment.network_id).to_not be_nil
+        expect(payment.gateway).to eq 'Mercadopago'
+        expect(Delivery.first.payments.length).to eq 1
+        meli_coupon_id = payment.gateway_id
+        response = meli_client.cancel_payment(meli_coupon_id)
+        expect(response.status).to eq Payment::Types::CANCELLED
+      end
     end
   end
 end

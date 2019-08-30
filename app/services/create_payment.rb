@@ -1,14 +1,16 @@
 class CreatePayment
   prepend Service::Base
 
-  def initialize(payable, amount, payment_type = nil)
+  def initialize(payable, amount, payment_type = nil, gateway_creator = Payments::CreateRemotePayment.new)
     @payable = payable
     @amount = amount.to_f
     @payment_type = if Payment.valid_payment_type?(payment_type)
-      payment_type
-    else
-      Payment.default_payment_type
-    end
+                      payment_type
+                    else
+                      Payment.default_payment_type
+                    end
+    @exempt_payment = Payments::ExemptPayment.new
+    @remote_payment_creator = gateway_creator
   end
 
   def call
@@ -24,21 +26,25 @@ class CreatePayment
   def create_payment
     begin
       Payment.transaction do
-        @payment = @payable.payments.create!(payment_params(@payable))
-        gateway_call = Gateway::Mercadopago::CreatePayment.call(@payment, @payment_type, true)
-        gateway_result = gateway_call.result
-        assigner = Gateway::GatewayDataAssigner.new
-        @payment = assigner.assign(@payment, gateway_result)
+        params = payment_params(@payable)
+        @payment = @payable.payments.create!(params)
+        @payment = if @amount.zero?
+                     @exempt_payment.create(@payment)
+                   else
+                     @remote_payment_creator.create(payment: @payment, payment_type: @payment_type)
+                   end
         @payment.save!
       end
-      UpdateTotalDebtWorker.perform_async(@payment.id)
-    rescue StandardError, ActiveRecord::RecordInvalid => e
+      UpdateTotalDebtWorker.perform_async(@payment.id) unless @payment.amount.zero?
+    rescue StandardError => e
       Rails.logger.info "[CreatePayment] - Error: #{e.message}"
-      errors.add_multiple_errors( e.record.errors.messages )
-
+      errors.add(e.class.to_s, e.message)
+      @within_transaction ? (raise Service::Error.new(self)) : (return nil)
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.info "[CreatePayment] - Error: #{e.message}"
+      errors.add_multiple_errors(e.record.errors.messages)
       @within_transaction ? (raise Service::Error.new(self)) : (return nil)
     end
-
     @payment
   end
 

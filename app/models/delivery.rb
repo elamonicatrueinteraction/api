@@ -154,5 +154,4 @@ class Delivery < ApplicationRecord
   def approved_payments
     payments.select(&:approved?)
   end
-
 end
