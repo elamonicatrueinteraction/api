@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get '_healthcheck', action: :health, controller: :health
+  get 'ping_async', action: :ping_async, controller: :health
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'

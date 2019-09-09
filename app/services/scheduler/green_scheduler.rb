@@ -7,6 +7,12 @@ module Scheduler
       @job_token = job_token
     end
 
+    def ping_async
+      payload = build_job_info(url: "_healthcheck",
+                               verb: 'GET', retry_on_failure: false)
+      @client.fire_and_forget(payload)
+    end
+
     def cancel_remote_payment_async(payment)
       payload = build_job_info(url: "job/cancel_remote_payment/#{payment.id}",
                                verb: 'GET', retry_on_failure: false)
