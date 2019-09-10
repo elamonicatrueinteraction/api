@@ -62,6 +62,11 @@ class Payment < ApplicationRecord
     payable_type == 'Order' ? payable.receiver_id : payable.destination_id
   end
 
+  def collected_amount=(value)
+    write_attribute(:collected_amount, value)
+    write_attribute(:status, Types::APPROVED) if value == amount
+  end
+
   def obsolesce
     write_attribute(:status, "obsolete")
   end
