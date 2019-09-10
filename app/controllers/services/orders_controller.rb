@@ -80,7 +80,7 @@ module Services
     end
 
     def with_delivery_payment
-      plain_hash_params[:with_delivery_payment]
+      plain_hash_params.dig(:order, :with_delivery_payment)
     end
   end
 end
