@@ -35,6 +35,7 @@ class Payment < ApplicationRecord
   default_scope_by_network
   attribute :gateway_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}
+  before_save :approved_state_if_paid
 
   belongs_to :payable, polymorphic: true
 
@@ -62,9 +63,8 @@ class Payment < ApplicationRecord
     payable_type == 'Order' ? payable.receiver_id : payable.destination_id
   end
 
-  def collected_amount=(value)
-    write_attribute(:collected_amount, value)
-    write_attribute(:status, Types::APPROVED) if value == amount
+  def approved_state_if_paid
+    self.status = Types::APPROVED if self.collected_amount == self.amount
   end
 
   def obsolesce
