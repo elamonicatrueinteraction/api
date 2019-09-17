@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190827165324) do
+ActiveRecord::Schema.define(version: 20190917181950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
   enable_extension "pgcrypto"
+
+  create_table "account_balances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "institution_id"
+    t.decimal "amount", precision: 12, scale: 4, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_account_balances_on_institution_id", unique: true
+  end
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "institution_id"
@@ -298,8 +306,8 @@ ActiveRecord::Schema.define(version: 20190827165324) do
     t.jsonb "extras", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "max_weight"
     t.string "network_id"
+    t.integer "max_weight"
     t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
     t.index ["network_id"], name: "index_vehicles_on_network_id"
     t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"

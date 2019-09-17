@@ -35,7 +35,10 @@ class Payment < ApplicationRecord
   default_scope_by_network
   attribute :gateway_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}
+
   before_save :approved_state_if_paid
+  after_save :update_account_balance
+
 
   belongs_to :payable, polymorphic: true
 
@@ -74,6 +77,25 @@ class Payment < ApplicationRecord
   def has_remote?
     !gateway_id.nil?
   end
+
+  def update_account_balance
+    institution = payable.receiver
+
+    orders = Order.by_receiver_id(institution.id).includes(:payments, deliveries: [:payments])
+    order_payments = orders.map(&:payments)
+                         .flatten
+                         .pluck(:status, :amount)
+    delivery_payments = orders.map { |x| x.deliveries.map(&:payments) }
+                            .flatten
+                            .pluck(:status, :amount)
+    total_payments = order_payments + delivery_payments
+    debt_amount = total_payments.select { |x| x[0] == Payment::Types::PENDING }.map { |x| x[1] }.sum
+
+    accountBalance = AccountBalance.find_or_create_by! institution_id: institution.id
+    accountBalance.amount = debt_amount
+    accountBalance.save!
+  end
+
 
   STATUSES.each do |valid_status|
     define_method :"#{valid_status}?" do

@@ -3,7 +3,7 @@ module Payments
 
     def update_all
       Services::Institution.all.each do |institution|
-        institution.update(total_debt: institution.calculated_total_debt)
+        TotalDebtUpdate.new.update_debt_for(institution)
       end
     end
   end

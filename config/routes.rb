@@ -104,7 +104,11 @@ Rails.application.routes.draw do
 
   namespace :services do
     resources :orders, only: [:index, :create]
+
+    resources :account_balances, only: [:all, :by_institution]
   end
+
+
 
   match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
 end
