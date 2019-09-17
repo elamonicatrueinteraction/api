@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190827165324) do
+ActiveRecord::Schema.define(version: 20190916175913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema.define(version: 20190827165324) do
     t.index ["gateway_data"], name: "index_addresses_on_gateway_data", using: :gin
     t.index ["gps_coordinates"], name: "index_addresses_on_gps_coordinates", using: :gist
     t.index ["institution_id"], name: "index_addresses_on_institution_id"
+  end
+
+  create_table "audits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "audited_id"
+    t.string "audited_type"
+    t.string "message"
+    t.string "field"
+    t.string "original_value"
+    t.string "new_value"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

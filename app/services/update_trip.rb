@@ -2,16 +2,18 @@ class UpdateTrip
   prepend Service::Base
   include Service::Support::Trip
 
-  def initialize(trip, allowed_params)
+  def initialize(trip, allowed_params, current_user_id)
     @trip = trip
     @allowed_params = allowed_params
     @shipper = load_shipper(@allowed_params.delete(:shipper_id)) if @allowed_params[:shipper_id].present?
+    @create_audit = Audits::CreateAudit.new(model: Audit::Models::TRIP, field: 'amount')
+    @current_user_id = current_user_id
   end
 
   def call
     return if errors.any?
 
-    update_trip
+    return update_trip
   end
 
   private
@@ -19,9 +21,47 @@ class UpdateTrip
   def update_trip
     return unless can_update_trip?
 
-    @trip.assign_attributes( trip_params )
+    if @trip.status == Trip::Status::COMPLETED
+      update_amount
+    else
+      update_trip_info
+    end
+  end
 
-    if (!@trip.changed?) || @trip.save
+  def update_amount
+    return unless can_update_trip?
+
+    original_amount = @trip.amount
+    amount = @allowed_params[:amount]
+    errors_found = {}
+    if original_amount > amount
+      errors_found[:amount] = "El monto nuevo: #{amount} no puede se mas bajo que el anterior #{original_amount}"
+    end
+    if errors_found.empty?
+      @trip.update!({amount: amount})
+      if amount != original_amount
+        @create_audit.create(audited: @trip, original_value: original_amount,
+                             new_value: amount, user_id: @current_user_id)
+      end
+      @trip
+    else
+      errors_found.each { |k, v| errors.add(k, v) }
+    end
+  end
+
+  def update_trip_info
+    return unless can_update_trip?
+
+    old_amount = @trip.amount
+    params = trip_params
+    @trip.assign_attributes(params)
+
+    if !@trip.changed? || @trip.save
+      amount = params[:amount]
+      if !amount.nil? && amount != old_amount
+        @create_audit.create(audited: @trip, original_value: old_amount, new_value: amount, user_id: @current_user_id)
+      end
+
       # TO-DO: We should think better where and how we need to implement this logic
       AssignTrip.call(@trip, @shipper) if @shipper
 
@@ -37,18 +77,10 @@ class UpdateTrip
       @allowed_params.delete(:comments) if @allowed_params[:comments].blank?
 
       if @allowed_params[:pickup_schedule].present? || @allowed_params[:dropoff_schedule].present?
-        pickup_schedule = if @allowed_params[:pickup_schedule].present?
-          @allowed_params[:pickup_schedule]
-        else
-          @trip.pickup_window
-        end
+        pickup_schedule = @allowed_params[:pickup_schedule].presence || @trip.pickup_window
         @allowed_params.delete(:pickup_schedule)
 
-        dropoff_schedule = if @allowed_params[:dropoff_schedule].present?
-          @allowed_params[:dropoff_schedule]
-        else
-          @trip.dropoff_window
-        end
+        dropoff_schedule = @allowed_params[:dropoff_schedule].presence || @trip.dropoff_window
         @allowed_params.delete(:dropoff_schedule)
 
         _hash[:steps] = steps_data(
@@ -61,7 +93,7 @@ class UpdateTrip
   end
 
   def can_update_trip?
-    if @trip.status.present?
+    if @trip.status.present? && @trip.status != Trip::Status::COMPLETED
       errors.add(:type, I18n.t("services.update_trip.trip_on_going", status: @trip.status)) && nil
       return false
     end

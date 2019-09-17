@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: trips
+#
+#  id           :uuid             not null, primary key
+#  shipper_id   :uuid
+#  status       :string
+#  comments     :string
+#  amount       :decimal(12, 4)   default(0.0)
+#  gateway      :string
+#  gateway_id   :string
+#  gateway_data :jsonb
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  steps        :jsonb            not null
+#  network_id   :string
+#
+
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do

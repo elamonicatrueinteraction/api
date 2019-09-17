@@ -7,7 +7,7 @@ module Scheduler
     def initialize(end_point:, token:)
       @end_point = end_point
       @token = token
-      throw WebServiceFaultException.new('Debe configurar el end point y el token del scheduler') if @end_point.blank? || @token.blank?
+      throw Exceptions::WebServiceFaultException.new('Debe configurar el end point y el token del scheduler') if @end_point.blank? || @token.blank?
       reset_collections
     end
 

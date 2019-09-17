@@ -1,4 +1,4 @@
-# 395847ea-0154-4cb6-93f9-3c947f36c61c
+
 module Services
   class Institution < Services::UserService
     attributes :id, :name, :legal_name, :city, :category, :uid_type, :uid,

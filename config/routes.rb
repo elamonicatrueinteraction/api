@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'audit/index'
+
   get '_healthcheck', action: :health, controller: :health
   get 'ping_async', action: :ping_async, controller: :health
 

@@ -17,6 +17,13 @@
 #
 
 class Trip < ApplicationRecord
+  module Status
+    WAITING_SHIPPER = "waiting_shipper"
+    CONFIRMED = "confirmed"
+    CANCELED = "canceled"
+    ON_GOING = "on_going"
+    COMPLETED = "completed"
+  end
   default_scope_by_network
   attribute :steps, :jsonb, default: []
 
@@ -27,18 +34,18 @@ class Trip < ApplicationRecord
   has_many :orders, through: :deliveries
   has_many :packages, through: :deliveries
   has_many :trip_assignments, dependent: :destroy
+  has_many :audits, as: :audited
 
   belongs_to :shipper, optional: true
 
   scope :delivery_at, ->(date) { where("((steps->0)->'schedule'->>'start')::date = ?", date.to_date) }
 
-  ALLOWED_STATUSES = %w[
-    waiting_shipper
-    confirmed
-    canceled
-    on_going
-    completed
-  ].freeze
+  ALLOWED_STATUSES = [
+    Status::WAITING_SHIPPER,
+    Status::CONFIRMED,
+    Status::CANCELED,
+    Status::ON_GOING,
+    Status::COMPLETED].freeze
   private_constant :ALLOWED_STATUSES
 
   def self.allowed_statuses

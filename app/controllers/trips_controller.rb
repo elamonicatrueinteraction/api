@@ -28,7 +28,7 @@ class TripsController < ApplicationController
 
   def update
     if trip = Trip.find_by(id: params[:id])
-      service = UpdateTrip.call(trip, update_trip_params)
+      service = UpdateTrip.call(trip, update_trip_params, current_user.id)
 
       if service.success?
         render json: service.result, status: :created # 201
