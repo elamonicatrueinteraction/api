@@ -105,7 +105,7 @@ Rails.application.routes.draw do
   namespace :services do
     resources :orders, only: [:index, :create]
 
-    resources :account_balances, only: [:all, :by_institution]
+    resources :account_balances, only: [:index, :show]
   end
 
 

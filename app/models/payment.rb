@@ -80,20 +80,7 @@ class Payment < ApplicationRecord
 
   def update_account_balance
     institution = payable.receiver
-
-    orders = Order.by_receiver_id(institution.id).includes(:payments, deliveries: [:payments])
-    order_payments = orders.map(&:payments)
-                         .flatten
-                         .pluck(:status, :amount)
-    delivery_payments = orders.map { |x| x.deliveries.map(&:payments) }
-                            .flatten
-                            .pluck(:status, :amount)
-    total_payments = order_payments + delivery_payments
-    debt_amount = total_payments.select { |x| x[0] == Payment::Types::PENDING }.map { |x| x[1] }.sum
-
-    accountBalance = AccountBalance.find_or_create_by! institution_id: institution.id
-    accountBalance.amount = debt_amount
-    accountBalance.save!
+    AccountBalance.update_balance(institution.id)
   end
 
 
