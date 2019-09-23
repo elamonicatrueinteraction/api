@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :order do
-    amount 500
+    amount {200}
     bonified_amount { Faker::Number.number(2) }
     giver_id { Institution.all.sample.id }
     receiver_id { Institution.all.sample.id }

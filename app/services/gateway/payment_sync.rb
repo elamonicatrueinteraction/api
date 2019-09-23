@@ -12,6 +12,8 @@ module Gateway
       Rails.logger.info 'Request all pending payments'
 
       pending_payments = Payments::PendingPayments.call.result
+
+      #TODO: devolver los ID o Institution vinculadas con la actualización del estado de cupones, a fin de sincronizar el total_debt de cada una de ellas - EZE
       pending_payments.each(&method(:gateway_check))
 
       Rails.logger.info "Coupon sync finished. Coupons processed: #{@amount_of_coupons_processed}," \

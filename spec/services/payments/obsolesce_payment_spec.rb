@@ -9,6 +9,8 @@ describe 'Obsolesce Payment' do
     end
   end
 
+
+
   context 'when payment is paid' do
     let!(:order) { create(:order, network_id: "MDQ") }
     let!(:payment) { create(:approved_payment, network_id: "MDQ", payable: order) }

@@ -30,9 +30,27 @@ describe 'MercadoPago Obsolesce Payment', type: :request do
   context 'when payment uses Mercadopago' do
 
     before do
+      AccountBalance.destroy_all
       Payment.destroy_all
       CreatePayment.call(order, order.total_amount, 'ticket')
     end
+
+    it 'obsolesces payment NEW' do
+      payment = Payment.first
+      p '$$$$$'
+      p AccountBalance.count
+      p '$$$$$'
+      accountBalance = AccountBalance.where(institution_id: institution.id).first || AccountBalance.new(institution_id: institution.id, amount: 0)
+      expect(accountBalance.amount).to eq(order.total_amount)
+      put "/payments/obsolesce/#{payment.id}", headers: { Authorization: 'Token asd', 'X-Network-Id': "MDQ" }
+      expect(response).to have_http_status(:ok)
+      accountBalance = AccountBalance.where(institution_id: institution.id).first || AccountBalance.new(institution_id: institution.id, amount: 0)
+      expect(accountBalance.amount).to eq(0)
+      payment.reload
+      expect(payment.status).to eq(Payment::Types::OBSOLETE)
+      expect(scheduler.times).to eq(1)
+    end
+
 
     it 'obsolesces payment' do
       payment = Payment.first
