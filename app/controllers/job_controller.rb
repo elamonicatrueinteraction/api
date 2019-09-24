@@ -72,6 +72,35 @@ class JobController < ApplicationController
     end
   end
 
+  def backup
+    # pg_dump --host="127.0.0.1" --port="5432" --username="sa" --no-password --verbose -F c axum_censos_cmq_dev > cmq-live-20180917.sql
+    conn = ActiveRecord::Base.connection_config
+    host = conn[:host]
+    port = conn[:port]
+    user = conn[:username]
+    db = conn[:database]
+    password = conn[:password]
+    outputFile = "#{Time.now.getutc.strftime("%Y%m%d%H%M")}-logistic.backup"
+    command = "pg_dump --host=\"#{host}\" --port=\"#{port}\" --username=\"#{user}\" "\
+              "--no-password --verbose -F c -f #{outputFile} #{db}"
+
+    child_pid = fork do
+      Dir.chdir(Dir.pwd)
+      system({"PGPASSWORD" => "#{password}"}, command)
+      puts "[Backup] - Did backup!"
+      exit
+    end
+    Process.wait
+
+    object_store = ObjectStore::AmazonS3ObjectStore.new(bucket_name: 'nilus-db-backups', base_path: 'production')
+    object_store.upload_file(folder: 'logistic', file_name: outputFile, file_local_path: outputFile)
+    puts "[Backup] - Uploaded to S3"
+    File.delete(outputFile)
+    puts "[Backup] - Deleted local file"
+
+    render json: { message: "Ok"}, status: :ok
+  end
+
   private
 
   def authorize

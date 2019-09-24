@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'activerecord-postgis-adapter'
+gem 'aws-sdk-s3', '~> 1.48.0'
 gem 'bcrypt' # Ruby binding for the OpenBSD bcrypt() password hashing algorithm
 gem 'discard', '~> 1.0' # Soft deletes for ActiveRecord done right.
 gem 'dry-types' # Is a simple and extendable type system for Ruby; useful for value coercions, applying constraints and other stuff
