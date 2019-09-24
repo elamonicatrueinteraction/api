@@ -97,7 +97,7 @@ GEM
     bullet (5.7.5)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
-    capistrano (3.11.1)
+    capistrano (3.10.2)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -417,7 +417,7 @@ DEPENDENCIES
   aws-sdk-s3 (~> 1.48.0)
   bcrypt
   bullet (= 5.7.5)
-  capistrano
+  capistrano (~> 3.10.0)
   capistrano-bundler
   capistrano-inspeqtor
   capistrano-maintenance
