@@ -34,7 +34,7 @@ gem 'api-pagination' # For pagination info in your headers, not in your response
 gem 'querifier'
 
 gem 'dotenv-rails'
-gem 'pry-rails'
+gem 'tzinfo-data'
 
 group :production do
   gem 'newrelic_rpm'
