@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190917211729) do
+ActiveRecord::Schema.define(version: 20190925132113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "postgis"
   enable_extension "pgcrypto"
+  enable_extension "fuzzystrmatch"
+  enable_extension "postgis_tiger_geocoder"
+  enable_extension "postgis_topology"
+  enable_extension "postgis"
 
   create_table "account_balances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "institution_id"
@@ -283,6 +286,17 @@ ActiveRecord::Schema.define(version: 20190917211729) do
     t.index ["network_id"], name: "index_trips_on_network_id"
     t.index ["shipper_id"], name: "index_trips_on_shipper_id"
     t.index ["steps"], name: "index_trips_on_steps", using: :gin
+  end
+
+  create_table "untracked_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "institution_id"
+    t.uuid "author_id"
+    t.string "reason"
+    t.string "activity"
+    t.decimal "amount", precision: 12, scale: 4, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "network_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

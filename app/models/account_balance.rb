@@ -1,6 +1,5 @@
 class AccountBalance < ApplicationRecord
 
-
   attr_accessor :institution
 
   def institution
@@ -9,14 +8,18 @@ class AccountBalance < ApplicationRecord
 
   def calculate_debt_amount_of_institution(institution_id)
     orders = Order.by_receiver_id(institution_id).includes(:payments, deliveries: [:payments])
+    outside_transactions = UntrackedActivity.by_institution_id(institution_id).includes(:payments)
+    transaction_payments = outside_transactions.map(&:payments)
+                             .flatten
+                             .pluck(:status, :amount)
     order_payments = orders.map(&:payments)
-                         .flatten
-                         .pluck(:status, :amount)
-    delivery_payments = orders.map { |x| x.deliveries.map(&:payments) }
-                            .flatten
-                            .pluck(:status, :amount)
-    total_payments = order_payments + delivery_payments
-    total_payments.select { |x| x[0] == Payment::Types::PENDING }.map { |x| x[1] }.sum
+                       .flatten
+                       .pluck(:status, :amount)
+    delivery_payments = orders.map {|x| x.deliveries.map(&:payments)}
+                          .flatten
+                          .pluck(:status, :amount)
+    total_payments = order_payments + delivery_payments + transaction_payments
+    total_payments.select {|x| x[0] == Payment::Types::PENDING}.map {|x| x[1]}.sum
   end
 
   def self.amount_of(institution_id)
@@ -27,7 +30,7 @@ class AccountBalance < ApplicationRecord
   end
 
   def update_debt_amount!
-    self.amount= calculate_debt_amount_of_institution(self.institution_id)
+    self.amount = calculate_debt_amount_of_institution(self.institution_id)
     self.save!
   end
 

@@ -30,6 +30,12 @@ class Payment < ApplicationRecord
     OBSOLETE = "obsolete".freeze
   end
 
+  module PaymentTypes
+    RAPIPAGO = "rapipago".freeze
+    PAGOFACIL = "pagofacil".freeze
+    OTRO = "otro".freeze
+  end
+
   validates :amount, numericality: { greater_than_or_equal_to: 0,
                                      message: 'El monto del cupón debe ser mayor o igual a 0' }
   default_scope_by_network
@@ -48,10 +54,7 @@ class Payment < ApplicationRecord
                Types::PENDING, Types::REJECTED, Types::REFUNDED, Types::OBSOLETE].freeze
   private_constant :STATUSES
 
-  PAYMENT_TYPES = %w[
-    pagofacil
-    rapipago
-  ].freeze
+  PAYMENT_TYPES = [PaymentTypes::RAPIPAGO, PaymentTypes::PAGOFACIL, PaymentTypes::OTRO].freeze
   private_constant :PAYMENT_TYPES
 
   def self.valid_payment_type?(payment_type_to_check)

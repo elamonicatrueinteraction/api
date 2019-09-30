@@ -14,14 +14,15 @@ module Services
         order = service.result
         make_order_rule = Tenant::ShouldMakeOrderCouponRule.new
         if make_order_rule.should_make?(order)
-          order_payment = CreatePayment.call(order, order.amount, payment_method)
+          order_payment = CreatePayment.call(payable: order, amount: order.amount, payment_method: payment_method)
         else
           Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
         end
 
         delivery = order.deliveries.last
         if with_delivery_payment
-          delivery_payment = CreatePayment.call(delivery, delivery.amount, payment_method)
+          delivery_payment = CreatePayment.call(payable: delivery, amount: delivery.amount,
+                                                payment_method: payment_method)
         end
         order.payments.reload
         order.reload
@@ -31,7 +32,19 @@ module Services
       end
     end
 
+    def last_order_date
+      institution_id = last_order_params[:institution_id]
+      network_id = last_order_params[:network_id]
+      query = Orders::LastOrderAtQuery.new(network_id: network_id)
+      result = query.query(institution_id: institution_id)
+      render json: { last_order_dates: result }, status: :ok
+    end
+
     private
+
+    def last_order_params
+      params.permit(:network_id, :institution_id)
+    end
 
     def full_params
       order_params.tap do |_params|

@@ -1,7 +1,8 @@
 class CreatePayment
   prepend Service::Base
 
-  def initialize(payable, amount, payment_type = nil, gateway_creator = Payments::CreateRemotePayment.new)
+  def initialize(payable:, amount:, payment_type: nil, payment_comment: "",
+                 gateway_creator: Payments::CreateRemotePayment.new)
     @payable = payable
     @amount = amount.to_f
     @payment_type = if Payment.valid_payment_type?(payment_type)
@@ -9,8 +10,10 @@ class CreatePayment
                     else
                       Payment.default_payment_type
                     end
-    @exempt_payment = Payments::ExemptPayment.new
+    @donated_payment = Payments::DonatedPayment.new
+
     @remote_payment_creator = gateway_creator
+    @payment_comment = payment_comment
   end
 
   def call
@@ -23,19 +26,25 @@ class CreatePayment
 
   private
 
+  def use_mercadopago(payment_type:)
+    payment_type == Payment::PaymentTypes::PAGOFACIL || payment_type == Payment::PaymentTypes::RAPIPAGO
+  end
+
   def create_payment
     begin
       Payment.transaction do
-        params = payment_params(@payable)
+        params = payment_params(payable: @payable, comment: @payment_comment)
         @payment = @payable.payments.create!(params)
         @payment = if @amount.zero?
-                     @exempt_payment.create(@payment)
-                   else
+                     @donated_payment.create(@payment)
+                   elsif use_mercadopago(payment_type: @payment_type)
                      @remote_payment_creator.create(payment: @payment, payment_type: @payment_type)
+                   else
+                     @payment.status = Payment::Types::PENDING
+                     @payment
                    end
         @payment.save!
       end
-      UpdateTotalDebtWorker.perform_async(@payment.id) unless @payment.amount.zero?
     rescue StandardError => e
       Rails.logger.info "[CreatePayment] - Error: #{e.message}"
       errors.add(e.class.to_s, e.message)
@@ -48,8 +57,8 @@ class CreatePayment
     @payment
   end
 
-  def payment_params(payable)
-    { amount: @amount, network_id: payable.network_id }
+  def payment_params(payable:, comment:)
+    { amount: @amount, network_id: payable.network_id, comment: comment }
   end
 
 end

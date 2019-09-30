@@ -23,6 +23,14 @@ Rails.application.routes.draw do
     get 'backup'
   end
 
+  namespace :account_balances do
+    get '', action: :index
+  end
+
+  namespace :untracked_activity do
+    post '', action: :create
+  end
+
   namespace :reports do
     get 'remote_payment_report', action: :remote_payment_report
   end
@@ -107,6 +115,9 @@ Rails.application.routes.draw do
 
   namespace :services do
     resources :orders, only: [:index, :create]
+    namespace :orders do
+      get 'last_order_date', action: :last_order_date
+    end
 
     resources :account_balances, only: [:index, :show]
   end
