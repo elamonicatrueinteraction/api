@@ -6,6 +6,12 @@ GIT
     pushme-aws (0.1.0)
       aws-sdk-sns (~> 1)
 
+PATH
+  remote: engines/cypress
+  specs:
+    cypress (0.1.0)
+      rails (~> 5.1.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -423,6 +429,7 @@ DEPENDENCIES
   capistrano-maintenance
   capistrano-rails
   capistrano3-puma
+  cypress!
   database_cleaner
   discard (~> 1.0)
   dotenv-rails

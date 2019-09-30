@@ -1,0 +1,16 @@
+FROM ruby:2.4.1-alpine
+
+RUN apk update && apk add build-base libpq postgresql-dev libxml2-dev libxslt-dev git
+
+WORKDIR /app
+
+COPY Gemfile* ./
+COPY engines ./engines
+
+ENV BUNDLER_VERSION 2.0.2
+RUN gem install bundler:2.0.2 && bundle install --without test
+COPY . .
+
+EXPOSE 3010
+ENV RAILS_ENV cypress
+ENTRYPOINT ["rails", "s"]

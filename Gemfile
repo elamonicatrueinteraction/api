@@ -48,6 +48,10 @@ group :development, :test do
   gem 'rubocop', require: false
 end
 
+group :cypress do
+  gem "cypress", path: "engines/cypress"
+end
+
 group :development do
   gem 'capistrano',             require: false
   gem 'capistrano-bundler',     require: false

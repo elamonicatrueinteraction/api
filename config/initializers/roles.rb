@@ -114,6 +114,5 @@ if Rails.env.test?
   ActiveResourcePatch.new
 
 end
-User.first
 
 Rails.application.reloader.reload!

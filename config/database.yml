@@ -19,9 +19,12 @@ development: &development
   <<: *default
   database: <%= ENV.fetch("DATABASE_NAME", 'nilus-dev-db-development')%>
 
-test:
+test: &test
   <<: *default
   database: nilus-test-db-test
+
+cypress:
+  <<: *test
 
 production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>

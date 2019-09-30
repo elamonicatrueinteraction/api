@@ -110,8 +110,4 @@ Rails.application.routes.draw do
 
     resources :account_balances, only: [:index, :show]
   end
-
-
-
-  match '*path', to: ->(_) { [ 404, { }, [':/'] ] }, via: :all
 end
