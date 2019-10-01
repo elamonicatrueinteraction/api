@@ -80,5 +80,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'simplecov-json', require: false
+  gem 'rubocop-rspec'
   gem 'webmock'
 end

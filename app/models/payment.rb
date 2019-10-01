@@ -28,6 +28,8 @@ class Payment < ApplicationRecord
     REJECTED = "rejected".freeze
     REFUNDED = "refunded".freeze
     OBSOLETE = "obsolete".freeze
+    ERROR = "error".freeze
+    EXPIRED = "expired".freeze
   end
 
   validates :amount, numericality: { greater_than_or_equal_to: 0,
@@ -56,6 +58,10 @@ class Payment < ApplicationRecord
 
   def self.valid_payment_type?(payment_type_to_check)
     PAYMENT_TYPES.include?(payment_type_to_check.to_s)
+  end
+
+  def self.known_payment_status?(status)
+    STATUSES.include?(status.to_s)
   end
 
   def self.default_payment_type
