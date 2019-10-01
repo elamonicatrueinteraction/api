@@ -1,7 +1,7 @@
 FactoryBot.define do
   VEHICLE_VERIFICATIONS = {
     license_plate: {
-      register_date: Faker::Date.between(5.years.ago, 1.year.ago),
+      register_date: Faker::Date.between(from: 5.years.ago, to: 1.year.ago),
       number: "#{Faker::Name.initials(3)}#{Faker::Number.number(3)}",
       state: 'Buenos Aires',
       city: 'AR'

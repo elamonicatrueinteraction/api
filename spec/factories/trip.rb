@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :trip do
     transient do
-      pickup_schedule({
+      pickup_schedule { {
         start: Faker::Time.forward(1, :morning),
         end: Faker::Time.forward(1, :evening)
-      })
-      dropoff_schedule({
+      } }
+      dropoff_schedule { {
         start: Faker::Time.forward(1, :morning),
         end: Faker::Time.forward(2, :evening)
-      })
+      } }
     end
     deliveries { create_list(:delivery_with_packages, 1, status: 'assigned') }
     amount { deliveries.sum(&:amount) }
@@ -16,7 +16,7 @@ FactoryBot.define do
     network_id { 'ROS' }
 
     trait :broadcasted do
-      status 'waiting_shipper'
+      status { 'waiting_shipper' }
 
       after(:create) do |trip, evaluator|
         create(:trip_assignment, trip: trip, state: 'broadcasted')
@@ -24,7 +24,7 @@ FactoryBot.define do
     end
 
     trait :assigned do
-      status 'waiting_shipper'
+      status { 'waiting_shipper' }
 
       after(:create) do |trip, evaluator|
         create(:trip_assignment, trip: trip, state: 'assigned')
@@ -32,7 +32,7 @@ FactoryBot.define do
     end
 
     trait :confirmed do
-      status 'confirmed'
+      status { 'confirmed' }
 
       after(:create) do |trip, evaluator|
         now = Time.current
@@ -47,7 +47,7 @@ FactoryBot.define do
 
     trait :created_some_weeks_ago do
       transient do
-        number_of_weeks 1
+        number_of_weeks { 1 }
       end
 
       created_at { number_of_weeks.weeks.ago }

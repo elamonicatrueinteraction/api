@@ -4,11 +4,7 @@ module Gateway
       def assign(payment, data)
         gateway_id = data.payment_id
         gateway_status = data.status
-        p gateway_status
-        p '!!!!!!!!!'
-        p data.raw_data
-        p '!!!!!!!!!'
-        payment_status = data.status == "400" ? Payment::Types::PENDING : gateway_status
+        payment_status = Payment.known_payment_status?(gateway_status) ? gateway_status : Payment::Types::ERROR
         payment.status = payment_status
         payment.gateway = data.gateway
         payment.gateway_id = gateway_id

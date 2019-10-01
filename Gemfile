@@ -34,7 +34,7 @@ gem 'api-pagination' # For pagination info in your headers, not in your response
 gem 'querifier'
 
 gem 'dotenv-rails'
-gem 'pry-rails'
+gem 'tzinfo-data'
 
 group :production do
   gem 'newrelic_rpm'
@@ -46,6 +46,10 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
+end
+
+group :cypress do
+  gem "cypress", path: "engines/cypress"
 end
 
 group :development do
@@ -76,5 +80,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'simplecov-json', require: false
+  gem 'rubocop-rspec'
   gem 'webmock'
 end

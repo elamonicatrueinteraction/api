@@ -7,7 +7,7 @@ module Gateway
       end
 
       def status
-        @mercadopago_data["response"]["status"].to_s
+        expired? ? "expired" : @mercadopago_data["response"]["status"].to_s
       end
 
       def payment_id
@@ -35,6 +35,20 @@ module Gateway
 
       def raw_data
         @mercadopago_data
+      end
+
+      def expired?
+        expiration_date = expiration_date_utc
+        return false if expiration_date.nil?
+
+        @mercadopago_data["response"]["status"].to_s == "pending" && expiration_date <= Time.now.utc
+      end
+
+      def expiration_date_utc
+        expiration_date = @mercadopago_data["response"]["date_of_expiration"]
+        return nil if expiration_date.nil?
+
+        Time.parse(@mercadopago_data["response"]["date_of_expiration"]).utc
       end
     end
   end
