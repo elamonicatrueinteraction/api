@@ -31,7 +31,9 @@ module V2
     end
 
     def gateway_payment_name
+      return "-" if object.gateway_data == {}
       status = object.gateway_data["status"].to_s
+
       return "-" if status == "400"
       return object.gateway_data["response"]["payment_method_id"] if object.gateway_data['payment_method_id'].nil?
       object.gateway_data['payment_method_id']
