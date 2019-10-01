@@ -1,5 +1,4 @@
 class User < UserApiResource
-  include RoleModel
 
   belongs_to :institution
 
@@ -28,6 +27,5 @@ class User < UserApiResource
     buyer
   ].freeze
   private_constant :ROLES
-
-  roles *ROLES
+  
 end
