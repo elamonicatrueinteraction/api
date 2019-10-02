@@ -53,7 +53,7 @@ group :cypress do
 end
 
 group :development do
-  gem 'capistrano',             require: false
+  gem 'capistrano', '~> 3.10.0'
   gem 'capistrano-bundler',     require: false
   gem 'capistrano-inspeqtor',   require: false
   gem 'capistrano-maintenance', require: false

@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.10.0"
+lock "3.10.2"
 
 set :application, "nilus_api"
 set :repo_url,    "git@github.com:nilusorg/api.git"

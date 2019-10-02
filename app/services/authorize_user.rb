@@ -21,7 +21,7 @@ class AuthorizeUser
     end
 
     if @with_roles # rubocop:disable Style/GuardClause
-      return @user if ensure_user_ability
+      return @user if @user.roles_mask != nil && @user.roles_mask != 0
 
       errors.add(:token, I18n.t('services.authorize_user.not_allowed')) && nil
     else
@@ -37,7 +37,7 @@ class AuthorizeUser
     )
     response = request.run
     body = json_load(response.body)
-    response.success? ? User.new(body, true) : nil
+    response.success? && body != nil ? Domain::AuthResponse.new(body['user'].with_indifferent_access) : nil
   end
 
   # TO-DO: We should specify the logic here. The idea is to be able
