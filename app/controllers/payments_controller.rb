@@ -10,7 +10,8 @@ class PaymentsController < ApplicationController
   def create
     (optional_order || optional_delivery); return if performed?
 
-    service = CreatePayment.call(current_payable, payment_amount, payment_params[:payment_type_id])
+    service = CreatePayment.call(payable: current_payable, amount: payment_amount,
+                                 payment_type: payment_params[:payment_type_id])
 
     if service.success?
       render json: service.result, status: :created # 201

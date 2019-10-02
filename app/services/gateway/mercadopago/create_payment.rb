@@ -50,11 +50,14 @@ module Gateway
         end
       end
 
+      # TODO: move out of this class. @author: Tom
       def payment_description
         if @payment.payable.is_a?(Order)
           "Order para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
-        else
+        elsif @payment.payable.is_a?(Delivery)
           "Entrega para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
+        else
+          "Cupon de #{@payment.payable.reason} - #{@payment.payable.institution.name}"
         end
       end
 

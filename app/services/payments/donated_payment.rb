@@ -1,5 +1,5 @@
 module Payments
-  class ExemptPayment
+  class DonatedPayment
 
     def create(payment)
       payment.status = Payment::Types::APPROVED
