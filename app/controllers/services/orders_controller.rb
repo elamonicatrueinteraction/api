@@ -14,15 +14,14 @@ module Services
         order = service.result
         make_order_rule = Tenant::ShouldMakeOrderCouponRule.new
         if make_order_rule.should_make?(order)
-          order_payment = CreatePayment.call(payable: order, amount: order.amount, payment_method: payment_method)
+          order_payment = CreatePayment.call(payable: order, amount: order.amount, payment_type: payment_method)
         else
           Rails.logger.info "[Coupons] - Skipping Coupon generation for ROSARIO - BAR."
         end
 
         delivery = order.deliveries.last
         if with_delivery_payment
-          delivery_payment = CreatePayment.call(payable: delivery, amount: delivery.amount,
-                                                payment_method: payment_method)
+          delivery_payment = CreatePayment.call(payable: delivery, amount: delivery.amount, payment_type: payment_method)
         end
         order.payments.reload
         order.reload
