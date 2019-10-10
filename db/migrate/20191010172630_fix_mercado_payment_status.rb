@@ -1,4 +1,4 @@
-class FixMercadoPagoPaymentStatus < ActiveRecord::Migration[5.1]
+class FixMercadoPaymentStatus < ActiveRecord::Migration[5.1]
   def change
     Payment.unscoped.each do |payment|
       is_payed = payment.amount == payment.collected_amount
