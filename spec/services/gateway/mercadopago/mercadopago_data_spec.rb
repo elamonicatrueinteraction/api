@@ -46,7 +46,7 @@ describe 'Mercadopago Data Access' do
   context 'with bad mercadopago request' do
     let!(:data) { Gateway::Mercadopago::Data.new(bad_request_json) }
 
-    it { expect(data.status).to }
+    it { expect(data.status).to eq("400") }
     it { expect(data.payment_id).to be_nil }
     it { expect(data.paid_at).to be_nil }
     it { expect(data.gateway).to_not be_nil }

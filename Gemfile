@@ -46,6 +46,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
+  gem 'rubocop-faker', require: false
 end
 
 group :cypress do

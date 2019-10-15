@@ -16,7 +16,7 @@ RSpec.describe UpdateVerification do
           type: "license_plate",
           information: {
             register_date: Faker::Date.between(from: 5.years.ago, to: 1.year.ago),
-            number: "#{Faker::Name.initials(3)}#{Faker::Number.number(3)}"
+            number: "#{Faker::Name.initials(number: 3)}#{Faker::Number.number(digits: 3)}"
           }
         })
       }

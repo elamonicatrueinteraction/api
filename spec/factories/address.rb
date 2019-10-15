@@ -22,7 +22,7 @@ FactoryBot.define do
     contact_cellphone  { Faker::PhoneNumber.cell_phone }
     contact_email  { Faker::Internet.free_email }
     telephone  { Faker::PhoneNumber.phone_number }
-    open_hours  { Faker::Lorem.sentence(3, true, 4) }
+    open_hours  { Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 4) }
     notes  { Faker::Lorem.sentence }
 
     trait :for_organization do

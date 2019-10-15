@@ -83,7 +83,7 @@ RSpec.describe VerificationsController, type: :request do
     end
 
     context 'with invalid verification_id' do
-      let(:verification_id) { Faker::Number.between(50, 100) }
+      let(:verification_id) { Faker::Number.between(from: 50, to: 100) }
 
       it_behaves_like 'a not_found request'
     end
@@ -109,7 +109,7 @@ RSpec.describe VerificationsController, type: :request do
     end
 
     context 'with invalid verification_id' do
-      let(:verification_id) { Faker::Number.between(50, 100) }
+      let(:verification_id) { Faker::Number.between(from: 50, to: 100) }
 
       it_behaves_like 'a not_found request'
     end

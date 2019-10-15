@@ -2,7 +2,7 @@ FactoryBot.define do
   VEHICLE_VERIFICATIONS = {
     license_plate: {
       register_date: Faker::Date.between(from: 5.years.ago, to: 1.year.ago),
-      number: "#{Faker::Name.initials(3)}#{Faker::Number.number(3)}",
+      number: "#{Faker::Name.initials(number: 3)}#{Faker::Number.number(digits: 3)}",
       state: 'Buenos Aires',
       city: 'AR'
     }
@@ -10,7 +10,7 @@ FactoryBot.define do
 
   factory :verification do
     expire { Faker::Boolean.boolean }
-    expire_at { expire ? Faker::Time.forward(365) : nil }
+    expire_at { expire ? Faker::Time.forward(days: 365) : nil }
 
     VEHICLE_VERIFICATIONS.each do |type, information|
       trait "#{type}".to_sym do

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :delivery do
-    amount { Faker::Number.between(200, 300) }
-    bonified_amount { Faker::Number.between(0, 50) }
+    amount { Faker::Number.between(from: 200, to: 300) }
+    bonified_amount { Faker::Number.between(from: 0, to: 50) }
     order
     origin_id { order.giver.addresses.first.id if order&.giver&.addresses }
     origin_gps_coordinates { origin.gps_coordinates }
@@ -14,7 +14,7 @@ FactoryBot.define do
 
     trait :with_packages do
       after(:create) do |delivery, evaluator|
-        create_list(:package, Faker::Number.between(1, 5), delivery: delivery)
+        create_list(:package, Faker::Number.between(from: 1, to: 5), delivery: delivery)
       end
     end
 

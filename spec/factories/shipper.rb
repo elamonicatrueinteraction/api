@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     email { Faker::Internet.free_email }
-    gateway_id { Faker::Number.number(10) }
+    gateway_id { Faker::Number.number(digits: 10) }
     password { Faker::Internet.password }
     network_id { 'ROS' }
 

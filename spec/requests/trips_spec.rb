@@ -67,12 +67,12 @@ RSpec.describe TripsController, type: :request do
         comments: 'Some comment',
         orders_ids: [create(:full_order).id],
         pickup_schedule: {
-          start: Faker::Time.forward(1, :morning),
-          end: Faker::Time.forward(1, :evening)
+          start: Faker::Time.forward(days: 1, period: :morning),
+          end: Faker::Time.forward(days: 1, period: :evening)
         },
         dropoff_schedule: {
-          start: Faker::Time.forward(1, :morning),
-          end: Faker::Time.forward(2, :evening)
+          start: Faker::Time.forward(days: 1, period: :morning),
+          end: Faker::Time.forward(days: 2, period: :evening)
         }
       }
     }

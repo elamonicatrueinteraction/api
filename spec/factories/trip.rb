@@ -2,12 +2,12 @@ FactoryBot.define do
   factory :trip do
     transient do
       pickup_schedule { {
-        start: Faker::Time.forward(1, :morning),
-        end: Faker::Time.forward(1, :evening)
+        start: Faker::Time.forward(days: 1, period: :morning),
+        end: Faker::Time.forward(days: 1, period: :evening)
       } }
       dropoff_schedule { {
-        start: Faker::Time.forward(1, :morning),
-        end: Faker::Time.forward(2, :evening)
+        start: Faker::Time.forward(days: 1, period: :morning),
+        end: Faker::Time.forward(days: 2, period: :evening)
       } }
     end
     deliveries { create_list(:delivery_with_packages, 1, status: 'assigned') }

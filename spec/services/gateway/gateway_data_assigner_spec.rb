@@ -23,7 +23,7 @@ describe 'Gateway data assignment to Payment' do
       response = JSON.parse(File.read("spec/fixtures/bad_request_mercadopago_response.json"))
       data = Gateway::Mercadopago::Data.new(response)
       meli_payment = assigner.assign(payment, data)
-      expect(meli_payment.status).to eq('pending')
+      expect(meli_payment.status).to eq(Payment::Types::ERROR)
       expect(meli_payment.gateway_id).to be_nil
     end
   end

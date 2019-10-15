@@ -7,15 +7,15 @@ RSpec.describe UpdateTrip do
   let(:trip) { create(:trip) }
   let(:shipper) { create(:shipper_with_vehicle) }
   let(:shipper_id) { shipper.id }
-  let(:new_amount) { Faker::Number.between(300, 400) }
+  let(:new_amount) { Faker::Number.between(from: 300, to: 400) }
   let(:pickup_schedule) { HashWithIndifferentAccess.new({
-    start: Faker::Time.forward(5, :morning),
-    end: Faker::Time.forward(5, :evening)
+    start: Faker::Time.forward(days: 5, period: :morning),
+    end: Faker::Time.forward(days: 5, period: :evening)
   })
   }
   let(:dropoff_schedule) { HashWithIndifferentAccess.new({
-    start: Faker::Time.forward(6, :morning),
-    end: Faker::Time.forward(6, :evening)
+    start: Faker::Time.forward(days: 6, period: :morning),
+    end: Faker::Time.forward(days: 6, period: :evening)
   })
   }
   let(:comments) { 'Some extra comments' }

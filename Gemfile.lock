@@ -353,6 +353,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-faker (0.2.0)
+      rubocop (>= 0.74)
     rubocop-rspec (1.32.0)
       rubocop (>= 0.60.0)
     ruby-graphviz (1.2.4)
@@ -466,6 +468,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7)
   rspec-sidekiq
   rubocop
+  rubocop-faker
   rubocop-rspec
   shoulda-matchers (~> 3.1)
   sidekiq
