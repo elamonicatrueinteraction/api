@@ -60,5 +60,6 @@ Rails.application.configure do
     ->(req) { req.headers.fetch('X-Client-Version', 'No version') }
   ]
 
-  config.cache_store = :redis_store, "redis://192.168.99.100:6379/0/cache", { expires_in: 90.minutes }
+  redis_connection = "redis://#{ ENV.fetch("REDIS_HOST", '192.168.99.100') }:#{ ENV.fetch("REDIS_PORT", '6379') }/0/cache"
+  config.cache_store = :redis_store, redis_connection, { expires_in: 90.minutes }
 end
