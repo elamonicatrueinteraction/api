@@ -8,6 +8,10 @@ module Notifications
       @assignments = TripAssignment.preload(:shipper, :trip).where(id: assignments_ids)
       logger.info "Found #{@assignments.ids.inspect}"
 
+      user_notifier = Notifications::Notifier.new
+      notification_builder = Notifications::TripNotificationBuilder.new(assignments: @assignments)
+      user_notifier.notify(builder: notification_builder)
+
       @assignments.each do |assignment| # rubocop:disable Metrics/BlockLength
         @shipper = assignment.shipper
 
