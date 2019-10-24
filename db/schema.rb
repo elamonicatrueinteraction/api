@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190925132113) do
+ActiveRecord::Schema.define(version: 20191010172630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,8 +329,8 @@ ActiveRecord::Schema.define(version: 20190925132113) do
     t.jsonb "extras", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "network_id"
     t.integer "max_weight"
+    t.string "network_id"
     t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
     t.index ["network_id"], name: "index_vehicles_on_network_id"
     t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"
