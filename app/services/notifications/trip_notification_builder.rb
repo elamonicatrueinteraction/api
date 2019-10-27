@@ -6,11 +6,18 @@ module Notifications
     end
 
     def build
-      shipper_ids = @assignments.shipper.map {|x| x.id}
+      shipper_ids = []
+
+      @assignments.each do |assignment|
+        shipper_ids.push(assignment.shipper_id)
+      end
+
+      shipper_ids = shipper_ids.uniq
+
       {
         notification: {
           title: "Nilus Choferes",
-          body: message(@assignments.first),
+          body: message(@assignments.first.state),
           receiver_ids: shipper_ids
         },
         service: "driver"
