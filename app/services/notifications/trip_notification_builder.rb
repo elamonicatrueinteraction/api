@@ -6,13 +6,8 @@ module Notifications
     end
 
     def build
-      shipper_ids = []
 
-      @assignments.each do |assignment|
-        shipper_ids.push(assignment.shipper_id)
-      end
-
-      shipper_ids = shipper_ids.uniq
+      shipper_ids = @assignments.map(&:shipper_id).uniq
 
       {
         notification: {
