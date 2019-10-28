@@ -27,7 +27,7 @@ describe 'Cancel Remote Payment Job' do
 
   context 'when payment has remote' do
     it 'returns ok' do
-      CreatePayment.call(order, order.amount, 'ticket')
+      CreatePayment.call(payable: order, amount: order.amount, payment_type: 'ticket')
       payment = Payment.first
       get "/job/cancel_remote_payment/#{payment.id}?token=#{token}"
       expect(response).to have_http_status(:ok)

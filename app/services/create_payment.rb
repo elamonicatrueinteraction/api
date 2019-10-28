@@ -1,8 +1,7 @@
 class CreatePayment
   prepend Service::Base
 
-  def initialize(payable:, amount:, payment_type: nil, payment_comment: "",
-                 gateway_creator: Payments::CreateRemotePayment.new)
+  def initialize(payable:, amount:, payment_type: nil, payment_comment: "")
     @payable = payable
     @amount = amount.to_f
     @payment_type = if Payment.valid_payment_type?(payment_type)
@@ -10,10 +9,8 @@ class CreatePayment
                     else
                       Payment.default_payment_type
                     end
-    @donated_payment = Payments::DonatedPayment.new
-
-    @remote_payment_creator = gateway_creator
     @payment_comment = payment_comment
+    @create_payment = Payments::CreatePayment.new
   end
 
   def call
@@ -24,26 +21,11 @@ class CreatePayment
     create_payment
   end
 
-  private
-
-  def use_mercadopago(payment_type:)
-    payment_type == Payment::PaymentTypes::PAGOFACIL || payment_type == Payment::PaymentTypes::RAPIPAGO
-  end
-
   def create_payment
     begin
       Payment.transaction do
-        params = payment_params(payable: @payable, comment: @payment_comment)
-        @payment = @payable.payments.create!(params)
-        @payment = if @amount.zero?
-                     @donated_payment.create(@payment)
-                   elsif use_mercadopago(payment_type: @payment_type)
-                     @remote_payment_creator.create(payment: @payment, payment_type: @payment_type)
-                   else
-                     @payment.status = Payment::Types::PENDING
-                     @payment
-                   end
-        @payment.save!
+        payment = @create_payment.create(payable: @payable, payment_type: @payment_type, amount: @amount)
+        payment.save!
       end
     rescue StandardError => e
       Rails.logger.info "[CreatePayment] - Error: #{e.message}"
@@ -56,9 +38,4 @@ class CreatePayment
     end
     @payment
   end
-
-  def payment_params(payable:, comment:)
-    { amount: @amount, network_id: payable.network_id, comment: comment }
-  end
-
 end

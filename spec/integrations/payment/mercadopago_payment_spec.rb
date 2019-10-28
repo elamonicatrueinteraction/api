@@ -5,7 +5,7 @@ describe 'MercadoPago payment creation and search' do
 
   let(:meli_test_client_id) { Rails.application.secrets.mercadopago_bar_public_key }
   let(:meli_test_client_secret) { Rails.application.secrets.mercadopago_bar_access_token }
-  let(:meli_client) { Gateway::Mercadopago::MercadopagoGateway.new(meli_test_client_secret) }
+  let(:meli_client) { Gateway::Mercadopago::MercadopagoClient.new(meli_test_client_secret) }
   let!(:order) { create(:order) }
   let!(:delivery) { create(:delivery, order: order) }
 
@@ -61,7 +61,7 @@ describe 'MercadoPago payment creation and search' do
 
     context 'when amount is bigger than 0' do
       it 'creates payment with order in mercadopago and cancels it' do
-        CreatePayment.call(order, order.amount, 'ticket')
+        CreatePayment.call(payable: order, amount: order.amount, payment_type: Payment::PaymentTypes::PAGOFACIL)
         expect(Payment.all.length).to eq 1
         payment = Payment.first
         expect(payment.status).to eq Payment::Types::PENDING
@@ -76,7 +76,7 @@ describe 'MercadoPago payment creation and search' do
       end
 
       it 'creates payment with delivery in mercadopago and cancels it' do
-        CreatePayment.call(delivery, delivery.amount, 'ticket')
+        CreatePayment.call(payable: delivery, amount: delivery.amount, payment_type: 'ticket')
         expect(Payment.all.length).to eq 1
         payment = Payment.first
         expect(payment.status).to eq Payment::Types::PENDING

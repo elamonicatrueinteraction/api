@@ -22,7 +22,7 @@ describe 'Mercadopago Data Access' do
   context 'with expired mercadopago request' do
     let!(:data) { Gateway::Mercadopago::Data.new(expired_json) }
 
-    it { expect(data.status).to eq "expired" }
+    it { expect(data.status).to eq "pending" }
     it { expect(data.payment_id).to_not be_nil }
     it { expect(data.paid_at).to be_nil }
     it { expect(data.gateway).to_not be_nil }

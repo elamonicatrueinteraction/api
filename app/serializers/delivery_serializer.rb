@@ -29,8 +29,8 @@ class DeliverySerializer < Simple::DeliverySerializer
     :created_at,
     :updated_at
 
-  belongs_to :origin, class_name: 'Address'
-  belongs_to :destination, class_name: 'Address'
+  belongs_to :origin, serializer: AddressSerializer
+  belongs_to :destination, serializer: AddressSerializer
 
   belongs_to :order, serializer: Simple::OrderSerializer
 

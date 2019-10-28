@@ -10,7 +10,7 @@ module Requests
       auth_token =  AuthorizeUser.call('dummy_header', {}).result
       {
         'Authorization': "Bearer #{auth_token}",
-        'X-Network-Id': auth_token.networks.first
+        'X-Network-Id': 'ROS'
       }
     end
 

@@ -39,6 +39,12 @@ RSpec.shared_context 'a failed request' do
   end
 end
 
+RSpec.shared_context 'an internal server error' do
+  it 'response status code 500' do
+    expect(response).to have_http_status(:internal_server_error)
+  end
+end
+
 # To use when the response is :not_found and the json return the 'errors' key
 RSpec.shared_context 'a not_found request' do
   it 'response status code 404' do

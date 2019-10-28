@@ -3,13 +3,14 @@ require 'rails_helper'
 describe 'Create Payment' do
 
   let!(:order) { create(:order, amount: 0) }
-  let!(:remote_creator) { spy('remote_creator')}
+  let!(:gateway_router) { spy('gateway_router')}
 
   context 'when amount is 0' do
     context 'when fake remote creator is used' do
       it 'creates an exempt payment and doesnt call remote creator' do
-        CreatePayment.call(payable: order, amount: order.amount, payment_type: 'ticket', gateway_creator: remote_creator)
-        expect(remote_creator).to_not have_received(:create)
+        creator = Payments::CreatePayment.new(gateway_router: gateway_router)
+        creator.create(payable: order, amount: order.amount, payment_type: 'rapipago')
+        expect(gateway_router).to_not have_received(:route_gateway)
         expect(Payment.all.length).to eq(1)
         expect(Order.first.payments.length).to eq(1)
         payment = Payment.first

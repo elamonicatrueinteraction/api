@@ -44,9 +44,8 @@ class Payment < ApplicationRecord
   attribute :gateway_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}
 
-  before_save :approved_state_if_paid
+  before_save :set_state
   after_save :update_account_balance
-
 
   belongs_to :payable, polymorphic: true
 
@@ -75,16 +74,21 @@ class Payment < ApplicationRecord
     payable_type == 'Order' ? payable.receiver_id : payable.destination_id
   end
 
-  def approved_state_if_paid
+  def set_state
     self.status = Types::APPROVED if self.collected_amount == self.amount
+    self.status = Types::PENDING if self.status == ""
   end
 
   def obsolesce
-    write_attribute(:status, "obsolete")
+    self.status = Types::OBSOLETE
   end
 
   def has_remote?
     !gateway_id.nil?
+  end
+
+  def paid?
+    amount == collected_amount
   end
 
   def update_account_balance
