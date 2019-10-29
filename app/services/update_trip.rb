@@ -13,15 +13,14 @@ class UpdateTrip
   def call
     return if errors.any?
 
-    return update_trip
+    update_trip
   end
 
   private
 
   def update_trip
-    return unless can_update_trip?
 
-    if @trip.status == Trip::Status::COMPLETED
+    if @trip.status.present?
       update_amount
     else
       update_trip_info
@@ -29,7 +28,6 @@ class UpdateTrip
   end
 
   def update_amount
-    return unless can_update_trip?
 
     original_amount = @trip.amount
     amount = @allowed_params[:amount]
@@ -50,7 +48,6 @@ class UpdateTrip
   end
 
   def update_trip_info
-    return unless can_update_trip?
 
     old_amount = @trip.amount
     params = trip_params
@@ -90,14 +87,6 @@ class UpdateTrip
         )
       end
     end
-  end
-
-  def can_update_trip?
-    if @trip.status.present? && @trip.status != Trip::Status::COMPLETED
-      errors.add(:type, I18n.t("services.update_trip.trip_on_going", status: @trip.status)) && nil
-      return false
-    end
-    true
   end
 
 end
