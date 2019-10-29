@@ -1,37 +1,30 @@
-require 'mercadopago'
-
 module Gateway
   module Mercadopago
     class MercadopagoGateway
 
-      attr_accessor :client
-
-      def initialize(access_token)
-        @client = MercadoPago.new(access_token)
+      def initialize(payee_code: )
+        @tokens = Tenant::MeliCredentials.new
+        @payee_code = payee_code
       end
 
-      def create_payment(payload)
-        res = @client.post("/v1/payments", payload)
-        Mercadopago::Data.new(res)
+      def payee
+        @tokens.credentials_for(network: @payee_code).slice(:payee_name, :email)
       end
 
-      def payment(id)
-        res = @client.get_payment(id)
-        res = eval(res) if res.is_a?(String)
-        Mercadopago::Data.new(res)
+      def create_payment(payment: , payment_type:)
+        credentials = @tokens.credentials_for(network: @payee_code)
+        Gateway::Mercadopago::CreatePayment.new(credentials: credentials)
+          .create(payment: payment, payment_type: payment_type, description: payment_description(payment))
       end
 
-      def cancelled?(id)
-        @client.get_payment(id)["response"]["status"] == "cancelled"
-      end
+      private
 
-      def paid?(id)
-        @client.get_payment(id)["response"]["status"] == "approved"
-      end
-
-      def cancel_payment(id)
-        res = @client.cancel_payment(id)
-        Mercadopago::Data.new(res)
+      def payment_description(payment)
+        if payment.payable.is_a?(Order)
+          "Order para '#{payment.payable&.receiver&.name}' - #{payment.payable.id}"
+        else
+          "Entrega para '#{payment.payable&.receiver&.name}' - #{payment.payable.id}"
+        end
       end
     end
   end

@@ -1,4 +1,6 @@
 class AddressSerializer < ActiveModel::Serializer
+  type :address
+
   attributes :id,
     :latlng,
     :street_1,

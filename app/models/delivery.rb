@@ -99,6 +99,10 @@ class Delivery < ApplicationRecord
     @receiver ||= order.receiver
   end
 
+  def type
+    "Delivery"
+  end
+
   def options
     return @options if defined?(@options)
 

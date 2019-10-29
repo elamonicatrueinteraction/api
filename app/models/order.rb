@@ -30,6 +30,11 @@ class Order < ApplicationRecord
   def receiver
     @receiver ||= Services::Institution.find(receiver_id)
   end
+
+  def type
+    "Order"
+  end
+
   attribute :receiver
 
   # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp

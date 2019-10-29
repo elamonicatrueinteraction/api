@@ -2,7 +2,7 @@ module Gateway
   class RemoteNotFoundPaymentSync
 
     def initialize
-      @tokens = Tenant::TenantMeliTokens.new
+      @tokens = Tenant::MeliCredentials.new
       @amount_of_coupons_processed = 0
     end
 
@@ -24,7 +24,7 @@ module Gateway
         gateway_data = nil
         tokens.each_key do |owner|
           Rails.logger.info "Trying #{owner} mercadopago secrets"
-          client = Gateway::Mercadopago::MercadopagoGateway.new(tokens[owner][:access_token])
+          client = Gateway::Mercadopago::MercadopagoClient.new(tokens[owner][:access_token])
           gateway_data = client.payment(payment.gateway_id)
           if gateway_data.status != "404"
             Rails.logger.info "Found owner! #{owner}"

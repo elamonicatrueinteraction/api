@@ -195,13 +195,6 @@ RSpec.describe TripsController, type: :request do
       end
     end
 
-    xcontext 'with invalid conditions' do
-      let(:trip) { create(:trip_with_shipper) }
-
-      it_behaves_like 'a failed request'
-      it { expect(Trip.count).to eq(1) }
-      it { expect(trip.reload.status).to eq('confirmed') }
-    end
   end
 
   describe "GET #export" do

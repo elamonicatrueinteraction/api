@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   namespace :payments do
+    get 'payee', action: :payee
     put 'obsolesce/:id', action: :obsolesce
   end
 

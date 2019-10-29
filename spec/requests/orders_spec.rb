@@ -96,7 +96,7 @@ RSpec.describe OrdersController, type: :request do
       context 'with invalid data' do
         let(:parameters) { order_parameters.merge(giver_id:  'fake-id') }
 
-        it_behaves_like 'a failed request'
+        it_behaves_like 'an internal server error'
         it { expect(Order.all).to be_blank }
         it { expect(Delivery.all).to be_blank }
         it { expect(Package.all).to be_blank }

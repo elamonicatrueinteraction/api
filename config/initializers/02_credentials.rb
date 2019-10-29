@@ -1,4 +1,4 @@
-meli_tokens = Tenant::TenantMeliTokens.new
+meli_tokens = Tenant::MeliCredentials.new
 missing_meli_credentials = meli_tokens.lacks_tokens_of
 
 if missing_meli_credentials.any?

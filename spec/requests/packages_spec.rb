@@ -72,12 +72,6 @@ RSpec.describe PackagesController, type: :request do
       it { expect(response).to match_response_schema("packages") }
     end
 
-    context 'with invalid package data' do
-      skip("can't find a way to make it fail")
-
-      # it_behaves_like 'a failed request'
-    end
-
     context 'with invalid delivery_id data' do
       let(:delivery_id) { 'fake-id' }
 
@@ -108,12 +102,6 @@ RSpec.describe PackagesController, type: :request do
     context 'with valid data' do
       it_behaves_like 'a successful request', :package
       it { expect(response).to match_response_schema("package") }
-    end
-
-    context 'with invalid data' do
-      skip("can't find a way to make it fail")
-
-      # it_behaves_like 'a failed request'
     end
 
     context 'with invalid package id' do

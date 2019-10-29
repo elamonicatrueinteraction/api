@@ -1,75 +1,39 @@
 module Gateway
   module Mercadopago
     class CreatePayment
-      prepend Service::Base
 
-      def initialize(payment, payment_type, within_transaction = false)
-        @payment = payment
-        @payment_type = payment_type
-        @within_transaction = within_transaction
-        @account = PaymentGateway.account_for(@payment.payable)
+      def initialize(credentials:)
+        @credentials = credentials
+        @client = Gateway::Mercadopago::MercadopagoClient.new(credentials[:access_token])
       end
 
-      def call
-        create_payment
+      def create(payment: , payment_type:, description: )
+        email = @credentials[:email]
+        payload = make_payload(payment: payment, payment_type: payment_type, email: email, description: description)
+        @client.create_payment(payload)
       end
 
       private
 
-      def create_payment
-        begin
-          email = payer_email
-          payload = coupon_payment_payload(email)
-          @account.create_payment(payload)
-        rescue StandardError => e
-          errors.add(e.class.to_s, e.message)
-
-          @within_transaction ? (raise Service::Error.new(self)) : (return nil)
-        end
-      end
-
-      def coupon_payment_payload(email)
+      def make_payload(payment: , payment_type: , email:, description: )
         {
-          transaction_amount: @payment.amount.to_f,
-          description: payment_description,
-          payment_method_id: @payment_type,
+          transaction_amount: payment.amount.to_f,
+          description: description,
+          payment_method_id: payment_type,
           statement_descriptor: "NILUS",
           payer: {
             email: email
           },
-          external_reference: @payment.id
+          external_reference: payment.id
         }.tap do |_hash|
           if Rails.application.secrets.mercadopago_notification_host.present?
             # We user the URL helper like this because they are not available in the services nor the models
             _hash[:notification_url] = Rails.application.routes.url_helpers.webhooks_mercadopago_payment_url(
               protocol: 'https',
               host: Rails.application.secrets.mercadopago_notification_host,
-              uuid: @payment.id
+              uuid: payment.id
             )
           end
-        end
-      end
-
-      # TODO: move out of this class. @author: Tom
-      def payment_description
-        if @payment.payable.is_a?(Order)
-          "Order para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
-        elsif @payment.payable.is_a?(Delivery)
-          "Entrega para '#{@payment.payable&.receiver&.name}' - #{@payment.payable.id}"
-        else
-          "Cupon de #{@payment.payable.reason} - #{@payment.payable.institution.name}"
-        end
-      end
-
-      def payer_email
-        emails = {
-          nilus: Rails.application.secrets.mercadopago_payer_email_nilus,
-        }
-        if @payment.payable.is_a?(Order)
-          tenant_emails = Tenant::TenantEmail.new
-          tenant_emails.email(@payment.payable.network_id)
-        else
-          emails[:nilus]
         end
       end
     end

@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  api_ci:
+    image: logistic-api-ci
+    container_name: "logistic-api-ci"
+    build:
+      context: .
+      dockerfile: Dockerfile.rspec
+    environment:
+      DATABASE_USERNAME: sa
+      DATABASE_PASSWORD: password
+      DATABASE_HOST: pg_gis_testing
+      DATABASE_PORT: 5432
+      DATABASE_NAME: nilus_user_api_db
+      REDIS_PORT: 6379
+      REDIS_HOST: redis_testing
+      SECRET_KEY_BASE: aSecret
+      RAILS_LOG_TO_STDOUT: "true"
+      FIREBASE_TOKEN: fake_firebase_token
+    env_file:
+      - .env.test.public
+
+  api_ci_migrations:
+    image: logistic_api_ci_migrations
+    container_name: "logistic_api_ci_migrations"
+    build:
+      context: .
+      dockerfile: Dockerfile.rspec
+    environment:
+      DATABASE_USERNAME: sa
+      DATABASE_PASSWORD: password
+      DATABASE_HOST: pg_gis_testing
+      DATABASE_PORT: 5432
+      DATABASE_NAME: nilus_user_api_db
+      REDIS_PORT: 6379
+      REDIS_HOST: redis_testing
+      SECRET_KEY_BASE: aSecret
+    entrypoint: "rails db:create db:migrate"
+    env_file:
+      - .env.test.public
+
+  pg_gis_testing:
+    image: mdillon/postgis:10
+    container_name: "pg_gis_testing"
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: password
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    volumes:
+      - nilus_ci_data:/var/lib/postgresql/data
+
+  redis_testing:
+    image: redis:5
+    container_name: "redis_testing"
+
+networks:
+  default:
+    external:
+      name: custom_network
+
+volumes:
+  nilus_ci_data:
+    external: true
