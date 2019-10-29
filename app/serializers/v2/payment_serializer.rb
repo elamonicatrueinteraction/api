@@ -3,7 +3,7 @@ module V2
     attributes :id, :created_at, :payable_id, :payable_type, :status, :amount,
                :collected_amount, :comment, :gateway_id, :gateway_code,
                :gateway_coupon_url, :gateway_name, :gateway_payment_name,
-               :paid_at
+               :paid_at, :activity
 
     def gateway_id
       return object.gateway_id if object.gateway_data['id'].nil?
@@ -24,6 +24,10 @@ module V2
       end
 
       object.gateway_data.dig(:transaction_details, :external_resource_url)
+    end
+
+    def activity
+      object.payable.type
     end
 
     def gateway_name

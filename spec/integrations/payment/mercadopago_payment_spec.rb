@@ -8,6 +8,7 @@ describe 'MercadoPago payment creation and search' do
   let(:meli_client) { Gateway::Mercadopago::MercadopagoClient.new(meli_test_client_secret) }
   let!(:order) { create(:order) }
   let!(:delivery) { create(:delivery, order: order) }
+  let!(:untracked_activity) { create(:untracked_activity) }
 
   before :all do
     $continue = true
@@ -85,6 +86,22 @@ describe 'MercadoPago payment creation and search' do
         expect(payment.network_id).to_not be_nil
         expect(payment.gateway).to eq 'Mercadopago'
         expect(Delivery.first.payments.length).to eq 1
+        meli_coupon_id = payment.gateway_id
+        response = meli_client.cancel_payment(meli_coupon_id)
+        expect(response.status).to eq Payment::Types::CANCELLED
+      end
+
+      it 'creates payment with untracked activity in mercadopago and cancels it' do
+        CreatePayment.call(payable: untracked_activity, amount: untracked_activity.amount,
+                           payment_type: Payment::PaymentTypes::PAGOFACIL)
+        expect(Payment.all.length).to eq 1
+        payment = Payment.first
+        expect(payment.status).to eq Payment::Types::PENDING
+        expect(payment.gateway_id).to_not be_nil
+        expect(payment.gateway_data).to_not eq({})
+        expect(payment.network_id).to_not be_nil
+        expect(payment.gateway).to eq 'Mercadopago'
+        expect(UntrackedActivity.first.payments.length).to eq 1
         meli_coupon_id = payment.gateway_id
         response = meli_client.cancel_payment(meli_coupon_id)
         expect(response.status).to eq Payment::Types::CANCELLED

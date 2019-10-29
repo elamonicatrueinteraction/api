@@ -35,6 +35,10 @@ class Order < ApplicationRecord
     "Order"
   end
 
+  def is_type?(suspected_type)
+    type == suspected_type
+  end
+
   attribute :receiver
 
   # TODO: Move this to a indexed key outside of the extras, or maybe keep a separate table for mkp

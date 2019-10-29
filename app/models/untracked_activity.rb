@@ -43,6 +43,10 @@ class UntrackedActivity < ApplicationRecord
     end
   end
 
+  def is_type?(suspected_type)
+    type == suspected_type
+  end
+
   def institution
     @institution ||= Services::Institution.find(institution_id)
   end

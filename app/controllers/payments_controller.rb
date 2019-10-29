@@ -36,8 +36,8 @@ class PaymentsController < ApplicationController
     if payment
       institution = payment.payable.receiver
       action = Payments::ObsolescePayment.new
-      action.obsolesce(payment: payment, institution: institution)
-      render json: "OK", status: :ok
+      payment = action.obsolesce(payment: payment, institution: institution)
+      render json: payment, serializer: V2::PaymentSerializer, status: :ok
     else
       render json: { error: "No se encontró el payment con id #{payment_id}" }, status: :not_found
     end

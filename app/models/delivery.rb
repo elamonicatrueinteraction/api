@@ -62,6 +62,11 @@ class Delivery < ApplicationRecord
 
     @origin ||= Services::Address.find(origin_id)
   end
+
+  def is_type?(suspected_type)
+    type == suspected_type
+  end
+
   attribute :origin
 
   def destination

@@ -20,7 +20,7 @@ module Gateway
       private
 
       def payment_description(payment)
-        if payment.payable.is_a?(Order)
+        if payment.payable.is_type?("Order")
           "Order para '#{payment.payable&.receiver&.name}' - #{payment.payable.id}"
         else
           "Entrega para '#{payment.payable&.receiver&.name}' - #{payment.payable.id}"
