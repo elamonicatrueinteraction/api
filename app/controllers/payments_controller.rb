@@ -46,9 +46,9 @@ class PaymentsController < ApplicationController
   def payee
     router = Gateway::Router::GatewayRouter.new
     payable_type = payee_params[:payable_type]
-    payment_method = payee_params[:payment_method]
+    payment_type = payee_params[:payment_type]
     network_id = payee_params[:network_id]
-    gateway = router.route_gateway_for(payable_type: payable_type, payment_type: payment_method, network_id: network_id)
+    gateway = router.route_gateway_for(payable_type: payable_type, payment_type: payment_type, network_id: network_id)
     render json: gateway.payee
   end
 
@@ -57,7 +57,7 @@ class PaymentsController < ApplicationController
   def payee_params
     params.permit(
             :payable_type,
-            :payment_method
+            :payment_type
     ).tap do |params|
       params[:network_id] = current_network
     end
