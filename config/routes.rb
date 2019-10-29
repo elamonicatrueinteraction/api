@@ -120,6 +120,9 @@ Rails.application.routes.draw do
       get 'last_order_date', action: :last_order_date
     end
 
+    namespace :shippers do
+      get '', action: :index
+    end
     resources :account_balances, only: [:index, :show]
   end
 end
