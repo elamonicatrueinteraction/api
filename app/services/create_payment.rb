@@ -26,6 +26,7 @@ class CreatePayment
       Payment.transaction do
         payment = @create_payment.create(payable: @payable, payment_type: @payment_type, amount: @amount)
         payment.save!
+        return payment
       end
     rescue StandardError => e
       Rails.logger.info "[CreatePayment] - Error: #{e.message}"

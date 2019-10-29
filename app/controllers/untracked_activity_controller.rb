@@ -3,7 +3,7 @@ class UntrackedActivityController < ApplicationController
   def create
     operation = UntrackedActivities::CreateUntrackedActivity.call(params: create_params)
     if operation.success?
-      render json: operation.result.payments.first, serializer: PaymentSerializer, status: :created
+      render json: operation.result, status: :created
     else
       render json: { errors: operation.errors }, status: :unprocessable_entity
     end
