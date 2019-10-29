@@ -48,8 +48,12 @@ class PaymentsController < ApplicationController
     payable_type = payee_params[:payable_type]
     payment_type = payee_params[:payment_type]
     network_id = payee_params[:network_id]
-    gateway = router.route_gateway_for(payable_type: payable_type, payment_type: payment_type, network_id: network_id)
-    render json: gateway.payee
+    begin
+      gateway = router.route_gateway_for(payable_type: payable_type, payment_type: payment_type, network_id: network_id)
+      render json: gateway.payee
+    rescue StandardError
+      render json: {payee_name: 'Desconocido', email: 'Desconocido'}
+    end
   end
 
   private
