@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
     if service.success?
       render json: service.result, status: :created # 201
     else
-      render json: { errors: service.errors }, status: :unprocessable_entity # 422
+      render json: {errors: service.errors}, status: :unprocessable_entity # 422
     end
   end
 
@@ -26,7 +26,23 @@ class PaymentsController < ApplicationController
     if payment = current_payable.payments.find_by(id: params[:id])
       render json: payment, status: :ok # 200
     else
-      render json: { errors: I18n.t("errors.not_found.payment_on_payable.#{current_payable.class.name.downcase}", payment_id: params[:id], payable_id: current_payable.id) }, status: :not_found # 404
+      render json: {errors: I18n.t("errors.not_found.payment_on_payable.#{current_payable.class.name.downcase}", payment_id: params[:id], payable_id: current_payable.id)}, status: :not_found # 404
+    end
+  end
+
+  def create_remote_payment
+    payment_id = create_remote_payment_params[:payment_id]
+    payment_type = create_remote_payment_params[:payment_type]
+    payment = Payment.includes(:payable).find_by(id: payment_id)
+    if payment_type.nil?
+      render json: {message: "Se debe especificar un medio de pago"}
+    end
+    if payment
+      remote = Payments::CreateRemotePayment.new.create(payment: payment, payment_type: payment_type,
+                                                        network_id: current_network)
+      render json: remote
+    else
+      render json: {message: "No se encontró pago con id #{payment_id}"}
     end
   end
 
@@ -39,7 +55,7 @@ class PaymentsController < ApplicationController
       payment = action.obsolesce(payment: payment, institution: institution)
       render json: payment, serializer: V2::PaymentSerializer, status: :ok
     else
-      render json: { error: "No se encontró el payment con id #{payment_id}" }, status: :not_found
+      render json: {error: "No se encontró el payment con id #{payment_id}"}, status: :not_found
     end
   end
 
@@ -60,8 +76,8 @@ class PaymentsController < ApplicationController
 
   def payee_params
     params.permit(
-            :payable_type,
-            :payment_type
+      :payable_type,
+      :payment_type
     ).tap do |params|
       params[:network_id] = current_network
     end
@@ -80,9 +96,13 @@ class PaymentsController < ApplicationController
 
   def payment_amount
     @payment_amount ||= if (amount_param = payment_params[:amount].to_f) > 0
-      amount_param
-    else
-      current_payable.total_amount
-    end
+                          amount_param
+                        else
+                          current_payable.total_amount
+                        end
+  end
+
+  def create_remote_payment_params
+    params.permit(:payment_id, :payment_type)
   end
 end

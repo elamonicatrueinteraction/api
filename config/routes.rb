@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   namespace :payments do
     get 'payee', action: :payee
     put 'obsolesce/:id', action: :obsolesce
+    get 'create_remote_payment/:payment_id', action: :create_remote_payment
   end
 
   scope module: :v1, constraints: ApiConstraint.new(version: 1, default: true) do
