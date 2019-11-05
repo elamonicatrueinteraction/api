@@ -27,7 +27,7 @@ module V2
     end
 
     def activity
-      object.payable.type
+      object&.payable.type
     end
 
     def gateway_name

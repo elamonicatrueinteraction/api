@@ -130,9 +130,16 @@ RSpec.configure do |config|
       "X-Network-ID": "ROS"
     }
 
+    mdq_request_headers = {
+      Authorization: "Token token=#{Rails.application.secrets.user_token}",
+      "X-Network-ID": "MDQ",
+      Accept: "application/json"
+    }
+
     user_service_endpoint = Rails.application.secrets.user_endpoint
     # New mocks
     stub_request(:get, user_service_endpoint + '/institutions.json').with(headers: request_headers).to_return(body: [institution].to_json)
+    stub_request(:get, user_service_endpoint + '/institutions.json').with(headers: mdq_request_headers).to_return(body: [institution].to_json)
     stub_request(:get, user_service_endpoint + '/districts.json').with(headers: request_headers).to_return(body: districts.to_json)
     stub_request(:get, user_service_endpoint + "/institutions.json").with(headers: request_headers).to_return(body: { institutions: [institution] }.to_json)
     stub_request(:get, user_service_endpoint + "/institutions/#{institution[:id]}.json").with(headers: request_headers).to_return(body: { institution: institution }.to_json)
