@@ -10,6 +10,8 @@ module Tenant
     def credentials_for(network:)
       if network.to_sym == :ROS
         @credentials['BAR']
+      elsif network.to_sym == :MCBA || network.to_sym == :LP
+        @credentials[:NILUS]
       else
         @credentials[network]
       end
