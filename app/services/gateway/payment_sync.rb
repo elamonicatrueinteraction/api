@@ -20,8 +20,6 @@ module Gateway
             "Remote errors: #{@amount_of_remote_errors}, Other errors: #{@amount_of_coupon_errors}"
     end
 
-    private
-
     def gateway_check(payment)
       Rails.logger.info "Request to mercadopago about a payment with id: #{payment.id} and gateway_id: #{payment.gateway_id}"
       begin

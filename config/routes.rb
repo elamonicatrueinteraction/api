@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get 'sync_missing_coupons', action: :sync_missing_coupons
     get 'cancel_remote_payment/:payment_id', action: :cancel_remote_payment
     get 'backup'
+    get 'sync_one_coupon/:payment_gateway_id', action: :sync_one_coupon
   end
 
   namespace :account_balances do

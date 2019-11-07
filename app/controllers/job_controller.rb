@@ -21,6 +21,14 @@ class JobController < ApplicationController
     end
   end
 
+  def sync_one_coupon
+    gateway_id = sync_one_coupon_params[:payment_gateway_id]
+    payment_sync = Gateway::PaymentSync.new
+    payment = Payment.includes(:payable).find_by(gateway_id: gateway_id)
+    payment_sync.gateway_check(payment)
+    render status: :ok
+  end
+
   def sync_missing_coupons
     Rails.logger.info '[MissingPaymentSync] - Starting Sync'
     begin
@@ -114,5 +122,9 @@ class JobController < ApplicationController
 
   def permitted_params
     params.permit(:token)
+  end
+
+  def sync_one_coupon_params
+    params.permit(:payment_gateway_id)
   end
 end
