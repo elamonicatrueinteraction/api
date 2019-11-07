@@ -77,7 +77,7 @@ describe 'MercadoPago payment creation and search' do
       end
 
       it 'creates payment with delivery in mercadopago and cancels it' do
-        CreatePayment.call(payable: delivery, amount: delivery.amount, payment_type: 'ticket')
+        CreatePayment.call(payable: delivery, amount: delivery.amount, payment_type: Payment::PaymentTypes::PAGOFACIL)
         expect(Payment.all.length).to eq 1
         payment = Payment.first
         expect(payment.status).to eq Payment::Types::PENDING

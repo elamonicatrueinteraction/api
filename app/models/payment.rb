@@ -38,8 +38,8 @@ class Payment < ApplicationRecord
     OTRO = "otro".freeze
   end
 
-  validates :amount, numericality: { greater_than_or_equal_to: 0,
-                                     message: 'El monto del cupón debe ser mayor o igual a 0' }
+  validates :amount, numericality: { greater_than_or_equal_to: 0, message: 'El monto del cupón debe ser mayor o igual a 0' }
+
   default_scope_by_network
   attribute :gateway_data, :jsonb, default: {}
   attribute :notifications, :jsonb, default: {}

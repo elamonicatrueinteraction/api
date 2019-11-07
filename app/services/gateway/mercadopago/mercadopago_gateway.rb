@@ -7,6 +7,18 @@ module Gateway
         @payee_code = payee_code
       end
 
+      def payment(gateway_id:)
+        client.payment(gateway_id)
+      end
+
+      def cancel_payment(gateway_id:)
+        client.cancel_payment(gateway_id)
+      end
+
+      def paid?(gateway_id:)
+        client.paid?(gateway_id)
+      end
+
       def payee
         @tokens.credentials_for(network: @payee_code).slice(:payee_name, :email)
       end
@@ -18,6 +30,11 @@ module Gateway
       end
 
       private
+
+      def client
+        credentials = @tokens.credentials_for(network: @payee_code)
+        Gateway::Mercadopago::MercadopagoClient.new(credentials[:access_token])
+      end
 
       def payment_description(payment)
         if payment.payable.is_type?("Order")

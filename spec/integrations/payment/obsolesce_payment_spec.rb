@@ -32,7 +32,7 @@ describe 'MercadoPago Obsolesce Payment', type: :request do
     before do
       AccountBalance.destroy_all
       Payment.destroy_all
-      CreatePayment.call(payable: order, amount: order.amount, payment_type: 'pagofacil')
+      CreatePayment.call(payable: order, amount: order.amount, payment_type: Payment::PaymentTypes::PAGOFACIL)
     end
 
     it 'obsolesces payment' do

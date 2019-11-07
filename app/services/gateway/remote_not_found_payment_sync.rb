@@ -15,12 +15,10 @@ module Gateway
       Rails.logger.info "Remote not found Coupon sync finished. Coupons processed: #{@amount_of_coupons_processed}"
     end
 
-    private
-
     def gateway_check(payment)
       Rails.logger.info "Request to mercadopago for payment with id: #{payment.id} and gateway_id: #{payment.gateway_id}"
       begin
-        tokens = { NILUS: @tokens.nilus_tokens }.merge!(@tokens.secret_tokens)
+        tokens = @tokens.credentials
         gateway_data = nil
         tokens.each_key do |owner|
           Rails.logger.info "Trying #{owner} mercadopago secrets"

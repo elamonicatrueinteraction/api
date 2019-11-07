@@ -3,14 +3,14 @@ module Payments
 
     attr_reader :errors
 
-    def initialize(debt_updater: TotalDebtUpdate.new, account_provider: Gateway::PaymentGateway)
+    def initialize(debt_updater: TotalDebtUpdate.new, gateway_router: Gateway::Router::GatewayRouter.new)
       @debt_updater = debt_updater
-      @account_provider = account_provider
+      @gateway_router = gateway_router
       @errors = []
     end
 
     def obsolesce(payment:, institution:)
-      gateway_client = @account_provider.account_for(payment.payable)
+      gateway_client = @gateway_router.route_gateway_for
       payment_is_paid = payment.approved?
       if payment_is_paid
         errors << "El pago ya ha sido efectuado"
