@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190925132113) do
+ActiveRecord::Schema.define(version: 20191114141720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 20190925132113) do
     t.string "last_login_ip"
     t.jsonb "devices", default: {}
     t.string "network_id"
+    t.boolean "has_accepted_tdu", default: false
     t.index ["data"], name: "index_shippers_on_data", using: :gin
     t.index ["devices"], name: "index_shippers_on_devices", using: :gin
     t.index ["minimum_requirements"], name: "index_shippers_on_minimum_requirements", using: :gin
