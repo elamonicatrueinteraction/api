@@ -20,6 +20,7 @@ class AuthorizeUser
       return errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
     end
 
+
     if @with_roles # rubocop:disable Style/GuardClause
       return @user if @user.roles_mask != nil && @user.roles_mask != 0
 

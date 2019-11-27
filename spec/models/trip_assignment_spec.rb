@@ -2,7 +2,7 @@
 #
 # Table name: trip_assignments
 #
-#  id                   :bigint(8)        not null, primary key
+#  id                   :bigint           not null, primary key
 #  state                :string
 #  trip_id              :uuid
 #  shipper_id           :uuid

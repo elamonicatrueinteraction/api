@@ -2,7 +2,7 @@
 #
 # Table name: webhook_logs
 #
-#  id           :bigint(8)        not null, primary key
+#  id           :bigint           not null, primary key
 #  service      :string
 #  path         :string(1024)
 #  parsed_body  :jsonb

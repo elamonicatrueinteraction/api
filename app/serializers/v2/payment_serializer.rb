@@ -26,6 +26,10 @@ module V2
       object.gateway_data.dig(:transaction_details, :external_resource_url)
     end
 
+    def payable_type
+      object.payable&.type
+    end
+
     def activity
       object.payable&.type
     end

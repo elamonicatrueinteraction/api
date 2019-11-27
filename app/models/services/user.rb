@@ -3,7 +3,7 @@ module Services
     include RoleModel
 
     attributes :id, :email, :username, :institution_id, :networks, :roles_mask,
-               :cities, :active, :confirmed, :last_login_at, :profile
+               :cities, :active, :confirmed, :last_login_at, :profile, :tdu_accepted
 
     belongs_to :institution
   end
