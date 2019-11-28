@@ -38,7 +38,7 @@ RSpec.describe CreateOrder do
     }
   }
 
-  describe ".call (with only order params)" do
+  xdescribe ".call (with only order params)" do
     let(:allowed_params) { HashWithIndifferentAccess.new(order_params) }
 
     context 'when the context is successful' do
@@ -79,7 +79,7 @@ RSpec.describe CreateOrder do
     end
   end
 
-  describe ".call (with order and delivery params)" do
+  xdescribe ".call (with order and delivery params)" do
     let(:allowed_params) { HashWithIndifferentAccess.new(order_params.merge(delivery_params)) }
 
     context 'when the context is successful' do
@@ -123,7 +123,7 @@ RSpec.describe CreateOrder do
     end
   end
 
-  describe ".call (with order, delivery and packages params)" do
+  xdescribe ".call (with order, delivery and packages params)" do
     let(:allowed_params) { HashWithIndifferentAccess.new(order_params.merge(delivery_params).merge(packages_params)) }
 
     context 'when the context is successful' do

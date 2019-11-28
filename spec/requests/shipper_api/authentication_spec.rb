@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Shipper API / Authentication Endpoint', type: :request do
   let(:shipper) { create(:shipper_with_vehicle_and_bank_account) }
 
-  describe 'POST /shipper/authenticate' do
+  xdescribe 'POST /shipper/authenticate' do
     before { post '/shipper/authenticate', params: parameters }
 
     context 'without shipper email and password' do

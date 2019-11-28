@@ -20,7 +20,7 @@ RSpec.describe UpdateTrip do
   }
   let(:comments) { 'Some extra comments' }
 
-  describe ".call" do
+  xdescribe ".call" do
     context 'when the context is successful' do
       let(:allowed_params) {
         HashWithIndifferentAccess.new({

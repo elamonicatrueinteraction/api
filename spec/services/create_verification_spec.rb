@@ -14,7 +14,7 @@ RSpec.describe CreateVerification do
   context 'verificable is a vehicle' do
     let(:verificable) { vehicle }
 
-    describe ".call " do
+    xdescribe ".call " do
       context 'when the context is successful' do
         it 'succeeds' do
           expect(context).to be_success
