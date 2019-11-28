@@ -114,7 +114,7 @@ RSpec.describe VehiclesController, type: :request do
       before { patch "/vehicles/#{vehicle_id}", headers: auth_headers(user), params: parameters }
 
       context 'with shipper_id data' do
-        context 'with valid data' do
+        xcontext 'with valid data' do
           let(:parameters) { { max_weight: 30, brand: vehicle_update.brand, model: vehicle_update.model, year: vehicle.year, shipper_id: shipper_id } }
 
           it_behaves_like 'a successful request', :vehicle
