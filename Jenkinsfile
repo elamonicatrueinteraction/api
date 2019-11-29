@@ -12,31 +12,29 @@ pipeline {
         sh './run-tests.sh'
       }
     }
-
     stage('Deploy Staging') {
       when {
         branch 'staging'
       }
       steps {
-        echo 'Staging..'
+        sshagent(credentials: ['staging-ssh']) {
+          sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.93.159.120 \'/home/ubuntu/.local/bin/gitup .\''
+          sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.93.159.120 \'chmod +x ./nilus-infra/scripts/deploy-logistic-api.sh\''
+          sh 'ssh -o \'StrictHostKeyChecking=no\' ubuntu@3.93.159.120 \'cd nilus-infra && ./scripts/deploy-logistic-api.sh\''
+        }
+
       }
     }
-
     stage('Deploy Demo') {
       when {
         branch 'demo'
       }
       steps {
-        echo 'Demo..'
-      }
-    }
-
-    stage('Deploy Producción') {
-      when {
-        branch 'master'
-      }
-      steps {
-        echo 'Producción..'
+        sshagent(credentials: ['demo-ssh']) {
+          sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.214.27.227 \'/home/ubuntu/.local/bin/gitup .\''
+          sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.214.27.227 \'chmod +x ./nilus-infra/scripts/deploy-logistic-api.sh\''
+          sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.214.27.227 \'cd nilus-infra && ./scripts/deploy-logistic-api.sh\''
+        }
       }
     }
   }
