@@ -12,7 +12,7 @@ gem 'mercadopago-sdk'
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pagy' # For paginating results that outperforms the others in each and every benchmark and comparison.
 gem 'pg' # The PostgreSQL Adapter
-gem 'puma', '~> 3.0' # Use Puma as the app server
+gem 'puma', '~> 3.12' # Use Puma as the app server
 gem 'pushme-aws', git: "https://github.com/nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'rack-attack' # Rack middleware for blocking & throttling
 gem 'rack-cors', require: 'rack/cors'
