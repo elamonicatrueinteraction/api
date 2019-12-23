@@ -17,7 +17,7 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 # set :branch,        :master
 # set :format,        :pretty
 # set :log_level,     :debug
-# set :keep_releases, 5
+ set :keep_releases, 3
 
 set :puma_threads,    [4, 16]
 set :puma_workers,    4
@@ -31,7 +31,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 
 set :linked_files, %w{config/puma.rb config/sidekiq.yml .env config/newrelic.yml}
-set :linked_dirs,  %w{bundle lib/tasks/log log public/system tmp/cache tmp/pids tmp/sockets}
+set :linked_dirs,  %w{bundle lib/tasks/log log vendor/bundle .bundle public/system tmp/cache tmp/pids tmp/sockets public/uploads}
 
 set :whenever_roles, ->{ :app }
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }

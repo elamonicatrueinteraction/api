@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 20191114141720) do
   enable_extension "plpgsql"
   enable_extension "postgis"
   enable_extension "pgcrypto"
+  enable_extension "fuzzystrmatch"
+  enable_extension "postgis_tiger_geocoder"
+  enable_extension "postgis_topology"
 
   create_table "account_balances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "institution_id"
@@ -330,8 +333,8 @@ ActiveRecord::Schema.define(version: 20191114141720) do
     t.jsonb "extras", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "max_weight"
     t.string "network_id"
+    t.integer "max_weight"
     t.index ["extras"], name: "index_vehicles_on_extras", using: :gin
     t.index ["network_id"], name: "index_vehicles_on_network_id"
     t.index ["shipper_id"], name: "index_vehicles_on_shipper_id"

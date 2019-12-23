@@ -22,10 +22,10 @@ class ShippersController < ApplicationController
   end
 
   def update
-    if shipper = Shipper.find_by(id: params[:id])
-      shipper.update(shipper_params)
-      # TODO: Create a validator service
-      if shipper.valid?
+    if (shipper = Shipper.find_by(id: params[:id]))
+      service = UpdateShipper.call(shipper, shipper_params)
+
+      if service.success?
         render json: shipper, status: :ok # 200
       else
         render json: { errors: shipper.errors.full_messages }, status: :unprocessable_entity # 422
@@ -45,6 +45,7 @@ class ShippersController < ApplicationController
       :birth_date,
       :email,
       :password,
+      :password_confirmation,
       :phone_num,
       :photo,
       :active,
