@@ -2,7 +2,7 @@
 #
 # Table name: verifications
 #
-#  id               :bigint(8)        not null, primary key
+#  id               :bigint           not null, primary key
 #  verificable_type :string
 #  verificable_id   :uuid
 #  data             :jsonb

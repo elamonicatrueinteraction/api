@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Create Payment' do
+xdescribe 'Create Payment' do
 
   let!(:order) { create(:order, amount: 0) }
   let!(:remote_creator) { spy('remote_creator')}

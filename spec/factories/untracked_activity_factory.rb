@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: untracked_activities
+#
+#  id             :uuid             not null, primary key
+#  institution_id :uuid
+#  author_id      :uuid
+#  reason         :string
+#  activity       :string
+#  amount         :decimal(12, 4)   default(0.0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  network_id     :string
+#
+
 #  id               :uuid             not null, primary key
 #  institution_id   :uuid
 #  author_id        :uuid

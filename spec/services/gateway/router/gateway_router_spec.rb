@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'GatewayRouter' do
+xdescribe 'GatewayRouter' do
   # ROS
   context 'when network is ROS' do
     let!(:network) {'ROS'}

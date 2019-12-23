@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'helpers/meli_helpers'
 
-describe 'MercadoPago Obsolesce Payment', type: :request do
+xdescribe 'MercadoPago Obsolesce Payment', type: :request do
   include_context 'an authenticated user'
 
   let(:debt_calculator) { Payments::TotalDebt.new }
