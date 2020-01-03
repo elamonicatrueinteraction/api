@@ -16,6 +16,7 @@ class AuthorizeUser
   def authorize_user
     @user = load_user_from_authentication
 
+
     unless @user
       return errors.add(:token, I18n.t('services.authorize_user.invalid_token')) && nil
     end

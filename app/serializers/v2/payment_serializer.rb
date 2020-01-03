@@ -27,11 +27,20 @@ module V2
     end
 
     def payable_type
-      object.payable&.type
+      if (object.payable_type)
+        klass =  eval object.payable_type
+        payable = klass.find object.payable_id
+        payable&.type
+      end
     end
 
     def activity
-      object.payable&.type
+      if (object.payable_type)
+        klass =  eval object.payable_type
+        payable = klass.find object.payable_id
+
+        payable&.type
+      end
     end
 
     def gateway_name

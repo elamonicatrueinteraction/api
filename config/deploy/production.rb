@@ -1,7 +1,7 @@
 set :stage, :production
 set :branch, :master
 
-server 'api.nilus.org', user: 'deploy', roles: %w{ app db web}
+server 'api.nilus.org', user: 'deploy', roles: %w{ app db }
 
 set :rails_env, :production
 set :puma_env, :production
