@@ -71,7 +71,7 @@ class Payment < ApplicationRecord
   end
 
   def payer_institution_id
-    payable_type == 'Order' ? payable.receiver_id : payable.destination_id
+    payable.payer_institution_id
   end
 
   def set_state

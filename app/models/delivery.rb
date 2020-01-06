@@ -108,6 +108,10 @@ class Delivery < ApplicationRecord
     "Delivery"
   end
 
+  def payer_institution_id
+    destination_id
+  end
+
   def options
     return @options if defined?(@options)
 
