@@ -27,17 +27,17 @@ module V2
     end
 
     def payable_type
-      if (object.payable_type)
+      if (object.payable_type && object.payable_id)
         klass =  eval object.payable_type
-        payable = klass.find object.payable_id
+        payable = klass.unscoped.find object.payable_id
         payable&.type
       end
     end
 
     def activity
-      if (object.payable_type)
+      if (object.payable_type object.payable_id)
         klass =  eval object.payable_type
-        payable = klass.find object.payable_id
+        payable = klass.unscoped.find object.payable_id
 
         payable&.type
       end

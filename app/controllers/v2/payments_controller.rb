@@ -4,10 +4,6 @@ module V2
     before_action :authorize_user_without_roles, only: [:index]
 
     def index
-      # i  = Institution.find params[:institution_id]
-      # ApplicationRecord.current_network = i.network_id
-      # revosar si en el serializer podemos hacer la busqueda omitiendo el belongs_to de user
-
       payments = PaymentQuery.new(params).collection
       render json: payments
     end
