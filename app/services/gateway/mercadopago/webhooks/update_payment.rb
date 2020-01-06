@@ -21,7 +21,7 @@ module Gateway
           gateway_data = @account.payment(@gateway_id)
           return @payment if @payment.status == gateway_data.status
 
-          @payment.status = data.status
+          @payment.status = gateway_data.status
           if gateway_data.status == Payment::Types::APPROVED
             collected_amount = gateway_data.net_received_amount + gateway_data.total_fees
             @payment.collected_amount = collected_amount
