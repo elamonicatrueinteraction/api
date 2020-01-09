@@ -2,8 +2,31 @@ module ShipperApi
   class TripsController < BaseController
     include ShipperApi::CurrentAndEnsureDependencyLoader
 
+    def serialize(collection, serializer, adapter = :json, include)
+      ActiveModelSerializers::SerializableResource.new(
+        collection,
+        each_serializer: serializer,
+        adapter: adapter,
+        include: include
+      ).as_json
+    end
+
+    def all
+      accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits, :shipper)
+      pending_trips = Trip.preload(:orders, :deliveries, :audits, :shipper)
+        .joins(:trip_assignments)
+        .where(trip_assignments: { shipper: current_shipper, state: ['assigned', 'broadcasted'], closed_at: nil })
+        .where(status: 'waiting_shipper')
+        .order('trip_assignments.created_at DESC')
+      
+      render json: { 
+        pending: serialize(pending_trips, TripSerializer, [:orders, :deliveries, :audits, :shipper, :trip_assignments, :milestones]), 
+        accepted: serialize(accepted_trips, TripSerializer, [:orders, :deliveries, :audits, :shipper, :trip_assignments, :milestones]) 
+      }, status: :ok # 200
+    end
+
     def index
-      trips = current_shipper.trips.preload(:orders, :deliveries)
+      trips = current_shipper.trips.preload(:orders, :deliveries, :packages, :milestones, :trip_assignments)
       render json: trips, status: :ok # 200
     end
     alias_method :accepted, :index

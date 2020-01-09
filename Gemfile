@@ -12,7 +12,9 @@ gem 'mercadopago-sdk'
 gem 'oj' # A fast JSON parser and Object marshaller.
 gem 'pagy' # For paginating results that outperforms the others in each and every benchmark and comparison.
 gem 'pg' # The PostgreSQL Adapter
-gem 'puma', '~> 3.12' # Use Puma as the app server
+gem 'rack-mini-profiler'
+gem 'memory_profiler'
+gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'pushme-aws', git: "https://github.com/nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'rack-attack' # Rack middleware for blocking & throttling
 gem 'rack-cors', require: 'rack/cors'
@@ -26,7 +28,7 @@ gem 'sidekiq'
 gem 'typhoeus' # In order to make HTTP Requests
 gem 'whenever', require: false
 gem 'xlsxtream' # In order to be able to export and stream XLSX files
-
+gem 'fast_jsonapi'
 gem 'activeresource', '~> 5.0'
 
 # This is important to be here at the bottom
@@ -60,6 +62,9 @@ group :development do
   gem 'capistrano-maintenance', require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano3-puma',       require: false
+
+  gem 'ruby-debug-ide', '~> 0.7.0'
+  gem 'debase', '~> 0.2.4.1'
 
   gem 'guard-rspec', require: false
 

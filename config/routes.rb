@@ -108,6 +108,7 @@ Rails.application.routes.draw do
       collection do
         get :pending
         get :accepted
+        get :all
       end
 
       member do
