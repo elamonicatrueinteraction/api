@@ -24,8 +24,6 @@ Rails.application.routes.draw do
     get 'sync_one_coupon/:payment_gateway_id', action: :sync_one_coupon
   end
 
-  get 'details/trip/:id', action: :drop_off_info, controller: 'v2/trips'
-
   namespace :account_balances do
     get '', action: :index
   end
@@ -103,6 +101,7 @@ Rails.application.routes.draw do
 
   # ╭─ Private Accesible URL's / Path's
     get 'hello', action: :hello, controller: :base
+    get 'details/trip/:id', action: :drop_off_info, controller: :trips
 
     resources :trips, only: [ :index, :show ] do
       resources :milestones, only: [ :create ]
