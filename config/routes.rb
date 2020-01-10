@@ -101,6 +101,7 @@ Rails.application.routes.draw do
 
   # ╭─ Private Accesible URL's / Path's
     get 'hello', action: :hello, controller: :base
+    get 'details/trip/:id', action: :drop_off_info, controller: :trips
 
     resources :trips, only: [ :index, :show ] do
       resources :milestones, only: [ :create ]
