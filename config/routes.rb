@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get 'sync_one_coupon/:payment_gateway_id', action: :sync_one_coupon
   end
 
+  get 'details/trip/:id', action: :drop_off_info, controller: 'v2/trips'
+
   namespace :account_balances do
     get '', action: :index
   end
