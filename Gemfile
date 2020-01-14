@@ -14,6 +14,7 @@ gem 'pagy' # For paginating results that outperforms the others in each and ever
 gem 'pg' # The PostgreSQL Adapter
 gem 'rack-mini-profiler'
 gem 'memory_profiler'
+gem 'fcm'
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'pushme-aws', git: "https://github.com/nilusorg/pushme-aws", branch: :master # Push notifications through AWS SNS Mobile Push Notification Service
 gem 'rack-attack' # Rack middleware for blocking & throttling
