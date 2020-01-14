@@ -83,7 +83,7 @@ module ShipperApi
     # end
 
     def drop_off_info
-      trip = Trip.includes(deliveries: [:packages]).find_by(id: params[:trip_id])
+      trip = Trip.find_by(id: params[:trip_id])
       found_institution = false
 
       if trip
