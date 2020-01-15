@@ -27,11 +27,9 @@ class CreateMilestone
         institution_name = @trip.deliveires[delivery_dropoff_number]["dropoff"]["place"]
         institution = Institution.where(:name => institution_name).first
 
-        users_ids = institution.users.map(&:id)
-        tokens_ids = MobileToken.where(user_id: users_ids).map(&:firebase_token)
-
-        institution_notifier = Notifications::InstitutionNotifier.new(tokens_ids)
-        institution_notifier.notify({title: "Tu pedido está en camino", body: "El flete llegara al domicilio de entrega en la brevedad"})
+        user_notifier = Notifications::Notifier.new
+        notification_builder = Notifications::InstitutionNotificationBuilder.new(institution)
+        user_notifier.notify(builder: notification_builder)
       end
 
       return @milestone
