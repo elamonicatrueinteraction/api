@@ -1,0 +1,3 @@
+class MobileToken < UserApiResource
+end
+
