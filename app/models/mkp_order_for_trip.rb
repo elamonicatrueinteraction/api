@@ -1,5 +1,6 @@
 class MkpOrderForTrip < ActiveResource::Base
-  self.site = 'http://localhost:9090/services/trip'
+  self.site = "#{Rails.application.secrets.marketplace_endpoint}/trip"
+
   headers['Authorization'] = "Token token=#{Rails.application.secrets.marketplace_token}"
 
   #self.element_name = 'orders'

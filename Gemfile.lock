@@ -176,8 +176,6 @@ GEM
       i18n (~> 1.6.0)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
-    fcm (0.0.6)
-      httparty (~> 0.10, >= 0.10.0)
     ffi (1.11.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -454,7 +452,6 @@ DEPENDENCIES
   factory_bot_rails (~> 4.0)
   faker
   fast_jsonapi
-  fcm
   guard-rspec
   httparty
   httplog

@@ -89,7 +89,7 @@ module ShipperApi
       if trip
         trip.steps.each do |s|
           if (s["institution"]["id"].eql? params[:institution_id]) && (s["action"].eql? "dropoff")
-            delivery = Delivery.includes(:packages).find(s["delivery_id"][0])
+            delivery = Delivery.find(s["delivery_id"][0])
 
             if delivery
               found_institution = true
