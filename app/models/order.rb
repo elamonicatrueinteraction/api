@@ -65,6 +65,10 @@ class Order < ApplicationRecord
     end
   end
 
+  def payer_institution_id
+    receiver_id
+  end
+
   def total_amount
     (amount.to_f - bonified_amount.to_f).to_f
   end

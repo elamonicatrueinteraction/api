@@ -47,6 +47,10 @@ class UntrackedActivity < ApplicationRecord
     type == suspected_type
   end
 
+  def payer_institution_id
+    institution_id
+  end
+
   def institution
     @institution ||= Services::Institution.find(institution_id)
   end

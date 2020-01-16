@@ -1,6 +1,4 @@
 # Load DSL and set up stages
-require 'capistrano/rails/migrations'
-require 'capistrano/rails/assets'
 require "capistrano/setup"
 require "capistrano/deploy"
 
@@ -8,6 +6,8 @@ require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
 require "capistrano/rails"
+require 'capistrano/rails/migrations'
+require 'capistrano/rails/assets'
 require "capistrano/bundler"
 require "capistrano/puma"
 install_plugin Capistrano::Puma
