@@ -23,7 +23,7 @@ module Gateway
 
           @payment.status = gateway_data.status
           if gateway_data.status == Payment::Types::APPROVED
-            collected_amount = gateway_data.net_received_amount + gateway_data.total_fees
+            collected_amount = gateway_data.total_paid_amount
             @payment.collected_amount = collected_amount
             @payment.paid_at = gateway_data.paid_at
           end
