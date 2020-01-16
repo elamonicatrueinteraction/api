@@ -22,9 +22,9 @@ class CreateMilestone
 
       #  Notify the institution
       if @allowed_params[:name].match(/heading_to_dropoff/i)
-        delivery_dropoff_number = @allowed_params[:name][-1]
+        delivery_dropoff_number = @allowed_params[:name][-1].to_i
 
-        institution_name = @trip.deliveires[delivery_dropoff_number]["dropoff"]["place"]
+        institution_name = @trip.deliveries[delivery_dropoff_number]["dropoff"]["place"]
         institution = Institution.where(:name => institution_name).first
 
         user_notifier = Notifications::Notifier.new
