@@ -32,9 +32,7 @@ class UpdateTrip
     original_amount = @trip.amount
     amount = @allowed_params[:amount]
     errors_found = {}
-    if original_amount > amount
-      errors_found[:amount] = "El monto nuevo: #{amount} no puede se mas bajo que el anterior #{original_amount}"
-    end
+
     if errors_found.empty?
       @trip.update!({amount: amount})
       if amount != original_amount
