@@ -1,8 +1,11 @@
 module Notifications
   class TripNotificationBuilder
 
-    def initialize(assignments:)
+    attr_reader :network_id
+
+    def initialize(assignments:, network_id:)
       @assignments = assignments
+      @network_id = network_id
     end
 
     def build

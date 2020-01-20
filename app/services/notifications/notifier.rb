@@ -5,9 +5,10 @@ module Notifications
       @dispatcher = dispatcher
     end
 
-    def notify(builder: )
+    def notify(builder:)
       body = builder.build
-      @dispatcher.dispatch(body: body)
+      headers= builder.network_id ? {'X_NETWORK_ID'=> builder.network_id} : {}
+      @dispatcher.dispatch(body: body, headers: headers)
     end
   end
 end

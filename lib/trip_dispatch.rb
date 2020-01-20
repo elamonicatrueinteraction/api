@@ -87,7 +87,7 @@ class TripDispatch
         assignments[_shipper.id].id
       end
 
-      Notifications::PushWorker.perform_async(assignments_ids)
+      Notifications::PushWorker.new.perform(assignments_ids, network_id: shippers.first.network_id)
 
       # CheckBroadcastWorker.perform_in(2.minutes, assignments_ids)
     end
