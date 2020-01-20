@@ -47,7 +47,7 @@ class TripDispatch
     end
 
     Rails.logger.info "Push notification status #{success?}"
-    Notifications::PushWorker.new.([@assignment.id], network_id: shipper.network_id) if success?
+    Notifications::PushWorker.new.perform([@assignment.id], network_id: shipper.network_id) if success?
 
     self
   end
