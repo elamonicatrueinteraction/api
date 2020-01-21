@@ -28,7 +28,7 @@ class CreateMilestone
         institution = Institution.where(:name => institution_name).first
 
         user_notifier = Notifications::Notifier.new
-        notification_builder = Notifications::InstitutionNotificationBuilder.new(institution)
+        notification_builder = Notifications::InstitutionNotificationBuilder.new(institution, network_id: institution.network_id)
         user_notifier.notify(builder: notification_builder)
       end
 
