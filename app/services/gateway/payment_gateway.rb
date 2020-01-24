@@ -25,7 +25,8 @@ module Gateway
       return {
         public_key: Rails.application.secrets.mercadopago_nilus_public_key,
         access_token: Rails.application.secrets.mercadopago_nilus_access_token
-      } if payable.is_a?(Delivery)
+      } if payable.type == Delivery.name
+
       # TODO: Move this to a database record
       meli_tokens = Tenant::MeliCredentials.new
       meli_tokens.credentials_for(network: payable.network_id)

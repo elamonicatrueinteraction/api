@@ -28,7 +28,7 @@ module Gateway
             @payment.paid_at = gateway_data.paid_at
           end
           if @payment.save
-            UpdateTotalDebtWorker.perform_async(@payment.id)
+            # UpdateTotalDebtWorker.perform_async(@payment.id)
             @payment
           else
             errors.add_multiple_errors(@payment.errors.messages) && nil
