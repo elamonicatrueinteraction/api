@@ -34,11 +34,13 @@ class TripSerializer < ActiveModel::Serializer
   def status_detail
     case object.status
     when 'waiting_shipper'
-      object.trip_assignments.where(closed_at: nil).last.try(:state)
+      # object.trip_assignments.where(closed_at: nil).last.try(:state)
+      object.status
     when 'confirmed'
       'accepted'
     when 'on_going', 'completed'
-      object.milestones.last.try(:name)
+      # object.milestones.last.try(:name)
+      object.status
     else
       nil
     end
