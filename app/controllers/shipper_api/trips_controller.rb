@@ -12,6 +12,8 @@ module ShipperApi
     end
 
     def all
+      request.env['HTTP_ACCEPT_ENCODING'] = 'gzip'
+
       accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits)
       pending_trips = Trip.preload(:orders, :deliveries, :audits, :shipper)
                           .joins(:trip_assignments)
