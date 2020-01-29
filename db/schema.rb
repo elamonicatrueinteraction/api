@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191114141720) do
+ActiveRecord::Schema.define(version: 20200127131436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "postgis_tiger_geocoder"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20191114141720) do
     t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["audited_id", "audited_type"], name: "index_audits_on_audited_id_and_audited_type"
   end
 
   create_table "bank_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -286,6 +287,7 @@ ActiveRecord::Schema.define(version: 20191114141720) do
     t.index ["gateway_data"], name: "index_trips_on_gateway_data", using: :gin
     t.index ["network_id"], name: "index_trips_on_network_id"
     t.index ["shipper_id"], name: "index_trips_on_shipper_id"
+    t.index ["status"], name: "index_trips_on_status"
     t.index ["steps"], name: "index_trips_on_steps", using: :gin
   end
 

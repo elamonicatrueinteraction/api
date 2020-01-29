@@ -12,7 +12,7 @@ module ShipperApi
     end
 
     def all
-      accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits, :shipper)
+      accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits)
       pending_trips = Trip.preload(:orders, :deliveries, :audits, :shipper)
                           .joins(:trip_assignments)
                           .where(trip_assignments: {shipper: current_shipper, state: ['assigned', 'broadcasted'], closed_at: nil})
