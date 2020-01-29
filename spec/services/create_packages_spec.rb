@@ -66,7 +66,7 @@ RSpec.describe CreatePackages do
       end
     end
 
-    context 'when the context is not successful' do
+    xcontext 'when the context is not successful' do
       let(:delivery) { nil }
 
       it 'raise error' do
