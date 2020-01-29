@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200127131436) do
+ActiveRecord::Schema.define(version: 20200129203856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,9 +262,11 @@ ActiveRecord::Schema.define(version: 20200127131436) do
     t.datetime "notified_at"
     t.datetime "closed_at"
     t.string "network_id"
+    t.index ["closed_at"], name: "index_trip_assignments_on_closed_at", where: "(closed_at IS NULL)"
     t.index ["network_id"], name: "index_trip_assignments_on_network_id"
     t.index ["notification_payload"], name: "index_trip_assignments_on_notification_payload", using: :gin
     t.index ["shipper_id"], name: "index_trip_assignments_on_shipper_id"
+    t.index ["state"], name: "index_trip_assignments_on_state"
     t.index ["trip_id", "shipper_id"], name: "index_trip_assignments_on_trip_id_and_shipper_id"
     t.index ["trip_id"], name: "index_trip_assignments_on_trip_id"
   end

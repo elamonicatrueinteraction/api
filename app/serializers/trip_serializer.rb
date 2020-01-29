@@ -27,7 +27,7 @@ class TripSerializer < ActiveModel::Serializer
     :updated_at
 
   belongs_to :shipper, serializer: Simple::ShipperSerializer
-  # has_many :orders, serializer: Deep::OrderSerializer
+  has_many :orders, serializer: Deep::OrderSerializer
   has_many :audits, serializer: AuditSerializer
 
   # TO-DO: Please rethink this maybe in another place
