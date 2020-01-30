@@ -14,12 +14,12 @@ module ShipperApi
     def all
       request.env['HTTP_ACCEPT_ENCODING'] = 'gzip'
 
-      accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits).where('trips.created_at > ?', 3.days.ago)
+      accepted_trips = current_shipper.trips.preload(:orders, :deliveries, :audits).where('trips.created_at > ?', 7.days.ago)
       pending_trips = Trip.preload(:orders, :deliveries, :audits, :shipper)
                           .joins(:trip_assignments)
                           .where(trip_assignments: {shipper: current_shipper, state: ['assigned', 'broadcasted'], closed_at: nil})
                           .where(status: 'waiting_shipper')
-                          .where('trips.created_at > ?', 3.days.ago)
+                          .where('trips.created_at > ?', 7.days.ago)
                           .order('trip_assignments.created_at DESC')
 
       render json: {
