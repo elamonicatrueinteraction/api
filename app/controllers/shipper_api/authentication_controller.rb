@@ -11,9 +11,7 @@ module ShipperApi
       )
 
       if service.success?
-        email = allowed_params[:email]
-        has_accepted_tdu = Shipper.find_by(email: email).has_accepted_tdu
-        render json: { auth_token: service.result, has_accepted_tdu: has_accepted_tdu }
+        render json: { auth_token: service.result }
       else
         render json: { errors: service.errors }, status: :unprocessable_entity
       end
