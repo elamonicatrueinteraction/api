@@ -9,6 +9,8 @@ class ApplicationRecord < ActiveRecord::Base
     default_scope do
       next all unless ApplicationRecord.current_network
 
+      p ApplicationRecord.current_network
+
       where(network_id: ApplicationRecord.current_network)
     end
   end
