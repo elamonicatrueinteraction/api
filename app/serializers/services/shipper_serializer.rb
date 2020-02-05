@@ -1,12 +1,12 @@
 module Services
   class ShipperSerializer < ActiveModel::Serializer
-    attributes :id, :token, :name
+    attributes :id, :tokens, :name
 
-    def token
+    def tokens
       android_tokens = object.devices.nil? ? nil : object.devices["android"]
-      return "" if android_tokens.nil?
+      return [] if android_tokens.nil?
 
-      android_tokens.keys[0]
+      android_tokens.keys
     end
   end
 end
