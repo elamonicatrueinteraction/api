@@ -4,15 +4,12 @@ module Services
     def index
       network = request.headers.fetch('X-Network-Id', '')
 
-      p '*' * 1000
+      if network.present?
+        shippers = Shipper.unscoped.where(network_id: network)
+      else
+        shippers = Shipper.unscoped.all
+      end
 
-      p network
-
-      p '*' * 1000
-
-
-      shippers = Shipper.all
-      shippers = shippers.where(network_id: network) if network != ''
       render json: shippers
     end
   end
