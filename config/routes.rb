@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   # ╭─ Public Accesible URL's / Path's
     post 'authenticate', action: :authenticate, controller: :authentication
     post 'accepted_terms', action: :accepted_terms, controller: :shipper
+    post 'logout', acttion: :logout, controller: :shipper
   # ╰─ End of Public Accesible URL's / Path's
 
   # ╭─ Private Accesible URL's / Path's
