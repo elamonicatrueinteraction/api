@@ -31,6 +31,8 @@ gem 'xlsxtream' # In order to be able to export and stream XLSX files
 gem 'fast_jsonapi'
 gem 'activeresource', '~> 5.0'
 
+gem 'google_maps_service'
+
 # This is important to be here at the bottom
 gem 'api-pagination' # For pagination info in your headers, not in your response body.
 gem 'querifier'

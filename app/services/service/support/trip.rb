@@ -13,13 +13,37 @@ module Service
       end
 
       def steps_data(deliveries, pickup_schedule, dropoff_schedule)
+
+        gmaps = GoogleMapsService::Client.new
+
+        o = deliveries.map {|d| {lng: d.origin_gps_coordinates.x, lat: d.origin_gps_coordinates.y}}.uniq
+        d = deliveries.map {|d| {lng: d.destination_gps_coordinates.x, lat: d.destination_gps_coordinates.y}}.uniq
+
+        waypoints = d + (o - [o.first])
+
+        route = gmaps.directions( o.first, o.first, waypoints: waypoints.reverse, mode: 'driving', alternatives: false, units: 'metric', optimize_waypoints: true)
+        if (route.count > 0)
+          r = route.first
+          deliveries_sorted = []
+          r[:waypoint_order].each_with_index { |order, index| deliveries_sorted[order] =  deliveries[index]}
+          q = r[:legs].map {|l| {distance: l[:distance], duration: l[:duration]} }
+          total_distance = q.map {|d| d[:distance][:value]}.sum/1000.to_f # in KM
+          total_duration = q.map {|d| d[:duration][:value]}.sum/60.to_f # in MINUTES
+
+          deliveries = deliveries_sorted
+        end
+
         # TO-DO: We need to rethink this because this should be replaced by a logic of an optimize route.
         # for now we are routing all the pickups first and then all the dropoff, no optimization applied
-        deliveries.group_by(&:origin_id).map do |(_origin_id, grouped_deliveries)|
+        x = deliveries.group_by(&:origin_id).map do |(_origin_id, grouped_deliveries)|
           compact_steps(grouped_deliveries, 'pickup', pickup_schedule)
-        end + deliveries.group_by(&:destination_id).map do |(_origin_id, grouped_deliveries)|
+        end + deliveries.group_by(&:destination_id).map do |(_destination_id, grouped_deliveries)|
           compact_steps(grouped_deliveries, 'dropoff', dropoff_schedule)
         end
+
+
+
+        x
       end
 
       def compact_steps(grouped_deliveries, action, pickup_schedule)
