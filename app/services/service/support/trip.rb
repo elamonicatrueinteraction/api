@@ -17,20 +17,22 @@ module Service
         gmaps = GoogleMapsService::Client.new
 
         o = deliveries.map {|d| {lng: d.origin_gps_coordinates.x, lat: d.origin_gps_coordinates.y}}.uniq
-        d = deliveries.map {|d| {lng: d.destination_gps_coordinates.x, lat: d.destination_gps_coordinates.y}}.uniq
 
-        waypoints = d + (o - [o.first])
+        if (o.count == 1)
+          d = deliveries.map {|d| {lng: d.destination_gps_coordinates.x, lat: d.destination_gps_coordinates.y}}.uniq
+          waypoints = d + (o - [o.first])
+          route = gmaps.directions( o.first, o.first, waypoints: waypoints.reverse, mode: 'driving', alternatives: false, units: 'metric', optimize_waypoints: true)
+          if (route.count > 0)
+            r = route.first
+            deliveries_sorted = []
+            r[:waypoint_order].each_with_index { |order, index| deliveries_sorted[order] =  deliveries[index]}
+            q = r[:legs].map {|l| {distance: l[:distance], duration: l[:duration]} }
+            total_distance = q.map {|d| d[:distance][:value]}.sum/1000.to_f # in KM
+            total_duration = q.map {|d| d[:duration][:value]}.sum/60.to_f # in MINUTES
 
-        route = gmaps.directions( o.first, o.first, waypoints: waypoints.reverse, mode: 'driving', alternatives: false, units: 'metric', optimize_waypoints: true)
-        if (route.count > 0)
-          r = route.first
-          deliveries_sorted = []
-          r[:waypoint_order].each_with_index { |order, index| deliveries_sorted[order] =  deliveries[index]}
-          q = r[:legs].map {|l| {distance: l[:distance], duration: l[:duration]} }
-          total_distance = q.map {|d| d[:distance][:value]}.sum/1000.to_f # in KM
-          total_duration = q.map {|d| d[:duration][:value]}.sum/60.to_f # in MINUTES
+            deliveries = deliveries_sorted
+          end
 
-          deliveries = deliveries_sorted
         end
 
         # TO-DO: We need to rethink this because this should be replaced by a logic of an optimize route.
